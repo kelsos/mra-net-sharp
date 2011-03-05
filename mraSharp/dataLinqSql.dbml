@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DataStore" Class="dataLinqSqlDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=|DataDirectory|\DataStore.mdf;Integrated Security=True;Connect Timeout=30;User Instance=True" SettingsObjectName="mraSharp.Properties.Settings" SettingsPropertyName="DataStoreConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.mangaList" Member="mangaLists">
+    <Type Name="mangaList">
+      <Column Name="mangaTitle" Type="System.String" DbType="NVarChar(100) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="startingChapter" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="currentChapter" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="dateRead" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="onlineURL" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="isFinished" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="mangaDescription" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="mangaNote" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="mangaCover" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="mangaList_mangaList" Member="mangaList2" ThisKey="mangaTitle" OtherKey="mangaTitle" Type="mangaList" Cardinality="One" />
+      <Association Name="mangaList_mangaList" Member="mangaList1" ThisKey="mangaTitle" OtherKey="mangaTitle" Type="mangaList" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.newsStorage" Member="newsStorages">
+    <Type Name="newsStorage">
+      <Column Name="rssPK" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="rssTitle" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="rssLink" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="rssDescription" Type="System.String" DbType="NVarChar(1500)" CanBeNull="true" />
+      <Column Name="rssDateAquired" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.rssSubscriptions" Member="rssSubscriptions">
+    <Type Name="rssSubscription">
+      <Column Name="rssPK" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="rssUrl" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
