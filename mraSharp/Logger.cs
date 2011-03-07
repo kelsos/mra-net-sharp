@@ -13,12 +13,12 @@ namespace mraSharp
 			Stream stream = null;
 			try
 			{
-				stream = new FileStream(fileName, FileMode.OpenOrCreate);
+				stream = new FileStream(fileName, FileMode.Append);
 				using (StreamWriter fW = new StreamWriter(stream))
 				{
-					fW.WriteLine(DateTime.Now.ToString() + "\n\n");
+					fW.WriteLine(DateTime.Now.ToString() + "\n");
 					fW.Write(errorText);
-					fW.WriteLine("\n\n");
+					fW.WriteLine("\n");
 					stream = null;
 				}
 			}

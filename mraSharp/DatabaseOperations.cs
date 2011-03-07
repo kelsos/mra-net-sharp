@@ -74,5 +74,60 @@ namespace mraSharp
 			sqlLinq.rssSubscriptions.InsertOnSubmit(sub);
 			sqlLinq.SubmitChanges();
 		}
+#region Statistics Methods
+
+		public static int numberOfMangasRead()
+		{
+			var mangaList = from mangas in sqlLinq.mangaLists
+								 select mangas;
+			return mangaList.Count();
+		}
+
+		public static int numberOfChaptersRead()
+		{
+			int chapterCount = 0;
+			var chaptersList = from mangas in sqlLinq.mangaLists
+									 select mangas;
+			foreach (var manga in chaptersList)
+			{
+				if (manga.startingChapter == 1)
+				{
+					chapterCount += Convert.ToInt16(manga.currentChapter);
+				}
+				else
+				{
+					chapterCount += (Convert.ToInt16(manga.currentChapter) - (Convert.ToInt16(manga.startingChapter) - 1));
+				}
+			}
+			return chapterCount;
+		}
+
+		public static int? numberofMangasFinished()
+		{
+			int mangasFinishedCount = 0;
+			var mangaList = from mangas in sqlLinq.mangaLists
+								 select mangas;
+			foreach (var manga in mangaList)
+			{
+				if (manga.isFinished == true)
+					mangasFinishedCount += 1;
+			}
+			return mangasFinishedCount;
+		}
+
+		public static DateTime? dateILastRead()
+		{
+			var mangaList = (from mangas in sqlLinq.mangaLists
+								 orderby mangas.dateRead descending
+								 select mangas).First();
+			return mangaList.dateRead;
+		}
+
+		public static int daysSinceILastRead()
+		{
+			TimeSpan dateDiff = DateTime.Now - Convert.ToDateTime(dateILastRead());
+			return dateDiff.Days;
+		}
+#endregion
 	}
 }

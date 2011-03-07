@@ -237,7 +237,7 @@ namespace mraSharp
 
 		private void openToBrowserToolStripButton_Click(object sender, EventArgs e)
 		{
-			using (WebForm web = new WebForm())
+			WebForm web = new WebForm();
 			{
 				web.Show();
 				if (!(mangaListDataGridView.Rows.Count == 0))
@@ -326,6 +326,14 @@ namespace mraSharp
 		private void loadingText()
 		{
 		
+		}
+
+		private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using(StatisticsForm stats = new StatisticsForm())
+			{
+				stats.ShowDialog();
+			}
 		}
    }
 }

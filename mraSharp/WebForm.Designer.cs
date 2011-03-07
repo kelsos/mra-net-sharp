@@ -30,10 +30,10 @@
 		{
 			this.geckoReader = new Skybound.Gecko.GeckoWebBrowser();
 			this.webNavigation = new System.Windows.Forms.ToolStrip();
-			this.webStatus = new System.Windows.Forms.StatusStrip();
 			this.backToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.forwardToolStripButton = new System.Windows.Forms.ToolStripButton();
 			this.reloadToolStripButton = new System.Windows.Forms.ToolStripButton();
+			this.webStatus = new System.Windows.Forms.StatusStrip();
 			this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.webNavigation.SuspendLayout();
 			this.webStatus.SuspendLayout();
@@ -61,16 +61,6 @@
 			this.webNavigation.Size = new System.Drawing.Size(766, 25);
 			this.webNavigation.TabIndex = 1;
 			this.webNavigation.Text = "toolStrip1";
-			// 
-			// webStatus
-			// 
-			this.webStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusLabel});
-			this.webStatus.Location = new System.Drawing.Point(0, 454);
-			this.webStatus.Name = "webStatus";
-			this.webStatus.Size = new System.Drawing.Size(766, 22);
-			this.webStatus.TabIndex = 2;
-			this.webStatus.Text = "Status Bar";
 			// 
 			// backToolStripButton
 			// 
@@ -101,6 +91,16 @@
 			this.reloadToolStripButton.Size = new System.Drawing.Size(23, 22);
 			this.reloadToolStripButton.Text = "Reload Page";
 			this.reloadToolStripButton.Click += new System.EventHandler(this.reloadToolStripButton_Click);
+			// 
+			// webStatus
+			// 
+			this.webStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabel});
+			this.webStatus.Location = new System.Drawing.Point(0, 454);
+			this.webStatus.Name = "webStatus";
+			this.webStatus.Size = new System.Drawing.Size(766, 22);
+			this.webStatus.TabIndex = 2;
+			this.webStatus.Text = "Status Bar";
 			// 
 			// statusLabel
 			// 

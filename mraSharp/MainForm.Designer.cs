@@ -77,6 +77,7 @@
 			  this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			  this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			  this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
+			  this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			  this.rssTickerGroupBox = new System.Windows.Forms.GroupBox();
 			  this.rssLinkLabel = new System.Windows.Forms.Label();
 			  this.newsStorageBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -91,7 +92,6 @@
 			  this.rssTickTimer = new System.Windows.Forms.Timer(this.components);
 			  this.rssCheckTimer = new System.Windows.Forms.Timer(this.components);
 			  this.rssFetchingThread = new System.ComponentModel.BackgroundWorker();
-			  this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			  this.mainTabControl.SuspendLayout();
 			  this.mangaGridTabPage.SuspendLayout();
 			  ((System.ComponentModel.ISupportInitialize)(this.mangaListDataGridView)).BeginInit();
@@ -112,6 +112,9 @@
 			  // 
 			  // mainTabControl
 			  // 
+			  this.mainTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+							  | System.Windows.Forms.AnchorStyles.Left)
+							  | System.Windows.Forms.AnchorStyles.Right)));
 			  this.mainTabControl.Controls.Add(this.mangaGridTabPage);
 			  this.mainTabControl.Controls.Add(this.wikipediaTabPage);
 			  this.mainTabControl.Location = new System.Drawing.Point(178, 80);
@@ -296,6 +299,8 @@
 			  // 
 			  // mangaNoteGroupBox
 			  // 
+			  this.mangaNoteGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+							  | System.Windows.Forms.AnchorStyles.Left)));
 			  this.mangaNoteGroupBox.Controls.Add(this.mangaNoteTextBox);
 			  this.mangaNoteGroupBox.Location = new System.Drawing.Point(12, 336);
 			  this.mangaNoteGroupBox.Name = "mangaNoteGroupBox";
@@ -309,16 +314,18 @@
 			  this.mangaNoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			  this.mangaNoteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaListBindingSource, "mangaNote", true));
 			  this.mangaNoteTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			  this.mangaNoteTextBox.Location = new System.Drawing.Point(3, 18);
+			  this.mangaNoteTextBox.Location = new System.Drawing.Point(3, 16);
 			  this.mangaNoteTextBox.Multiline = true;
 			  this.mangaNoteTextBox.Name = "mangaNoteTextBox";
 			  this.mangaNoteTextBox.ReadOnly = true;
 			  this.mangaNoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			  this.mangaNoteTextBox.Size = new System.Drawing.Size(154, 175);
+			  this.mangaNoteTextBox.Size = new System.Drawing.Size(154, 177);
 			  this.mangaNoteTextBox.TabIndex = 1;
 			  // 
 			  // mangaDescriptionGroupBox
 			  // 
+			  this.mangaDescriptionGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+							  | System.Windows.Forms.AnchorStyles.Right)));
 			  this.mangaDescriptionGroupBox.Controls.Add(this.mangaDescriptionTextBox);
 			  this.mangaDescriptionGroupBox.Location = new System.Drawing.Point(397, 538);
 			  this.mangaDescriptionGroupBox.Name = "mangaDescriptionGroupBox";
@@ -332,12 +339,12 @@
 			  this.mangaDescriptionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			  this.mangaDescriptionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaListBindingSource, "mangaDescription", true));
 			  this.mangaDescriptionTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			  this.mangaDescriptionTextBox.Location = new System.Drawing.Point(3, 18);
+			  this.mangaDescriptionTextBox.Location = new System.Drawing.Point(3, 16);
 			  this.mangaDescriptionTextBox.Multiline = true;
 			  this.mangaDescriptionTextBox.Name = "mangaDescriptionTextBox";
 			  this.mangaDescriptionTextBox.ReadOnly = true;
 			  this.mangaDescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			  this.mangaDescriptionTextBox.Size = new System.Drawing.Size(489, 116);
+			  this.mangaDescriptionTextBox.Size = new System.Drawing.Size(489, 118);
 			  this.mangaDescriptionTextBox.TabIndex = 1;
 			  // 
 			  // mainToolStrip
@@ -402,7 +409,6 @@
 			  this.searchToolStripTextBox.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
 			  this.searchToolStripTextBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
 			  this.searchToolStripTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			  this.searchToolStripTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
 			  this.searchToolStripTextBox.Margin = new System.Windows.Forms.Padding(1, 0, 15, 0);
 			  this.searchToolStripTextBox.Name = "searchToolStripTextBox";
 			  this.searchToolStripTextBox.Size = new System.Drawing.Size(100, 55);
@@ -436,38 +442,38 @@
 			  // backupToolStripMenuItem
 			  // 
 			  this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-			  this.backupToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			  this.backupToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
 			  this.backupToolStripMenuItem.Text = "Backup";
 			  this.backupToolStripMenuItem.Click += new System.EventHandler(this.backupToolStripMenuItem_Click);
 			  // 
 			  // restoreToolStripMenuItem
 			  // 
 			  this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
-			  this.restoreToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			  this.restoreToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
 			  this.restoreToolStripMenuItem.Text = "Restore";
 			  this.restoreToolStripMenuItem.Click += new System.EventHandler(this.restoreToolStripMenuItem_Click);
 			  // 
 			  // toolStripSeparator1
 			  // 
 			  this.toolStripSeparator1.Name = "toolStripSeparator1";
-			  this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+			  this.toolStripSeparator1.Size = new System.Drawing.Size(110, 6);
 			  // 
 			  // clearToolStripMenuItem
 			  // 
 			  this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-			  this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			  this.clearToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
 			  this.clearToolStripMenuItem.Text = "Clear";
 			  this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
 			  // 
 			  // toolStripSeparator2
 			  // 
 			  this.toolStripSeparator2.Name = "toolStripSeparator2";
-			  this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+			  this.toolStripSeparator2.Size = new System.Drawing.Size(110, 6);
 			  // 
 			  // quitToolStripMenuItem
 			  // 
 			  this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-			  this.quitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			  this.quitToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
 			  this.quitToolStripMenuItem.Text = "Quit";
 			  this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
 			  // 
@@ -487,6 +493,7 @@
 			  this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
 			  this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
 			  this.statisticsToolStripMenuItem.Text = "Statistics";
+			  this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
 			  // 
 			  // settingsToolStripMenuItem
 			  // 
@@ -552,8 +559,15 @@
 			  this.mainStatusStrip.TabIndex = 8;
 			  this.mainStatusStrip.Text = "statusStrip1";
 			  // 
+			  // statusLabel
+			  // 
+			  this.statusLabel.Name = "statusLabel";
+			  this.statusLabel.Size = new System.Drawing.Size(66, 17);
+			  this.statusLabel.Text = "statusLabel";
+			  // 
 			  // rssTickerGroupBox
 			  // 
+			  this.rssTickerGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			  this.rssTickerGroupBox.Controls.Add(this.rssLinkLabel);
 			  this.rssTickerGroupBox.Controls.Add(this.rssDescriptionTextBox);
 			  this.rssTickerGroupBox.Controls.Add(this.rssTitleLabel);
@@ -647,12 +661,6 @@
 			  this.rssFetchingThread.WorkerReportsProgress = true;
 			  this.rssFetchingThread.DoWork += new System.ComponentModel.DoWorkEventHandler(this.rssFetchingThread_DoWork);
 			  this.rssFetchingThread.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.rssFetchingThread_RunWorkerCompleted);
-			  // 
-			  // statusLabel
-			  // 
-			  this.statusLabel.Name = "statusLabel";
-			  this.statusLabel.Size = new System.Drawing.Size(66, 17);
-			  this.statusLabel.Text = "statusLabel";
 			  // 
 			  // MainForm
 			  // 

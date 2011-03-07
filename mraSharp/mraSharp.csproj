@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="FileOperations.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="MessageFilter.cs" />
     <Compile Include="RegularExpressions.cs" />
     <Compile Include="RssManager.cs" />
     <Compile Include="RssNewsItem.cs" />
@@ -99,6 +100,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatisticsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StatisticsForm.Designer.cs">
+      <DependentUpon>StatisticsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubscriptionManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,6 +137,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="StatisticsForm.resx">
+      <DependentUpon>StatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubscriptionManagerForm.resx">
       <DependentUpon>SubscriptionManagerForm.cs</DependentUpon>
     </EmbeddedResource>

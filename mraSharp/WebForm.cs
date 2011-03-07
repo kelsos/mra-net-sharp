@@ -6,24 +6,56 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace mraSharp
 {
 	public partial class WebForm : Form
 	{
+		private MessageFilter _mbfilter;
+
 		public WebForm()
 		{
 			InitializeComponent();
+			this.HandleCreated += new EventHandler(webForm_HandleCreated);
+			this.HandleDestroyed += new EventHandler(webForm_HandleDestroyed);
+			this.Activated += new EventHandler(webForm_Activated);
+			this.Deactivate += new EventHandler(webForm_Deactivate);
+		}
+
+		private void webForm_HandleCreated(object sender, EventArgs e)
+		{
+			EventHandler backevent = new EventHandler(backToolStripButton_Click);
+			EventHandler forwardevent = new EventHandler(forwardToolStripButton_Click);
+			_mbfilter = new MessageFilter(this, ref backevent, ref forwardevent);
+		}
+
+		private void webForm_HandleDestroyed(object sender, EventArgs e)
+		{
+			_mbfilter = null;
+		}
+
+		private void webForm_Activated(object sender, EventArgs e)
+		{
+			Application.AddMessageFilter(_mbfilter);
+		}
+
+		private void webForm_Deactivate(object sender, EventArgs e)
+		{
+			Application.RemoveMessageFilter(_mbfilter);
 		}
 
 		private void backToolStripButton_Click(object sender, EventArgs e)
 		{
-			geckoReader.GoBack();
+			if (geckoReader.CanGoBack)
+				geckoReader.GoBack();
 		}
 
 		private void forwardToolStripButton_Click(object sender, EventArgs e)
 		{
-			geckoReader.GoForward();
+			if (geckoReader.CanGoForward)
+				geckoReader.GoForward();
 		}
 
 		private void reloadToolStripButton_Click(object sender, EventArgs e)
@@ -43,5 +75,6 @@ namespace mraSharp
 		{
 			statusLabel.Text = geckoReader.Url.ToString();
 		}
+
 	}
 }
