@@ -719,6 +719,9 @@
     <None Include="Icons\right_16.png" />
     <None Include="Icons\reload_16.png" />
     <None Include="Icons\search_16.png" />
+    <Content Include="Skybound.Gecko.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="xulrunner\AccessibleMarshal.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

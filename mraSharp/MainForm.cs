@@ -115,7 +115,7 @@ namespace mraSharp
 							DataStoreDataSet.newsStorageRow newRow = dataStoreDataSet.newsStorage.NewnewsStorageRow();
 							newRow.rssTitle = title;
 							newRow.rssLink = currentNewsItem.Link;
-							newRow.rssDescription = currentNewsItem.Description;
+							newRow.rssDescription = RegularExpressions.htmlTagRemover(currentNewsItem.Description);
 							newRow.rssDateAquired = DateTime.Now;
 
 							dataStoreDataSet.newsStorage.AddnewsStorageRow(newRow);
@@ -152,7 +152,10 @@ namespace mraSharp
 
 		private void searchToolStripTextBox_KeyUp(object sender, KeyEventArgs e)
 		{
-			this.mangaListTableAdapter.FillBySearch(this.dataStoreDataSet.mangaList, "%" + searchToolStripTextBox + "%");
+			if (searchToolStripTextBox.TextLength > 0)
+				this.mangaListTableAdapter.FillBySearch(this.dataStoreDataSet.mangaList, "%" + searchToolStripTextBox + "%");
+			else
+				this.mangaListTableAdapter.Fill(this.dataStoreDataSet.mangaList);
 		}
 
 		private void browserNavBar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)

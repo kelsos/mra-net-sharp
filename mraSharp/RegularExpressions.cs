@@ -32,5 +32,12 @@ namespace mraSharp
 			Regex regExp = new Regex(patternUsed);
 			return regExp.Replace(toProcess, replacementString);
 		}
+		public static string htmlTagRemover(string toProcess)
+		{
+			string patternUsed = "<.*>";
+			string replacementString = "";
+			Regex regExp = new Regex(patternUsed);
+			return regExp.Replace(toProcess, replacementString);
+		}
 	}
 }

@@ -54,8 +54,17 @@ namespace mraSharp
 
 		private void forwardToolStripButton_Click(object sender, EventArgs e)
 		{
-			if (geckoReader.CanGoForward)
-				geckoReader.GoForward();
+			try
+			{
+				if (geckoReader.CanGoForward)
+					geckoReader.GoForward();
+				else
+					SendKeys.Send("{RIGHT}");
+			}
+			catch (Exception ex)
+			{
+				Logger.errorLogger("error.txt", ex.ToString());
+			}
 		}
 
 		private void reloadToolStripButton_Click(object sender, EventArgs e)
