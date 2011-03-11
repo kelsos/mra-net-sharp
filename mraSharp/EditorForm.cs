@@ -18,14 +18,23 @@ namespace mraSharp
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the mangaListBindingNavigatorSaveItem control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void mangaListBindingNavigatorSaveItem_Click(object sender, EventArgs e)
 		{
 			this.Validate();
 			this.mangaListBindingSource.EndEdit();
 			this.tableAdapterManager.UpdateAll(this.dataStoreDataSet);
-
 		}
 
+		/// <summary>
+		/// Handles the Load event of the EditorForm control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void EditorForm_Load(object sender, EventArgs e)
 		{
 			// TODO: This line of code loads data into the 'dataStoreDataSet.mangaList' table. You can move, or remove it, as needed.
@@ -33,7 +42,26 @@ namespace mraSharp
 
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		/// <summary>
+		/// Image to byte array convertion. The function gets an Image and converts it to a byte array which it returns.
+		/// </summary>
+		/// <param name="myImage">My image.</param>
+		/// <returns></returns>
+		private byte[] ImageToByteArray(System.Drawing.Image myImage)
+		{
+			using (MemoryStream ms = new MemoryStream())
+			{
+				myImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+				return ms.ToArray();
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the openAndCommit control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+		private void openAndCommit_Click(object sender, EventArgs e)
 		{
 			if (imageOpenFileDialog.ShowDialog() == DialogResult.OK)
 			{
@@ -47,15 +75,6 @@ namespace mraSharp
 				{
 					MessageBox.Show("There is no entry to upload image", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				}
-			}
-		}
-
-		private byte[] ImageToByteArray(System.Drawing.Image myImage)
-		{
-			using (MemoryStream ms = new MemoryStream())
-			{
-				myImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-				return ms.ToArray();
 			}
 		}
 	}

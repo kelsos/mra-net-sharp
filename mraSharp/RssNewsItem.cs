@@ -14,6 +14,12 @@ namespace mraSharp
 		private string _link;
 		private string _description;
 
+		/// <summary>
+		/// Gets or sets the title.
+		/// </summary>
+		/// <value>
+		/// The title.
+		/// </value>
 		public string Title
 		{
 			get
@@ -26,6 +32,12 @@ namespace mraSharp
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the link.
+		/// </summary>
+		/// <value>
+		/// The link.
+		/// </value>
 		public string Link
 		{
 			get
@@ -38,6 +50,12 @@ namespace mraSharp
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the description.
+		/// </summary>
+		/// <value>
+		/// The description.
+		/// </value>
 		public string Description
 		{
 			get

@@ -16,6 +16,11 @@ namespace mraSharp
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Handles the Click event of the rssSubscriptionsBindingNavigatorSaveItem control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void rssSubscriptionsBindingNavigatorSaveItem_Click(object sender, EventArgs e)
 		{
 			this.Validate();
@@ -23,12 +28,22 @@ namespace mraSharp
 			this.tableAdapterManager.UpdateAll(this.dataStoreDataSet);
 		}
 
+		/// <summary>
+		/// Handles the Load event of the SubscriptionManagerForm control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void SubscriptionManagerForm_Load(object sender, EventArgs e)
 		{
 			// TODO: This line of code loads data into the 'dataStoreDataSet.rssSubscriptions' table. You can move, or remove it, as needed.
 			this.rssSubscriptionsTableAdapter.Fill(this.dataStoreDataSet.rssSubscriptions);
 		}
 
+		/// <summary>
+		/// Handles the Click event of the removeSubButton control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void removeSubButton_Click(object sender, EventArgs e)
 		{
 			try
@@ -42,6 +57,11 @@ namespace mraSharp
 			this.rssSubscriptionsTableAdapter.Fill(this.dataStoreDataSet.rssSubscriptions);
 		}
 
+		/// <summary>
+		/// Handles the Click event of the addSubButton control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void addSubButton_Click(object sender, EventArgs e)
 		{
 			try
@@ -63,14 +83,24 @@ namespace mraSharp
 			this.rssSubscriptionsTableAdapter.Fill(this.dataStoreDataSet.rssSubscriptions);
 		}
 
+		/// <summary>
+		/// Handles the Click event of the importButton control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void importButton_Click(object sender, EventArgs e)
 		{
-
+			FileOperations.rssSubscriptionImporter("rss.txt");
 		}
 
+		/// <summary>
+		/// Handles the Click event of the exportPopup control.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void exportPopup_Click(object sender, EventArgs e)
 		{
-
+			FileOperations.rssSubscriptionExporter("rss.txt");
 		}
 
 	}

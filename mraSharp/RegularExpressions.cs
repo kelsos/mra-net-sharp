@@ -32,6 +32,12 @@ namespace mraSharp
 			Regex regExp = new Regex(patternUsed);
 			return regExp.Replace(toProcess, replacementString);
 		}
+
+		/// <summary>
+		/// A regular expression that removes the HTML tags from an RSS Description.
+		/// </summary>
+		/// <param name="toProcess">The string to process.</param>
+		/// <returns></returns>
 		public static string htmlTagRemover(string toProcess)
 		{
 			string patternUsed = "<.*>";

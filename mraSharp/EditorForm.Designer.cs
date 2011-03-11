@@ -29,7 +29,6 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
 			System.Windows.Forms.Label mangaTitleLabel;
 			System.Windows.Forms.Label startingChapterLabel;
 			System.Windows.Forms.Label currentChapterLabel;
@@ -38,22 +37,23 @@
 			System.Windows.Forms.Label isFinishedLabel;
 			System.Windows.Forms.Label mangaDescriptionLabel;
 			System.Windows.Forms.Label mangaNoteLabel;
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorForm));
 			this.dataStoreDataSet = new mraSharp.DataStoreDataSet();
 			this.mangaListBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.mangaListTableAdapter = new mraSharp.DataStoreDataSetTableAdapters.mangaListTableAdapter();
 			this.tableAdapterManager = new mraSharp.DataStoreDataSetTableAdapters.TableAdapterManager();
 			this.mangaListBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+			this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
+			this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
 			this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
-			this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
 			this.mangaListBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
 			this.mangaTitleTextBox = new System.Windows.Forms.TextBox();
 			this.startingChapterTextBox = new System.Windows.Forms.TextBox();
@@ -65,7 +65,7 @@
 			this.mangaNoteTextBox = new System.Windows.Forms.TextBox();
 			this.mangaCoverPictureBox = new System.Windows.Forms.PictureBox();
 			this.imageOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-			this.button1 = new System.Windows.Forms.Button();
+			this.openAndCommitButton = new System.Windows.Forms.Button();
 			mangaTitleLabel = new System.Windows.Forms.Label();
 			startingChapterLabel = new System.Windows.Forms.Label();
 			currentChapterLabel = new System.Windows.Forms.Label();
@@ -80,6 +80,78 @@
 			this.mangaListBindingNavigator.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mangaCoverPictureBox)).BeginInit();
 			this.SuspendLayout();
+			// 
+			// mangaTitleLabel
+			// 
+			mangaTitleLabel.AutoSize = true;
+			mangaTitleLabel.Location = new System.Drawing.Point(12, 38);
+			mangaTitleLabel.Name = "mangaTitleLabel";
+			mangaTitleLabel.Size = new System.Drawing.Size(70, 13);
+			mangaTitleLabel.TabIndex = 1;
+			mangaTitleLabel.Text = "Manga Title:";
+			// 
+			// startingChapterLabel
+			// 
+			startingChapterLabel.AutoSize = true;
+			startingChapterLabel.Location = new System.Drawing.Point(12, 66);
+			startingChapterLabel.Name = "startingChapterLabel";
+			startingChapterLabel.Size = new System.Drawing.Size(95, 13);
+			startingChapterLabel.TabIndex = 3;
+			startingChapterLabel.Text = "Starting Chapter:";
+			// 
+			// currentChapterLabel
+			// 
+			currentChapterLabel.AutoSize = true;
+			currentChapterLabel.Location = new System.Drawing.Point(12, 94);
+			currentChapterLabel.Name = "currentChapterLabel";
+			currentChapterLabel.Size = new System.Drawing.Size(93, 13);
+			currentChapterLabel.TabIndex = 5;
+			currentChapterLabel.Text = "Current Chapter:";
+			// 
+			// dateReadLabel
+			// 
+			dateReadLabel.AutoSize = true;
+			dateReadLabel.Location = new System.Drawing.Point(12, 122);
+			dateReadLabel.Name = "dateReadLabel";
+			dateReadLabel.Size = new System.Drawing.Size(63, 13);
+			dateReadLabel.TabIndex = 7;
+			dateReadLabel.Text = "Date Read:";
+			// 
+			// onlineURLLabel
+			// 
+			onlineURLLabel.AutoSize = true;
+			onlineURLLabel.Location = new System.Drawing.Point(12, 150);
+			onlineURLLabel.Name = "onlineURLLabel";
+			onlineURLLabel.Size = new System.Drawing.Size(68, 13);
+			onlineURLLabel.TabIndex = 9;
+			onlineURLLabel.Text = "Online URL:";
+			// 
+			// isFinishedLabel
+			// 
+			isFinishedLabel.AutoSize = true;
+			isFinishedLabel.Location = new System.Drawing.Point(12, 180);
+			isFinishedLabel.Name = "isFinishedLabel";
+			isFinishedLabel.Size = new System.Drawing.Size(75, 13);
+			isFinishedLabel.TabIndex = 11;
+			isFinishedLabel.Text = "Is it Finished:";
+			// 
+			// mangaDescriptionLabel
+			// 
+			mangaDescriptionLabel.AutoSize = true;
+			mangaDescriptionLabel.Location = new System.Drawing.Point(12, 225);
+			mangaDescriptionLabel.Name = "mangaDescriptionLabel";
+			mangaDescriptionLabel.Size = new System.Drawing.Size(108, 13);
+			mangaDescriptionLabel.TabIndex = 13;
+			mangaDescriptionLabel.Text = "Manga Description:";
+			// 
+			// mangaNoteLabel
+			// 
+			mangaNoteLabel.AutoSize = true;
+			mangaNoteLabel.Location = new System.Drawing.Point(12, 334);
+			mangaNoteLabel.Name = "mangaNoteLabel";
+			mangaNoteLabel.Size = new System.Drawing.Size(79, 13);
+			mangaNoteLabel.TabIndex = 15;
+			mangaNoteLabel.Text = "Personal Note";
 			// 
 			// dataStoreDataSet
 			// 
@@ -133,6 +205,31 @@
 			this.mangaListBindingNavigator.TabIndex = 0;
 			this.mangaListBindingNavigator.Text = "bindingNavigator1";
 			// 
+			// bindingNavigatorAddNewItem
+			// 
+			this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
+			this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
+			this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
+			this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
+			this.bindingNavigatorAddNewItem.Text = "Add new";
+			// 
+			// bindingNavigatorCountItem
+			// 
+			this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+			this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
+			this.bindingNavigatorCountItem.Text = "of {0}";
+			this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
+			// 
+			// bindingNavigatorDeleteItem
+			// 
+			this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
+			this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
+			this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
+			this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
+			this.bindingNavigatorDeleteItem.Text = "Delete";
+			// 
 			// bindingNavigatorMoveFirstItem
 			// 
 			this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -165,16 +262,9 @@
 			this.bindingNavigatorPositionItem.Text = "0";
 			this.bindingNavigatorPositionItem.ToolTipText = "Current position";
 			// 
-			// bindingNavigatorCountItem
-			// 
-			this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-			this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
-			this.bindingNavigatorCountItem.Text = "of {0}";
-			this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
-			// 
 			// bindingNavigatorSeparator1
 			// 
-			this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator";
+			this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
 			this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
 			// bindingNavigatorMoveNextItem
@@ -197,26 +287,8 @@
 			// 
 			// bindingNavigatorSeparator2
 			// 
-			this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator";
+			this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
 			this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
-			// 
-			// bindingNavigatorAddNewItem
-			// 
-			this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
-			this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
-			this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
-			this.bindingNavigatorAddNewItem.Text = "Add new";
-			// 
-			// bindingNavigatorDeleteItem
-			// 
-			this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
-			this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
-			this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-			this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
-			this.bindingNavigatorDeleteItem.Text = "Delete";
 			// 
 			// mangaListBindingNavigatorSaveItem
 			// 
@@ -227,15 +299,6 @@
 			this.mangaListBindingNavigatorSaveItem.Text = "Save Data";
 			this.mangaListBindingNavigatorSaveItem.Click += new System.EventHandler(this.mangaListBindingNavigatorSaveItem_Click);
 			// 
-			// mangaTitleLabel
-			// 
-			mangaTitleLabel.AutoSize = true;
-			mangaTitleLabel.Location = new System.Drawing.Point(12, 38);
-			mangaTitleLabel.Name = "mangaTitleLabel";
-			mangaTitleLabel.Size = new System.Drawing.Size(70, 13);
-			mangaTitleLabel.TabIndex = 1;
-			mangaTitleLabel.Text = "Manga Title:";
-			// 
 			// mangaTitleTextBox
 			// 
 			this.mangaTitleTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaListBindingSource, "mangaTitle", true));
@@ -243,15 +306,6 @@
 			this.mangaTitleTextBox.Name = "mangaTitleTextBox";
 			this.mangaTitleTextBox.Size = new System.Drawing.Size(224, 22);
 			this.mangaTitleTextBox.TabIndex = 2;
-			// 
-			// startingChapterLabel
-			// 
-			startingChapterLabel.AutoSize = true;
-			startingChapterLabel.Location = new System.Drawing.Point(12, 66);
-			startingChapterLabel.Name = "startingChapterLabel";
-			startingChapterLabel.Size = new System.Drawing.Size(95, 13);
-			startingChapterLabel.TabIndex = 3;
-			startingChapterLabel.Text = "Starting Chapter:";
 			// 
 			// startingChapterTextBox
 			// 
@@ -261,15 +315,6 @@
 			this.startingChapterTextBox.Size = new System.Drawing.Size(224, 22);
 			this.startingChapterTextBox.TabIndex = 4;
 			// 
-			// currentChapterLabel
-			// 
-			currentChapterLabel.AutoSize = true;
-			currentChapterLabel.Location = new System.Drawing.Point(12, 94);
-			currentChapterLabel.Name = "currentChapterLabel";
-			currentChapterLabel.Size = new System.Drawing.Size(93, 13);
-			currentChapterLabel.TabIndex = 5;
-			currentChapterLabel.Text = "Current Chapter:";
-			// 
 			// currentChapterTextBox
 			// 
 			this.currentChapterTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaListBindingSource, "currentChapter", true));
@@ -277,15 +322,6 @@
 			this.currentChapterTextBox.Name = "currentChapterTextBox";
 			this.currentChapterTextBox.Size = new System.Drawing.Size(224, 22);
 			this.currentChapterTextBox.TabIndex = 6;
-			// 
-			// dateReadLabel
-			// 
-			dateReadLabel.AutoSize = true;
-			dateReadLabel.Location = new System.Drawing.Point(12, 122);
-			dateReadLabel.Name = "dateReadLabel";
-			dateReadLabel.Size = new System.Drawing.Size(63, 13);
-			dateReadLabel.TabIndex = 7;
-			dateReadLabel.Text = "Date Read:";
 			// 
 			// dateReadDateTimePicker
 			// 
@@ -295,15 +331,6 @@
 			this.dateReadDateTimePicker.Size = new System.Drawing.Size(224, 22);
 			this.dateReadDateTimePicker.TabIndex = 8;
 			// 
-			// onlineURLLabel
-			// 
-			onlineURLLabel.AutoSize = true;
-			onlineURLLabel.Location = new System.Drawing.Point(12, 150);
-			onlineURLLabel.Name = "onlineURLLabel";
-			onlineURLLabel.Size = new System.Drawing.Size(68, 13);
-			onlineURLLabel.TabIndex = 9;
-			onlineURLLabel.Text = "Online URL:";
-			// 
 			// onlineURLTextBox
 			// 
 			this.onlineURLTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaListBindingSource, "onlineURL", true));
@@ -311,15 +338,6 @@
 			this.onlineURLTextBox.Name = "onlineURLTextBox";
 			this.onlineURLTextBox.Size = new System.Drawing.Size(224, 22);
 			this.onlineURLTextBox.TabIndex = 10;
-			// 
-			// isFinishedLabel
-			// 
-			isFinishedLabel.AutoSize = true;
-			isFinishedLabel.Location = new System.Drawing.Point(12, 180);
-			isFinishedLabel.Name = "isFinishedLabel";
-			isFinishedLabel.Size = new System.Drawing.Size(75, 13);
-			isFinishedLabel.TabIndex = 11;
-			isFinishedLabel.Text = "Is it Finished:";
 			// 
 			// isFinishedCheckBox
 			// 
@@ -331,15 +349,6 @@
 			this.isFinishedCheckBox.Text = "Yes/No";
 			this.isFinishedCheckBox.UseVisualStyleBackColor = true;
 			// 
-			// mangaDescriptionLabel
-			// 
-			mangaDescriptionLabel.AutoSize = true;
-			mangaDescriptionLabel.Location = new System.Drawing.Point(12, 225);
-			mangaDescriptionLabel.Name = "mangaDescriptionLabel";
-			mangaDescriptionLabel.Size = new System.Drawing.Size(108, 13);
-			mangaDescriptionLabel.TabIndex = 13;
-			mangaDescriptionLabel.Text = "Manga Description:";
-			// 
 			// mangaDescriptionTextBox
 			// 
 			this.mangaDescriptionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaListBindingSource, "mangaDescription", true));
@@ -349,15 +358,6 @@
 			this.mangaDescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.mangaDescriptionTextBox.Size = new System.Drawing.Size(358, 90);
 			this.mangaDescriptionTextBox.TabIndex = 14;
-			// 
-			// mangaNoteLabel
-			// 
-			mangaNoteLabel.AutoSize = true;
-			mangaNoteLabel.Location = new System.Drawing.Point(12, 334);
-			mangaNoteLabel.Name = "mangaNoteLabel";
-			mangaNoteLabel.Size = new System.Drawing.Size(79, 13);
-			mangaNoteLabel.TabIndex = 15;
-			mangaNoteLabel.Text = "Personal Note";
 			// 
 			// mangaNoteTextBox
 			// 
@@ -383,23 +383,23 @@
 			// 
 			this.imageOpenFileDialog.Filter = "JPG|*.jpg|PNG|*.png|GIF|*.gif|All files|*.*";
 			// 
-			// button1
+			// openAndCommitButton
 			// 
-			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.button1.Location = new System.Drawing.Point(393, 292);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(160, 39);
-			this.button1.TabIndex = 19;
-			this.button1.Text = "Open and commit Icon";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			this.openAndCommitButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.openAndCommitButton.Location = new System.Drawing.Point(393, 292);
+			this.openAndCommitButton.Name = "openAndCommitButton";
+			this.openAndCommitButton.Size = new System.Drawing.Size(160, 39);
+			this.openAndCommitButton.TabIndex = 19;
+			this.openAndCommitButton.Text = "Open and commit Icon";
+			this.openAndCommitButton.UseVisualStyleBackColor = true;
+			this.openAndCommitButton.Click += new System.EventHandler(this.openAndCommit_Click);
 			// 
 			// EditorForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(565, 456);
-			this.Controls.Add(this.button1);
+			this.Controls.Add(this.openAndCommitButton);
 			this.Controls.Add(this.mangaCoverPictureBox);
 			this.Controls.Add(mangaNoteLabel);
 			this.Controls.Add(this.mangaNoteTextBox);
@@ -467,6 +467,6 @@
 		private System.Windows.Forms.TextBox mangaNoteTextBox;
 		private System.Windows.Forms.PictureBox mangaCoverPictureBox;
 		private System.Windows.Forms.OpenFileDialog imageOpenFileDialog;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button openAndCommitButton;
 	}
 }
