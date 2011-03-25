@@ -11,8 +11,6 @@
       <Column Name="mangaDescription" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="mangaNote" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="mangaCover" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="mangaList_mangaList" Member="mangaList2" ThisKey="mangaTitle" OtherKey="mangaTitle" Type="mangaList" Cardinality="One" />
-      <Association Name="mangaList_mangaList" Member="mangaList1" ThisKey="mangaTitle" OtherKey="mangaTitle" Type="mangaList" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.newsStorage" Member="newsStorages">
@@ -28,6 +26,30 @@
     <Type Name="rssSubscription">
       <Column Name="rssPK" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="rssUrl" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.mangaTable" Member="mangaTables">
+    <Type Name="mangaTable">
+      <Column Name="mangaID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="mangaTitle" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="mangaDecription" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="mangaAuthor" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="mangaDateOfPublish" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="mangaStatus" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="mangaCoverImage" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="mangaTable_mangaReadingList1" Member="mangaReadingLists" ThisKey="mangaID" OtherKey="mangaID" Type="mangaReadingList" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.mangaReadingList" Member="mangaReadingLists">
+    <Type Name="mangaReadingList">
+      <Column Name="mangaEntryID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="mangaID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="mangaStartingChapter" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="mangaCurrentChapter" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="mangaURL" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="mangaReadingStatus" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="mangaDateRead" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="mangaTable_mangaReadingList1" Member="mangaTable" ThisKey="mangaID" OtherKey="mangaID" Type="mangaTable" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

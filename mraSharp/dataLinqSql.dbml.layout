@@ -2,30 +2,42 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DataClasses1">
   <DataContextMoniker Name="/dataLinqSqlDataContext" />
   <nestedChildShapes>
-    <classShape Id="3cfc96db-0501-4105-9224-407c63aa2c25" absoluteBounds="0.875, 1.375, 2, 2.5401025390625">
+    <classShape Id="3cfc96db-0501-4105-9224-407c63aa2c25" absoluteBounds="1.375, 0.875, 2, 2.5401025390625">
       <DataClassMoniker Name="/dataLinqSqlDataContext/mangaList" />
       <nestedChildShapes>
-        <elementListCompartment Id="7012d12d-67eb-4ae9-ba5b-b45683a02d81" absoluteBounds="0.89000000000000012, 1.835, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="7012d12d-67eb-4ae9-ba5b-b45683a02d81" absoluteBounds="1.3900000000000001, 1.335, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(0.875 : 3.61462551856226); (0.625 : 3.61462551856226); (0.625 : 2.64505126953125); (0.875 : 2.64505126953125)]" fixedFrom="Caller" fixedTo="NotFixed">
-      <AssociationMoniker Name="/dataLinqSqlDataContext/mangaList/mangaList_mangaList" />
-      <nodes>
-        <classShapeMoniker Id="3cfc96db-0501-4105-9224-407c63aa2c25" />
-        <classShapeMoniker Id="3cfc96db-0501-4105-9224-407c63aa2c25" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="f3e10f95-5083-4d16-ad2c-593264acc966" absoluteBounds="3.625, 2, 2, 1.7708968098958331">
+    <classShape Id="f3e10f95-5083-4d16-ad2c-593264acc966" absoluteBounds="3.625, 3.75, 2, 1.7708968098958331">
       <DataClassMoniker Name="/dataLinqSqlDataContext/newsStorage" />
       <nestedChildShapes>
-        <elementListCompartment Id="793f71a9-7893-43b6-9ea5-7c41f412fe28" absoluteBounds="3.6399999999999997, 2.46, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="793f71a9-7893-43b6-9ea5-7c41f412fe28" absoluteBounds="3.6399999999999997, 4.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="101e44c7-8228-4780-a2c2-7ebcfab180fc" absoluteBounds="7, 3.125, 2, 1.1939925130208333">
+    <classShape Id="101e44c7-8228-4780-a2c2-7ebcfab180fc" absoluteBounds="6.25, 3.75, 2, 1.1939925130208333">
       <DataClassMoniker Name="/dataLinqSqlDataContext/rssSubscription" />
       <nestedChildShapes>
-        <elementListCompartment Id="33ec685b-5ad4-49fb-b8cc-a2f23bce84b6" absoluteBounds="7.015, 3.585, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="33ec685b-5ad4-49fb-b8cc-a2f23bce84b6" absoluteBounds="6.265, 4.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="e34bd1da-1c3e-4270-a51c-608bf44e20aa" absoluteBounds="3.625, 0.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/dataLinqSqlDataContext/mangaTable" />
+      <nestedChildShapes>
+        <elementListCompartment Id="94b4571e-5247-42dc-b299-e3e1d001ac29" absoluteBounds="3.6399999999999997, 1.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a9373ff7-b6a9-438e-9daa-5ebdb073fc05" absoluteBounds="6.25, 0.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/dataLinqSqlDataContext/mangaReadingList" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0f130ba6-8370-4d8f-bb8f-0711150c9bee" absoluteBounds="6.265, 1.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.625 : 1.95274983723958); (6.25 : 1.95274983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dataLinqSqlDataContext/mangaTable/mangaTable_mangaReadingList1" />
+      <nodes>
+        <classShapeMoniker Id="e34bd1da-1c3e-4270-a51c-608bf44e20aa" />
+        <classShapeMoniker Id="a9373ff7-b6a9-438e-9daa-5ebdb073fc05" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
