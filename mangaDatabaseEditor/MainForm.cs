@@ -46,23 +46,56 @@ namespace mangaDatabaseEditor
 				select publishers;
 			publisherInfoBindingSource.MoveFirst();
 		}
+
 		private void loadGenreData()
 		{
-			genreInfoCustom.DataSource =
+			genreNameComboBox.DataSource =
 				from genres in mangaDatabase.genreInfos
 				orderby genres.genreID
 				select genres.genreName;
-			genreInfoCustom.MoveFirst();
-		}
-		private void loadMangaGenre()
-		{
-			mangaGenreCustom.DataSource =
-				from mg in mangaDatabase.mangaGenres
-				where mg.mangaID.Equals(Convert.ToInt32(mangaIDTextBox.Text))
-				select mg.genreInfo.genreName;
-			mangaGenreCustom.MoveFirst();
 		}
 
+		private void loadMangaGenre()
+		{
+			genreNameListBox.DataSource =
+				from mg in mangaDatabase.mangaGenres
+				where mg.mangaID == Convert.ToInt32(mangaIDTextBox.Text)
+				select mg.genreInfo.genreName;
+		}
+
+		private void loadAuthorData()
+		{
+			authorsComboBox.DataSource =
+				from auth in mangaDatabase.authorTables
+				orderby auth.authorID
+				select auth.authorFullName;
+		}
+
+		private void loadAuthorManga()
+		{
+			authorsNameListBox.DataSource =
+				from auth in mangaDatabase.mangaAuthors
+				where auth.mangaID == Convert.ToInt32(mangaIDTextBox.Text)
+				select auth.authorTable.authorFullName;
+		}
+
+		private void checkIfEntryExists()
+		{
+			if (mangaIDTextBox.Text != null && mangaIDTextBox.Text != "0")
+			{
+				mangaAuthorGroupBox.Enabled = true;
+				publisherGroupBox.Enabled = true;
+				mangaGenresGroupBox.Enabled = true;
+				buttonImageLoad.Enabled = true;
+			}
+			else
+			{
+				mangaAuthorGroupBox.Enabled = false;
+				publisherGroupBox.Enabled = false;
+				mangaGenresGroupBox.Enabled = false;
+				buttonImageLoad.Enabled = false;
+			}
+		}
 
 #endregion 
 
@@ -80,6 +113,7 @@ namespace mangaDatabaseEditor
 			authorTableBindingSource.EndEdit();
 			mangaDatabase.SubmitChanges();
 			refreshAuthorData();
+			loadAuthorData();
 		}
 
 		private void publisherInfoBindingNavigatorSaveItem_Click(object sender, EventArgs e)
@@ -96,6 +130,8 @@ namespace mangaDatabaseEditor
 			refreshPublisherData();
 			loadGenreData();
 			refreshMangaData();
+			loadAuthorData();
+			checkIfEntryExists();
 		}
 
 		private void genresToolStripMenuItem_Click(object sender, EventArgs e)
@@ -103,6 +139,7 @@ namespace mangaDatabaseEditor
 			using(GenresForm gF = new GenresForm())
 			{
 				gF.ShowDialog();
+				loadGenreData();
 			}
 		}
 
@@ -124,19 +161,92 @@ namespace mangaDatabaseEditor
 
 		private void addGenreButton_Click(object sender, EventArgs e)
 		{
+			var genID = 
+				(from genres in mangaDatabase.genreInfos
+				where genres.genreName.Equals(genreNameComboBox.Text)
+				select genres.genreID).Single();
+	
 			mangaGenre mg = new mangaGenre
 			{
-				genreID = genreNameComboBox.SelectedIndex,
-				mangaID = Convert.ToInt16(mangaIDTextBox.Text)
+				genreID = genID,
+				mangaID = Convert.ToInt32(mangaIDTextBox.Text)
 			};
 			mangaDatabase.mangaGenres.InsertOnSubmit(mg);
 			mangaDatabase.SubmitChanges();
-
+			loadMangaGenre();
 		}
 
 		private void mangaInfoBindingSource_CurrentChanged(object sender, EventArgs e)
 		{
 			loadMangaGenre();
+			loadAuthorManga();
+		}
+
+		private void removeGenreButton_Click(object sender, EventArgs e)
+		{
+			var genID = 
+				(from genres in mangaDatabase.genreInfos
+				 where genres.genreName.Equals(genreNameListBox.SelectedItem.ToString())
+				select genres.genreID).Single();
+
+			var deleteMangaGenre = from mg in mangaDatabase.mangaGenres
+										  where (mg.mangaID == Convert.ToInt32(mangaIDTextBox.Text)) && (mg.genreID == genID)
+										  select mg;
+			foreach (var mg in deleteMangaGenre)
+			{
+				mangaDatabase.mangaGenres.DeleteOnSubmit(mg);
+			}
+			mangaDatabase.SubmitChanges();
+			loadMangaGenre();
+		}
+
+		private void addAuthorButton_Click(object sender, EventArgs e)
+		{
+			var authID =
+				(from auth in mangaDatabase.authorTables
+				 where auth.authorFullName.Equals(authorsComboBox.Text)
+				 select auth.authorID).Single();
+
+			mangaAuthor ma = new mangaAuthor
+			{
+				authorID = authID,
+				mangaID = Convert.ToInt32(mangaIDTextBox.Text)
+			};
+			mangaDatabase.mangaAuthors.InsertOnSubmit(ma);
+			mangaDatabase.SubmitChanges();
+			loadAuthorManga();
+		}
+
+		private void removeAuthorButton_Click(object sender, EventArgs e)
+		{
+			var authID =
+				(from auth in mangaDatabase.authorTables
+				where auth.authorFullName.Equals(authorsNameListBox.SelectedItem.ToString())
+				select auth.authorID).Single();
+			var deleteMangaAuthor = from ma in mangaDatabase.mangaAuthors
+											where (ma.mangaID == Convert.ToInt32(mangaIDTextBox.Text)) && (ma.authorID == authID)
+											select ma;
+			foreach (var ma in deleteMangaAuthor)
+			{
+				mangaDatabase.mangaAuthors.DeleteOnSubmit(ma);
+			}
+			mangaDatabase.SubmitChanges();
+			loadAuthorManga();
+		}
+
+		private void addPublisherButton_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void removePublisherButton_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void mangaIDTextBox_TextChanged(object sender, EventArgs e)
+		{
+			checkIfEntryExists();
 		}
 	}
 }
