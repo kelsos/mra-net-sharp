@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Manga Reading Assistant")]
+[assembly: AssemblyTitle("Manga Database Editor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("mraSharp")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
+[assembly: AssemblyCompany("Kelsos")]
+[assembly: AssemblyProduct("Manga Database Editor")]
+[assembly: AssemblyCopyright("Copyright © Kelsos 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("17c68b6d-ea86-4b87-bbb2-9d31b360a0f5")]
+[assembly: Guid("5618bcf1-4b4e-43f8-ad4f-ca641170e6bb")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.8.0.172")]
-[assembly: AssemblyFileVersion("0.8.0.172")]
+[assembly: AssemblyVersion("0.0.2.56")]
+[assembly: AssemblyFileVersion("0.0.2.56")]

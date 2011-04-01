@@ -69,12 +69,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddMangaForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddMangaForm.Designer.cs">
-      <DependentUpon>AddMangaForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="DatabaseOperations.cs" />
     <Compile Include="dataLinqSql.designer.cs">
       <AutoGen>True</AutoGen>
@@ -127,9 +121,6 @@
     <None Include="dataLinqSql.dbml.layout">
       <DependentUpon>dataLinqSql.dbml</DependentUpon>
     </None>
-    <EmbeddedResource Include="AddMangaForm.resx">
-      <DependentUpon>AddMangaForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -1147,6 +1138,11 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
+    </VisualStudio>
+  </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

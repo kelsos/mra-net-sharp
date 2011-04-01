@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DataStore" Class="MangaDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;AttachDbFilename=&quot;C:\Users\kelsos\Documents\Visual Studio 2010\Projects\mraSharp\mraSharp\DataStore.mdf&quot;;Integrated Security=True;Connect Timeout=30;User Instance=True" SettingsObjectName="mangaDatabaseEditor.Properties.Settings" SettingsPropertyName="DataStoreConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.mangaInfo" Member="mangaInfos">
+    <Type Name="mangaInfo">
+      <Column Name="mangaID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="mangaTitle" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="mangaDescription" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="authorID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dateOfPublish" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="mangaStatus" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="mangaCover" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="publisherID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="mangaInfo_mangaAuthor" Member="mangaAuthors" ThisKey="mangaID" OtherKey="mangaID" Type="mangaAuthor" />
+      <Association Name="mangaInfo_mangaGenre" Member="mangaGenres" ThisKey="mangaID" OtherKey="mangaID" Type="mangaGenre" />
+      <Association Name="publisherInfo_mangaInfo" Member="publisherInfo" ThisKey="publisherID" OtherKey="publisherID" Type="publisherInfo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.authorTable" Member="authorTables">
+    <Type Name="authorTable">
+      <Column Name="authorID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="authorFullName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="authorCountryOfOrigin" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="authorDateOfBirth" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="authorWebsite" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Association Name="authorTable_mangaAuthor" Member="mangaAuthors" ThisKey="authorID" OtherKey="authorID" Type="mangaAuthor" />
+    </Type>
+  </Table>
+  <Table Name="dbo.mangaAuthors" Member="mangaAuthors">
+    <Type Name="mangaAuthor">
+      <Column Name="mangaID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="authorID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="authorTable_mangaAuthor" Member="authorTable" ThisKey="authorID" OtherKey="authorID" Type="authorTable" IsForeignKey="true" />
+      <Association Name="mangaInfo_mangaAuthor" Member="mangaInfo" ThisKey="mangaID" OtherKey="mangaID" Type="mangaInfo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.genreInfo" Member="genreInfos">
+    <Type Name="genreInfo">
+      <Column Name="genreID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="genreName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="genreInfo_mangaGenre" Member="mangaGenres" ThisKey="genreID" OtherKey="genreID" Type="mangaGenre" />
+    </Type>
+  </Table>
+  <Table Name="dbo.mangaGenres" Member="mangaGenres">
+    <Type Name="mangaGenre">
+      <Column Name="genreID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="mangaID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="genreInfo_mangaGenre" Member="genreInfo" ThisKey="genreID" OtherKey="genreID" Type="genreInfo" IsForeignKey="true" />
+      <Association Name="mangaInfo_mangaGenre" Member="mangaInfo" ThisKey="mangaID" OtherKey="mangaID" Type="mangaInfo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.publisherInfo" Member="publisherInfos">
+    <Type Name="publisherInfo">
+      <Column Name="publisherID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="publisherName" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="publisherCountry" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
+      <Column Name="publisherWebsite" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="publisherNote" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="publisherInfo_mangaInfo" Member="mangaInfos" ThisKey="publisherID" OtherKey="publisherID" Type="mangaInfo" />
+    </Type>
+  </Table>
+</Database>
