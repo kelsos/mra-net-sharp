@@ -37,7 +37,19 @@
 			System.Windows.Forms.Label publisherNameLabel1;
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.tabManga = new System.Windows.Forms.TabPage();
+			this.dateOfPublicationGroupBox = new System.Windows.Forms.GroupBox();
+			this.dateOfPublishDateTimePicker = new System.Windows.Forms.DateTimePicker();
+			this.mangaInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.descriptionGroupBox = new System.Windows.Forms.GroupBox();
+			this.mangaDescriptionTextBox = new System.Windows.Forms.TextBox();
+			this.mangaInfoGroupBox = new System.Windows.Forms.GroupBox();
+			this.mangaIDTextBox = new System.Windows.Forms.TextBox();
+			this.mangaTitleTextBox = new System.Windows.Forms.TextBox();
 			this.publisherGroupBox = new System.Windows.Forms.GroupBox();
+			this.removePublisherButton = new System.Windows.Forms.Button();
+			this.addPublisherButton = new System.Windows.Forms.Button();
+			this.publisherComboBox = new System.Windows.Forms.ComboBox();
+			this.publisherNameTextBox1 = new System.Windows.Forms.TextBox();
 			this.mangaAuthorGroupBox = new System.Windows.Forms.GroupBox();
 			this.removeAuthorButton = new System.Windows.Forms.Button();
 			this.addAuthorButton = new System.Windows.Forms.Button();
@@ -50,17 +62,12 @@
 			this.genreNameComboBox = new System.Windows.Forms.ComboBox();
 			this.publicationStatusGroupbox = new System.Windows.Forms.GroupBox();
 			this.mangaStatusComboBox = new System.Windows.Forms.ComboBox();
-			this.mangaInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.searchMangaGroupBox = new System.Windows.Forms.GroupBox();
 			this.browseAllMangaEntriesbutton = new System.Windows.Forms.Button();
 			this.searchMangaButton = new System.Windows.Forms.Button();
 			this.searchMangaTextBox = new System.Windows.Forms.TextBox();
-			this.publisherNameTextBox1 = new System.Windows.Forms.TextBox();
 			this.buttonImageLoad = new System.Windows.Forms.Button();
-			this.dateOfPublishDateTimePicker = new System.Windows.Forms.DateTimePicker();
-			this.mangaDescriptionTextBox = new System.Windows.Forms.TextBox();
 			this.mangaCoverPictureBox = new System.Windows.Forms.PictureBox();
-			this.mangaTitleTextBox = new System.Windows.Forms.TextBox();
 			this.mangaInfoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
 			this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -74,11 +81,23 @@
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.mangaInfoBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-			this.mangaIDTextBox = new System.Windows.Forms.TextBox();
 			this.tabAuthor = new System.Windows.Forms.TabPage();
+			this.searchByAuthorNameGroupBox = new System.Windows.Forms.GroupBox();
+			this.browseAllAuthorEntriesButton = new System.Windows.Forms.Button();
+			this.authorSearchButton = new System.Windows.Forms.Button();
+			this.authorSearchTextBox = new System.Windows.Forms.TextBox();
+			this.authorWebsiteGroupBox = new System.Windows.Forms.GroupBox();
+			this.authorWebsiteTextBox = new System.Windows.Forms.TextBox();
+			this.authorTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.authorDateOFBirthGroupBox = new System.Windows.Forms.GroupBox();
+			this.authorDateOfBirthDateTimePicker = new System.Windows.Forms.DateTimePicker();
+			this.authorCountryGroupBox = new System.Windows.Forms.GroupBox();
+			this.authorCountryOfOriginTextBox = new System.Windows.Forms.TextBox();
+			this.authorInfoGroupBox = new System.Windows.Forms.GroupBox();
+			this.authorFullNameTextBox = new System.Windows.Forms.TextBox();
+			this.authorIDTextBox = new System.Windows.Forms.TextBox();
 			this.authorTableBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
 			this.authorTableBindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
-			this.authorTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.authorTableBindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
 			this.authorTableBindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
 			this.authorTableBindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -90,15 +109,23 @@
 			this.authorTableBindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator5 = new System.Windows.Forms.ToolStripSeparator();
 			this.authorTableBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-			this.authorWebsiteTextBox = new System.Windows.Forms.TextBox();
-			this.authorDateOfBirthDateTimePicker = new System.Windows.Forms.DateTimePicker();
-			this.authorCountryOfOriginTextBox = new System.Windows.Forms.TextBox();
-			this.authorFullNameTextBox = new System.Windows.Forms.TextBox();
-			this.authorIDTextBox = new System.Windows.Forms.TextBox();
 			this.tabPublisher = new System.Windows.Forms.TabPage();
+			this.publisherNoteGroupBox = new System.Windows.Forms.GroupBox();
+			this.publisherNoteTextBox = new System.Windows.Forms.TextBox();
+			this.publisherInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.publisherWebsiteGroupBox = new System.Windows.Forms.GroupBox();
+			this.publisherWebsiteTextBox = new System.Windows.Forms.TextBox();
+			this.publisherCountryGroupBox = new System.Windows.Forms.GroupBox();
+			this.publisherCountryTextBox = new System.Windows.Forms.TextBox();
+			this.searchPublisherGroupBox = new System.Windows.Forms.GroupBox();
+			this.browseAllPublisherEntriesButton = new System.Windows.Forms.Button();
+			this.searchPublisherButton = new System.Windows.Forms.Button();
+			this.searchPublisherTextBox = new System.Windows.Forms.TextBox();
+			this.publisherInfoGroupBox = new System.Windows.Forms.GroupBox();
+			this.publisherNameTextBox = new System.Windows.Forms.TextBox();
+			this.publisherIDTextBox = new System.Windows.Forms.TextBox();
 			this.publisherBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
 			this.publisherInfoBindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
-			this.publisherInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.publisherInfoBindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
 			this.publisherInfoBindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
 			this.publisherInfoBindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -110,11 +137,6 @@
 			this.publisherInfoBindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorSeparator8 = new System.Windows.Forms.ToolStripSeparator();
 			this.publisherInfoBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
-			this.publisherNoteTextBox = new System.Windows.Forms.TextBox();
-			this.publisherWebsiteTextBox = new System.Windows.Forms.TextBox();
-			this.publisherCountryTextBox = new System.Windows.Forms.TextBox();
-			this.publisherNameTextBox = new System.Windows.Forms.TextBox();
-			this.publisherIDTextBox = new System.Windows.Forms.TextBox();
 			this.genreInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.mangaAuthorsBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
@@ -128,29 +150,7 @@
 			this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mangaGenresBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.publisherComboBox = new System.Windows.Forms.ComboBox();
-			this.addPublisherButton = new System.Windows.Forms.Button();
-			this.removePublisherButton = new System.Windows.Forms.Button();
 			this.mangaInfoBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-			this.mangaInfoGroupBox = new System.Windows.Forms.GroupBox();
-			this.descriptionGroupBox = new System.Windows.Forms.GroupBox();
-			this.dateOfPublicationGroupBox = new System.Windows.Forms.GroupBox();
-			this.authorInfoGroupBox = new System.Windows.Forms.GroupBox();
-			this.authorCountryGroupBox = new System.Windows.Forms.GroupBox();
-			this.authorDateOFBirthGroupBox = new System.Windows.Forms.GroupBox();
-			this.authorWebsiteGroupBox = new System.Windows.Forms.GroupBox();
-			this.searchByAuthorNameGroupBox = new System.Windows.Forms.GroupBox();
-			this.browseAllAuthorEntriesButton = new System.Windows.Forms.Button();
-			this.authorSearchButton = new System.Windows.Forms.Button();
-			this.authorSearchTextBox = new System.Windows.Forms.TextBox();
-			this.publisherInfoGroupBox = new System.Windows.Forms.GroupBox();
-			this.searchPublisherGroupBox = new System.Windows.Forms.GroupBox();
-			this.browseAllPublisherEntriesButton = new System.Windows.Forms.Button();
-			this.searchPublisherButton = new System.Windows.Forms.Button();
-			this.searchPublisherTextBox = new System.Windows.Forms.TextBox();
-			this.publisherCountryGroupBox = new System.Windows.Forms.GroupBox();
-			this.publisherWebsiteGroupBox = new System.Windows.Forms.GroupBox();
-			this.publisherNoteGroupBox = new System.Windows.Forms.GroupBox();
 			mangaIDLabel = new System.Windows.Forms.Label();
 			mangaTitleLabel = new System.Windows.Forms.Label();
 			authorIDLabel = new System.Windows.Forms.Label();
@@ -159,42 +159,42 @@
 			publisherNameLabel1 = new System.Windows.Forms.Label();
 			this.tabControl.SuspendLayout();
 			this.tabManga.SuspendLayout();
+			this.dateOfPublicationGroupBox.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.mangaInfoBindingSource)).BeginInit();
+			this.descriptionGroupBox.SuspendLayout();
+			this.mangaInfoGroupBox.SuspendLayout();
 			this.publisherGroupBox.SuspendLayout();
 			this.mangaAuthorGroupBox.SuspendLayout();
 			this.mangaGenresGroupBox.SuspendLayout();
 			this.publicationStatusGroupbox.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.mangaInfoBindingSource)).BeginInit();
 			this.searchMangaGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mangaCoverPictureBox)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mangaInfoBindingNavigator)).BeginInit();
 			this.mangaInfoBindingNavigator.SuspendLayout();
 			this.tabAuthor.SuspendLayout();
+			this.searchByAuthorNameGroupBox.SuspendLayout();
+			this.authorWebsiteGroupBox.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.authorTableBindingSource)).BeginInit();
+			this.authorDateOFBirthGroupBox.SuspendLayout();
+			this.authorCountryGroupBox.SuspendLayout();
+			this.authorInfoGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.authorTableBindingNavigator)).BeginInit();
 			this.authorTableBindingNavigator.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.authorTableBindingSource)).BeginInit();
 			this.tabPublisher.SuspendLayout();
+			this.publisherNoteGroupBox.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.publisherInfoBindingSource)).BeginInit();
+			this.publisherWebsiteGroupBox.SuspendLayout();
+			this.publisherCountryGroupBox.SuspendLayout();
+			this.searchPublisherGroupBox.SuspendLayout();
+			this.publisherInfoGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.publisherBindingNavigator)).BeginInit();
 			this.publisherBindingNavigator.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.publisherInfoBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.genreInfoBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mangaAuthorsBindingSource)).BeginInit();
 			this.mainMenuStrip.SuspendLayout();
 			this.addAuthorContextMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mangaGenresBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mangaInfoBindingSource1)).BeginInit();
-			this.mangaInfoGroupBox.SuspendLayout();
-			this.descriptionGroupBox.SuspendLayout();
-			this.dateOfPublicationGroupBox.SuspendLayout();
-			this.authorInfoGroupBox.SuspendLayout();
-			this.authorCountryGroupBox.SuspendLayout();
-			this.authorDateOFBirthGroupBox.SuspendLayout();
-			this.authorWebsiteGroupBox.SuspendLayout();
-			this.searchByAuthorNameGroupBox.SuspendLayout();
-			this.publisherInfoGroupBox.SuspendLayout();
-			this.searchPublisherGroupBox.SuspendLayout();
-			this.publisherCountryGroupBox.SuspendLayout();
-			this.publisherWebsiteGroupBox.SuspendLayout();
-			this.publisherNoteGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// mangaIDLabel
@@ -285,6 +285,82 @@
 			this.tabManga.Text = "Manga";
 			this.tabManga.UseVisualStyleBackColor = true;
 			// 
+			// dateOfPublicationGroupBox
+			// 
+			this.dateOfPublicationGroupBox.Controls.Add(this.dateOfPublishDateTimePicker);
+			this.dateOfPublicationGroupBox.Location = new System.Drawing.Point(8, 550);
+			this.dateOfPublicationGroupBox.Name = "dateOfPublicationGroupBox";
+			this.dateOfPublicationGroupBox.Size = new System.Drawing.Size(283, 56);
+			this.dateOfPublicationGroupBox.TabIndex = 33;
+			this.dateOfPublicationGroupBox.TabStop = false;
+			this.dateOfPublicationGroupBox.Text = "Date Of Publication";
+			// 
+			// dateOfPublishDateTimePicker
+			// 
+			this.dateOfPublishDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.mangaInfoBindingSource, "dateOfPublish", true));
+			this.dateOfPublishDateTimePicker.Location = new System.Drawing.Point(6, 21);
+			this.dateOfPublishDateTimePicker.Name = "dateOfPublishDateTimePicker";
+			this.dateOfPublishDateTimePicker.Size = new System.Drawing.Size(270, 22);
+			this.dateOfPublishDateTimePicker.TabIndex = 18;
+			// 
+			// mangaInfoBindingSource
+			// 
+			this.mangaInfoBindingSource.DataSource = typeof(mangaDatabaseEditor.mangaInfo);
+			this.mangaInfoBindingSource.CurrentChanged += new System.EventHandler(this.mangaInfoBindingSource_CurrentChanged);
+			// 
+			// descriptionGroupBox
+			// 
+			this.descriptionGroupBox.Controls.Add(this.mangaDescriptionTextBox);
+			this.descriptionGroupBox.Location = new System.Drawing.Point(8, 349);
+			this.descriptionGroupBox.Name = "descriptionGroupBox";
+			this.descriptionGroupBox.Size = new System.Drawing.Size(283, 195);
+			this.descriptionGroupBox.TabIndex = 32;
+			this.descriptionGroupBox.TabStop = false;
+			this.descriptionGroupBox.Text = "Description";
+			// 
+			// mangaDescriptionTextBox
+			// 
+			this.mangaDescriptionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.mangaDescriptionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaInfoBindingSource, "mangaDescription", true));
+			this.mangaDescriptionTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.mangaDescriptionTextBox.Location = new System.Drawing.Point(3, 16);
+			this.mangaDescriptionTextBox.Multiline = true;
+			this.mangaDescriptionTextBox.Name = "mangaDescriptionTextBox";
+			this.mangaDescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.mangaDescriptionTextBox.Size = new System.Drawing.Size(277, 176);
+			this.mangaDescriptionTextBox.TabIndex = 16;
+			// 
+			// mangaInfoGroupBox
+			// 
+			this.mangaInfoGroupBox.Controls.Add(this.mangaIDTextBox);
+			this.mangaInfoGroupBox.Controls.Add(this.mangaTitleTextBox);
+			this.mangaInfoGroupBox.Controls.Add(mangaIDLabel);
+			this.mangaInfoGroupBox.Controls.Add(mangaTitleLabel);
+			this.mangaInfoGroupBox.Location = new System.Drawing.Point(8, 31);
+			this.mangaInfoGroupBox.Name = "mangaInfoGroupBox";
+			this.mangaInfoGroupBox.Size = new System.Drawing.Size(283, 76);
+			this.mangaInfoGroupBox.TabIndex = 31;
+			this.mangaInfoGroupBox.TabStop = false;
+			this.mangaInfoGroupBox.Text = "Manga Info";
+			// 
+			// mangaIDTextBox
+			// 
+			this.mangaIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaInfoBindingSource, "mangaID", true));
+			this.mangaIDTextBox.Location = new System.Drawing.Point(159, 20);
+			this.mangaIDTextBox.Name = "mangaIDTextBox";
+			this.mangaIDTextBox.ReadOnly = true;
+			this.mangaIDTextBox.Size = new System.Drawing.Size(115, 22);
+			this.mangaIDTextBox.TabIndex = 1;
+			this.mangaIDTextBox.TextChanged += new System.EventHandler(this.mangaIDTextBox_TextChanged);
+			// 
+			// mangaTitleTextBox
+			// 
+			this.mangaTitleTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaInfoBindingSource, "mangaTitle", true));
+			this.mangaTitleTextBox.Location = new System.Drawing.Point(6, 48);
+			this.mangaTitleTextBox.Name = "mangaTitleTextBox";
+			this.mangaTitleTextBox.Size = new System.Drawing.Size(268, 22);
+			this.mangaTitleTextBox.TabIndex = 4;
+			// 
 			// publisherGroupBox
 			// 
 			this.publisherGroupBox.Controls.Add(this.removePublisherButton);
@@ -298,6 +374,43 @@
 			this.publisherGroupBox.TabIndex = 30;
 			this.publisherGroupBox.TabStop = false;
 			this.publisherGroupBox.Text = "Publisher";
+			// 
+			// removePublisherButton
+			// 
+			this.removePublisherButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.removePublisherButton.Image = global::mangaDatabaseEditor.Properties.Resources.minus;
+			this.removePublisherButton.Location = new System.Drawing.Point(253, 49);
+			this.removePublisherButton.Name = "removePublisherButton";
+			this.removePublisherButton.Size = new System.Drawing.Size(21, 21);
+			this.removePublisherButton.TabIndex = 30;
+			this.removePublisherButton.UseVisualStyleBackColor = true;
+			this.removePublisherButton.Click += new System.EventHandler(this.removePublisherButton_Click);
+			// 
+			// addPublisherButton
+			// 
+			this.addPublisherButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.addPublisherButton.Image = global::mangaDatabaseEditor.Properties.Resources.plus;
+			this.addPublisherButton.Location = new System.Drawing.Point(226, 49);
+			this.addPublisherButton.Name = "addPublisherButton";
+			this.addPublisherButton.Size = new System.Drawing.Size(21, 21);
+			this.addPublisherButton.TabIndex = 30;
+			this.addPublisherButton.UseVisualStyleBackColor = true;
+			this.addPublisherButton.Click += new System.EventHandler(this.addPublisherButton_Click);
+			// 
+			// publisherComboBox
+			// 
+			this.publisherComboBox.FormattingEnabled = true;
+			this.publisherComboBox.Location = new System.Drawing.Point(6, 49);
+			this.publisherComboBox.Name = "publisherComboBox";
+			this.publisherComboBox.Size = new System.Drawing.Size(214, 21);
+			this.publisherComboBox.TabIndex = 31;
+			// 
+			// publisherNameTextBox1
+			// 
+			this.publisherNameTextBox1.Location = new System.Drawing.Point(6, 21);
+			this.publisherNameTextBox1.Name = "publisherNameTextBox1";
+			this.publisherNameTextBox1.Size = new System.Drawing.Size(268, 22);
+			this.publisherNameTextBox1.TabIndex = 24;
 			// 
 			// mangaAuthorGroupBox
 			// 
@@ -426,11 +539,6 @@
 			this.mangaStatusComboBox.Size = new System.Drawing.Size(148, 21);
 			this.mangaStatusComboBox.TabIndex = 14;
 			// 
-			// mangaInfoBindingSource
-			// 
-			this.mangaInfoBindingSource.DataSource = typeof(mangaDatabaseEditor.mangaInfo);
-			this.mangaInfoBindingSource.CurrentChanged += new System.EventHandler(this.mangaInfoBindingSource_CurrentChanged);
-			// 
 			// searchMangaGroupBox
 			// 
 			this.searchMangaGroupBox.Controls.Add(this.browseAllMangaEntriesbutton);
@@ -470,13 +578,6 @@
 			this.searchMangaTextBox.Size = new System.Drawing.Size(148, 22);
 			this.searchMangaTextBox.TabIndex = 0;
 			// 
-			// publisherNameTextBox1
-			// 
-			this.publisherNameTextBox1.Location = new System.Drawing.Point(6, 21);
-			this.publisherNameTextBox1.Name = "publisherNameTextBox1";
-			this.publisherNameTextBox1.Size = new System.Drawing.Size(268, 22);
-			this.publisherNameTextBox1.TabIndex = 24;
-			// 
 			// buttonImageLoad
 			// 
 			this.buttonImageLoad.Enabled = false;
@@ -489,26 +590,6 @@
 			this.buttonImageLoad.UseVisualStyleBackColor = true;
 			this.buttonImageLoad.Click += new System.EventHandler(this.buttonImageLoad_Click);
 			// 
-			// dateOfPublishDateTimePicker
-			// 
-			this.dateOfPublishDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.mangaInfoBindingSource, "dateOfPublish", true));
-			this.dateOfPublishDateTimePicker.Location = new System.Drawing.Point(6, 21);
-			this.dateOfPublishDateTimePicker.Name = "dateOfPublishDateTimePicker";
-			this.dateOfPublishDateTimePicker.Size = new System.Drawing.Size(270, 22);
-			this.dateOfPublishDateTimePicker.TabIndex = 18;
-			// 
-			// mangaDescriptionTextBox
-			// 
-			this.mangaDescriptionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.mangaDescriptionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaInfoBindingSource, "mangaDescription", true));
-			this.mangaDescriptionTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.mangaDescriptionTextBox.Location = new System.Drawing.Point(3, 18);
-			this.mangaDescriptionTextBox.Multiline = true;
-			this.mangaDescriptionTextBox.Name = "mangaDescriptionTextBox";
-			this.mangaDescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.mangaDescriptionTextBox.Size = new System.Drawing.Size(277, 174);
-			this.mangaDescriptionTextBox.TabIndex = 16;
-			// 
 			// mangaCoverPictureBox
 			// 
 			this.mangaCoverPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("Image", this.mangaInfoBindingSource, "mangaCover", true));
@@ -518,14 +599,6 @@
 			this.mangaCoverPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.mangaCoverPictureBox.TabIndex = 12;
 			this.mangaCoverPictureBox.TabStop = false;
-			// 
-			// mangaTitleTextBox
-			// 
-			this.mangaTitleTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaInfoBindingSource, "mangaTitle", true));
-			this.mangaTitleTextBox.Location = new System.Drawing.Point(6, 48);
-			this.mangaTitleTextBox.Name = "mangaTitleTextBox";
-			this.mangaTitleTextBox.Size = new System.Drawing.Size(268, 22);
-			this.mangaTitleTextBox.TabIndex = 4;
 			// 
 			// mangaInfoBindingNavigator
 			// 
@@ -653,16 +726,6 @@
 			this.mangaInfoBindingNavigatorSaveItem.Text = "Save Data";
 			this.mangaInfoBindingNavigatorSaveItem.Click += new System.EventHandler(this.mangaInfoBindingNavigatorSaveItem_Click);
 			// 
-			// mangaIDTextBox
-			// 
-			this.mangaIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaInfoBindingSource, "mangaID", true));
-			this.mangaIDTextBox.Location = new System.Drawing.Point(159, 20);
-			this.mangaIDTextBox.Name = "mangaIDTextBox";
-			this.mangaIDTextBox.ReadOnly = true;
-			this.mangaIDTextBox.Size = new System.Drawing.Size(115, 22);
-			this.mangaIDTextBox.TabIndex = 1;
-			this.mangaIDTextBox.TextChanged += new System.EventHandler(this.mangaIDTextBox_TextChanged);
-			// 
 			// tabAuthor
 			// 
 			this.tabAuthor.AutoScroll = true;
@@ -679,6 +742,133 @@
 			this.tabAuthor.TabIndex = 1;
 			this.tabAuthor.Text = "Author";
 			this.tabAuthor.UseVisualStyleBackColor = true;
+			// 
+			// searchByAuthorNameGroupBox
+			// 
+			this.searchByAuthorNameGroupBox.Controls.Add(this.browseAllAuthorEntriesButton);
+			this.searchByAuthorNameGroupBox.Controls.Add(this.authorSearchButton);
+			this.searchByAuthorNameGroupBox.Controls.Add(this.authorSearchTextBox);
+			this.searchByAuthorNameGroupBox.Location = new System.Drawing.Point(297, 31);
+			this.searchByAuthorNameGroupBox.Name = "searchByAuthorNameGroupBox";
+			this.searchByAuthorNameGroupBox.Size = new System.Drawing.Size(160, 76);
+			this.searchByAuthorNameGroupBox.TabIndex = 27;
+			this.searchByAuthorNameGroupBox.TabStop = false;
+			this.searchByAuthorNameGroupBox.Text = "Search Author by Name";
+			// 
+			// browseAllAuthorEntriesButton
+			// 
+			this.browseAllAuthorEntriesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.browseAllAuthorEntriesButton.Location = new System.Drawing.Point(35, 49);
+			this.browseAllAuthorEntriesButton.Name = "browseAllAuthorEntriesButton";
+			this.browseAllAuthorEntriesButton.Size = new System.Drawing.Size(119, 23);
+			this.browseAllAuthorEntriesButton.TabIndex = 2;
+			this.browseAllAuthorEntriesButton.Text = "Browse All Entries";
+			this.browseAllAuthorEntriesButton.UseVisualStyleBackColor = true;
+			// 
+			// authorSearchButton
+			// 
+			this.authorSearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.authorSearchButton.Image = global::mangaDatabaseEditor.Properties.Resources.magnifier;
+			this.authorSearchButton.Location = new System.Drawing.Point(6, 49);
+			this.authorSearchButton.Name = "authorSearchButton";
+			this.authorSearchButton.Size = new System.Drawing.Size(23, 23);
+			this.authorSearchButton.TabIndex = 1;
+			this.authorSearchButton.UseVisualStyleBackColor = true;
+			// 
+			// authorSearchTextBox
+			// 
+			this.authorSearchTextBox.Location = new System.Drawing.Point(6, 21);
+			this.authorSearchTextBox.Name = "authorSearchTextBox";
+			this.authorSearchTextBox.Size = new System.Drawing.Size(148, 22);
+			this.authorSearchTextBox.TabIndex = 0;
+			// 
+			// authorWebsiteGroupBox
+			// 
+			this.authorWebsiteGroupBox.Controls.Add(this.authorWebsiteTextBox);
+			this.authorWebsiteGroupBox.Location = new System.Drawing.Point(8, 231);
+			this.authorWebsiteGroupBox.Name = "authorWebsiteGroupBox";
+			this.authorWebsiteGroupBox.Size = new System.Drawing.Size(449, 53);
+			this.authorWebsiteGroupBox.TabIndex = 14;
+			this.authorWebsiteGroupBox.TabStop = false;
+			this.authorWebsiteGroupBox.Text = "Website";
+			// 
+			// authorWebsiteTextBox
+			// 
+			this.authorWebsiteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.authorTableBindingSource, "authorWebsite", true));
+			this.authorWebsiteTextBox.Location = new System.Drawing.Point(6, 21);
+			this.authorWebsiteTextBox.Name = "authorWebsiteTextBox";
+			this.authorWebsiteTextBox.Size = new System.Drawing.Size(437, 22);
+			this.authorWebsiteTextBox.TabIndex = 9;
+			// 
+			// authorTableBindingSource
+			// 
+			this.authorTableBindingSource.DataSource = typeof(mangaDatabaseEditor.authorTable);
+			// 
+			// authorDateOFBirthGroupBox
+			// 
+			this.authorDateOFBirthGroupBox.Controls.Add(this.authorDateOfBirthDateTimePicker);
+			this.authorDateOFBirthGroupBox.Location = new System.Drawing.Point(8, 171);
+			this.authorDateOFBirthGroupBox.Name = "authorDateOFBirthGroupBox";
+			this.authorDateOFBirthGroupBox.Size = new System.Drawing.Size(449, 54);
+			this.authorDateOFBirthGroupBox.TabIndex = 13;
+			this.authorDateOFBirthGroupBox.TabStop = false;
+			this.authorDateOFBirthGroupBox.Text = "Birthday";
+			// 
+			// authorDateOfBirthDateTimePicker
+			// 
+			this.authorDateOfBirthDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.authorTableBindingSource, "authorDateOfBirth", true));
+			this.authorDateOfBirthDateTimePicker.Location = new System.Drawing.Point(6, 21);
+			this.authorDateOfBirthDateTimePicker.Name = "authorDateOfBirthDateTimePicker";
+			this.authorDateOfBirthDateTimePicker.Size = new System.Drawing.Size(437, 22);
+			this.authorDateOfBirthDateTimePicker.TabIndex = 7;
+			// 
+			// authorCountryGroupBox
+			// 
+			this.authorCountryGroupBox.Controls.Add(this.authorCountryOfOriginTextBox);
+			this.authorCountryGroupBox.Location = new System.Drawing.Point(8, 113);
+			this.authorCountryGroupBox.Name = "authorCountryGroupBox";
+			this.authorCountryGroupBox.Size = new System.Drawing.Size(449, 52);
+			this.authorCountryGroupBox.TabIndex = 12;
+			this.authorCountryGroupBox.TabStop = false;
+			this.authorCountryGroupBox.Text = "Country";
+			// 
+			// authorCountryOfOriginTextBox
+			// 
+			this.authorCountryOfOriginTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.authorTableBindingSource, "authorCountryOfOrigin", true));
+			this.authorCountryOfOriginTextBox.Location = new System.Drawing.Point(6, 21);
+			this.authorCountryOfOriginTextBox.Name = "authorCountryOfOriginTextBox";
+			this.authorCountryOfOriginTextBox.Size = new System.Drawing.Size(437, 22);
+			this.authorCountryOfOriginTextBox.TabIndex = 5;
+			// 
+			// authorInfoGroupBox
+			// 
+			this.authorInfoGroupBox.Controls.Add(this.authorFullNameTextBox);
+			this.authorInfoGroupBox.Controls.Add(authorFullNameLabel1);
+			this.authorInfoGroupBox.Controls.Add(authorIDLabel);
+			this.authorInfoGroupBox.Controls.Add(this.authorIDTextBox);
+			this.authorInfoGroupBox.Location = new System.Drawing.Point(8, 31);
+			this.authorInfoGroupBox.Name = "authorInfoGroupBox";
+			this.authorInfoGroupBox.Size = new System.Drawing.Size(283, 76);
+			this.authorInfoGroupBox.TabIndex = 11;
+			this.authorInfoGroupBox.TabStop = false;
+			this.authorInfoGroupBox.Text = "Author Info";
+			// 
+			// authorFullNameTextBox
+			// 
+			this.authorFullNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.authorTableBindingSource, "authorFullName", true));
+			this.authorFullNameTextBox.Location = new System.Drawing.Point(6, 48);
+			this.authorFullNameTextBox.Name = "authorFullNameTextBox";
+			this.authorFullNameTextBox.Size = new System.Drawing.Size(268, 22);
+			this.authorFullNameTextBox.TabIndex = 3;
+			// 
+			// authorIDTextBox
+			// 
+			this.authorIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.authorTableBindingSource, "authorID", true));
+			this.authorIDTextBox.Location = new System.Drawing.Point(159, 20);
+			this.authorIDTextBox.Name = "authorIDTextBox";
+			this.authorIDTextBox.ReadOnly = true;
+			this.authorIDTextBox.Size = new System.Drawing.Size(115, 22);
+			this.authorIDTextBox.TabIndex = 1;
 			// 
 			// authorTableBindingNavigator
 			// 
@@ -721,10 +911,6 @@
 			this.authorTableBindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
 			this.authorTableBindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
 			this.authorTableBindingNavigatorAddNewItem.Text = "Add new";
-			// 
-			// authorTableBindingSource
-			// 
-			this.authorTableBindingSource.DataSource = typeof(mangaDatabaseEditor.authorTable);
 			// 
 			// authorTableBindingNavigatorCountItem
 			// 
@@ -812,47 +998,6 @@
 			this.authorTableBindingNavigatorSaveItem.Text = "authorSaveToolStripButton";
 			this.authorTableBindingNavigatorSaveItem.Click += new System.EventHandler(this.authorTableBindingNavigatorSaveItem_Click);
 			// 
-			// authorWebsiteTextBox
-			// 
-			this.authorWebsiteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.authorTableBindingSource, "authorWebsite", true));
-			this.authorWebsiteTextBox.Location = new System.Drawing.Point(6, 21);
-			this.authorWebsiteTextBox.Name = "authorWebsiteTextBox";
-			this.authorWebsiteTextBox.Size = new System.Drawing.Size(437, 22);
-			this.authorWebsiteTextBox.TabIndex = 9;
-			// 
-			// authorDateOfBirthDateTimePicker
-			// 
-			this.authorDateOfBirthDateTimePicker.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.authorTableBindingSource, "authorDateOfBirth", true));
-			this.authorDateOfBirthDateTimePicker.Location = new System.Drawing.Point(6, 21);
-			this.authorDateOfBirthDateTimePicker.Name = "authorDateOfBirthDateTimePicker";
-			this.authorDateOfBirthDateTimePicker.Size = new System.Drawing.Size(437, 22);
-			this.authorDateOfBirthDateTimePicker.TabIndex = 7;
-			// 
-			// authorCountryOfOriginTextBox
-			// 
-			this.authorCountryOfOriginTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.authorTableBindingSource, "authorCountryOfOrigin", true));
-			this.authorCountryOfOriginTextBox.Location = new System.Drawing.Point(6, 21);
-			this.authorCountryOfOriginTextBox.Name = "authorCountryOfOriginTextBox";
-			this.authorCountryOfOriginTextBox.Size = new System.Drawing.Size(437, 22);
-			this.authorCountryOfOriginTextBox.TabIndex = 5;
-			// 
-			// authorFullNameTextBox
-			// 
-			this.authorFullNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.authorTableBindingSource, "authorFullName", true));
-			this.authorFullNameTextBox.Location = new System.Drawing.Point(6, 48);
-			this.authorFullNameTextBox.Name = "authorFullNameTextBox";
-			this.authorFullNameTextBox.Size = new System.Drawing.Size(268, 22);
-			this.authorFullNameTextBox.TabIndex = 3;
-			// 
-			// authorIDTextBox
-			// 
-			this.authorIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.authorTableBindingSource, "authorID", true));
-			this.authorIDTextBox.Location = new System.Drawing.Point(159, 20);
-			this.authorIDTextBox.Name = "authorIDTextBox";
-			this.authorIDTextBox.ReadOnly = true;
-			this.authorIDTextBox.Size = new System.Drawing.Size(115, 22);
-			this.authorIDTextBox.TabIndex = 1;
-			// 
 			// tabPublisher
 			// 
 			this.tabPublisher.Controls.Add(this.publisherNoteGroupBox);
@@ -868,6 +1013,137 @@
 			this.tabPublisher.TabIndex = 2;
 			this.tabPublisher.Text = "Publisher";
 			this.tabPublisher.UseVisualStyleBackColor = true;
+			// 
+			// publisherNoteGroupBox
+			// 
+			this.publisherNoteGroupBox.Controls.Add(this.publisherNoteTextBox);
+			this.publisherNoteGroupBox.Location = new System.Drawing.Point(8, 232);
+			this.publisherNoteGroupBox.Name = "publisherNoteGroupBox";
+			this.publisherNoteGroupBox.Size = new System.Drawing.Size(449, 111);
+			this.publisherNoteGroupBox.TabIndex = 31;
+			this.publisherNoteGroupBox.TabStop = false;
+			this.publisherNoteGroupBox.Text = "Note";
+			// 
+			// publisherNoteTextBox
+			// 
+			this.publisherNoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.publisherNoteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.publisherInfoBindingSource, "publisherNote", true));
+			this.publisherNoteTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.publisherNoteTextBox.Location = new System.Drawing.Point(3, 16);
+			this.publisherNoteTextBox.Multiline = true;
+			this.publisherNoteTextBox.Name = "publisherNoteTextBox";
+			this.publisherNoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.publisherNoteTextBox.Size = new System.Drawing.Size(443, 92);
+			this.publisherNoteTextBox.TabIndex = 9;
+			// 
+			// publisherInfoBindingSource
+			// 
+			this.publisherInfoBindingSource.DataSource = typeof(mangaDatabaseEditor.publisherInfo);
+			// 
+			// publisherWebsiteGroupBox
+			// 
+			this.publisherWebsiteGroupBox.Controls.Add(this.publisherWebsiteTextBox);
+			this.publisherWebsiteGroupBox.Location = new System.Drawing.Point(8, 174);
+			this.publisherWebsiteGroupBox.Name = "publisherWebsiteGroupBox";
+			this.publisherWebsiteGroupBox.Size = new System.Drawing.Size(449, 52);
+			this.publisherWebsiteGroupBox.TabIndex = 30;
+			this.publisherWebsiteGroupBox.TabStop = false;
+			this.publisherWebsiteGroupBox.Text = "Website";
+			// 
+			// publisherWebsiteTextBox
+			// 
+			this.publisherWebsiteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.publisherInfoBindingSource, "publisherWebsite", true));
+			this.publisherWebsiteTextBox.Location = new System.Drawing.Point(6, 21);
+			this.publisherWebsiteTextBox.Name = "publisherWebsiteTextBox";
+			this.publisherWebsiteTextBox.Size = new System.Drawing.Size(437, 22);
+			this.publisherWebsiteTextBox.TabIndex = 7;
+			// 
+			// publisherCountryGroupBox
+			// 
+			this.publisherCountryGroupBox.Controls.Add(this.publisherCountryTextBox);
+			this.publisherCountryGroupBox.Location = new System.Drawing.Point(8, 113);
+			this.publisherCountryGroupBox.Name = "publisherCountryGroupBox";
+			this.publisherCountryGroupBox.Size = new System.Drawing.Size(449, 55);
+			this.publisherCountryGroupBox.TabIndex = 29;
+			this.publisherCountryGroupBox.TabStop = false;
+			this.publisherCountryGroupBox.Text = "Country";
+			// 
+			// publisherCountryTextBox
+			// 
+			this.publisherCountryTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.publisherInfoBindingSource, "publisherCountry", true));
+			this.publisherCountryTextBox.Location = new System.Drawing.Point(6, 21);
+			this.publisherCountryTextBox.Name = "publisherCountryTextBox";
+			this.publisherCountryTextBox.Size = new System.Drawing.Size(437, 22);
+			this.publisherCountryTextBox.TabIndex = 5;
+			// 
+			// searchPublisherGroupBox
+			// 
+			this.searchPublisherGroupBox.Controls.Add(this.browseAllPublisherEntriesButton);
+			this.searchPublisherGroupBox.Controls.Add(this.searchPublisherButton);
+			this.searchPublisherGroupBox.Controls.Add(this.searchPublisherTextBox);
+			this.searchPublisherGroupBox.Location = new System.Drawing.Point(297, 31);
+			this.searchPublisherGroupBox.Name = "searchPublisherGroupBox";
+			this.searchPublisherGroupBox.Size = new System.Drawing.Size(160, 76);
+			this.searchPublisherGroupBox.TabIndex = 28;
+			this.searchPublisherGroupBox.TabStop = false;
+			this.searchPublisherGroupBox.Text = "Search Publisher by Name";
+			// 
+			// browseAllPublisherEntriesButton
+			// 
+			this.browseAllPublisherEntriesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.browseAllPublisherEntriesButton.Location = new System.Drawing.Point(35, 49);
+			this.browseAllPublisherEntriesButton.Name = "browseAllPublisherEntriesButton";
+			this.browseAllPublisherEntriesButton.Size = new System.Drawing.Size(119, 23);
+			this.browseAllPublisherEntriesButton.TabIndex = 2;
+			this.browseAllPublisherEntriesButton.Text = "Browse All Entries";
+			this.browseAllPublisherEntriesButton.UseVisualStyleBackColor = true;
+			// 
+			// searchPublisherButton
+			// 
+			this.searchPublisherButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.searchPublisherButton.Image = global::mangaDatabaseEditor.Properties.Resources.magnifier;
+			this.searchPublisherButton.Location = new System.Drawing.Point(6, 49);
+			this.searchPublisherButton.Name = "searchPublisherButton";
+			this.searchPublisherButton.Size = new System.Drawing.Size(23, 23);
+			this.searchPublisherButton.TabIndex = 1;
+			this.searchPublisherButton.UseVisualStyleBackColor = true;
+			// 
+			// searchPublisherTextBox
+			// 
+			this.searchPublisherTextBox.Location = new System.Drawing.Point(6, 21);
+			this.searchPublisherTextBox.Name = "searchPublisherTextBox";
+			this.searchPublisherTextBox.Size = new System.Drawing.Size(148, 22);
+			this.searchPublisherTextBox.TabIndex = 0;
+			// 
+			// publisherInfoGroupBox
+			// 
+			this.publisherInfoGroupBox.Controls.Add(this.publisherNameTextBox);
+			this.publisherInfoGroupBox.Controls.Add(this.publisherIDTextBox);
+			this.publisherInfoGroupBox.Controls.Add(publisherIDLabel);
+			this.publisherInfoGroupBox.Controls.Add(publisherNameLabel1);
+			this.publisherInfoGroupBox.Location = new System.Drawing.Point(8, 31);
+			this.publisherInfoGroupBox.Name = "publisherInfoGroupBox";
+			this.publisherInfoGroupBox.Size = new System.Drawing.Size(283, 76);
+			this.publisherInfoGroupBox.TabIndex = 12;
+			this.publisherInfoGroupBox.TabStop = false;
+			this.publisherInfoGroupBox.Text = "Publisher Info";
+			// 
+			// publisherNameTextBox
+			// 
+			this.publisherNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.publisherInfoBindingSource, "publisherName", true));
+			this.publisherNameTextBox.Location = new System.Drawing.Point(6, 48);
+			this.publisherNameTextBox.Name = "publisherNameTextBox";
+			this.publisherNameTextBox.Size = new System.Drawing.Size(268, 22);
+			this.publisherNameTextBox.TabIndex = 3;
+			// 
+			// publisherIDTextBox
+			// 
+			this.publisherIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.publisherInfoBindingSource, "publisherID", true));
+			this.publisherIDTextBox.Location = new System.Drawing.Point(159, 20);
+			this.publisherIDTextBox.Name = "publisherIDTextBox";
+			this.publisherIDTextBox.ReadOnly = true;
+			this.publisherIDTextBox.Size = new System.Drawing.Size(115, 22);
+			this.publisherIDTextBox.TabIndex = 1;
 			// 
 			// publisherBindingNavigator
 			// 
@@ -909,10 +1185,6 @@
 			this.publisherInfoBindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
 			this.publisherInfoBindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
 			this.publisherInfoBindingNavigatorAddNewItem.Text = "Add new";
-			// 
-			// publisherInfoBindingSource
-			// 
-			this.publisherInfoBindingSource.DataSource = typeof(mangaDatabaseEditor.publisherInfo);
 			// 
 			// publisherInfoBindingNavigatorCountItem
 			// 
@@ -1000,51 +1272,6 @@
 			this.publisherInfoBindingNavigatorSaveItem.Text = "toolStripButton1";
 			this.publisherInfoBindingNavigatorSaveItem.Click += new System.EventHandler(this.publisherInfoBindingNavigatorSaveItem_Click);
 			// 
-			// publisherNoteTextBox
-			// 
-			this.publisherNoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.publisherNoteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.publisherInfoBindingSource, "publisherNote", true));
-			this.publisherNoteTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.publisherNoteTextBox.Location = new System.Drawing.Point(3, 18);
-			this.publisherNoteTextBox.Multiline = true;
-			this.publisherNoteTextBox.Name = "publisherNoteTextBox";
-			this.publisherNoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.publisherNoteTextBox.Size = new System.Drawing.Size(443, 90);
-			this.publisherNoteTextBox.TabIndex = 9;
-			// 
-			// publisherWebsiteTextBox
-			// 
-			this.publisherWebsiteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.publisherInfoBindingSource, "publisherWebsite", true));
-			this.publisherWebsiteTextBox.Location = new System.Drawing.Point(6, 21);
-			this.publisherWebsiteTextBox.Name = "publisherWebsiteTextBox";
-			this.publisherWebsiteTextBox.Size = new System.Drawing.Size(437, 22);
-			this.publisherWebsiteTextBox.TabIndex = 7;
-			// 
-			// publisherCountryTextBox
-			// 
-			this.publisherCountryTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.publisherInfoBindingSource, "publisherCountry", true));
-			this.publisherCountryTextBox.Location = new System.Drawing.Point(6, 21);
-			this.publisherCountryTextBox.Name = "publisherCountryTextBox";
-			this.publisherCountryTextBox.Size = new System.Drawing.Size(437, 22);
-			this.publisherCountryTextBox.TabIndex = 5;
-			// 
-			// publisherNameTextBox
-			// 
-			this.publisherNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.publisherInfoBindingSource, "publisherName", true));
-			this.publisherNameTextBox.Location = new System.Drawing.Point(6, 48);
-			this.publisherNameTextBox.Name = "publisherNameTextBox";
-			this.publisherNameTextBox.Size = new System.Drawing.Size(268, 22);
-			this.publisherNameTextBox.TabIndex = 3;
-			// 
-			// publisherIDTextBox
-			// 
-			this.publisherIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.publisherInfoBindingSource, "publisherID", true));
-			this.publisherIDTextBox.Location = new System.Drawing.Point(159, 20);
-			this.publisherIDTextBox.Name = "publisherIDTextBox";
-			this.publisherIDTextBox.ReadOnly = true;
-			this.publisherIDTextBox.Size = new System.Drawing.Size(115, 22);
-			this.publisherIDTextBox.TabIndex = 1;
-			// 
 			// genreInfoBindingSource
 			// 
 			this.genreInfoBindingSource.DataSource = typeof(mangaDatabaseEditor.genreInfo);
@@ -1131,236 +1358,9 @@
 			this.mangaGenresBindingSource.DataMember = "mangaGenres";
 			this.mangaGenresBindingSource.DataSource = this.mangaInfoBindingSource;
 			// 
-			// publisherComboBox
-			// 
-			this.publisherComboBox.FormattingEnabled = true;
-			this.publisherComboBox.Location = new System.Drawing.Point(6, 49);
-			this.publisherComboBox.Name = "publisherComboBox";
-			this.publisherComboBox.Size = new System.Drawing.Size(214, 21);
-			this.publisherComboBox.TabIndex = 31;
-			// 
-			// addPublisherButton
-			// 
-			this.addPublisherButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.addPublisherButton.Image = global::mangaDatabaseEditor.Properties.Resources.plus;
-			this.addPublisherButton.Location = new System.Drawing.Point(226, 49);
-			this.addPublisherButton.Name = "addPublisherButton";
-			this.addPublisherButton.Size = new System.Drawing.Size(21, 21);
-			this.addPublisherButton.TabIndex = 30;
-			this.addPublisherButton.UseVisualStyleBackColor = true;
-			this.addPublisherButton.Click += new System.EventHandler(this.addPublisherButton_Click);
-			// 
-			// removePublisherButton
-			// 
-			this.removePublisherButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.removePublisherButton.Image = global::mangaDatabaseEditor.Properties.Resources.minus;
-			this.removePublisherButton.Location = new System.Drawing.Point(253, 49);
-			this.removePublisherButton.Name = "removePublisherButton";
-			this.removePublisherButton.Size = new System.Drawing.Size(21, 21);
-			this.removePublisherButton.TabIndex = 30;
-			this.removePublisherButton.UseVisualStyleBackColor = true;
-			this.removePublisherButton.Click += new System.EventHandler(this.removePublisherButton_Click);
-			// 
 			// mangaInfoBindingSource1
 			// 
 			this.mangaInfoBindingSource1.DataSource = typeof(mangaDatabaseEditor.mangaInfo);
-			// 
-			// mangaInfoGroupBox
-			// 
-			this.mangaInfoGroupBox.Controls.Add(this.mangaIDTextBox);
-			this.mangaInfoGroupBox.Controls.Add(this.mangaTitleTextBox);
-			this.mangaInfoGroupBox.Controls.Add(mangaIDLabel);
-			this.mangaInfoGroupBox.Controls.Add(mangaTitleLabel);
-			this.mangaInfoGroupBox.Location = new System.Drawing.Point(8, 31);
-			this.mangaInfoGroupBox.Name = "mangaInfoGroupBox";
-			this.mangaInfoGroupBox.Size = new System.Drawing.Size(283, 76);
-			this.mangaInfoGroupBox.TabIndex = 31;
-			this.mangaInfoGroupBox.TabStop = false;
-			this.mangaInfoGroupBox.Text = "Manga Info";
-			// 
-			// descriptionGroupBox
-			// 
-			this.descriptionGroupBox.Controls.Add(this.mangaDescriptionTextBox);
-			this.descriptionGroupBox.Location = new System.Drawing.Point(8, 349);
-			this.descriptionGroupBox.Name = "descriptionGroupBox";
-			this.descriptionGroupBox.Size = new System.Drawing.Size(283, 195);
-			this.descriptionGroupBox.TabIndex = 32;
-			this.descriptionGroupBox.TabStop = false;
-			this.descriptionGroupBox.Text = "Description";
-			// 
-			// dateOfPublicationGroupBox
-			// 
-			this.dateOfPublicationGroupBox.Controls.Add(this.dateOfPublishDateTimePicker);
-			this.dateOfPublicationGroupBox.Location = new System.Drawing.Point(8, 550);
-			this.dateOfPublicationGroupBox.Name = "dateOfPublicationGroupBox";
-			this.dateOfPublicationGroupBox.Size = new System.Drawing.Size(283, 56);
-			this.dateOfPublicationGroupBox.TabIndex = 33;
-			this.dateOfPublicationGroupBox.TabStop = false;
-			this.dateOfPublicationGroupBox.Text = "Date Of Publication";
-			// 
-			// authorInfoGroupBox
-			// 
-			this.authorInfoGroupBox.Controls.Add(this.authorFullNameTextBox);
-			this.authorInfoGroupBox.Controls.Add(authorFullNameLabel1);
-			this.authorInfoGroupBox.Controls.Add(authorIDLabel);
-			this.authorInfoGroupBox.Controls.Add(this.authorIDTextBox);
-			this.authorInfoGroupBox.Location = new System.Drawing.Point(8, 31);
-			this.authorInfoGroupBox.Name = "authorInfoGroupBox";
-			this.authorInfoGroupBox.Size = new System.Drawing.Size(283, 76);
-			this.authorInfoGroupBox.TabIndex = 11;
-			this.authorInfoGroupBox.TabStop = false;
-			this.authorInfoGroupBox.Text = "Author Info";
-			// 
-			// authorCountryGroupBox
-			// 
-			this.authorCountryGroupBox.Controls.Add(this.authorCountryOfOriginTextBox);
-			this.authorCountryGroupBox.Location = new System.Drawing.Point(8, 113);
-			this.authorCountryGroupBox.Name = "authorCountryGroupBox";
-			this.authorCountryGroupBox.Size = new System.Drawing.Size(449, 52);
-			this.authorCountryGroupBox.TabIndex = 12;
-			this.authorCountryGroupBox.TabStop = false;
-			this.authorCountryGroupBox.Text = "Country";
-			// 
-			// authorDateOFBirthGroupBox
-			// 
-			this.authorDateOFBirthGroupBox.Controls.Add(this.authorDateOfBirthDateTimePicker);
-			this.authorDateOFBirthGroupBox.Location = new System.Drawing.Point(8, 171);
-			this.authorDateOFBirthGroupBox.Name = "authorDateOFBirthGroupBox";
-			this.authorDateOFBirthGroupBox.Size = new System.Drawing.Size(449, 54);
-			this.authorDateOFBirthGroupBox.TabIndex = 13;
-			this.authorDateOFBirthGroupBox.TabStop = false;
-			this.authorDateOFBirthGroupBox.Text = "Birthday";
-			// 
-			// authorWebsiteGroupBox
-			// 
-			this.authorWebsiteGroupBox.Controls.Add(this.authorWebsiteTextBox);
-			this.authorWebsiteGroupBox.Location = new System.Drawing.Point(8, 231);
-			this.authorWebsiteGroupBox.Name = "authorWebsiteGroupBox";
-			this.authorWebsiteGroupBox.Size = new System.Drawing.Size(449, 53);
-			this.authorWebsiteGroupBox.TabIndex = 14;
-			this.authorWebsiteGroupBox.TabStop = false;
-			this.authorWebsiteGroupBox.Text = "Website";
-			// 
-			// searchByAuthorNameGroupBox
-			// 
-			this.searchByAuthorNameGroupBox.Controls.Add(this.browseAllAuthorEntriesButton);
-			this.searchByAuthorNameGroupBox.Controls.Add(this.authorSearchButton);
-			this.searchByAuthorNameGroupBox.Controls.Add(this.authorSearchTextBox);
-			this.searchByAuthorNameGroupBox.Location = new System.Drawing.Point(297, 31);
-			this.searchByAuthorNameGroupBox.Name = "searchByAuthorNameGroupBox";
-			this.searchByAuthorNameGroupBox.Size = new System.Drawing.Size(160, 76);
-			this.searchByAuthorNameGroupBox.TabIndex = 27;
-			this.searchByAuthorNameGroupBox.TabStop = false;
-			this.searchByAuthorNameGroupBox.Text = "Search Author by Name";
-			// 
-			// browseAllAuthorEntriesButton
-			// 
-			this.browseAllAuthorEntriesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.browseAllAuthorEntriesButton.Location = new System.Drawing.Point(35, 49);
-			this.browseAllAuthorEntriesButton.Name = "browseAllAuthorEntriesButton";
-			this.browseAllAuthorEntriesButton.Size = new System.Drawing.Size(119, 23);
-			this.browseAllAuthorEntriesButton.TabIndex = 2;
-			this.browseAllAuthorEntriesButton.Text = "Browse All Entries";
-			this.browseAllAuthorEntriesButton.UseVisualStyleBackColor = true;
-			// 
-			// authorSearchButton
-			// 
-			this.authorSearchButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.authorSearchButton.Image = global::mangaDatabaseEditor.Properties.Resources.magnifier;
-			this.authorSearchButton.Location = new System.Drawing.Point(6, 49);
-			this.authorSearchButton.Name = "authorSearchButton";
-			this.authorSearchButton.Size = new System.Drawing.Size(23, 23);
-			this.authorSearchButton.TabIndex = 1;
-			this.authorSearchButton.UseVisualStyleBackColor = true;
-			// 
-			// authorSearchTextBox
-			// 
-			this.authorSearchTextBox.Location = new System.Drawing.Point(6, 21);
-			this.authorSearchTextBox.Name = "authorSearchTextBox";
-			this.authorSearchTextBox.Size = new System.Drawing.Size(148, 22);
-			this.authorSearchTextBox.TabIndex = 0;
-			// 
-			// publisherInfoGroupBox
-			// 
-			this.publisherInfoGroupBox.Controls.Add(this.publisherNameTextBox);
-			this.publisherInfoGroupBox.Controls.Add(this.publisherIDTextBox);
-			this.publisherInfoGroupBox.Controls.Add(publisherIDLabel);
-			this.publisherInfoGroupBox.Controls.Add(publisherNameLabel1);
-			this.publisherInfoGroupBox.Location = new System.Drawing.Point(8, 31);
-			this.publisherInfoGroupBox.Name = "publisherInfoGroupBox";
-			this.publisherInfoGroupBox.Size = new System.Drawing.Size(283, 76);
-			this.publisherInfoGroupBox.TabIndex = 12;
-			this.publisherInfoGroupBox.TabStop = false;
-			this.publisherInfoGroupBox.Text = "Publisher Info";
-			// 
-			// searchPublisherGroupBox
-			// 
-			this.searchPublisherGroupBox.Controls.Add(this.browseAllPublisherEntriesButton);
-			this.searchPublisherGroupBox.Controls.Add(this.searchPublisherButton);
-			this.searchPublisherGroupBox.Controls.Add(this.searchPublisherTextBox);
-			this.searchPublisherGroupBox.Location = new System.Drawing.Point(297, 31);
-			this.searchPublisherGroupBox.Name = "searchPublisherGroupBox";
-			this.searchPublisherGroupBox.Size = new System.Drawing.Size(160, 76);
-			this.searchPublisherGroupBox.TabIndex = 28;
-			this.searchPublisherGroupBox.TabStop = false;
-			this.searchPublisherGroupBox.Text = "Search Publisher by Name";
-			// 
-			// browseAllPublisherEntriesButton
-			// 
-			this.browseAllPublisherEntriesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.browseAllPublisherEntriesButton.Location = new System.Drawing.Point(35, 49);
-			this.browseAllPublisherEntriesButton.Name = "browseAllPublisherEntriesButton";
-			this.browseAllPublisherEntriesButton.Size = new System.Drawing.Size(119, 23);
-			this.browseAllPublisherEntriesButton.TabIndex = 2;
-			this.browseAllPublisherEntriesButton.Text = "Browse All Entries";
-			this.browseAllPublisherEntriesButton.UseVisualStyleBackColor = true;
-			// 
-			// searchPublisherButton
-			// 
-			this.searchPublisherButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.searchPublisherButton.Image = global::mangaDatabaseEditor.Properties.Resources.magnifier;
-			this.searchPublisherButton.Location = new System.Drawing.Point(6, 49);
-			this.searchPublisherButton.Name = "searchPublisherButton";
-			this.searchPublisherButton.Size = new System.Drawing.Size(23, 23);
-			this.searchPublisherButton.TabIndex = 1;
-			this.searchPublisherButton.UseVisualStyleBackColor = true;
-			// 
-			// searchPublisherTextBox
-			// 
-			this.searchPublisherTextBox.Location = new System.Drawing.Point(6, 21);
-			this.searchPublisherTextBox.Name = "searchPublisherTextBox";
-			this.searchPublisherTextBox.Size = new System.Drawing.Size(148, 22);
-			this.searchPublisherTextBox.TabIndex = 0;
-			// 
-			// publisherCountryGroupBox
-			// 
-			this.publisherCountryGroupBox.Controls.Add(this.publisherCountryTextBox);
-			this.publisherCountryGroupBox.Location = new System.Drawing.Point(8, 113);
-			this.publisherCountryGroupBox.Name = "publisherCountryGroupBox";
-			this.publisherCountryGroupBox.Size = new System.Drawing.Size(449, 55);
-			this.publisherCountryGroupBox.TabIndex = 29;
-			this.publisherCountryGroupBox.TabStop = false;
-			this.publisherCountryGroupBox.Text = "Country";
-			// 
-			// publisherWebsiteGroupBox
-			// 
-			this.publisherWebsiteGroupBox.Controls.Add(this.publisherWebsiteTextBox);
-			this.publisherWebsiteGroupBox.Location = new System.Drawing.Point(8, 174);
-			this.publisherWebsiteGroupBox.Name = "publisherWebsiteGroupBox";
-			this.publisherWebsiteGroupBox.Size = new System.Drawing.Size(449, 52);
-			this.publisherWebsiteGroupBox.TabIndex = 30;
-			this.publisherWebsiteGroupBox.TabStop = false;
-			this.publisherWebsiteGroupBox.Text = "Website";
-			// 
-			// publisherNoteGroupBox
-			// 
-			this.publisherNoteGroupBox.Controls.Add(this.publisherNoteTextBox);
-			this.publisherNoteGroupBox.Location = new System.Drawing.Point(8, 232);
-			this.publisherNoteGroupBox.Name = "publisherNoteGroupBox";
-			this.publisherNoteGroupBox.Size = new System.Drawing.Size(449, 111);
-			this.publisherNoteGroupBox.TabIndex = 31;
-			this.publisherNoteGroupBox.TabStop = false;
-			this.publisherNoteGroupBox.Text = "Note";
 			// 
 			// MainForm
 			// 
@@ -1377,12 +1377,17 @@
 			this.tabControl.ResumeLayout(false);
 			this.tabManga.ResumeLayout(false);
 			this.tabManga.PerformLayout();
+			this.dateOfPublicationGroupBox.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.mangaInfoBindingSource)).EndInit();
+			this.descriptionGroupBox.ResumeLayout(false);
+			this.descriptionGroupBox.PerformLayout();
+			this.mangaInfoGroupBox.ResumeLayout(false);
+			this.mangaInfoGroupBox.PerformLayout();
 			this.publisherGroupBox.ResumeLayout(false);
 			this.publisherGroupBox.PerformLayout();
 			this.mangaAuthorGroupBox.ResumeLayout(false);
 			this.mangaGenresGroupBox.ResumeLayout(false);
 			this.publicationStatusGroupbox.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.mangaInfoBindingSource)).EndInit();
 			this.searchMangaGroupBox.ResumeLayout(false);
 			this.searchMangaGroupBox.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mangaCoverPictureBox)).EndInit();
@@ -1391,16 +1396,35 @@
 			this.mangaInfoBindingNavigator.PerformLayout();
 			this.tabAuthor.ResumeLayout(false);
 			this.tabAuthor.PerformLayout();
+			this.searchByAuthorNameGroupBox.ResumeLayout(false);
+			this.searchByAuthorNameGroupBox.PerformLayout();
+			this.authorWebsiteGroupBox.ResumeLayout(false);
+			this.authorWebsiteGroupBox.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.authorTableBindingSource)).EndInit();
+			this.authorDateOFBirthGroupBox.ResumeLayout(false);
+			this.authorCountryGroupBox.ResumeLayout(false);
+			this.authorCountryGroupBox.PerformLayout();
+			this.authorInfoGroupBox.ResumeLayout(false);
+			this.authorInfoGroupBox.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.authorTableBindingNavigator)).EndInit();
 			this.authorTableBindingNavigator.ResumeLayout(false);
 			this.authorTableBindingNavigator.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.authorTableBindingSource)).EndInit();
 			this.tabPublisher.ResumeLayout(false);
 			this.tabPublisher.PerformLayout();
+			this.publisherNoteGroupBox.ResumeLayout(false);
+			this.publisherNoteGroupBox.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.publisherInfoBindingSource)).EndInit();
+			this.publisherWebsiteGroupBox.ResumeLayout(false);
+			this.publisherWebsiteGroupBox.PerformLayout();
+			this.publisherCountryGroupBox.ResumeLayout(false);
+			this.publisherCountryGroupBox.PerformLayout();
+			this.searchPublisherGroupBox.ResumeLayout(false);
+			this.searchPublisherGroupBox.PerformLayout();
+			this.publisherInfoGroupBox.ResumeLayout(false);
+			this.publisherInfoGroupBox.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.publisherBindingNavigator)).EndInit();
 			this.publisherBindingNavigator.ResumeLayout(false);
 			this.publisherBindingNavigator.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.publisherInfoBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.genreInfoBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.mangaAuthorsBindingSource)).EndInit();
 			this.mainMenuStrip.ResumeLayout(false);
@@ -1408,30 +1432,6 @@
 			this.addAuthorContextMenu.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.mangaGenresBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.mangaInfoBindingSource1)).EndInit();
-			this.mangaInfoGroupBox.ResumeLayout(false);
-			this.mangaInfoGroupBox.PerformLayout();
-			this.descriptionGroupBox.ResumeLayout(false);
-			this.descriptionGroupBox.PerformLayout();
-			this.dateOfPublicationGroupBox.ResumeLayout(false);
-			this.authorInfoGroupBox.ResumeLayout(false);
-			this.authorInfoGroupBox.PerformLayout();
-			this.authorCountryGroupBox.ResumeLayout(false);
-			this.authorCountryGroupBox.PerformLayout();
-			this.authorDateOFBirthGroupBox.ResumeLayout(false);
-			this.authorWebsiteGroupBox.ResumeLayout(false);
-			this.authorWebsiteGroupBox.PerformLayout();
-			this.searchByAuthorNameGroupBox.ResumeLayout(false);
-			this.searchByAuthorNameGroupBox.PerformLayout();
-			this.publisherInfoGroupBox.ResumeLayout(false);
-			this.publisherInfoGroupBox.PerformLayout();
-			this.searchPublisherGroupBox.ResumeLayout(false);
-			this.searchPublisherGroupBox.PerformLayout();
-			this.publisherCountryGroupBox.ResumeLayout(false);
-			this.publisherCountryGroupBox.PerformLayout();
-			this.publisherWebsiteGroupBox.ResumeLayout(false);
-			this.publisherWebsiteGroupBox.PerformLayout();
-			this.publisherNoteGroupBox.ResumeLayout(false);
-			this.publisherNoteGroupBox.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

@@ -32,38 +32,57 @@
 			System.Windows.Forms.Label genreIDLabel;
 			System.Windows.Forms.Label genreNameLabel;
 			this.genreInfoBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-			this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
-			this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
-			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
-			this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.genreIDTextBox = new System.Windows.Forms.TextBox();
-			this.genreNameTextBox = new System.Windows.Forms.TextBox();
-			this.searchGroupBox = new System.Windows.Forms.GroupBox();
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.searchTextBox = new System.Windows.Forms.TextBox();
-			this.browseAllButton = new System.Windows.Forms.Button();
-			this.genreInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.searchButton = new System.Windows.Forms.Button();
 			this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+			this.genreInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
 			this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMovePreviousItem = new System.Windows.Forms.ToolStripButton();
+			this.bindingNavigatorSeparator = new System.Windows.Forms.ToolStripSeparator();
+			this.bindingNavigatorPositionItem = new System.Windows.Forms.ToolStripTextBox();
+			this.bindingNavigatorSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.bindingNavigatorMoveNextItem = new System.Windows.Forms.ToolStripButton();
 			this.bindingNavigatorMoveLastItem = new System.Windows.Forms.ToolStripButton();
+			this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.genreInfoBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
+			this.genreIDTextBox = new System.Windows.Forms.TextBox();
+			this.genreNameTextBox = new System.Windows.Forms.TextBox();
+			this.searchGroupBox = new System.Windows.Forms.GroupBox();
+			this.searchButton = new System.Windows.Forms.Button();
+			this.searchTextBox = new System.Windows.Forms.TextBox();
+			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.browseAllButton = new System.Windows.Forms.Button();
 			genreIDLabel = new System.Windows.Forms.Label();
 			genreNameLabel = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.genreInfoBindingNavigator)).BeginInit();
 			this.genreInfoBindingNavigator.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.genreInfoBindingSource)).BeginInit();
 			this.searchGroupBox.SuspendLayout();
 			this.groupBox1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.genreInfoBindingSource)).BeginInit();
 			this.SuspendLayout();
+			// 
+			// genreIDLabel
+			// 
+			genreIDLabel.AutoSize = true;
+			genreIDLabel.Location = new System.Drawing.Point(6, 24);
+			genreIDLabel.Name = "genreIDLabel";
+			genreIDLabel.Size = new System.Drawing.Size(21, 13);
+			genreIDLabel.TabIndex = 1;
+			genreIDLabel.Text = "ID:";
+			// 
+			// genreNameLabel
+			// 
+			genreNameLabel.AutoSize = true;
+			genreNameLabel.Location = new System.Drawing.Point(6, 52);
+			genreNameLabel.Name = "genreNameLabel";
+			genreNameLabel.Size = new System.Drawing.Size(41, 13);
+			genreNameLabel.TabIndex = 3;
+			genreNameLabel.Text = "Genre:";
 			// 
 			// genreInfoBindingNavigator
 			// 
 			this.genreInfoBindingNavigator.AddNewItem = this.bindingNavigatorAddNewItem;
+			this.genreInfoBindingNavigator.BackColor = System.Drawing.Color.White;
 			this.genreInfoBindingNavigator.BindingSource = this.genreInfoBindingSource;
 			this.genreInfoBindingNavigator.CountItem = this.bindingNavigatorCountItem;
 			this.genreInfoBindingNavigator.DeleteItem = this.bindingNavigatorDeleteItem;
@@ -92,130 +111,6 @@
 			this.genreInfoBindingNavigator.TabIndex = 0;
 			this.genreInfoBindingNavigator.Text = "Genre Navigator";
 			// 
-			// bindingNavigatorSeparator
-			// 
-			this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-			this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
-			// 
-			// bindingNavigatorPositionItem
-			// 
-			this.bindingNavigatorPositionItem.AccessibleName = "Position";
-			this.bindingNavigatorPositionItem.AutoSize = false;
-			this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-			this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
-			this.bindingNavigatorPositionItem.Text = "0";
-			this.bindingNavigatorPositionItem.ToolTipText = "Current position";
-			// 
-			// bindingNavigatorCountItem
-			// 
-			this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-			this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
-			this.bindingNavigatorCountItem.Text = "of {0}";
-			this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
-			// 
-			// bindingNavigatorSeparator1
-			// 
-			this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator";
-			this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
-			// bindingNavigatorSeparator2
-			// 
-			this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator";
-			this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
-			// 
-			// genreIDLabel
-			// 
-			genreIDLabel.AutoSize = true;
-			genreIDLabel.Location = new System.Drawing.Point(6, 24);
-			genreIDLabel.Name = "genreIDLabel";
-			genreIDLabel.Size = new System.Drawing.Size(21, 13);
-			genreIDLabel.TabIndex = 1;
-			genreIDLabel.Text = "ID:";
-			// 
-			// genreIDTextBox
-			// 
-			this.genreIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.genreInfoBindingSource, "genreID", true));
-			this.genreIDTextBox.Location = new System.Drawing.Point(66, 21);
-			this.genreIDTextBox.Name = "genreIDTextBox";
-			this.genreIDTextBox.ReadOnly = true;
-			this.genreIDTextBox.Size = new System.Drawing.Size(182, 22);
-			this.genreIDTextBox.TabIndex = 2;
-			// 
-			// genreNameLabel
-			// 
-			genreNameLabel.AutoSize = true;
-			genreNameLabel.Location = new System.Drawing.Point(6, 52);
-			genreNameLabel.Name = "genreNameLabel";
-			genreNameLabel.Size = new System.Drawing.Size(41, 13);
-			genreNameLabel.TabIndex = 3;
-			genreNameLabel.Text = "Genre:";
-			// 
-			// genreNameTextBox
-			// 
-			this.genreNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.genreInfoBindingSource, "genreName", true));
-			this.genreNameTextBox.Location = new System.Drawing.Point(66, 49);
-			this.genreNameTextBox.Name = "genreNameTextBox";
-			this.genreNameTextBox.Size = new System.Drawing.Size(182, 22);
-			this.genreNameTextBox.TabIndex = 4;
-			// 
-			// searchGroupBox
-			// 
-			this.searchGroupBox.Controls.Add(this.searchButton);
-			this.searchGroupBox.Controls.Add(this.searchTextBox);
-			this.searchGroupBox.Location = new System.Drawing.Point(12, 116);
-			this.searchGroupBox.Name = "searchGroupBox";
-			this.searchGroupBox.Size = new System.Drawing.Size(254, 56);
-			this.searchGroupBox.TabIndex = 5;
-			this.searchGroupBox.TabStop = false;
-			this.searchGroupBox.Text = "Search Genre:";
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Controls.Add(this.genreIDTextBox);
-			this.groupBox1.Controls.Add(genreIDLabel);
-			this.groupBox1.Controls.Add(genreNameLabel);
-			this.groupBox1.Controls.Add(this.genreNameTextBox);
-			this.groupBox1.Location = new System.Drawing.Point(12, 28);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(254, 82);
-			this.groupBox1.TabIndex = 6;
-			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Genres:";
-			// 
-			// searchTextBox
-			// 
-			this.searchTextBox.Location = new System.Drawing.Point(9, 21);
-			this.searchTextBox.Name = "searchTextBox";
-			this.searchTextBox.Size = new System.Drawing.Size(213, 22);
-			this.searchTextBox.TabIndex = 0;
-			this.searchTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.searchTextBox_KeyUp);
-			// 
-			// browseAllButton
-			// 
-			this.browseAllButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.browseAllButton.Location = new System.Drawing.Point(12, 180);
-			this.browseAllButton.Name = "browseAllButton";
-			this.browseAllButton.Size = new System.Drawing.Size(108, 23);
-			this.browseAllButton.TabIndex = 7;
-			this.browseAllButton.Text = "Browse All Entries";
-			this.browseAllButton.UseVisualStyleBackColor = true;
-			this.browseAllButton.Click += new System.EventHandler(this.browseAllButton_Click);
-			// 
-			// genreInfoBindingSource
-			// 
-			this.genreInfoBindingSource.DataSource = typeof(mangaDatabaseEditor.genreInfo);
-			// 
-			// searchButton
-			// 
-			this.searchButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-			this.searchButton.Image = global::mangaDatabaseEditor.Properties.Resources.magnifier;
-			this.searchButton.Location = new System.Drawing.Point(228, 21);
-			this.searchButton.Name = "searchButton";
-			this.searchButton.Size = new System.Drawing.Size(22, 22);
-			this.searchButton.TabIndex = 1;
-			this.searchButton.UseVisualStyleBackColor = true;
-			this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
-			// 
 			// bindingNavigatorAddNewItem
 			// 
 			this.bindingNavigatorAddNewItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -224,6 +119,17 @@
 			this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
 			this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
 			this.bindingNavigatorAddNewItem.Text = "Add new";
+			// 
+			// genreInfoBindingSource
+			// 
+			this.genreInfoBindingSource.DataSource = typeof(mangaDatabaseEditor.genreInfo);
+			// 
+			// bindingNavigatorCountItem
+			// 
+			this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
+			this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
+			this.bindingNavigatorCountItem.Text = "of {0}";
+			this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
 			// 
 			// bindingNavigatorDeleteItem
 			// 
@@ -252,6 +158,25 @@
 			this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
 			this.bindingNavigatorMovePreviousItem.Text = "Move previous";
 			// 
+			// bindingNavigatorSeparator
+			// 
+			this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
+			this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+			// 
+			// bindingNavigatorPositionItem
+			// 
+			this.bindingNavigatorPositionItem.AccessibleName = "Position";
+			this.bindingNavigatorPositionItem.AutoSize = false;
+			this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
+			this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
+			this.bindingNavigatorPositionItem.Text = "0";
+			this.bindingNavigatorPositionItem.ToolTipText = "Current position";
+			// 
+			// bindingNavigatorSeparator1
+			// 
+			this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
+			this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
 			// bindingNavigatorMoveNextItem
 			// 
 			this.bindingNavigatorMoveNextItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -270,19 +195,96 @@
 			this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
 			this.bindingNavigatorMoveLastItem.Text = "Move last";
 			// 
+			// bindingNavigatorSeparator2
+			// 
+			this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
+			this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+			// 
 			// genreInfoBindingNavigatorSaveItem
 			// 
 			this.genreInfoBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.genreInfoBindingNavigatorSaveItem.Image = global::mangaDatabaseEditor.Properties.Resources.disk__pencil;
 			this.genreInfoBindingNavigatorSaveItem.Name = "genreInfoBindingNavigatorSaveItem";
-			this.genreInfoBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 20);
+			this.genreInfoBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
 			this.genreInfoBindingNavigatorSaveItem.Text = "Save Data";
 			this.genreInfoBindingNavigatorSaveItem.Click += new System.EventHandler(this.genreInfoBindingNavigatorSaveItem_Click);
+			// 
+			// genreIDTextBox
+			// 
+			this.genreIDTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.genreInfoBindingSource, "genreID", true));
+			this.genreIDTextBox.Location = new System.Drawing.Point(66, 21);
+			this.genreIDTextBox.Name = "genreIDTextBox";
+			this.genreIDTextBox.ReadOnly = true;
+			this.genreIDTextBox.Size = new System.Drawing.Size(182, 22);
+			this.genreIDTextBox.TabIndex = 2;
+			// 
+			// genreNameTextBox
+			// 
+			this.genreNameTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.genreInfoBindingSource, "genreName", true));
+			this.genreNameTextBox.Location = new System.Drawing.Point(66, 49);
+			this.genreNameTextBox.Name = "genreNameTextBox";
+			this.genreNameTextBox.Size = new System.Drawing.Size(182, 22);
+			this.genreNameTextBox.TabIndex = 4;
+			// 
+			// searchGroupBox
+			// 
+			this.searchGroupBox.Controls.Add(this.searchButton);
+			this.searchGroupBox.Controls.Add(this.searchTextBox);
+			this.searchGroupBox.Location = new System.Drawing.Point(12, 116);
+			this.searchGroupBox.Name = "searchGroupBox";
+			this.searchGroupBox.Size = new System.Drawing.Size(254, 56);
+			this.searchGroupBox.TabIndex = 5;
+			this.searchGroupBox.TabStop = false;
+			this.searchGroupBox.Text = "Search Genre:";
+			// 
+			// searchButton
+			// 
+			this.searchButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.searchButton.Image = global::mangaDatabaseEditor.Properties.Resources.magnifier;
+			this.searchButton.Location = new System.Drawing.Point(228, 21);
+			this.searchButton.Name = "searchButton";
+			this.searchButton.Size = new System.Drawing.Size(22, 22);
+			this.searchButton.TabIndex = 1;
+			this.searchButton.UseVisualStyleBackColor = true;
+			this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+			// 
+			// searchTextBox
+			// 
+			this.searchTextBox.Location = new System.Drawing.Point(9, 21);
+			this.searchTextBox.Name = "searchTextBox";
+			this.searchTextBox.Size = new System.Drawing.Size(213, 22);
+			this.searchTextBox.TabIndex = 0;
+			this.searchTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.searchTextBox_KeyUp);
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.genreIDTextBox);
+			this.groupBox1.Controls.Add(genreIDLabel);
+			this.groupBox1.Controls.Add(genreNameLabel);
+			this.groupBox1.Controls.Add(this.genreNameTextBox);
+			this.groupBox1.Location = new System.Drawing.Point(12, 28);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(254, 82);
+			this.groupBox1.TabIndex = 6;
+			this.groupBox1.TabStop = false;
+			this.groupBox1.Text = "Genres:";
+			// 
+			// browseAllButton
+			// 
+			this.browseAllButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+			this.browseAllButton.Location = new System.Drawing.Point(12, 180);
+			this.browseAllButton.Name = "browseAllButton";
+			this.browseAllButton.Size = new System.Drawing.Size(108, 23);
+			this.browseAllButton.TabIndex = 7;
+			this.browseAllButton.Text = "Browse All Entries";
+			this.browseAllButton.UseVisualStyleBackColor = true;
+			this.browseAllButton.Click += new System.EventHandler(this.browseAllButton_Click);
 			// 
 			// GenresForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.Color.White;
 			this.ClientSize = new System.Drawing.Size(278, 215);
 			this.Controls.Add(this.browseAllButton);
 			this.Controls.Add(this.groupBox1);
@@ -297,11 +299,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.genreInfoBindingNavigator)).EndInit();
 			this.genreInfoBindingNavigator.ResumeLayout(false);
 			this.genreInfoBindingNavigator.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.genreInfoBindingSource)).EndInit();
 			this.searchGroupBox.ResumeLayout(false);
 			this.searchGroupBox.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.genreInfoBindingSource)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
