@@ -27,8 +27,8 @@ namespace mangaDatabaseEditor.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=\"C:\\Users\\kelsos\\Documents\\Visual Studi" +
-            "o 2010\\Projects\\mraSharp\\mraSharp\\DataStore.mdf\";Integrated Security=True;Connec" +
-            "t Timeout=30;User Instance=True")]
+            "o 2010\\Projects\\mraSharp\\mraSharp\\bin\\Debug\\DataStore.mdf\";Integrated Security=T" +
+            "rue;Connect Timeout=30;User Instance=True")]
         public string DataStoreConnectionString {
             get {
                 return ((string)(this["DataStoreConnectionString"]));

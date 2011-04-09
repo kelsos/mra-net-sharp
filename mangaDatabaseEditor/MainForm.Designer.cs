@@ -151,6 +151,7 @@
 			this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mangaGenresBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.mangaInfoBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+			this.resetDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			mangaIDLabel = new System.Windows.Forms.Label();
 			mangaTitleLabel = new System.Windows.Forms.Label();
 			authorIDLabel = new System.Windows.Forms.Label();
@@ -1295,6 +1296,8 @@
 			// 
 			// fileToolStripMenuItem
 			// 
+			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resetDatabaseToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.fileToolStripMenuItem.Text = "File";
@@ -1361,6 +1364,12 @@
 			// mangaInfoBindingSource1
 			// 
 			this.mangaInfoBindingSource1.DataSource = typeof(mangaDatabaseEditor.mangaInfo);
+			// 
+			// resetDatabaseToolStripMenuItem
+			// 
+			this.resetDatabaseToolStripMenuItem.Name = "resetDatabaseToolStripMenuItem";
+			this.resetDatabaseToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+			this.resetDatabaseToolStripMenuItem.Text = "Reset Database";
 			// 
 			// MainForm
 			// 
@@ -1555,6 +1564,7 @@
 		private System.Windows.Forms.Button browseAllPublisherEntriesButton;
 		private System.Windows.Forms.Button searchPublisherButton;
 		private System.Windows.Forms.TextBox searchPublisherTextBox;
+		private System.Windows.Forms.ToolStripMenuItem resetDatabaseToolStripMenuItem;
 	}
 }
 

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace mangaDatabaseEditor
 {
@@ -188,7 +185,7 @@ namespace mangaDatabaseEditor
 			if (openImageFileDialog.ShowDialog() == DialogResult.OK)
 			{
 				mangaCoverPictureBox.Image = Image.FromFile(openImageFileDialog.FileName);
-				imageToDatabaseLoader(ImageToByteArray(mangaCoverPictureBox.Image));
+				imageToDatabaseLoader(ImageToByteArray(imageSizeToStandard(mangaCoverPictureBox.Image)));
 			}
 		}
 
@@ -343,7 +340,7 @@ namespace mangaDatabaseEditor
 		private byte[] ImageToByteArray(System.Drawing.Image myImage)
 		{
 			using (MemoryStream ms = new MemoryStream())
-			{
+			{	
 				myImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
 				return ms.ToArray();
 			}
@@ -362,6 +359,41 @@ namespace mangaDatabaseEditor
 										  select image).Single();
 			mangaCoverImage.mangaCover = binary_file;
 			mangaDatabase.SubmitChanges();
+		}
+
+		/// <summary>
+		/// Get an Image in whatever Resolution and converts it to the closest to 160w*230h.
+		/// </summary>
+		/// <param name="sourceImage">The source image.</param>
+		/// <returns>The resized Image</returns>
+		private static Image imageSizeToStandard(Image sourceImage)
+		{
+			int sourceWidth = sourceImage.Width;
+			int sourceHeight = sourceImage.Height;
+
+			float nPercent = 0;
+			float nPercentW = 0;
+			float nPercentH = 0;
+
+			nPercentW = ((float)160 / (float)sourceWidth);
+			nPercentH = ((float)230 / (float)sourceHeight);
+
+			if (nPercentH < nPercentW)
+				nPercent = nPercentH;
+			else
+				nPercent = nPercentW;
+
+			int destWidth = (int)(sourceWidth * nPercent);
+			int destHeight = (int)(sourceHeight * nPercent);
+
+			Bitmap bmp = new Bitmap(destWidth, destHeight);
+			Graphics graph = Graphics.FromImage((Image)bmp);
+			graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+			graph.DrawImage(sourceImage, 0, 0, destWidth, destHeight);
+			graph.Dispose();
+
+			return (Image)bmp;
 		}
 	}
 }
