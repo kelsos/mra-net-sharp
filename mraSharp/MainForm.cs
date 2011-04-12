@@ -41,6 +41,7 @@ namespace mraSharp
 		{
 			if (backupSaveFileDialog.ShowDialog() == DialogResult.OK)
 			{
+				FileOperations.readingListToXML(backupSaveFileDialog.FileName);
 			}
 		}
 

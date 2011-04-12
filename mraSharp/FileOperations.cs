@@ -3,50 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Xml.Linq;
 
 namespace mraSharp
 {
 	class FileOperations
 	{
-		///// <summary>
-		///// Backups the manga list.
-		///// </summary>
-		///// <param name="dataSetToBackup">The data set to backup.</param>
-		///// <param name="fileName">Name of the file.</param>
-		//public static void backupMangaList(DataStoreDataSet dataSetToBackup, string fileName)
-		//{
-		//   try
-		//   {
-		//      if (!String.IsNullOrEmpty(fileName))
-		//      {
-		//         dataSetToBackup.WriteXml(fileName);
-		//      }
-		//   }
-		//   catch(Exception ex)
-		//   {
-		//      Logger.errorLogger("error.txt", ex.ToString());
-		//   }
-		//}
 
-		/// <summary>
-		/// Restores the manga list.
-		/// </summary>
-		/// <param name="fileName">Name of the file.</param>
-		/// <param name="dataSetToRestore">The data set to restore.</param>
-		//public static void restoreMangaList(string fileName, ref DataStoreDataSet dataSetToRestore)
-		//{
-		//   try
-		//   {
-		//      if (!String.IsNullOrEmpty(fileName))
-		//      {
-		//         dataSetToRestore.ReadXml(fileName);
-		//      }
-		//   }
-		//   catch (Exception ex)
-		//   {
-		//      Logger.errorLogger("error.txt", ex.ToString());
-		//   }
-		//}
+		public static void readingListToXML(string fileName)
+		{
+			using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+			{
+				var dataDump = from read in db.mangaReadingLists
+									join mangas in db.mangaInfos
+									on read.mangaID equals mangas.mangaID
+									select new mangaRead(mangas.mangaTitle, read.mangaStartingChapter, read.mangaCurrentChapter, read.mangaDateRead, read.mangaURL, read.mangaReadingFinished);
+
+				XDocument xDoc = new XDocument(
+					new XDeclaration("1.0", "utf-8", "yes"),
+					new XComment("Manga Reading Assistant Reading List"),
+					new XElement("mangaReadingList",
+						from entry in dataDump
+						select new XElement("manga",
+							new XElement("Title", entry.Title),
+							new XElement("startingChapter", entry.StartingChapter),
+							new XElement("currentChapter", entry.CurrentChapter),
+							new XElement("dateRead", entry.LastRead),
+							new XElement("onlineURL", entry.OnlineURL),
+							new XElement("finishedReading", entry.FinishedReading))
+					)
+				 );
+				xDoc.Save(fileName);
+			}
+		}
 
 		/// <summary>
 		/// RSS subscription exporter.

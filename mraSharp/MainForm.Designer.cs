@@ -35,6 +35,13 @@
 			  this.mainTabControl = new System.Windows.Forms.TabControl();
 			  this.mangaGridTabPage = new System.Windows.Forms.TabPage();
 			  this.mangaListDataGridView = new System.Windows.Forms.DataGridView();
+			  this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			  this.startingChapterDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			  this.currentChapterDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			  this.lastReadDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			  this.onlineURLDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewLinkColumn();
+			  this.finishedReadingDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			  this.dataGridBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			  this.wikipediaTabPage = new System.Windows.Forms.TabPage();
 			  this.geckoPanel = new System.Windows.Forms.Panel();
 			  this.geckoWiki = new Skybound.Gecko.GeckoWebBrowser();
@@ -66,6 +73,7 @@
 			  this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			  this.editorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			  this.rssSubscriptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			  this.addMangaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			  this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			  this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			  this.changeLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,17 +90,10 @@
 			  this.rssFetchingThread = new System.ComponentModel.BackgroundWorker();
 			  this.rssTickTimer = new System.Windows.Forms.Timer(this.components);
 			  this.rssCheckTimer = new System.Windows.Forms.Timer(this.components);
-			  this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			  this.startingChapterDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			  this.currentChapterDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			  this.lastReadDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			  this.onlineURLDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewLinkColumn();
-			  this.finishedReadingDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			  this.dataGridBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			  this.addMangaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			  this.mainTabControl.SuspendLayout();
 			  this.mangaGridTabPage.SuspendLayout();
 			  ((System.ComponentModel.ISupportInitialize)(this.mangaListDataGridView)).BeginInit();
+			  ((System.ComponentModel.ISupportInitialize)(this.dataGridBindingSource)).BeginInit();
 			  this.wikipediaTabPage.SuspendLayout();
 			  this.geckoPanel.SuspendLayout();
 			  this.browserNavBar.SuspendLayout();
@@ -103,7 +104,6 @@
 			  this.mainMenuStrip.SuspendLayout();
 			  this.mainStatusStrip.SuspendLayout();
 			  this.rssTickerGroupBox.SuspendLayout();
-			  ((System.ComponentModel.ISupportInitialize)(this.dataGridBindingSource)).BeginInit();
 			  this.SuspendLayout();
 			  // 
 			  // mainTabControl
@@ -152,6 +152,72 @@
 			  this.mangaListDataGridView.Size = new System.Drawing.Size(700, 420);
 			  this.mangaListDataGridView.TabIndex = 0;
 			  this.mangaListDataGridView.SelectionChanged += new System.EventHandler(this.mangaListDataGridView_SelectionChanged);
+			  // 
+			  // titleDataGridViewTextBoxColumn
+			  // 
+			  this.titleDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			  this.titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
+			  this.titleDataGridViewTextBoxColumn.FillWeight = 80F;
+			  this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
+			  this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
+			  this.titleDataGridViewTextBoxColumn.ReadOnly = true;
+			  // 
+			  // startingChapterDataGridViewTextBoxColumn
+			  // 
+			  this.startingChapterDataGridViewTextBoxColumn.DataPropertyName = "StartingChapter";
+			  dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+			  this.startingChapterDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+			  this.startingChapterDataGridViewTextBoxColumn.HeaderText = "Starting Chapter";
+			  this.startingChapterDataGridViewTextBoxColumn.Name = "startingChapterDataGridViewTextBoxColumn";
+			  this.startingChapterDataGridViewTextBoxColumn.ReadOnly = true;
+			  this.startingChapterDataGridViewTextBoxColumn.Width = 60;
+			  // 
+			  // currentChapterDataGridViewTextBoxColumn
+			  // 
+			  this.currentChapterDataGridViewTextBoxColumn.DataPropertyName = "CurrentChapter";
+			  dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+			  this.currentChapterDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+			  this.currentChapterDataGridViewTextBoxColumn.HeaderText = "Current Chapter";
+			  this.currentChapterDataGridViewTextBoxColumn.Name = "currentChapterDataGridViewTextBoxColumn";
+			  this.currentChapterDataGridViewTextBoxColumn.ReadOnly = true;
+			  this.currentChapterDataGridViewTextBoxColumn.Width = 60;
+			  // 
+			  // lastReadDataGridViewTextBoxColumn
+			  // 
+			  this.lastReadDataGridViewTextBoxColumn.DataPropertyName = "LastRead";
+			  dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+			  dataGridViewCellStyle3.Format = "dd-MM-yyyy";
+			  dataGridViewCellStyle3.NullValue = null;
+			  this.lastReadDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+			  this.lastReadDataGridViewTextBoxColumn.HeaderText = "Last Read";
+			  this.lastReadDataGridViewTextBoxColumn.Name = "lastReadDataGridViewTextBoxColumn";
+			  this.lastReadDataGridViewTextBoxColumn.ReadOnly = true;
+			  this.lastReadDataGridViewTextBoxColumn.Width = 70;
+			  // 
+			  // onlineURLDataGridViewTextBoxColumn
+			  // 
+			  this.onlineURLDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			  this.onlineURLDataGridViewTextBoxColumn.DataPropertyName = "OnlineURL";
+			  this.onlineURLDataGridViewTextBoxColumn.HeaderText = "Online URL";
+			  this.onlineURLDataGridViewTextBoxColumn.MinimumWidth = 100;
+			  this.onlineURLDataGridViewTextBoxColumn.Name = "onlineURLDataGridViewTextBoxColumn";
+			  this.onlineURLDataGridViewTextBoxColumn.ReadOnly = true;
+			  this.onlineURLDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			  this.onlineURLDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			  // 
+			  // finishedReadingDataGridViewTextBoxColumn
+			  // 
+			  this.finishedReadingDataGridViewTextBoxColumn.DataPropertyName = "FinishedReading";
+			  this.finishedReadingDataGridViewTextBoxColumn.HeaderText = "Finished Reading";
+			  this.finishedReadingDataGridViewTextBoxColumn.Name = "finishedReadingDataGridViewTextBoxColumn";
+			  this.finishedReadingDataGridViewTextBoxColumn.ReadOnly = true;
+			  this.finishedReadingDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			  this.finishedReadingDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			  this.finishedReadingDataGridViewTextBoxColumn.Width = 60;
+			  // 
+			  // dataGridBindingSource
+			  // 
+			  this.dataGridBindingSource.DataSource = typeof(mraSharp.mangaRead);
 			  // 
 			  // wikipediaTabPage
 			  // 
@@ -249,12 +315,12 @@
 			  // 
 			  this.mangaNoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			  this.mangaNoteTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			  this.mangaNoteTextBox.Location = new System.Drawing.Point(3, 18);
+			  this.mangaNoteTextBox.Location = new System.Drawing.Point(3, 16);
 			  this.mangaNoteTextBox.Multiline = true;
 			  this.mangaNoteTextBox.Name = "mangaNoteTextBox";
 			  this.mangaNoteTextBox.ReadOnly = true;
 			  this.mangaNoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			  this.mangaNoteTextBox.Size = new System.Drawing.Size(154, 175);
+			  this.mangaNoteTextBox.Size = new System.Drawing.Size(154, 177);
 			  this.mangaNoteTextBox.TabIndex = 1;
 			  // 
 			  // mangaDescriptionGroupBox
@@ -273,12 +339,12 @@
 			  // 
 			  this.mangaDescriptionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			  this.mangaDescriptionTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			  this.mangaDescriptionTextBox.Location = new System.Drawing.Point(3, 18);
+			  this.mangaDescriptionTextBox.Location = new System.Drawing.Point(3, 16);
 			  this.mangaDescriptionTextBox.Multiline = true;
 			  this.mangaDescriptionTextBox.Name = "mangaDescriptionTextBox";
 			  this.mangaDescriptionTextBox.ReadOnly = true;
 			  this.mangaDescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			  this.mangaDescriptionTextBox.Size = new System.Drawing.Size(489, 116);
+			  this.mangaDescriptionTextBox.Size = new System.Drawing.Size(489, 118);
 			  this.mangaDescriptionTextBox.TabIndex = 1;
 			  // 
 			  // mainToolStrip
@@ -376,38 +442,38 @@
 			  // backupToolStripMenuItem
 			  // 
 			  this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-			  this.backupToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+			  this.backupToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			  this.backupToolStripMenuItem.Text = "Backup";
 			  this.backupToolStripMenuItem.Click += new System.EventHandler(this.backupToolStripMenuItem_Click);
 			  // 
 			  // restoreToolStripMenuItem
 			  // 
 			  this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
-			  this.restoreToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+			  this.restoreToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			  this.restoreToolStripMenuItem.Text = "Restore";
 			  this.restoreToolStripMenuItem.Click += new System.EventHandler(this.restoreToolStripMenuItem_Click);
 			  // 
 			  // toolStripSeparator1
 			  // 
 			  this.toolStripSeparator1.Name = "toolStripSeparator1";
-			  this.toolStripSeparator1.Size = new System.Drawing.Size(110, 6);
+			  this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
 			  // 
 			  // clearToolStripMenuItem
 			  // 
 			  this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-			  this.clearToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+			  this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			  this.clearToolStripMenuItem.Text = "Clear";
 			  this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
 			  // 
 			  // toolStripSeparator2
 			  // 
 			  this.toolStripSeparator2.Name = "toolStripSeparator2";
-			  this.toolStripSeparator2.Size = new System.Drawing.Size(110, 6);
+			  this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
 			  // 
 			  // quitToolStripMenuItem
 			  // 
 			  this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-			  this.quitToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+			  this.quitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			  this.quitToolStripMenuItem.Text = "Quit";
 			  this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
 			  // 
@@ -449,6 +515,13 @@
 			  this.rssSubscriptionsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
 			  this.rssSubscriptionsToolStripMenuItem.Text = "Rss Subscriptions";
 			  this.rssSubscriptionsToolStripMenuItem.Click += new System.EventHandler(this.rssSubscriptionsToolStripMenuItem_Click);
+			  // 
+			  // addMangaToolStripMenuItem
+			  // 
+			  this.addMangaToolStripMenuItem.Name = "addMangaToolStripMenuItem";
+			  this.addMangaToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+			  this.addMangaToolStripMenuItem.Text = "Add Manga";
+			  this.addMangaToolStripMenuItem.Click += new System.EventHandler(this.addMangaToolStripMenuItem_Click);
 			  // 
 			  // aboutToolStripMenuItem
 			  // 
@@ -568,79 +641,6 @@
 			  this.rssCheckTimer.Interval = 15000;
 			  this.rssCheckTimer.Tick += new System.EventHandler(this.rssCheckTimer_Tick);
 			  // 
-			  // titleDataGridViewTextBoxColumn
-			  // 
-			  this.titleDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			  this.titleDataGridViewTextBoxColumn.DataPropertyName = "Title";
-			  this.titleDataGridViewTextBoxColumn.FillWeight = 80F;
-			  this.titleDataGridViewTextBoxColumn.HeaderText = "Title";
-			  this.titleDataGridViewTextBoxColumn.Name = "titleDataGridViewTextBoxColumn";
-			  this.titleDataGridViewTextBoxColumn.ReadOnly = true;
-			  // 
-			  // startingChapterDataGridViewTextBoxColumn
-			  // 
-			  this.startingChapterDataGridViewTextBoxColumn.DataPropertyName = "StartingChapter";
-			  dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-			  this.startingChapterDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
-			  this.startingChapterDataGridViewTextBoxColumn.HeaderText = "Starting Chapter";
-			  this.startingChapterDataGridViewTextBoxColumn.Name = "startingChapterDataGridViewTextBoxColumn";
-			  this.startingChapterDataGridViewTextBoxColumn.ReadOnly = true;
-			  this.startingChapterDataGridViewTextBoxColumn.Width = 60;
-			  // 
-			  // currentChapterDataGridViewTextBoxColumn
-			  // 
-			  this.currentChapterDataGridViewTextBoxColumn.DataPropertyName = "CurrentChapter";
-			  dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-			  this.currentChapterDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-			  this.currentChapterDataGridViewTextBoxColumn.HeaderText = "Current Chapter";
-			  this.currentChapterDataGridViewTextBoxColumn.Name = "currentChapterDataGridViewTextBoxColumn";
-			  this.currentChapterDataGridViewTextBoxColumn.ReadOnly = true;
-			  this.currentChapterDataGridViewTextBoxColumn.Width = 60;
-			  // 
-			  // lastReadDataGridViewTextBoxColumn
-			  // 
-			  this.lastReadDataGridViewTextBoxColumn.DataPropertyName = "LastRead";
-			  dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-			  dataGridViewCellStyle3.Format = "dd-MM-yyyy";
-			  dataGridViewCellStyle3.NullValue = null;
-			  this.lastReadDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-			  this.lastReadDataGridViewTextBoxColumn.HeaderText = "Last Read";
-			  this.lastReadDataGridViewTextBoxColumn.Name = "lastReadDataGridViewTextBoxColumn";
-			  this.lastReadDataGridViewTextBoxColumn.ReadOnly = true;
-			  this.lastReadDataGridViewTextBoxColumn.Width = 70;
-			  // 
-			  // onlineURLDataGridViewTextBoxColumn
-			  // 
-			  this.onlineURLDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			  this.onlineURLDataGridViewTextBoxColumn.DataPropertyName = "OnlineURL";
-			  this.onlineURLDataGridViewTextBoxColumn.HeaderText = "Online URL";
-			  this.onlineURLDataGridViewTextBoxColumn.MinimumWidth = 100;
-			  this.onlineURLDataGridViewTextBoxColumn.Name = "onlineURLDataGridViewTextBoxColumn";
-			  this.onlineURLDataGridViewTextBoxColumn.ReadOnly = true;
-			  this.onlineURLDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			  this.onlineURLDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			  // 
-			  // finishedReadingDataGridViewTextBoxColumn
-			  // 
-			  this.finishedReadingDataGridViewTextBoxColumn.DataPropertyName = "FinishedReading";
-			  this.finishedReadingDataGridViewTextBoxColumn.HeaderText = "Finished Reading";
-			  this.finishedReadingDataGridViewTextBoxColumn.Name = "finishedReadingDataGridViewTextBoxColumn";
-			  this.finishedReadingDataGridViewTextBoxColumn.ReadOnly = true;
-			  this.finishedReadingDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			  this.finishedReadingDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			  this.finishedReadingDataGridViewTextBoxColumn.Width = 60;
-			  // 
-			  // dataGridBindingSource
-			  // 
-			  this.dataGridBindingSource.DataSource = typeof(mraSharp.mangaRead);
-			  // 
-			  // addMangaToolStripMenuItem
-			  // 
-			  this.addMangaToolStripMenuItem.Name = "addMangaToolStripMenuItem";
-			  this.addMangaToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-			  this.addMangaToolStripMenuItem.Text = "Add Manga";
-			  this.addMangaToolStripMenuItem.Click += new System.EventHandler(this.addMangaToolStripMenuItem_Click);
-			  // 
 			  // MainForm
 			  // 
 			  this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -662,6 +662,7 @@
 			  this.mainTabControl.ResumeLayout(false);
 			  this.mangaGridTabPage.ResumeLayout(false);
 			  ((System.ComponentModel.ISupportInitialize)(this.mangaListDataGridView)).EndInit();
+			  ((System.ComponentModel.ISupportInitialize)(this.dataGridBindingSource)).EndInit();
 			  this.wikipediaTabPage.ResumeLayout(false);
 			  this.wikipediaTabPage.PerformLayout();
 			  this.geckoPanel.ResumeLayout(false);
@@ -680,7 +681,6 @@
 			  this.mainStatusStrip.PerformLayout();
 			  this.rssTickerGroupBox.ResumeLayout(false);
 			  this.rssTickerGroupBox.PerformLayout();
-			  ((System.ComponentModel.ISupportInitialize)(this.dataGridBindingSource)).EndInit();
 			  this.ResumeLayout(false);
 			  this.PerformLayout();
 
