@@ -8,45 +8,45 @@ namespace mraSharp
 {
 	class FileOperations
 	{
-		/// <summary>
-		/// Backups the manga list.
-		/// </summary>
-		/// <param name="dataSetToBackup">The data set to backup.</param>
-		/// <param name="fileName">Name of the file.</param>
-		public static void backupMangaList(DataStoreDataSet dataSetToBackup, string fileName)
-		{
-			try
-			{
-				if (!String.IsNullOrEmpty(fileName))
-				{
-					dataSetToBackup.WriteXml(fileName);
-				}
-			}
-			catch(Exception ex)
-			{
-				Logger.errorLogger("error.txt", ex.ToString());
-			}
-		}
+		///// <summary>
+		///// Backups the manga list.
+		///// </summary>
+		///// <param name="dataSetToBackup">The data set to backup.</param>
+		///// <param name="fileName">Name of the file.</param>
+		//public static void backupMangaList(DataStoreDataSet dataSetToBackup, string fileName)
+		//{
+		//   try
+		//   {
+		//      if (!String.IsNullOrEmpty(fileName))
+		//      {
+		//         dataSetToBackup.WriteXml(fileName);
+		//      }
+		//   }
+		//   catch(Exception ex)
+		//   {
+		//      Logger.errorLogger("error.txt", ex.ToString());
+		//   }
+		//}
 
 		/// <summary>
 		/// Restores the manga list.
 		/// </summary>
 		/// <param name="fileName">Name of the file.</param>
 		/// <param name="dataSetToRestore">The data set to restore.</param>
-		public static void restoreMangaList(string fileName, ref DataStoreDataSet dataSetToRestore)
-		{
-			try
-			{
-				if (!String.IsNullOrEmpty(fileName))
-				{
-					dataSetToRestore.ReadXml(fileName);
-				}
-			}
-			catch (Exception ex)
-			{
-				Logger.errorLogger("error.txt", ex.ToString());
-			}
-		}
+		//public static void restoreMangaList(string fileName, ref DataStoreDataSet dataSetToRestore)
+		//{
+		//   try
+		//   {
+		//      if (!String.IsNullOrEmpty(fileName))
+		//      {
+		//         dataSetToRestore.ReadXml(fileName);
+		//      }
+		//   }
+		//   catch (Exception ex)
+		//   {
+		//      Logger.errorLogger("error.txt", ex.ToString());
+		//   }
+		//}
 
 		/// <summary>
 		/// RSS subscription exporter.

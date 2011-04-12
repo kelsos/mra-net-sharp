@@ -9,30 +9,15 @@ namespace mraSharp
 {
 	class DatabaseOperations
 	{
-		private static dataLinqSqlDataContext sqlLinq = new dataLinqSqlDataContext();
+		private static dataLinqSqlDataContext db = new dataLinqSqlDataContext();
 
 		/// <summary>
 		/// Clears the database.
 		/// </summary>
 		public static void clearDatabase()
 		{
-			sqlLinq.mangaLists.DeleteAllOnSubmit(sqlLinq.mangaLists);
-			sqlLinq.SubmitChanges();
-		}
-
-		/// <summary>
-		/// Inserts an image to the database entry with the specified MangaTitle.
-		/// </summary>
-		/// <param name="imageByteArray">The image byte array.</param>
-		/// <param name="myMangaTitle">My manga title.</param>
-		public static void imageToDatabaseLoader(byte[] imageByteArray, string myMangaTitle)
-		{
-			System.Data.Linq.Binary binary_file = new System.Data.Linq.Binary(imageByteArray);
-			var mangaCoverImage = (from image in sqlLinq.mangaLists
-										 where image.mangaTitle == myMangaTitle
-										 select image).Single();
-			mangaCoverImage.mangaCover = binary_file;
-			sqlLinq.SubmitChanges();
+			db.mangaReadingLists.DeleteAllOnSubmit(db.mangaReadingLists);
+			db.SubmitChanges();
 		}
 
 		/// <summary>
@@ -46,14 +31,14 @@ namespace mraSharp
 				DateTime date = DateTime.Now;
 				TimeSpan tS = new TimeSpan(daysInDB, 0, 0, 0);
 				date = date.Subtract(tS);
-				var deleteOldRss = from rssNews in sqlLinq.newsStorages
+				var deleteOldRss = from rssNews in db.newsStorages
 										 where rssNews.rssDateAquired <= date
 										 select rssNews;
 				foreach (var rssNews in deleteOldRss)
 				{
-					sqlLinq.newsStorages.DeleteOnSubmit(rssNews);
+					db.newsStorages.DeleteOnSubmit(rssNews);
 				}
-				sqlLinq.SubmitChanges();
+				db.SubmitChanges();
 			}
 			catch (Exception ex)
 			{
@@ -67,14 +52,14 @@ namespace mraSharp
 		/// <param name="url">The URL of the subscription to be removed.</param>
 		public static void removeRssSubscription(string url)
 		{
-			var deleteSub = from rssSub in sqlLinq.rssSubscriptions
+			var deleteSub = from rssSub in db.rssSubscriptions
 								 where rssSub.rssUrl == url
 								 select rssSub;
 			foreach (var rssSub in deleteSub)
 			{
-				sqlLinq.rssSubscriptions.DeleteOnSubmit(rssSub);
+				db.rssSubscriptions.DeleteOnSubmit(rssSub);
 			}
-			sqlLinq.SubmitChanges();
+			db.SubmitChanges();
 		}
 
 		/// <summary>
@@ -87,8 +72,8 @@ namespace mraSharp
 			{
 				rssUrl = url
 			};
-			sqlLinq.rssSubscriptions.InsertOnSubmit(sub);
-			sqlLinq.SubmitChanges();
+			db.rssSubscriptions.InsertOnSubmit(sub);
+			db.SubmitChanges();
 		}
 #region Statistics Methods
 
@@ -98,7 +83,7 @@ namespace mraSharp
 		/// <returns></returns>
 		public static int numberOfMangasRead()
 		{
-			var mangaList = from mangas in sqlLinq.mangaLists
+			var mangaList = from mangas in db.mangaReadingLists
 								 select mangas;
 			return mangaList.Count();
 		}
@@ -110,17 +95,17 @@ namespace mraSharp
 		public static int numberOfChaptersRead()
 		{
 			int chapterCount = 0;
-			var chaptersList = from mangas in sqlLinq.mangaLists
+			var chaptersList = from mangas in db.mangaReadingLists
 									 select mangas;
 			foreach (var manga in chaptersList)
 			{
-				if (manga.startingChapter == 1)
+				if (manga.mangaStartingChapter == 1)
 				{
-					chapterCount += Convert.ToInt16(manga.currentChapter);
+					chapterCount += Convert.ToInt16(manga.mangaCurrentChapter);
 				}
 				else
 				{
-					chapterCount += (Convert.ToInt16(manga.currentChapter) - (Convert.ToInt16(manga.startingChapter) - 1));
+					chapterCount += (Convert.ToInt16(manga.mangaCurrentChapter) - (Convert.ToInt16(manga.mangaStartingChapter) - 1));
 				}
 			}
 			return chapterCount;
@@ -133,11 +118,11 @@ namespace mraSharp
 		public static int? numberofMangasFinished()
 		{
 			int mangasFinishedCount = 0;
-			var mangaList = from mangas in sqlLinq.mangaLists
+			var mangaList = from mangas in db.mangaReadingLists
 								 select mangas;
 			foreach (var manga in mangaList)
 			{
-				if (manga.isFinished == true)
+				if (manga.mangaReadingFinished == true)
 					mangasFinishedCount += 1;
 			}
 			return mangasFinishedCount;
@@ -149,10 +134,10 @@ namespace mraSharp
 		/// <returns></returns>
 		public static DateTime? dateILastRead()
 		{
-			var mangaList = (from mangas in sqlLinq.mangaLists
-								 orderby mangas.dateRead descending
-								 select mangas).First();
-			return mangaList.dateRead;
+			var mangaList = (from mangas in db.mangaReadingLists
+								  orderby mangas.mangaDateRead descending
+								  select mangas).First();
+			return mangaList.mangaDateRead;
 		}
 
 		/// <summary>

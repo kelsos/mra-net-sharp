@@ -17,26 +17,13 @@ namespace mraSharp
 		}
 
 		/// <summary>
-		/// Handles the Click event of the rssSubscriptionsBindingNavigatorSaveItem control.
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		private void rssSubscriptionsBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-		{
-			this.Validate();
-			this.rssSubscriptionsBindingSource.EndEdit();
-			this.tableAdapterManager.UpdateAll(this.dataStoreDataSet);
-		}
-
-		/// <summary>
 		/// Handles the Load event of the SubscriptionManagerForm control.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
 		private void SubscriptionManagerForm_Load(object sender, EventArgs e)
 		{
-			// TODO: This line of code loads data into the 'dataStoreDataSet.rssSubscriptions' table. You can move, or remove it, as needed.
-			this.rssSubscriptionsTableAdapter.Fill(this.dataStoreDataSet.rssSubscriptions);
+			loadSubscriptions();
 		}
 
 		/// <summary>
@@ -49,12 +36,12 @@ namespace mraSharp
 			try
 			{
 				DatabaseOperations.removeRssSubscription(rssUrlComboBox.Text);
+				loadSubscriptions();
 			}
 			catch (Exception ex)
 			{
 				Logger.errorLogger("error.txt", ex.ToString());
 			}
-			this.rssSubscriptionsTableAdapter.Fill(this.dataStoreDataSet.rssSubscriptions);
 		}
 
 		/// <summary>
@@ -70,6 +57,7 @@ namespace mraSharp
 				{
 					DatabaseOperations.insertRssSubscription(rssSubTextBox.Text);
 					rssSubTextBox.Text = null;
+					loadSubscriptions();
 				}
 				else
 				{
@@ -80,7 +68,6 @@ namespace mraSharp
 			{
 				Logger.errorLogger("error.txt", ex.ToString());
 			}
-			this.rssSubscriptionsTableAdapter.Fill(this.dataStoreDataSet.rssSubscriptions);
 		}
 
 		/// <summary>
@@ -101,6 +88,13 @@ namespace mraSharp
 		private void exportPopup_Click(object sender, EventArgs e)
 		{
 			FileOperations.rssSubscriptionExporter("rss.txt");
+		}
+
+		private void loadSubscriptions()
+		{
+			dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+			rssUrlComboBox.DataSource = from url in db.rssSubscriptions
+												 select url;
 		}
 
 	}

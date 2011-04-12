@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DataClasses1">
+  <DataContextMoniker Name="/DataClasses1DataContext" />
+  <nestedChildShapes>
+    <classShape Id="918a8229-7f90-499b-92b9-96ddc62eeaf3" absoluteBounds="4.75, 3.25, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/DataClasses1DataContext/mangaInfo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="71f9b0b5-dcbf-468e-b73d-b704193f10c3" absoluteBounds="4.765, 3.71, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ea9dc13c-7638-4137-88d4-a5133356e88f" absoluteBounds="1.125, 2.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/DataClasses1DataContext/mangaReadingList" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c40ee9ac-839f-4548-93da-ef949cf33151" absoluteBounds="1.1400000000000001, 3.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.75 : 4.07774983723958); (3.125 : 4.07774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClasses1DataContext/mangaInfo/mangaInfo_mangaReadingList" />
+      <nodes>
+        <classShapeMoniker Id="918a8229-7f90-499b-92b9-96ddc62eeaf3" />
+        <classShapeMoniker Id="ea9dc13c-7638-4137-88d4-a5133356e88f" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

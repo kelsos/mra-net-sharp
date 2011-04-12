@@ -19,8 +19,6 @@ namespace mraSharp
 			numberOfMangasFinishedTextBox.Text = DatabaseOperations.numberofMangasFinished().ToString();
 			dateILastReadTextBox.Text = Convert.ToDateTime(DatabaseOperations.dateILastRead()).ToShortDateString();
 			daysSinceTextBox.Text = DatabaseOperations.daysSinceILastRead().ToString();
-
-
 		}
 	}
 }

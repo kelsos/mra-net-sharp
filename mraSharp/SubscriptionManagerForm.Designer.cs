@@ -29,10 +29,6 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.dataStoreDataSet = new mraSharp.DataStoreDataSet();
-			this.rssSubscriptionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.rssSubscriptionsTableAdapter = new mraSharp.DataStoreDataSetTableAdapters.rssSubscriptionsTableAdapter();
-			this.tableAdapterManager = new mraSharp.DataStoreDataSetTableAdapters.TableAdapterManager();
 			this.rssUrlComboBox = new System.Windows.Forms.ComboBox();
 			this.rssSubGroupBox = new System.Windows.Forms.GroupBox();
 			this.exportPopup = new System.Windows.Forms.Button();
@@ -40,37 +36,11 @@
 			this.addSubButton = new System.Windows.Forms.Button();
 			this.removeSubButton = new System.Windows.Forms.Button();
 			this.rssSubTextBox = new System.Windows.Forms.TextBox();
-			((System.ComponentModel.ISupportInitialize)(this.dataStoreDataSet)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.rssSubscriptionsBindingSource)).BeginInit();
 			this.rssSubGroupBox.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// dataStoreDataSet
-			// 
-			this.dataStoreDataSet.DataSetName = "DataStoreDataSet";
-			this.dataStoreDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-			// 
-			// rssSubscriptionsBindingSource
-			// 
-			this.rssSubscriptionsBindingSource.DataMember = "rssSubscriptions";
-			this.rssSubscriptionsBindingSource.DataSource = this.dataStoreDataSet;
-			// 
-			// rssSubscriptionsTableAdapter
-			// 
-			this.rssSubscriptionsTableAdapter.ClearBeforeFill = true;
-			// 
-			// tableAdapterManager
-			// 
-			this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-			this.tableAdapterManager.mangaListTableAdapter = null;
-			this.tableAdapterManager.newsStorageTableAdapter = null;
-			this.tableAdapterManager.rssSubscriptionsTableAdapter = this.rssSubscriptionsTableAdapter;
-			this.tableAdapterManager.UpdateOrder = mraSharp.DataStoreDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-			// 
 			// rssUrlComboBox
 			// 
-			this.rssUrlComboBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.rssSubscriptionsBindingSource, "rssUrl", true));
-			this.rssUrlComboBox.DataSource = this.rssSubscriptionsBindingSource;
 			this.rssUrlComboBox.DisplayMember = "rssUrl";
 			this.rssUrlComboBox.FormattingEnabled = true;
 			this.rssUrlComboBox.Location = new System.Drawing.Point(6, 19);
@@ -155,8 +125,6 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Subscription Manager";
 			this.Load += new System.EventHandler(this.SubscriptionManagerForm_Load);
-			((System.ComponentModel.ISupportInitialize)(this.dataStoreDataSet)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.rssSubscriptionsBindingSource)).EndInit();
 			this.rssSubGroupBox.ResumeLayout(false);
 			this.rssSubGroupBox.PerformLayout();
 			this.ResumeLayout(false);
@@ -165,10 +133,6 @@
 
 		#endregion
 
-		private DataStoreDataSet dataStoreDataSet;
-		private System.Windows.Forms.BindingSource rssSubscriptionsBindingSource;
-		private DataStoreDataSetTableAdapters.rssSubscriptionsTableAdapter rssSubscriptionsTableAdapter;
-		private DataStoreDataSetTableAdapters.TableAdapterManager tableAdapterManager;
 		private System.Windows.Forms.ComboBox rssUrlComboBox;
 		private System.Windows.Forms.GroupBox rssSubGroupBox;
 		private System.Windows.Forms.Button exportPopup;

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Collections;
 using System.Threading;
+using System.IO;
 
 namespace mraSharp
 {
@@ -25,23 +26,14 @@ namespace mraSharp
 
       private void MainForm_Load(object sender, EventArgs e)
       {
-			// TODO: This line of code loads data into the 'dataStoreDataSet.newsStorage' table. You can move, or remove it, as needed.
-			this.newsStorageTableAdapter.Fill(this.dataStoreDataSet.newsStorage);
-         // TODO: This line of code loads data into the 'dataStoreDataSet.mangaList' table. You can move, or remove it, as needed.
-			this.mangaListTableAdapter.Fill(this.dataStoreDataSet.mangaList);
+			loadDatagrid();
+			mangaListDataGridView.AutoGenerateColumns = false;
       }
 
 		private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (MessageBox.Show("Do you want to clear the database?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
 			{
-				DatabaseOperations.clearDatabase();
-				if (restoreOpenFileDialog.ShowDialog() == DialogResult.OK)
-				{
-					FileOperations.restoreMangaList(restoreOpenFileDialog.FileName,ref this.dataStoreDataSet);
-					this.mangaListTableAdapter.Update(this.dataStoreDataSet.mangaList);
-				}
-				this.mangaListTableAdapter.Fill(this.dataStoreDataSet.mangaList);
 			}
 		}
 
@@ -49,11 +41,6 @@ namespace mraSharp
 		{
 			if (backupSaveFileDialog.ShowDialog() == DialogResult.OK)
 			{
-				using(DataStoreDataSet backupDatasSet = new DataStoreDataSet())
-				{
-					this.mangaListTableAdapter.Fill(backupDatasSet.mangaList);
-					FileOperations.backupMangaList(backupDatasSet, backupSaveFileDialog.FileName);
-				}
 			}
 		}
 
@@ -70,79 +57,93 @@ namespace mraSharp
 			}
 		}
 
+		private List<newsStorage> newsList = new List<newsStorage>();
+
 		private void rssTicker()
 		{
-			this.newsStorageTableAdapter.Fill(this.dataStoreDataSet.newsStorage);
-			int rowsNumber = dataStoreDataSet.newsStorage.Rows.Count;
-			if (rowsNumber > myCounter)
+			int newsItemsCount = newsList.Count();
+			
+			if (newsItemsCount > myCounter)
 			{
-				rssTitleLabel.Text = dataStoreDataSet.newsStorage.Rows[myCounter].ItemArray[0].ToString();
-				rssLinkLabel.Text = dataStoreDataSet.newsStorage.Rows[myCounter].ItemArray[1].ToString();
-				rssDescriptionTextBox.Text = dataStoreDataSet.newsStorage.Rows[myCounter].ItemArray[2].ToString();
+				rssTitleLabel.Text = newsList[myCounter].rssTitle;
+				rssLinkLabel.Text = newsList[myCounter].rssLink;
+				rssDescriptionTextBox.Text = newsList[myCounter].rssDescription;
 				myCounter += 1;
 			}
 			else
 			{
 				myCounter = 0;
-				rssTitleLabel.Text = dataStoreDataSet.newsStorage.Rows[myCounter].ItemArray[0].ToString();
-				rssLinkLabel.Text = dataStoreDataSet.newsStorage.Rows[myCounter].ItemArray[1].ToString();
-				rssDescriptionTextBox.Text = dataStoreDataSet.newsStorage.Rows[myCounter].ItemArray[2].ToString();
+				rssTitleLabel.Text = newsList[myCounter].rssTitle;
+				rssLinkLabel.Text = newsList[myCounter].rssLink;
+				rssDescriptionTextBox.Text = newsList[myCounter].rssDescription;
 				myCounter += 1;
 			}
 		}
 
 		private void rssFetcher()
 		{
-			this.rssSubscriptionsTableAdapter.Fill(this.dataStoreDataSet.rssSubscriptions);
-
 			try
 			{
-				foreach(DataStoreDataSet.rssSubscriptionsRow currentChannel in dataStoreDataSet.rssSubscriptions.Rows)
+				dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+				var rssSubs = from subs in db.rssSubscriptions
+								  select subs.rssUrl;
+
+				foreach (var channel in rssSubs)
 				{
-					ArrayList result = RssManager.processNewsFeed(currentChannel.rssUrl);
-					foreach(RssNewsItem currentNewsItem in result)
+					ArrayList result = RssManager.processNewsFeed(channel);
+					foreach (RssNewsItem newsItem in result)
 					{
-						string title = currentNewsItem.Title;
+						string title = newsItem.Title;
 						title = title.Replace("'", "");
 						title = title.Trim();
 
-						string filterExpression = "rssTitle = '" + title + "'";
+						var newsFilter = from line in db.newsStorages
+											  where line.rssTitle == title
+											  select line;
 
-						DataRow[] filteredNewsItems = dataStoreDataSet.newsStorage.Select(filterExpression);
-
-						if (filteredNewsItems.Length == 0)
+						if (newsFilter.Count() == 0)
 						{
-							DataStoreDataSet.newsStorageRow newRow = dataStoreDataSet.newsStorage.NewnewsStorageRow();
-							newRow.rssTitle = title;
-							newRow.rssLink = currentNewsItem.Link;
-							newRow.rssDescription = RegularExpressions.htmlTagRemover(currentNewsItem.Description);
-							newRow.rssDateAquired = DateTime.Now;
-
-							dataStoreDataSet.newsStorage.AddnewsStorageRow(newRow);
+							newsStorage ne = new newsStorage
+							{
+								rssTitle = title,
+								rssLink = newsItem.Link,
+								rssDescription = RegularExpressions.htmlTagRemover(newsItem.Description),
+								rssDateAquired = DateTime.Now
+							};
+							db.newsStorages.InsertOnSubmit(ne);
+							db.SubmitChanges();
 						}
 					}
 				}
-				this.newsStorageTableAdapter.Update(this.dataStoreDataSet);
+				newsList = (from news in db.newsStorages
+							  select news).ToList();
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
-				Logger.errorLogger("error.txt", ex.ToString());
+				MessageBox.Show(ex.ToString());
 			}
 		}
+
 		/// <summary>
 		/// This method represents the action of reading a chapter. It sets the date last read of the selected manga to the current Date
 		/// (when the method was called) and increases the last chapter by one.
 		/// </summary>
 		private void justReadAChapter()
 		{
-			int selectedRowIndex = mangaListDataGridView.CurrentRow.Index;
-			string currentMangaTitle = mangaListDataGridView[0, selectedRowIndex].Value.ToString();
+			dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+			var mID = (from current in db.mangaInfos
+						  where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
+						  select current.mangaID).Single();
+			var manga = (from current in db.mangaReadingLists
+							 where current.mangaID == mID
+							 select current).Single();
+			manga.mangaCurrentChapter += 1;
+			manga.mangaDateRead = DateTime.Now;
+			db.SubmitChanges();
 
-			DataStoreDataSet.mangaListRow rowToEdit = dataStoreDataSet.mangaList.FindBymangaTitle(currentMangaTitle);
-			rowToEdit.dateRead = DateTime.Now;
-			rowToEdit.currentChapter += 1;
-
-			this.mangaListTableAdapter.Update(this.dataStoreDataSet.mangaList);
+			//Updates the DataGridView to reflect on the changes made to the database
+			mangaListDataGridView.CurrentRow.Cells["lastReadDataGridViewTextBoxColumn"].Value = DateTime.Now;
+			mangaListDataGridView.CurrentRow.Cells["currentChapterDataGridViewTextBoxColumn"].Value = Convert.ToDouble(mangaListDataGridView.CurrentRow.Cells["currentChapterDataGridViewTextBoxColumn"].Value) + 1;
 		}
 
 		private void justReadToolStripButton_Click(object sender, EventArgs e)
@@ -152,10 +153,12 @@ namespace mraSharp
 
 		private void searchToolStripTextBox_KeyUp(object sender, KeyEventArgs e)
 		{
-			if (searchToolStripTextBox.TextLength > 0)
-				this.mangaListTableAdapter.FillBySearch(this.dataStoreDataSet.mangaList, "%" + searchToolStripTextBox + "%");
-			else
-				this.mangaListTableAdapter.Fill(this.dataStoreDataSet.mangaList);
+			dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+			dataGridBindingSource.DataSource = from read in db.mangaReadingLists
+														  join mangas in db.mangaInfos
+														  on read.mangaID equals mangas.mangaID
+														  where mangas.mangaTitle.Contains(searchToolStripTextBox.Text)
+														  select new mangaRead(mangas.mangaTitle, read.mangaStartingChapter, read.mangaCurrentChapter, read.mangaDateRead, read.mangaURL, read.mangaReadingFinished);
 		}
 
 		private void browserNavBar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -257,16 +260,12 @@ namespace mraSharp
 
 		private void reloadToolStripButton_Click(object sender, EventArgs e)
 		{
-			this.mangaListTableAdapter.Fill(this.dataStoreDataSet.mangaList);
+			loadDatagrid();
 		}
 
 		private void editoToolStripButton_Click(object sender, EventArgs e)
 		{
-			using(EditorForm editor = new EditorForm())
-			{
-				editor.ShowDialog();
-			}
-			this.mangaListTableAdapter.Fill(this.dataStoreDataSet.mangaList);
+
 		}
 
 		private void rssSubscriptionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -279,11 +278,6 @@ namespace mraSharp
 
 		private void editorToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			using(EditorForm editor = new EditorForm())
-			{
-				editor.ShowDialog();
-			}
-			this.mangaListTableAdapter.Fill(this.dataStoreDataSet.mangaList);
 		}
 
 		private void rssCheckTimer_Tick(object sender, EventArgs e)
@@ -338,5 +332,63 @@ namespace mraSharp
 				stats.ShowDialog();
 			}
 		}
-   }
+		#region Linq to SQL data functions
+		private void loadDatagrid()
+		{
+			dataLinqSqlDataContext mdb = new dataLinqSqlDataContext();
+			dataGridBindingSource.DataSource = from read in mdb.mangaReadingLists
+														  join mangas in mdb.mangaInfos
+														  on read.mangaID equals mangas.mangaID
+														  select new mangaRead (mangas.mangaTitle, read.mangaStartingChapter, read.mangaCurrentChapter, read.mangaDateRead, read.mangaURL, read.mangaReadingFinished);
+		
+		}
+
+		private void loadCurrentImage()
+		{
+			dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+			if (mangaListDataGridView.CurrentRow!=null)
+			{
+				var mID = (from current in db.mangaInfos
+							  where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
+							  select current.mangaID).SingleOrDefault();
+				var image = (from current in db.mangaInfos
+								 where current.mangaID == mID
+								 select current.mangaCover).Single();
+				byte[] imageByte = (byte[])image.ToArray();
+				mangaCoverPictureBox.Image = Image.FromStream(new MemoryStream(imageByte));
+			}
+		}
+
+		private void loadCurrentDescription()
+		{
+			if (mangaListDataGridView.CurrentRow != null)
+			{
+				dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+				var mID = (from current in db.mangaInfos
+							  where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
+							  select current.mangaID).Single();
+				var description = (from current in db.mangaInfos
+										 where current.mangaID == mID
+										 select current.mangaDescription).SingleOrDefault();
+				mangaDescriptionTextBox.Text = description;
+			}
+		}
+		#endregion
+
+		private void mangaListDataGridView_SelectionChanged(object sender, EventArgs e)
+		{
+			loadCurrentImage();
+			loadCurrentDescription();
+		}
+
+		private void addMangaToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			using (AddMangaForm amf = new AddMangaForm())
+			{
+				amf.ShowDialog();
+			}
+		}
+
+
+	}
 }

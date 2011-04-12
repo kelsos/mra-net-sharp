@@ -69,29 +69,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddMangaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddMangaForm.Designer.cs">
+      <DependentUpon>AddMangaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseOperations.cs" />
     <Compile Include="dataLinqSql.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dataLinqSql.dbml</DependentUpon>
     </Compile>
-    <Compile Include="EditorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EditorForm.Designer.cs">
-      <DependentUpon>EditorForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="FileOperations.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="mangaRead.cs" />
     <Compile Include="MessageFilter.cs" />
     <Compile Include="RegularExpressions.cs" />
     <Compile Include="RssManager.cs" />
     <Compile Include="RssNewsItem.cs" />
-    <Compile Include="DataStoreDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataStoreDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,8 +117,8 @@
     <None Include="dataLinqSql.dbml.layout">
       <DependentUpon>dataLinqSql.dbml</DependentUpon>
     </None>
-    <EmbeddedResource Include="EditorForm.resx">
-      <DependentUpon>EditorForm.cs</DependentUpon>
+    <EmbeddedResource Include="AddMangaForm.resx">
+      <DependentUpon>AddMangaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -152,17 +148,7 @@
       <LastGenOutput>dataLinqSql.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="DataStoreDataSet.xsc">
-      <DependentUpon>DataStoreDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="DataStoreDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataStoreDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DataStoreDataSet.xss">
-      <DependentUpon>DataStoreDataSet.xsd</DependentUpon>
-    </None>
+    <None Include="Properties\DataSources\mangaRead.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
