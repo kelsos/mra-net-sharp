@@ -32,16 +32,15 @@
          this.textBox1 = new System.Windows.Forms.TextBox();
          this.searchParametersCB = new System.Windows.Forms.ComboBox();
          this.searchByLabel = new System.Windows.Forms.Label();
-         this.mangaCoverPictureBox = new System.Windows.Forms.PictureBox();
          this.groupBox1 = new System.Windows.Forms.GroupBox();
          this.mangaTitleTextBox = new System.Windows.Forms.TextBox();
          this.groupBox2 = new System.Windows.Forms.GroupBox();
-         this.listBox1 = new System.Windows.Forms.ListBox();
+         this.authorsListBox = new System.Windows.Forms.ListBox();
          this.groupBox3 = new System.Windows.Forms.GroupBox();
-         this.listBox2 = new System.Windows.Forms.ListBox();
+         this.genresListBox = new System.Windows.Forms.ListBox();
          this.mangaListComboBox = new System.Windows.Forms.ComboBox();
          this.groupBox4 = new System.Windows.Forms.GroupBox();
-         this.checkBox1 = new System.Windows.Forms.CheckBox();
+         this.displayMangaInMyListCheckBox = new System.Windows.Forms.CheckBox();
          this.addToReadingListButton = new System.Windows.Forms.Button();
          this.publisherTextBox = new System.Windows.Forms.TextBox();
          this.yearTextBox = new System.Windows.Forms.TextBox();
@@ -51,9 +50,9 @@
          this.yearGroupBox = new System.Windows.Forms.GroupBox();
          this.descriptionGroupBox = new System.Windows.Forms.GroupBox();
          this.descriptionTextBox = new System.Windows.Forms.TextBox();
-         this.button1 = new System.Windows.Forms.Button();
+         this.specifyNewEntryInfoButton = new System.Windows.Forms.Button();
+         this.mangaCoverPictureBox = new System.Windows.Forms.PictureBox();
          this.searchGroupBox.SuspendLayout();
-         ((System.ComponentModel.ISupportInitialize)(this.mangaCoverPictureBox)).BeginInit();
          this.groupBox1.SuspendLayout();
          this.groupBox2.SuspendLayout();
          this.groupBox3.SuspendLayout();
@@ -62,6 +61,7 @@
          this.statusGroupBox.SuspendLayout();
          this.yearGroupBox.SuspendLayout();
          this.descriptionGroupBox.SuspendLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.mangaCoverPictureBox)).BeginInit();
          this.SuspendLayout();
          // 
          // searchGroupBox
@@ -108,14 +108,6 @@
          this.searchByLabel.TabIndex = 0;
          this.searchByLabel.Text = "Search By:";
          // 
-         // mangaCoverPictureBox
-         // 
-         this.mangaCoverPictureBox.Location = new System.Drawing.Point(12, 89);
-         this.mangaCoverPictureBox.Name = "mangaCoverPictureBox";
-         this.mangaCoverPictureBox.Size = new System.Drawing.Size(160, 230);
-         this.mangaCoverPictureBox.TabIndex = 1;
-         this.mangaCoverPictureBox.TabStop = false;
-         // 
          // groupBox1
          // 
          this.groupBox1.Controls.Add(this.mangaTitleTextBox);
@@ -130,7 +122,7 @@
          // 
          this.mangaTitleTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
          this.mangaTitleTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.mangaTitleTextBox.Location = new System.Drawing.Point(3, 16);
+         this.mangaTitleTextBox.Location = new System.Drawing.Point(3, 18);
          this.mangaTitleTextBox.Name = "mangaTitleTextBox";
          this.mangaTitleTextBox.ReadOnly = true;
          this.mangaTitleTextBox.Size = new System.Drawing.Size(305, 15);
@@ -138,7 +130,7 @@
          // 
          // groupBox2
          // 
-         this.groupBox2.Controls.Add(this.listBox1);
+         this.groupBox2.Controls.Add(this.authorsListBox);
          this.groupBox2.Location = new System.Drawing.Point(178, 138);
          this.groupBox2.Name = "groupBox2";
          this.groupBox2.Size = new System.Drawing.Size(158, 181);
@@ -146,20 +138,20 @@
          this.groupBox2.TabStop = false;
          this.groupBox2.Text = "Author(s)";
          // 
-         // listBox1
+         // authorsListBox
          // 
-         this.listBox1.BackColor = System.Drawing.SystemColors.Control;
-         this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-         this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.listBox1.FormattingEnabled = true;
-         this.listBox1.Location = new System.Drawing.Point(3, 18);
-         this.listBox1.Name = "listBox1";
-         this.listBox1.Size = new System.Drawing.Size(152, 160);
-         this.listBox1.TabIndex = 0;
+         this.authorsListBox.BackColor = System.Drawing.SystemColors.Control;
+         this.authorsListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+         this.authorsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.authorsListBox.FormattingEnabled = true;
+         this.authorsListBox.Location = new System.Drawing.Point(3, 18);
+         this.authorsListBox.Name = "authorsListBox";
+         this.authorsListBox.Size = new System.Drawing.Size(152, 160);
+         this.authorsListBox.TabIndex = 0;
          // 
          // groupBox3
          // 
-         this.groupBox3.Controls.Add(this.listBox2);
+         this.groupBox3.Controls.Add(this.genresListBox);
          this.groupBox3.Location = new System.Drawing.Point(342, 138);
          this.groupBox3.Name = "groupBox3";
          this.groupBox3.Size = new System.Drawing.Size(147, 181);
@@ -167,16 +159,16 @@
          this.groupBox3.TabStop = false;
          this.groupBox3.Text = "Genres";
          // 
-         // listBox2
+         // genresListBox
          // 
-         this.listBox2.BackColor = System.Drawing.SystemColors.Control;
-         this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-         this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.listBox2.FormattingEnabled = true;
-         this.listBox2.Location = new System.Drawing.Point(3, 18);
-         this.listBox2.Name = "listBox2";
-         this.listBox2.Size = new System.Drawing.Size(141, 160);
-         this.listBox2.TabIndex = 0;
+         this.genresListBox.BackColor = System.Drawing.SystemColors.Control;
+         this.genresListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+         this.genresListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.genresListBox.FormattingEnabled = true;
+         this.genresListBox.Location = new System.Drawing.Point(3, 18);
+         this.genresListBox.Name = "genresListBox";
+         this.genresListBox.Size = new System.Drawing.Size(141, 160);
+         this.genresListBox.TabIndex = 0;
          // 
          // mangaListComboBox
          // 
@@ -190,7 +182,7 @@
          // 
          // groupBox4
          // 
-         this.groupBox4.Controls.Add(this.checkBox1);
+         this.groupBox4.Controls.Add(this.displayMangaInMyListCheckBox);
          this.groupBox4.Controls.Add(this.mangaListComboBox);
          this.groupBox4.Location = new System.Drawing.Point(221, 12);
          this.groupBox4.Name = "groupBox4";
@@ -199,15 +191,16 @@
          this.groupBox4.TabStop = false;
          this.groupBox4.Text = "Mangas";
          // 
-         // checkBox1
+         // displayMangaInMyListCheckBox
          // 
-         this.checkBox1.AutoSize = true;
-         this.checkBox1.Location = new System.Drawing.Point(6, 42);
-         this.checkBox1.Name = "checkBox1";
-         this.checkBox1.Size = new System.Drawing.Size(182, 17);
-         this.checkBox1.TabIndex = 6;
-         this.checkBox1.Text = "Display Manga Already In My List";
-         this.checkBox1.UseVisualStyleBackColor = true;
+         this.displayMangaInMyListCheckBox.AutoSize = true;
+         this.displayMangaInMyListCheckBox.Location = new System.Drawing.Point(6, 42);
+         this.displayMangaInMyListCheckBox.Name = "displayMangaInMyListCheckBox";
+         this.displayMangaInMyListCheckBox.Size = new System.Drawing.Size(194, 17);
+         this.displayMangaInMyListCheckBox.TabIndex = 6;
+         this.displayMangaInMyListCheckBox.Text = "Display Manga Already In My List";
+         this.displayMangaInMyListCheckBox.UseVisualStyleBackColor = true;
+         this.displayMangaInMyListCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
          // 
          // addToReadingListButton
          // 
@@ -302,22 +295,31 @@
          this.descriptionTextBox.Size = new System.Drawing.Size(471, 98);
          this.descriptionTextBox.TabIndex = 0;
          // 
-         // button1
+         // specifyNewEntryInfoButton
          // 
-         this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-         this.button1.Location = new System.Drawing.Point(143, 500);
-         this.button1.Name = "button1";
-         this.button1.Size = new System.Drawing.Size(105, 23);
-         this.button1.TabIndex = 15;
-         this.button1.Text = "Non Default Add";
-         this.button1.UseVisualStyleBackColor = true;
+         this.specifyNewEntryInfoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+         this.specifyNewEntryInfoButton.Location = new System.Drawing.Point(143, 500);
+         this.specifyNewEntryInfoButton.Name = "specifyNewEntryInfoButton";
+         this.specifyNewEntryInfoButton.Size = new System.Drawing.Size(138, 23);
+         this.specifyNewEntryInfoButton.TabIndex = 15;
+         this.specifyNewEntryInfoButton.Text = "Specify New Entry Info";
+         this.specifyNewEntryInfoButton.UseVisualStyleBackColor = true;
+         this.specifyNewEntryInfoButton.Click += new System.EventHandler(this.specifyNewEntryInfoButton_Click);
+         // 
+         // mangaCoverPictureBox
+         // 
+         this.mangaCoverPictureBox.Location = new System.Drawing.Point(12, 89);
+         this.mangaCoverPictureBox.Name = "mangaCoverPictureBox";
+         this.mangaCoverPictureBox.Size = new System.Drawing.Size(160, 230);
+         this.mangaCoverPictureBox.TabIndex = 1;
+         this.mangaCoverPictureBox.TabStop = false;
          // 
          // AddMangaForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.ClientSize = new System.Drawing.Size(498, 531);
-         this.Controls.Add(this.button1);
+         this.Controls.Add(this.specifyNewEntryInfoButton);
          this.Controls.Add(this.descriptionGroupBox);
          this.Controls.Add(this.yearGroupBox);
          this.Controls.Add(this.statusGroupBox);
@@ -336,7 +338,6 @@
          this.Load += new System.EventHandler(this.AddMangaForm_Load);
          this.searchGroupBox.ResumeLayout(false);
          this.searchGroupBox.PerformLayout();
-         ((System.ComponentModel.ISupportInitialize)(this.mangaCoverPictureBox)).EndInit();
          this.groupBox1.ResumeLayout(false);
          this.groupBox1.PerformLayout();
          this.groupBox2.ResumeLayout(false);
@@ -351,6 +352,7 @@
          this.yearGroupBox.PerformLayout();
          this.descriptionGroupBox.ResumeLayout(false);
          this.descriptionGroupBox.PerformLayout();
+         ((System.ComponentModel.ISupportInitialize)(this.mangaCoverPictureBox)).EndInit();
          this.ResumeLayout(false);
 
 		}
@@ -365,13 +367,13 @@
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.TextBox mangaTitleTextBox;
 		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.ListBox listBox1;
+		private System.Windows.Forms.ListBox authorsListBox;
 		private System.Windows.Forms.GroupBox groupBox3;
-		private System.Windows.Forms.ListBox listBox2;
+		private System.Windows.Forms.ListBox genresListBox;
 		private System.Windows.Forms.ComboBox mangaListComboBox;
 		private System.Windows.Forms.GroupBox groupBox4;
 		private System.Windows.Forms.Button addToReadingListButton;
-		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.CheckBox displayMangaInMyListCheckBox;
 		private System.Windows.Forms.TextBox publisherTextBox;
 		private System.Windows.Forms.TextBox yearTextBox;
 		private System.Windows.Forms.TextBox statusTextBox;
@@ -380,6 +382,6 @@
       private System.Windows.Forms.GroupBox yearGroupBox;
       private System.Windows.Forms.GroupBox descriptionGroupBox;
       private System.Windows.Forms.TextBox descriptionTextBox;
-      private System.Windows.Forms.Button button1;
+      private System.Windows.Forms.Button specifyNewEntryInfoButton;
 	}
 }
