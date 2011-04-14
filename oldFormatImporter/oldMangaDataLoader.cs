@@ -19,11 +19,11 @@ namespace oldFormatImporter
 		{
 			try
 			{
-				if (openFileDialog1.ShowDialog() == DialogResult.OK)
+				if (openXmlFileDialog.ShowDialog() == DialogResult.OK)
 				{
 					DataClasses1DataContext mdb = new DataClasses1DataContext();
 					loadProgressBar.Value = 0;
-					XDocument xmDoc = XDocument.Load(openFileDialog1.FileName);
+					XDocument xmDoc = XDocument.Load(openXmlFileDialog.FileName);
 
 					var xmlData = from data in xmDoc.Descendants("mangaList")
 									  select new
@@ -121,11 +121,11 @@ namespace oldFormatImporter
 		{
 			try
 			{
-				if (openFileDialog1.ShowDialog() == DialogResult.OK)
+				if (openXmlFileDialog.ShowDialog() == DialogResult.OK)
 				{
 					DataClasses1DataContext mdb = new DataClasses1DataContext();
 					loadProgressBar.Value = 0;
-					XDocument xmDoc = XDocument.Load(openFileDialog1.FileName);
+					XDocument xmDoc = XDocument.Load(openXmlFileDialog.FileName);
 
 					var xmlData = from data in xmDoc.Descendants("mangaList")
 									  select new

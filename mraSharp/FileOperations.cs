@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace mraSharp
@@ -34,6 +32,41 @@ namespace mraSharp
 					)
 				 );
 				xDoc.Save(fileName);
+			}
+		}
+		public static void readingListFromXML(string fileName)
+		{
+			XDocument xDoc = XDocument.Load(fileName);
+			dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+			//progress bar goes here
+
+			var xData = from data in xDoc.Descendants("manga")
+							select new
+							{
+								MangaTitle = (string)data.Element("Title"),
+								StartingChapter = (string)data.Element("startingChapter") ?? "1",
+								CurrentChapter = (string)data.Element("currentChapter") ?? "1",
+								DateLastRead = (string)data.Element("dateRead") ?? "01-01-2000",
+								OnLineURL = (string)data.Element("onlineURL") ?? "",
+								Finished = (string)data.Element("finishedReading") ?? "false"
+							};
+			//progress bar size goes here
+
+			foreach (var line in xData)
+			{
+				mangaReadingList mR = new mangaReadingList()
+				{
+					mangaID = DatabaseOperations.getMangaID(line.MangaTitle),
+					mangaStartingChapter = Convert.ToInt32(line.StartingChapter),
+					mangaCurrentChapter = Convert.ToInt32(line.CurrentChapter),
+					mangaDateRead = DateTime.Parse(line.DateLastRead),
+					mangaURL = line.OnLineURL,
+					mangaReadingFinished = Convert.ToBoolean(line.Finished)
+				};
+
+				db.mangaReadingLists.InsertOnSubmit(mR);
+				db.SubmitChanges();
+				//progress loader goes here
 			}
 		}
 

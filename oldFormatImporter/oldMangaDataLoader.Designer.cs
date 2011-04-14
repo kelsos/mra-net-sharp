@@ -30,7 +30,7 @@
 		{
 			this.loadProgressBar = new System.Windows.Forms.ProgressBar();
 			this.loadButton = new System.Windows.Forms.Button();
-			this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+			this.openXmlFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.loadUserDataButton = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
@@ -52,9 +52,9 @@
 			this.loadButton.UseVisualStyleBackColor = true;
 			this.loadButton.Click += new System.EventHandler(this.button1_Click);
 			// 
-			// openFileDialog1
+			// openXmlFileDialog
 			// 
-			this.openFileDialog1.FileName = "openFileDialog1";
+			this.openXmlFileDialog.Filter = "XML files|*.xml";
 			// 
 			// loadUserDataButton
 			// 
@@ -86,7 +86,7 @@
 
 		private System.Windows.Forms.ProgressBar loadProgressBar;
 		private System.Windows.Forms.Button loadButton;
-		private System.Windows.Forms.OpenFileDialog openFileDialog1;
+		private System.Windows.Forms.OpenFileDialog openXmlFileDialog;
 		private System.Windows.Forms.Button loadUserDataButton;
 	}
 }

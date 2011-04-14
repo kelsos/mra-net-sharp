@@ -34,6 +34,11 @@ namespace mraSharp
 		{
 			if (MessageBox.Show("Do you want to clear the database?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
 			{
+				DatabaseOperations.clearDatabase();
+				if (restoreOpenFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					FileOperations.readingListFromXML(restoreOpenFileDialog.FileName);
+				}
 			}
 		}
 

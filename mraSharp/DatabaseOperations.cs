@@ -75,6 +75,31 @@ namespace mraSharp
 			db.rssSubscriptions.InsertOnSubmit(sub);
 			db.SubmitChanges();
 		}
+
+		/// <summary>
+		/// Gets the manga ID.
+		/// </summary>
+		/// <param name="mangaTitle">The manga title.</param>
+		/// <returns></returns>
+		public static int getMangaID(string mangaTitle)
+		{
+			using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+			{
+				if (!string.IsNullOrEmpty(mangaTitle))
+				{
+					var mangaID = (from manga in db.mangaInfos
+										where manga.mangaTitle == mangaTitle
+										select manga.mangaID).SingleOrDefault();
+					return mangaID;
+				}
+				else
+				{
+					return 0;
+				}
+
+			}
+		}
+
 #region Statistics Methods
 
 		/// <summary>
