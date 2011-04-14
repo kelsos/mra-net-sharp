@@ -66,6 +66,7 @@ namespace mraSharp
 					var description = (from current in db.mangaInfos
 											 where current.mangaID == mID
 											 select current.mangaDescription).SingleOrDefault();
+               descriptionTextBox.Text = description;
 				}
 			}
 		}
@@ -88,12 +89,62 @@ namespace mraSharp
 				}
 			}
 		}
+
+      private void getYearOfFirstPublish()
+      {
+         using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+         {
+            if (mangaListComboBox.Text != null)
+            {
+               var year = (from entry in db.mangaInfos
+                           where entry.mangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
+                           select entry.dateOfPublish).SingleOrDefault();
+               yearTextBox.Text = year.ToString();
+            }
+         }
+      }
+
+      private void getPublisherName()
+      {
+         using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+         {
+            if (mangaListComboBox.Text != null)
+            {
+               var pubID = (from entry in db.mangaInfos
+                                  where entry.mangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
+                                  select entry.publisherID).SingleOrDefault();
+
+               var publisherName = (from entry in db.publisherInfos
+                                    where entry.publisherID == (int)pubID
+                                    select entry.publisherName).SingleOrDefault();
+               publisherTextBox.Text = publisherName;
+            }
+         }
+      }
+
+      private void getMangaStatus()
+      {
+         using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+         {
+            if (mangaListComboBox.Text != null)
+            {
+               var mStat = (from entry in db.mangaInfos
+                            where entry.mangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
+                            select entry.mangaStatus).SingleOrDefault();
+               statusTextBox.Text = mStat;
+            }
+         }
+      }
 		#endregion
 
 		private void mangaListComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			getMangaCover();
 			mangaTitleTextBox.Text = mangaListComboBox.Text;
+         getMangaDescription();
+         getYearOfFirstPublish();
+         getPublisherName();
+         getMangaStatus();
 		}
 
 		private void addToReadingListButton_Click(object sender, EventArgs e)
