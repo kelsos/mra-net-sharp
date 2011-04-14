@@ -29,20 +29,23 @@
 		private void InitializeComponent()
 		{
 			this.searchGroupBox = new System.Windows.Forms.GroupBox();
-			this.searchByLabel = new System.Windows.Forms.Label();
-			this.searchParametersCB = new System.Windows.Forms.ComboBox();
 			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.searchParametersCB = new System.Windows.Forms.ComboBox();
+			this.searchByLabel = new System.Windows.Forms.Label();
 			this.mangaCoverPictureBox = new System.Windows.Forms.PictureBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.mangaTitleTextBox = new System.Windows.Forms.TextBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.listBox1 = new System.Windows.Forms.ListBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.listBox2 = new System.Windows.Forms.ListBox();
 			this.mangaListComboBox = new System.Windows.Forms.ComboBox();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
-			this.listBox2 = new System.Windows.Forms.ListBox();
-			this.addToReadingListButton = new System.Windows.Forms.Button();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
+			this.addToReadingListButton = new System.Windows.Forms.Button();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.textBox4 = new System.Windows.Forms.TextBox();
 			this.searchGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mangaCoverPictureBox)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -63,14 +66,12 @@
 			this.searchGroupBox.TabStop = false;
 			this.searchGroupBox.Text = "Search";
 			// 
-			// searchByLabel
+			// textBox1
 			// 
-			this.searchByLabel.AutoSize = true;
-			this.searchByLabel.Location = new System.Drawing.Point(6, 16);
-			this.searchByLabel.Name = "searchByLabel";
-			this.searchByLabel.Size = new System.Drawing.Size(59, 13);
-			this.searchByLabel.TabIndex = 0;
-			this.searchByLabel.Text = "Search By:";
+			this.textBox1.Location = new System.Drawing.Point(9, 40);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(185, 22);
+			this.textBox1.TabIndex = 2;
 			// 
 			// searchParametersCB
 			// 
@@ -88,12 +89,14 @@
 			this.searchParametersCB.Size = new System.Drawing.Size(123, 21);
 			this.searchParametersCB.TabIndex = 1;
 			// 
-			// textBox1
+			// searchByLabel
 			// 
-			this.textBox1.Location = new System.Drawing.Point(9, 40);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(185, 22);
-			this.textBox1.TabIndex = 2;
+			this.searchByLabel.AutoSize = true;
+			this.searchByLabel.Location = new System.Drawing.Point(6, 16);
+			this.searchByLabel.Name = "searchByLabel";
+			this.searchByLabel.Size = new System.Drawing.Size(59, 13);
+			this.searchByLabel.TabIndex = 0;
+			this.searchByLabel.Text = "Search By:";
 			// 
 			// mangaCoverPictureBox
 			// 
@@ -117,7 +120,7 @@
 			// 
 			this.mangaTitleTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.mangaTitleTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.mangaTitleTextBox.Location = new System.Drawing.Point(3, 18);
+			this.mangaTitleTextBox.Location = new System.Drawing.Point(3, 16);
 			this.mangaTitleTextBox.Name = "mangaTitleTextBox";
 			this.mangaTitleTextBox.ReadOnly = true;
 			this.mangaTitleTextBox.Size = new System.Drawing.Size(305, 15);
@@ -154,6 +157,17 @@
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Genres";
 			// 
+			// listBox2
+			// 
+			this.listBox2.BackColor = System.Drawing.SystemColors.Control;
+			this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listBox2.FormattingEnabled = true;
+			this.listBox2.Location = new System.Drawing.Point(3, 18);
+			this.listBox2.Name = "listBox2";
+			this.listBox2.Size = new System.Drawing.Size(141, 160);
+			this.listBox2.TabIndex = 0;
+			// 
 			// mangaListComboBox
 			// 
 			this.mangaListComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -175,16 +189,15 @@
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Mangas";
 			// 
-			// listBox2
+			// checkBox1
 			// 
-			this.listBox2.BackColor = System.Drawing.SystemColors.Control;
-			this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-			this.listBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.listBox2.FormattingEnabled = true;
-			this.listBox2.Location = new System.Drawing.Point(3, 18);
-			this.listBox2.Name = "listBox2";
-			this.listBox2.Size = new System.Drawing.Size(141, 160);
-			this.listBox2.TabIndex = 0;
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Location = new System.Drawing.Point(6, 42);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(182, 17);
+			this.checkBox1.TabIndex = 6;
+			this.checkBox1.Text = "Display Manga Already In My List";
+			this.checkBox1.UseVisualStyleBackColor = true;
 			// 
 			// addToReadingListButton
 			// 
@@ -197,21 +210,38 @@
 			this.addToReadingListButton.UseVisualStyleBackColor = true;
 			this.addToReadingListButton.Click += new System.EventHandler(this.addToReadingListButton_Click);
 			// 
-			// checkBox1
+			// textBox2
 			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(6, 42);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(194, 17);
-			this.checkBox1.TabIndex = 6;
-			this.checkBox1.Text = "Display Manga Already In My List";
-			this.checkBox1.UseVisualStyleBackColor = true;
+			this.textBox2.Location = new System.Drawing.Point(12, 344);
+			this.textBox2.Name = "textBox2";
+			this.textBox2.ReadOnly = true;
+			this.textBox2.Size = new System.Drawing.Size(176, 22);
+			this.textBox2.TabIndex = 8;
+			// 
+			// textBox3
+			// 
+			this.textBox3.Location = new System.Drawing.Point(12, 373);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.ReadOnly = true;
+			this.textBox3.Size = new System.Drawing.Size(176, 22);
+			this.textBox3.TabIndex = 9;
+			// 
+			// textBox4
+			// 
+			this.textBox4.Location = new System.Drawing.Point(12, 401);
+			this.textBox4.Name = "textBox4";
+			this.textBox4.ReadOnly = true;
+			this.textBox4.Size = new System.Drawing.Size(176, 22);
+			this.textBox4.TabIndex = 10;
 			// 
 			// AddMangaForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(498, 616);
+			this.Controls.Add(this.textBox4);
+			this.Controls.Add(this.textBox3);
+			this.Controls.Add(this.textBox2);
 			this.Controls.Add(this.addToReadingListButton);
 			this.Controls.Add(this.groupBox4);
 			this.Controls.Add(this.groupBox3);
@@ -234,6 +264,7 @@
 			this.groupBox4.ResumeLayout(false);
 			this.groupBox4.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -254,5 +285,8 @@
 		private System.Windows.Forms.GroupBox groupBox4;
 		private System.Windows.Forms.Button addToReadingListButton;
 		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.TextBox textBox3;
+		private System.Windows.Forms.TextBox textBox4;
 	}
 }
