@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace mraSharp
 {
-	class RegularExpressions
+	public static class RegularExpressions
 	{
 		/// <summary>
 		/// Takes a string and converts every whitespace to the URL Encoding for space (%20)

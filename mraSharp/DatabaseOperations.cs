@@ -7,7 +7,7 @@ using System.Data;
 
 namespace mraSharp
 {
-	class DatabaseOperations
+	public static class DatabaseOperations
 	{
 		private static dataLinqSqlDataContext db = new dataLinqSqlDataContext();
 

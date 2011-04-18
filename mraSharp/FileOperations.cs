@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace mraSharp
 {
-	class FileOperations
+	public static class FileOperations
 	{
 
 		public static void readingListToXML(string fileName)

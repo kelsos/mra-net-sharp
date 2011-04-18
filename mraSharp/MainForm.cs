@@ -14,26 +14,61 @@ namespace mraSharp
 {
    public partial class MainForm : Form
    {
-		private int myCounter = 0;
+		private int myCounter;
+		private bool internetIsUp;
 
       public MainForm()
       {
          InitializeComponent();
          Skybound.Gecko.Xpcom.Initialize(Application.StartupPath.ToString() + "\\xulrunner\\");
 			geckoWiki.HandleCreated += new EventHandler(geckoWiki_HandleCreated);// creates a new event handler for the HandleCreated event of GeckoWiki
-			rssFetchingThread.RunWorkerAsync();
+			myCounter = 0;
+			rssCheckTimer.Enabled = false;
+			rssTickTimer.Enabled = false;
+			
+			//checks if network is up
+			System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged += networkAvailabilityChanged_handler;
 		}
 
       private void MainForm_Load(object sender, EventArgs e)
       {
 			loadDatagrid();
 			mangaListDataGridView.AutoGenerateColumns = false;
+			networkRssChecker();
+
       }
+		private void networkRssChecker()
+		{
+			internetIsUp = System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+			rssCheckTimer.Enabled = internetIsUp;
+			rssTickTimer.Enabled = internetIsUp;
+
+			if (!internetIsUp)
+			{
+				rssTitleLabel.Text = "Internet Connection Is N/A";
+				rssDescriptionTextBox.Text = "";
+				rssLinkLabel.Text = "";
+
+			}
+			else
+			{
+				rssTitleLabel.Text = "";
+				rssDescriptionTextBox.Text = "";
+				rssLinkLabel.Text = "";
+				rssFetchingThread.RunWorkerAsync();
+			}
+		}
+
+		private void networkAvailabilityChanged_handler(object sender, EventArgs e)
+		{
+			networkRssChecker();
+		}
 
 		private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (MessageBox.Show("Do you want to clear the database?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
 			{
+				
 				DatabaseOperations.clearDatabase();
 				if (restoreOpenFileDialog.ShowDialog() == DialogResult.OK)
 				{
@@ -288,7 +323,7 @@ namespace mraSharp
 
 		private void rssCheckTimer_Tick(object sender, EventArgs e)
 		{
-			rssFetchingThread.RunWorkerAsync();
+				rssFetchingThread.RunWorkerAsync();
 		}
 
 		private void rssTickTimer_Tick(object sender, EventArgs e)
@@ -392,6 +427,7 @@ namespace mraSharp
 			using (AddMangaForm amf = new AddMangaForm())
 			{
 				amf.ShowDialog();
+				loadDatagrid();
 			}
 		}
 
