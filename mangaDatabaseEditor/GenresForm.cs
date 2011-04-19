@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace mangaDatabaseEditor
@@ -15,6 +10,7 @@ namespace mangaDatabaseEditor
 		{
 			InitializeComponent();
 		}
+
 		private MangaDBDataContext mangaDatabase = new MangaDBDataContext();
 
 		private void refreshGenres()
@@ -25,6 +21,7 @@ namespace mangaDatabaseEditor
 				select genres;
 			genreInfoBindingSource.MoveFirst();
 		}
+
 		private void searchButton_Click(object sender, EventArgs e)
 		{
 			genreInfoBindingSource.DataSource =
@@ -58,7 +55,7 @@ namespace mangaDatabaseEditor
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
-				searchButton_Click(sender,e);
+				searchButton_Click(sender, e);
 			}
 		}
 	}

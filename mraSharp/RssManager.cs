@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
 using System.IO;
+using System.Net;
 using System.Xml;
 
 namespace mraSharp
@@ -12,7 +9,7 @@ namespace mraSharp
 	/// <summary>
 	/// This class is responsible for the RSS related operations
 	/// </summary>
-	class RssManager
+	internal class RssManager
 	{
 		/// <summary>
 		/// Processes the news feed.
@@ -61,7 +58,7 @@ namespace mraSharp
 
 					//Gets the description of the current RSS node.
 					rssDetail = currentRssItem.SelectSingleNode("description");
-					if (rssDetail !=null)
+					if (rssDetail != null)
 					{
 						tempNewsItem.Description = rssDetail.InnerText;
 					}

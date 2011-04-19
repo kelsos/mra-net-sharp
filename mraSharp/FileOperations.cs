@@ -7,7 +7,6 @@ namespace mraSharp
 {
 	public static class FileOperations
 	{
-
 		public static void readingListToXML(string fileName)
 		{
 			using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
@@ -34,6 +33,7 @@ namespace mraSharp
 				xDoc.Save(fileName);
 			}
 		}
+
 		public static void readingListFromXML(string fileName)
 		{
 			XDocument xDoc = XDocument.Load(fileName);

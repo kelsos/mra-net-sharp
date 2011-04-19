@@ -2,7 +2,7 @@
 
 namespace mraSharp
 {
-	class mangaRead
+	internal class mangaRead
 	{
 		private string _title;
 		private double? _startingChapter;
@@ -56,7 +56,5 @@ namespace mraSharp
 			_onlineURL = onlineURL;
 			_finishedReading = finishedReading;
 		}
-
-
 	}
 }

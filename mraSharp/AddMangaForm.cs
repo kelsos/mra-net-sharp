@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace mraSharp
 {
 	public partial class AddMangaForm : Form
 	{
 		private bool displayAddedManga;
+
 		public AddMangaForm()
 		{
 			InitializeComponent();
@@ -185,7 +182,8 @@ namespace mraSharp
 					select auth.authorTable.authorFullName;
 			}
 		}
-		#endregion
+
+		#endregion Linq to SQL
 
 		private void mangaListComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{

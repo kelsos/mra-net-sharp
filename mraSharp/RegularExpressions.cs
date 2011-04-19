@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace mraSharp
 {
@@ -18,8 +14,9 @@ namespace mraSharp
 			string patternUsed = "\\s+";
 			string replacementString = "%20";
 			Regex regExp = new Regex(patternUsed);
-			return regExp.Replace(toProcess,replacementString);
+			return regExp.Replace(toProcess, replacementString);
 		}
+
 		/// <summary>
 		/// Escapes the apostrophe for an SQL query.
 		/// </summary>

@@ -32,7 +32,6 @@ namespace oldFormatImporter
 										  Description = (string)data.Element("mangaDescription").Value,
 										  Cover = data.Element("mangaCover").Value,
 										  FinishedStatus = (string)data.Element("isFinished") ?? "false"
-
 									  };
 					loadProgressBar.Maximum = xmlData.Count();
 					foreach (var line in xmlData)
@@ -43,15 +42,12 @@ namespace oldFormatImporter
 							mangaDescription = line.Description,
 							mangaCover = sqlBinaryImage(imageSizeToStandard(Base64ToImage(line.Cover))),
 							mangaStatus = getStatus(line.FinishedStatus)
-
 						};
 						mdb.mangaInfos.InsertOnSubmit(mI);
 						mdb.SubmitChanges();
 
-
 						loadProgressBar.Value += 1;
 					}
-
 				}
 			}
 			catch (Exception ex)
@@ -132,7 +128,7 @@ namespace oldFormatImporter
 									  {
 										  MangaTitle = (string)data.Element("mangaTitle"),
 										  StartingChapter = (string)data.Element("startingChapter") ?? "1",
-										  CurrentChapter = (string)data.Element("currentChapter") ?? "1" ,
+										  CurrentChapter = (string)data.Element("currentChapter") ?? "1",
 										  DateLastRead = (string)data.Element("dateRead") ?? "01-01-2000",
 										  OnLineURL = (string)data.Element("onlineURL") ?? "",
 										  Finished = (string)data.Element("isFinished") ?? "false"
@@ -162,6 +158,7 @@ namespace oldFormatImporter
 				MessageBox.Show(ex.ToString());
 			}
 		}
+
 		private string getStatus(string value)
 		{
 			if (value == "true")
@@ -173,6 +170,7 @@ namespace oldFormatImporter
 				return "Ongoing";
 			}
 		}
+
 		private bool getStatusBool(string value)
 		{
 			if (value == "true")
@@ -184,12 +182,13 @@ namespace oldFormatImporter
 				return false;
 			}
 		}
+
 		private int getMangaID(string mangaTitle)
 		{
 			DataClasses1DataContext mdE = new DataClasses1DataContext();
 			var mangaID = (from manga in mdE.mangaInfos
-								  where manga.mangaTitle == mangaTitle
-								  select manga.mangaID).Single();
+								where manga.mangaTitle == mangaTitle
+								select manga.mangaID).Single();
 			return mangaID;
 		}
 	}

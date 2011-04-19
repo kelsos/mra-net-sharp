@@ -76,6 +76,7 @@ namespace mangaDatabaseEditor
 				where auth.mangaID == Convert.ToInt32(mangaIDTextBox.Text)
 				select auth.authorTable.authorFullName;
 		}
+
 		private void loadPublisherData()
 		{
 			publisherComboBox.DataSource =
@@ -101,6 +102,7 @@ namespace mangaDatabaseEditor
 				buttonImageLoad.Enabled = false;
 			}
 		}
+
 		private void loadCurrentImage()
 		{
 			var image = (from current in mangaDatabase.mangaInfos
@@ -125,7 +127,7 @@ namespace mangaDatabaseEditor
 			}
 		}
 
-		#endregion
+		#endregion Private Methods
 
 		private void mangaInfoBindingNavigatorSaveItem_Click(object sender, EventArgs e)
 		{
@@ -262,7 +264,6 @@ namespace mangaDatabaseEditor
 			}
 			if (auE == true)
 			{
-
 				mangaAuthor ma = new mangaAuthor
 				{
 					authorID = authID,
@@ -340,7 +341,7 @@ namespace mangaDatabaseEditor
 		private byte[] ImageToByteArray(System.Drawing.Image myImage)
 		{
 			using (MemoryStream ms = new MemoryStream())
-			{	
+			{
 				myImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
 				return ms.ToArray();
 			}

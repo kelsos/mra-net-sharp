@@ -1,42 +1,39 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Collections;
-using System.Threading;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace mraSharp
 {
-   public partial class MainForm : Form
-   {
+	public partial class MainForm : Form
+	{
 		private int myCounter;
 		private bool internetIsUp;
 
-      public MainForm()
-      {
-         InitializeComponent();
-         Skybound.Gecko.Xpcom.Initialize(Application.StartupPath.ToString() + "\\xulrunner\\");
+		public MainForm()
+		{
+			InitializeComponent();
+			Skybound.Gecko.Xpcom.Initialize(Application.StartupPath.ToString() + "\\xulrunner\\");
 			geckoWiki.HandleCreated += new EventHandler(geckoWiki_HandleCreated);// creates a new event handler for the HandleCreated event of GeckoWiki
 			myCounter = 0;
 			rssCheckTimer.Enabled = false;
 			rssTickTimer.Enabled = false;
-			
+
 			//checks if network is up
 			System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged += networkAvailabilityChanged_handler;
 		}
 
-      private void MainForm_Load(object sender, EventArgs e)
-      {
+		private void MainForm_Load(object sender, EventArgs e)
+		{
 			loadDatagrid();
 			mangaListDataGridView.AutoGenerateColumns = false;
 			networkRssChecker();
+		}
 
-      }
 		private void networkRssChecker()
 		{
 			internetIsUp = System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
@@ -48,7 +45,6 @@ namespace mraSharp
 				rssTitleLabel.Text = "Internet Connection Is N/A";
 				rssDescriptionTextBox.Text = "";
 				rssLinkLabel.Text = "";
-
 			}
 			else
 			{
@@ -68,7 +64,6 @@ namespace mraSharp
 		{
 			if (MessageBox.Show("Do you want to clear the database?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
 			{
-				
 				DatabaseOperations.clearDatabase();
 				if (restoreOpenFileDialog.ShowDialog() == DialogResult.OK)
 				{
@@ -103,7 +98,7 @@ namespace mraSharp
 		private void rssTicker()
 		{
 			int newsItemsCount = newsList.Count();
-			
+
 			if (newsItemsCount > myCounter)
 			{
 				rssTitleLabel.Text = newsList[myCounter].rssTitle;
@@ -157,7 +152,7 @@ namespace mraSharp
 					}
 				}
 				newsList = (from news in db.newsStorages
-							  select news).ToList();
+								select news).ToList();
 			}
 			catch (Exception ex)
 			{
@@ -235,9 +230,9 @@ namespace mraSharp
 					geckoWiki.Parent = geckoPanel;
 					geckoWiki.CreateControl();
 					Application.DoEvents();
-					
+
 					//Doesn't work the first time (handle must be created)
-						
+
 					if (geckoWiki.IsHandleCreated)
 					{
 						geckoWiki.Navigate(navigationURL);
@@ -306,12 +301,11 @@ namespace mraSharp
 
 		private void editoToolStripButton_Click(object sender, EventArgs e)
 		{
-
 		}
 
 		private void rssSubscriptionsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			using(SubscriptionManagerForm manager = new SubscriptionManagerForm())
+			using (SubscriptionManagerForm manager = new SubscriptionManagerForm())
 			{
 				manager.ShowDialog();
 			}
@@ -323,7 +317,7 @@ namespace mraSharp
 
 		private void rssCheckTimer_Tick(object sender, EventArgs e)
 		{
-				rssFetchingThread.RunWorkerAsync();
+			rssFetchingThread.RunWorkerAsync();
 		}
 
 		private void rssTickTimer_Tick(object sender, EventArgs e)
@@ -363,31 +357,31 @@ namespace mraSharp
 
 		private void loadingText()
 		{
-		
 		}
 
 		private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			using(StatisticsForm stats = new StatisticsForm())
+			using (StatisticsForm stats = new StatisticsForm())
 			{
 				stats.ShowDialog();
 			}
 		}
+
 		#region Linq to SQL data functions
+
 		private void loadDatagrid()
 		{
 			dataLinqSqlDataContext mdb = new dataLinqSqlDataContext();
 			dataGridBindingSource.DataSource = from read in mdb.mangaReadingLists
 														  join mangas in mdb.mangaInfos
 														  on read.mangaID equals mangas.mangaID
-														  select new mangaRead (mangas.mangaTitle, read.mangaStartingChapter, read.mangaCurrentChapter, read.mangaDateRead, read.mangaURL, read.mangaReadingFinished);
-		
+														  select new mangaRead(mangas.mangaTitle, read.mangaStartingChapter, read.mangaCurrentChapter, read.mangaDateRead, read.mangaURL, read.mangaReadingFinished);
 		}
 
 		private void loadCurrentImage()
 		{
 			dataLinqSqlDataContext db = new dataLinqSqlDataContext();
-			if (mangaListDataGridView.CurrentRow!=null)
+			if (mangaListDataGridView.CurrentRow != null)
 			{
 				var mID = (from current in db.mangaInfos
 							  where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
@@ -414,7 +408,8 @@ namespace mraSharp
 				mangaDescriptionTextBox.Text = description;
 			}
 		}
-		#endregion
+
+		#endregion Linq to SQL data functions
 
 		private void mangaListDataGridView_SelectionChanged(object sender, EventArgs e)
 		{
@@ -430,7 +425,5 @@ namespace mraSharp
 				loadDatagrid();
 			}
 		}
-
-
 	}
 }

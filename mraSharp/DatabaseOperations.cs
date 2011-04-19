@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Data.SqlClient;
-using System.Data;
 
 namespace mraSharp
 {
@@ -96,11 +92,10 @@ namespace mraSharp
 				{
 					return 0;
 				}
-
 			}
 		}
 
-#region Statistics Methods
+		#region Statistics Methods
 
 		/// <summary>
 		/// Returns the of the mangas read.
@@ -174,6 +169,7 @@ namespace mraSharp
 			TimeSpan dateDiff = DateTime.Now - Convert.ToDateTime(dateILastRead());
 			return dateDiff.Days;
 		}
-#endregion
+
+		#endregion Statistics Methods
 	}
 }

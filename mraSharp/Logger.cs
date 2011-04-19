@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
 namespace mraSharp
 {
-	class Logger
+	internal class Logger
 	{
 		/// <summary>
 		/// This methods logs every runtime error at the specied file.
@@ -31,9 +28,6 @@ namespace mraSharp
 			{
 				throw;
 			}
-
 		}
 	}
 }
-
-
