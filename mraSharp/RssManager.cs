@@ -71,10 +71,11 @@ namespace mraSharp
 					returnList.Add(tempNewsItem);
 				}
 			}
-			catch (Exception ex)
-			{
-				Logger.errorLogger("error.txt", ex.ToString());
-			}
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
 			return returnList;
 		}
 	}

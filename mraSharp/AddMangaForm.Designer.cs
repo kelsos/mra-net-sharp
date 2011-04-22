@@ -200,7 +200,7 @@
 			this.displayMangaInMyListCheckBox.TabIndex = 6;
 			this.displayMangaInMyListCheckBox.Text = "Display Manga Already In My List";
 			this.displayMangaInMyListCheckBox.UseVisualStyleBackColor = true;
-			this.displayMangaInMyListCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+			this.displayMangaInMyListCheckBox.CheckedChanged += new System.EventHandler(this.displayMangaInMyListCheckBox_CheckedChanged);
 			// 
 			// addToReadingListButton
 			// 

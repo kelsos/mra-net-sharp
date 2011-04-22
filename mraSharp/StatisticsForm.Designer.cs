@@ -28,125 +28,149 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.numberOfMangasReadTextBox = new System.Windows.Forms.TextBox();
-			this.numberOfChaptersReadTextBox = new System.Windows.Forms.TextBox();
-			this.numberOfMangasFinishedTextBox = new System.Windows.Forms.TextBox();
-			this.dateILastReadTextBox = new System.Windows.Forms.TextBox();
-			this.daysSinceTextBox = new System.Windows.Forms.TextBox();
-			this.numberOfMangasReadLabel = new System.Windows.Forms.Label();
-			this.numberOfChaptersReadLabel = new System.Windows.Forms.Label();
-			this.numberOfMangasFinishedLabel = new System.Windows.Forms.Label();
-			this.dateILastReadLabel = new System.Windows.Forms.Label();
-			this.daysSinceLabel = new System.Windows.Forms.Label();
-			this.SuspendLayout();
-			// 
-			// numberOfMangasReadTextBox
-			// 
-			this.numberOfMangasReadTextBox.Location = new System.Drawing.Point(220, 35);
-			this.numberOfMangasReadTextBox.Name = "numberOfMangasReadTextBox";
-			this.numberOfMangasReadTextBox.ReadOnly = true;
-			this.numberOfMangasReadTextBox.Size = new System.Drawing.Size(195, 22);
-			this.numberOfMangasReadTextBox.TabIndex = 0;
-			// 
-			// numberOfChaptersReadTextBox
-			// 
-			this.numberOfChaptersReadTextBox.Location = new System.Drawing.Point(220, 63);
-			this.numberOfChaptersReadTextBox.Name = "numberOfChaptersReadTextBox";
-			this.numberOfChaptersReadTextBox.ReadOnly = true;
-			this.numberOfChaptersReadTextBox.Size = new System.Drawing.Size(195, 22);
-			this.numberOfChaptersReadTextBox.TabIndex = 1;
-			// 
-			// numberOfMangasFinishedTextBox
-			// 
-			this.numberOfMangasFinishedTextBox.Location = new System.Drawing.Point(220, 91);
-			this.numberOfMangasFinishedTextBox.Name = "numberOfMangasFinishedTextBox";
-			this.numberOfMangasFinishedTextBox.ReadOnly = true;
-			this.numberOfMangasFinishedTextBox.Size = new System.Drawing.Size(195, 22);
-			this.numberOfMangasFinishedTextBox.TabIndex = 2;
-			// 
-			// dateILastReadTextBox
-			// 
-			this.dateILastReadTextBox.Location = new System.Drawing.Point(220, 119);
-			this.dateILastReadTextBox.Name = "dateILastReadTextBox";
-			this.dateILastReadTextBox.ReadOnly = true;
-			this.dateILastReadTextBox.Size = new System.Drawing.Size(195, 22);
-			this.dateILastReadTextBox.TabIndex = 3;
-			// 
-			// daysSinceTextBox
-			// 
-			this.daysSinceTextBox.Location = new System.Drawing.Point(220, 147);
-			this.daysSinceTextBox.Name = "daysSinceTextBox";
-			this.daysSinceTextBox.ReadOnly = true;
-			this.daysSinceTextBox.Size = new System.Drawing.Size(195, 22);
-			this.daysSinceTextBox.TabIndex = 4;
-			// 
-			// numberOfMangasReadLabel
-			// 
-			this.numberOfMangasReadLabel.AutoSize = true;
-			this.numberOfMangasReadLabel.Location = new System.Drawing.Point(12, 38);
-			this.numberOfMangasReadLabel.Name = "numberOfMangasReadLabel";
-			this.numberOfMangasReadLabel.Size = new System.Drawing.Size(138, 13);
-			this.numberOfMangasReadLabel.TabIndex = 5;
-			this.numberOfMangasReadLabel.Text = "Number of Mangas Read:";
-			// 
-			// numberOfChaptersReadLabel
-			// 
-			this.numberOfChaptersReadLabel.AutoSize = true;
-			this.numberOfChaptersReadLabel.Location = new System.Drawing.Point(12, 66);
-			this.numberOfChaptersReadLabel.Name = "numberOfChaptersReadLabel";
-			this.numberOfChaptersReadLabel.Size = new System.Drawing.Size(143, 13);
-			this.numberOfChaptersReadLabel.TabIndex = 6;
-			this.numberOfChaptersReadLabel.Text = "Number of Chapters Read:";
-			// 
-			// numberOfMangasFinishedLabel
-			// 
-			this.numberOfMangasFinishedLabel.AutoSize = true;
-			this.numberOfMangasFinishedLabel.Location = new System.Drawing.Point(12, 94);
-			this.numberOfMangasFinishedLabel.Name = "numberOfMangasFinishedLabel";
-			this.numberOfMangasFinishedLabel.Size = new System.Drawing.Size(156, 13);
-			this.numberOfMangasFinishedLabel.TabIndex = 7;
-			this.numberOfMangasFinishedLabel.Text = "Number of Mangas Finished:";
-			// 
-			// dateILastReadLabel
-			// 
-			this.dateILastReadLabel.AutoSize = true;
-			this.dateILastReadLabel.Location = new System.Drawing.Point(12, 122);
-			this.dateILastReadLabel.Name = "dateILastReadLabel";
-			this.dateILastReadLabel.Size = new System.Drawing.Size(92, 13);
-			this.dateILastReadLabel.TabIndex = 8;
-			this.dateILastReadLabel.Text = "Date I Last Read:";
-			// 
-			// daysSinceLabel
-			// 
-			this.daysSinceLabel.AutoSize = true;
-			this.daysSinceLabel.Location = new System.Drawing.Point(12, 150);
-			this.daysSinceLabel.Name = "daysSinceLabel";
-			this.daysSinceLabel.Size = new System.Drawing.Size(64, 13);
-			this.daysSinceLabel.TabIndex = 9;
-			this.daysSinceLabel.Text = "Days Since:";
-			// 
-			// StatisticsForm
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(427, 211);
-			this.Controls.Add(this.daysSinceLabel);
-			this.Controls.Add(this.dateILastReadLabel);
-			this.Controls.Add(this.numberOfMangasFinishedLabel);
-			this.Controls.Add(this.numberOfChaptersReadLabel);
-			this.Controls.Add(this.numberOfMangasReadLabel);
-			this.Controls.Add(this.daysSinceTextBox);
-			this.Controls.Add(this.dateILastReadTextBox);
-			this.Controls.Add(this.numberOfMangasFinishedTextBox);
-			this.Controls.Add(this.numberOfChaptersReadTextBox);
-			this.Controls.Add(this.numberOfMangasReadTextBox);
-			this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-			this.Name = "StatisticsForm";
-			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-			this.Text = "Statistics";
-			this.ResumeLayout(false);
-			this.PerformLayout();
+         this.numberOfMangasReadTextBox = new System.Windows.Forms.TextBox();
+         this.numberOfChaptersReadTextBox = new System.Windows.Forms.TextBox();
+         this.numberOfMangasFinishedTextBox = new System.Windows.Forms.TextBox();
+         this.dateILastReadTextBox = new System.Windows.Forms.TextBox();
+         this.daysSinceTextBox = new System.Windows.Forms.TextBox();
+         this.numOfMangasReadTextBox = new System.Windows.Forms.GroupBox();
+         this.numOfChaptersReadGroupBox = new System.Windows.Forms.GroupBox();
+         this.numOfFinishedMangasGroupBox = new System.Windows.Forms.GroupBox();
+         this.dateILastReadGroupBox = new System.Windows.Forms.GroupBox();
+         this.daysSinceGroupBox = new System.Windows.Forms.GroupBox();
+         this.numOfMangasReadTextBox.SuspendLayout();
+         this.numOfChaptersReadGroupBox.SuspendLayout();
+         this.numOfFinishedMangasGroupBox.SuspendLayout();
+         this.dateILastReadGroupBox.SuspendLayout();
+         this.daysSinceGroupBox.SuspendLayout();
+         this.SuspendLayout();
+         // 
+         // numberOfMangasReadTextBox
+         // 
+         this.numberOfMangasReadTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+         this.numberOfMangasReadTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.numberOfMangasReadTextBox.Location = new System.Drawing.Point(3, 18);
+         this.numberOfMangasReadTextBox.Name = "numberOfMangasReadTextBox";
+         this.numberOfMangasReadTextBox.ReadOnly = true;
+         this.numberOfMangasReadTextBox.Size = new System.Drawing.Size(194, 15);
+         this.numberOfMangasReadTextBox.TabIndex = 0;
+         // 
+         // numberOfChaptersReadTextBox
+         // 
+         this.numberOfChaptersReadTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+         this.numberOfChaptersReadTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.numberOfChaptersReadTextBox.Location = new System.Drawing.Point(3, 18);
+         this.numberOfChaptersReadTextBox.Name = "numberOfChaptersReadTextBox";
+         this.numberOfChaptersReadTextBox.ReadOnly = true;
+         this.numberOfChaptersReadTextBox.Size = new System.Drawing.Size(194, 15);
+         this.numberOfChaptersReadTextBox.TabIndex = 1;
+         // 
+         // numberOfMangasFinishedTextBox
+         // 
+         this.numberOfMangasFinishedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+         this.numberOfMangasFinishedTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.numberOfMangasFinishedTextBox.Location = new System.Drawing.Point(3, 18);
+         this.numberOfMangasFinishedTextBox.Name = "numberOfMangasFinishedTextBox";
+         this.numberOfMangasFinishedTextBox.ReadOnly = true;
+         this.numberOfMangasFinishedTextBox.Size = new System.Drawing.Size(194, 15);
+         this.numberOfMangasFinishedTextBox.TabIndex = 2;
+         // 
+         // dateILastReadTextBox
+         // 
+         this.dateILastReadTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+         this.dateILastReadTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.dateILastReadTextBox.Location = new System.Drawing.Point(3, 18);
+         this.dateILastReadTextBox.Name = "dateILastReadTextBox";
+         this.dateILastReadTextBox.ReadOnly = true;
+         this.dateILastReadTextBox.Size = new System.Drawing.Size(194, 15);
+         this.dateILastReadTextBox.TabIndex = 3;
+         // 
+         // daysSinceTextBox
+         // 
+         this.daysSinceTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+         this.daysSinceTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.daysSinceTextBox.Location = new System.Drawing.Point(3, 18);
+         this.daysSinceTextBox.Name = "daysSinceTextBox";
+         this.daysSinceTextBox.ReadOnly = true;
+         this.daysSinceTextBox.Size = new System.Drawing.Size(194, 15);
+         this.daysSinceTextBox.TabIndex = 4;
+         // 
+         // numOfMangasReadTextBox
+         // 
+         this.numOfMangasReadTextBox.Controls.Add(this.numberOfMangasReadTextBox);
+         this.numOfMangasReadTextBox.Location = new System.Drawing.Point(12, 12);
+         this.numOfMangasReadTextBox.Name = "numOfMangasReadTextBox";
+         this.numOfMangasReadTextBox.Size = new System.Drawing.Size(200, 44);
+         this.numOfMangasReadTextBox.TabIndex = 10;
+         this.numOfMangasReadTextBox.TabStop = false;
+         this.numOfMangasReadTextBox.Text = "Number of Mangas Read";
+         // 
+         // numOfChaptersReadGroupBox
+         // 
+         this.numOfChaptersReadGroupBox.Controls.Add(this.numberOfChaptersReadTextBox);
+         this.numOfChaptersReadGroupBox.Location = new System.Drawing.Point(12, 62);
+         this.numOfChaptersReadGroupBox.Name = "numOfChaptersReadGroupBox";
+         this.numOfChaptersReadGroupBox.Size = new System.Drawing.Size(200, 42);
+         this.numOfChaptersReadGroupBox.TabIndex = 11;
+         this.numOfChaptersReadGroupBox.TabStop = false;
+         this.numOfChaptersReadGroupBox.Text = "Number Of Chapters Read";
+         // 
+         // numOfFinishedMangasGroupBox
+         // 
+         this.numOfFinishedMangasGroupBox.Controls.Add(this.numberOfMangasFinishedTextBox);
+         this.numOfFinishedMangasGroupBox.Location = new System.Drawing.Point(12, 110);
+         this.numOfFinishedMangasGroupBox.Name = "numOfFinishedMangasGroupBox";
+         this.numOfFinishedMangasGroupBox.Size = new System.Drawing.Size(200, 44);
+         this.numOfFinishedMangasGroupBox.TabIndex = 11;
+         this.numOfFinishedMangasGroupBox.TabStop = false;
+         this.numOfFinishedMangasGroupBox.Text = "Number of Finished Mangas";
+         // 
+         // dateILastReadGroupBox
+         // 
+         this.dateILastReadGroupBox.Controls.Add(this.dateILastReadTextBox);
+         this.dateILastReadGroupBox.Location = new System.Drawing.Point(12, 160);
+         this.dateILastReadGroupBox.Name = "dateILastReadGroupBox";
+         this.dateILastReadGroupBox.Size = new System.Drawing.Size(200, 44);
+         this.dateILastReadGroupBox.TabIndex = 12;
+         this.dateILastReadGroupBox.TabStop = false;
+         this.dateILastReadGroupBox.Text = "Date I Last Read";
+         // 
+         // daysSinceGroupBox
+         // 
+         this.daysSinceGroupBox.Controls.Add(this.daysSinceTextBox);
+         this.daysSinceGroupBox.Location = new System.Drawing.Point(12, 210);
+         this.daysSinceGroupBox.Name = "daysSinceGroupBox";
+         this.daysSinceGroupBox.Size = new System.Drawing.Size(200, 44);
+         this.daysSinceGroupBox.TabIndex = 13;
+         this.daysSinceGroupBox.TabStop = false;
+         this.daysSinceGroupBox.Text = "Days Since";
+         // 
+         // StatisticsForm
+         // 
+         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+         this.ClientSize = new System.Drawing.Size(227, 271);
+         this.Controls.Add(this.daysSinceGroupBox);
+         this.Controls.Add(this.dateILastReadGroupBox);
+         this.Controls.Add(this.numOfFinishedMangasGroupBox);
+         this.Controls.Add(this.numOfChaptersReadGroupBox);
+         this.Controls.Add(this.numOfMangasReadTextBox);
+         this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+         this.Name = "StatisticsForm";
+         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+         this.Text = "Statistics";
+         this.numOfMangasReadTextBox.ResumeLayout(false);
+         this.numOfMangasReadTextBox.PerformLayout();
+         this.numOfChaptersReadGroupBox.ResumeLayout(false);
+         this.numOfChaptersReadGroupBox.PerformLayout();
+         this.numOfFinishedMangasGroupBox.ResumeLayout(false);
+         this.numOfFinishedMangasGroupBox.PerformLayout();
+         this.dateILastReadGroupBox.ResumeLayout(false);
+         this.dateILastReadGroupBox.PerformLayout();
+         this.daysSinceGroupBox.ResumeLayout(false);
+         this.daysSinceGroupBox.PerformLayout();
+         this.ResumeLayout(false);
 
 		}
 
@@ -156,11 +180,11 @@
 		private System.Windows.Forms.TextBox numberOfChaptersReadTextBox;
 		private System.Windows.Forms.TextBox numberOfMangasFinishedTextBox;
 		private System.Windows.Forms.TextBox dateILastReadTextBox;
-		private System.Windows.Forms.TextBox daysSinceTextBox;
-		private System.Windows.Forms.Label numberOfMangasReadLabel;
-		private System.Windows.Forms.Label numberOfChaptersReadLabel;
-		private System.Windows.Forms.Label numberOfMangasFinishedLabel;
-		private System.Windows.Forms.Label dateILastReadLabel;
-		private System.Windows.Forms.Label daysSinceLabel;
+      private System.Windows.Forms.TextBox daysSinceTextBox;
+      private System.Windows.Forms.GroupBox numOfMangasReadTextBox;
+      private System.Windows.Forms.GroupBox numOfChaptersReadGroupBox;
+      private System.Windows.Forms.GroupBox numOfFinishedMangasGroupBox;
+      private System.Windows.Forms.GroupBox dateILastReadGroupBox;
+      private System.Windows.Forms.GroupBox daysSinceGroupBox;
 	}
 }

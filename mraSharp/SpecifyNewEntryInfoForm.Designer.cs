@@ -34,13 +34,16 @@
          this.setDateLastReadDateTimePicker = new System.Windows.Forms.DateTimePicker();
          this.finishedReadingCheckBox = new System.Windows.Forms.CheckBox();
          this.chapterGroupBox = new System.Windows.Forms.GroupBox();
-         this.startingLabel = new System.Windows.Forms.Label();
          this.currentLabel = new System.Windows.Forms.Label();
+         this.startingLabel = new System.Windows.Forms.Label();
          this.datenUrlGroupBox = new System.Windows.Forms.GroupBox();
          this.saveButton = new System.Windows.Forms.Button();
          this.cancelButton = new System.Windows.Forms.Button();
+         this.personalNoteTextBox = new System.Windows.Forms.TextBox();
+         this.personalNoteGroupBox = new System.Windows.Forms.GroupBox();
          this.chapterGroupBox.SuspendLayout();
          this.datenUrlGroupBox.SuspendLayout();
+         this.personalNoteGroupBox.SuspendLayout();
          this.SuspendLayout();
          // 
          // setStartingChapterTextBox
@@ -74,7 +77,7 @@
          // finishedReadingCheckBox
          // 
          this.finishedReadingCheckBox.AutoSize = true;
-         this.finishedReadingCheckBox.Location = new System.Drawing.Point(12, 164);
+         this.finishedReadingCheckBox.Location = new System.Drawing.Point(12, 262);
          this.finishedReadingCheckBox.Name = "finishedReadingCheckBox";
          this.finishedReadingCheckBox.Size = new System.Drawing.Size(169, 17);
          this.finishedReadingCheckBox.TabIndex = 4;
@@ -94,15 +97,6 @@
          this.chapterGroupBox.TabStop = false;
          this.chapterGroupBox.Text = "Chapters";
          // 
-         // startingLabel
-         // 
-         this.startingLabel.AutoSize = true;
-         this.startingLabel.Location = new System.Drawing.Point(6, 24);
-         this.startingLabel.Name = "startingLabel";
-         this.startingLabel.Size = new System.Drawing.Size(51, 13);
-         this.startingLabel.TabIndex = 2;
-         this.startingLabel.Text = "Starting:";
-         // 
          // currentLabel
          // 
          this.currentLabel.AutoSize = true;
@@ -111,6 +105,15 @@
          this.currentLabel.Size = new System.Drawing.Size(49, 13);
          this.currentLabel.TabIndex = 3;
          this.currentLabel.Text = "Current:";
+         // 
+         // startingLabel
+         // 
+         this.startingLabel.AutoSize = true;
+         this.startingLabel.Location = new System.Drawing.Point(6, 24);
+         this.startingLabel.Name = "startingLabel";
+         this.startingLabel.Size = new System.Drawing.Size(51, 13);
+         this.startingLabel.TabIndex = 2;
+         this.startingLabel.Text = "Starting:";
          // 
          // datenUrlGroupBox
          // 
@@ -126,28 +129,51 @@
          // saveButton
          // 
          this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-         this.saveButton.Location = new System.Drawing.Point(12, 187);
+         this.saveButton.Location = new System.Drawing.Point(12, 285);
          this.saveButton.Name = "saveButton";
          this.saveButton.Size = new System.Drawing.Size(75, 23);
          this.saveButton.TabIndex = 7;
          this.saveButton.Text = "Save";
          this.saveButton.UseVisualStyleBackColor = true;
+         this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
          // 
          // cancelButton
          // 
          this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-         this.cancelButton.Location = new System.Drawing.Point(93, 187);
+         this.cancelButton.Location = new System.Drawing.Point(93, 285);
          this.cancelButton.Name = "cancelButton";
          this.cancelButton.Size = new System.Drawing.Size(75, 23);
          this.cancelButton.TabIndex = 8;
          this.cancelButton.Text = "Cancel";
          this.cancelButton.UseVisualStyleBackColor = true;
          // 
+         // personalNoteTextBox
+         // 
+         this.personalNoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+         this.personalNoteTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.personalNoteTextBox.Location = new System.Drawing.Point(3, 16);
+         this.personalNoteTextBox.Multiline = true;
+         this.personalNoteTextBox.Name = "personalNoteTextBox";
+         this.personalNoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+         this.personalNoteTextBox.Size = new System.Drawing.Size(339, 73);
+         this.personalNoteTextBox.TabIndex = 9;
+         // 
+         // personalNoteGroupBox
+         // 
+         this.personalNoteGroupBox.Controls.Add(this.personalNoteTextBox);
+         this.personalNoteGroupBox.Location = new System.Drawing.Point(12, 164);
+         this.personalNoteGroupBox.Name = "personalNoteGroupBox";
+         this.personalNoteGroupBox.Size = new System.Drawing.Size(345, 92);
+         this.personalNoteGroupBox.TabIndex = 10;
+         this.personalNoteGroupBox.TabStop = false;
+         this.personalNoteGroupBox.Text = "Personal Note";
+         // 
          // SpecifyNewEntryInfoForm
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.ClientSize = new System.Drawing.Size(369, 218);
+         this.ClientSize = new System.Drawing.Size(369, 316);
+         this.Controls.Add(this.personalNoteGroupBox);
          this.Controls.Add(this.cancelButton);
          this.Controls.Add(this.saveButton);
          this.Controls.Add(this.datenUrlGroupBox);
@@ -161,6 +187,8 @@
          this.chapterGroupBox.PerformLayout();
          this.datenUrlGroupBox.ResumeLayout(false);
          this.datenUrlGroupBox.PerformLayout();
+         this.personalNoteGroupBox.ResumeLayout(false);
+         this.personalNoteGroupBox.PerformLayout();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -179,5 +207,7 @@
       private System.Windows.Forms.GroupBox datenUrlGroupBox;
       private System.Windows.Forms.Button saveButton;
       private System.Windows.Forms.Button cancelButton;
+      private System.Windows.Forms.TextBox personalNoteTextBox;
+      private System.Windows.Forms.GroupBox personalNoteGroupBox;
    }
 }

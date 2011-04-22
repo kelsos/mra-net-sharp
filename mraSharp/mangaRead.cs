@@ -2,7 +2,7 @@
 
 namespace mraSharp
 {
-	internal class mangaRead
+	public class mangaRead
 	{
 		private string _title;
 		private double? _startingChapter;
@@ -10,6 +10,7 @@ namespace mraSharp
 		private DateTime? _lastRead;
 		private string _onlineURL;
 		private bool? _finishedReading;
+      private string _personalNote;
 
 		public string Title
 		{
@@ -47,7 +48,13 @@ namespace mraSharp
 			set { _finishedReading = value; }
 		}
 
-		public mangaRead(string title, double? startingChapter, double? currentChapter, DateTime? lastRead, string onlineURL, bool? finishedReading)
+      public string PersonalNote
+      {
+         get { return _personalNote; }
+         set { _personalNote = value; }
+      }
+
+      public mangaRead(string title, double? startingChapter, double? currentChapter, DateTime? lastRead, string onlineURL, bool? finishedReading)
 		{
 			_title = title;
 			_startingChapter = startingChapter;
@@ -55,6 +62,29 @@ namespace mraSharp
 			_lastRead = lastRead;
 			_onlineURL = onlineURL;
 			_finishedReading = finishedReading;
+         _personalNote = null;
 		}
+
+      public mangaRead(double? startingChapter, double? currentChapter, DateTime? lastRead, string onlineURL, bool? finishedReading, string personalNote)
+      {
+         _title = null;
+         _startingChapter = startingChapter;
+         _currentChapter = currentChapter;
+         _lastRead = lastRead;
+         _onlineURL = onlineURL;
+         _finishedReading = finishedReading;
+         _personalNote = personalNote;
+      }
+
+      public mangaRead()
+      {
+         _title = null;
+         _startingChapter = null;
+         _currentChapter = null;
+         _lastRead = null;
+         _onlineURL = null;
+         _finishedReading = null;
+         _personalNote = null;
+      }
 	}
 }

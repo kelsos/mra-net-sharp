@@ -9,421 +9,516 @@ using System.Windows.Forms;
 
 namespace mraSharp
 {
-	public partial class MainForm : Form
-	{
-		private int myCounter;
-		private bool internetIsUp;
+   public partial class MainForm : Form
+   {
+      private int myCounter;
+      private bool internetIsUp;
 
-		public MainForm()
-		{
-			InitializeComponent();
-			Skybound.Gecko.Xpcom.Initialize(Application.StartupPath.ToString() + "\\xulrunner\\");
-			geckoWiki.HandleCreated += new EventHandler(geckoWiki_HandleCreated);// creates a new event handler for the HandleCreated event of GeckoWiki
-			myCounter = 0;
-			rssCheckTimer.Enabled = false;
-			rssTickTimer.Enabled = false;
+      public MainForm()
+      {
+         InitializeComponent();
 
-			//checks if network is up
-			System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged += networkAvailabilityChanged_handler;
-		}
+         //Initialization of GeckoFX
+         Skybound.Gecko.Xpcom.Initialize(Application.StartupPath.ToString() + "\\xulrunner\\");
+         geckoWiki.HandleCreated += new EventHandler(geckoWiki_HandleCreated);// creates a new event handler for the HandleCreated event of GeckoWiki
+         myCounter = 0;
+         rssCheckTimer.Enabled = false;
+         rssTickTimer.Enabled = false;
 
-		private void MainForm_Load(object sender, EventArgs e)
-		{
-			loadDatagrid();
-			mangaListDataGridView.AutoGenerateColumns = false;
-			networkRssChecker();
-		}
+         //checks if network is up
+         System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged += networkAvailabilityChanged_handler;
+      }
 
-		private void networkRssChecker()
-		{
-			internetIsUp = System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
-			rssCheckTimer.Enabled = internetIsUp;
-			rssTickTimer.Enabled = internetIsUp;
+      private void MainForm_Load(object sender, EventArgs e)
+      {
+         loadDatagrid();
+         mangaListDataGridView.AutoGenerateColumns = false;
+         networkRssChecker();
+      }
 
-			if (!internetIsUp)
-			{
-				rssTitleLabel.Text = "Internet Connection Is N/A";
-				rssDescriptionTextBox.Text = "";
-				rssLinkLabel.Text = "";
-			}
-			else
-			{
-				rssTitleLabel.Text = "";
-				rssDescriptionTextBox.Text = "";
-				rssLinkLabel.Text = "";
-				rssFetchingThread.RunWorkerAsync();
-			}
-		}
+      /// <summary>
+      /// Checks if the computer has an active internet connection and if it has it enables the rssTicker.
+      /// </summary>
+      private void networkRssChecker()
+      {
+         try
+         {
+            internetIsUp = NetworkOperations.isInternetUp();
+            rssCheckTimer.Enabled = internetIsUp;
+            rssTickTimer.Enabled = internetIsUp;
 
-		private void networkAvailabilityChanged_handler(object sender, EventArgs e)
-		{
-			networkRssChecker();
-		}
+            if (!internetIsUp)
+            {
+               statusLabel.Text = "No Internet Connection Available";
+               rssTickerGroupBox.Hide();
+               mangaDescriptionGroupBox.Bounds = new Rectangle(mangaNoteGroupBox.Left, mangaDescriptionGroupBox.Top, mangaDescriptionGroupBox.Right - mangaNoteGroupBox.Left, mangaDescriptionGroupBox.Height);
+               openToBrowserToolStripButton.Enabled = false;
 
-		private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			if (MessageBox.Show("Do you want to clear the database?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
-			{
-				DatabaseOperations.clearDatabase();
-				if (restoreOpenFileDialog.ShowDialog() == DialogResult.OK)
-				{
-					FileOperations.readingListFromXML(restoreOpenFileDialog.FileName);
-				}
-			}
-		}
+               //TODO: check on how to hide a tab page from a tab control.
+               wikipediaTabPage.Hide();
+            }
+            else
+            {
+               rssTitleLabel.Text = "";
+               rssDescriptionTextBox.Text = "";
+               rssLinkLabel.Text = "";
+               if (!rssTickerGroupBox.Visible)
+               {
+                  rssTickerGroupBox.Show();
+                  //TODO: keep the default mangaDescriptionGroupBox.Bounds in a variable and actually restore them if the Rss ticker is hidden and the internet connection is restored.
+                  mangaDescriptionGroupBox.Bounds = new Rectangle();
+                  openToBrowserToolStripButton.Enabled = true;
+                  wikipediaTabPage.Show();
+               }
 
-		private void backupToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			if (backupSaveFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				FileOperations.readingListToXML(backupSaveFileDialog.FileName);
-			}
-		}
+               rssFetchingThread.RunWorkerAsync();
+            }
+         }
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
+      }
 
-		private void quitToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Application.Exit();
-		}
+      private void networkAvailabilityChanged_handler(object sender, EventArgs e)
+      {
+         networkRssChecker();
+      }
 
-		private void clearToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			if (MessageBox.Show("Are you sure to clear the database?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
-			{
-				DatabaseOperations.clearDatabase();
-			}
-		}
+      private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
+      {
+         if (MessageBox.Show("Do you want to clear the database?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
+         {
+            DatabaseOperations.clearDatabase();
+            if (restoreOpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+               FileOperations.readingListFromXML(restoreOpenFileDialog.FileName);
+            }
+         }
+      }
 
-		private List<newsStorage> newsList = new List<newsStorage>();
+      private void backupToolStripMenuItem_Click(object sender, EventArgs e)
+      {
+         if (backupSaveFileDialog.ShowDialog() == DialogResult.OK)
+         {
+            FileOperations.readingListToXML(backupSaveFileDialog.FileName);
+         }
+      }
 
-		private void rssTicker()
-		{
-			int newsItemsCount = newsList.Count();
+      private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+      {
+         Application.Exit();
+      }
 
-			if (newsItemsCount > myCounter)
-			{
-				rssTitleLabel.Text = newsList[myCounter].rssTitle;
-				rssLinkLabel.Text = newsList[myCounter].rssLink;
-				rssDescriptionTextBox.Text = newsList[myCounter].rssDescription;
-				myCounter += 1;
-			}
-			else
-			{
-				myCounter = 0;
-				rssTitleLabel.Text = newsList[myCounter].rssTitle;
-				rssLinkLabel.Text = newsList[myCounter].rssLink;
-				rssDescriptionTextBox.Text = newsList[myCounter].rssDescription;
-				myCounter += 1;
-			}
-		}
+      private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+      {
+         if (MessageBox.Show("Are you sure to clear the database?", "Question", MessageBoxButtons.YesNo) == DialogResult.Yes)
+         {
+            DatabaseOperations.clearDatabase();
+         }
+      }
 
-		private void rssFetcher()
-		{
-			try
-			{
-				dataLinqSqlDataContext db = new dataLinqSqlDataContext();
-				var rssSubs = from subs in db.rssSubscriptions
-								  select subs.rssUrl;
+      private List<newsStorage> newsList = new List<newsStorage>();
 
-				foreach (var channel in rssSubs)
-				{
-					ArrayList result = RssManager.processNewsFeed(channel);
-					foreach (RssNewsItem newsItem in result)
-					{
-						string title = newsItem.Title;
-						title = title.Replace("'", "");
-						title = title.Trim();
+      private void rssTicker()
+      {
+         try
+         {
+            int newsItemsCount = newsList.Count();
 
-						var newsFilter = from line in db.newsStorages
-											  where line.rssTitle == title
-											  select line;
+            if (newsItemsCount > myCounter)
+            {
+               rssTitleLabel.Text = newsList[myCounter].rssTitle;
+               rssLinkLabel.Text = newsList[myCounter].rssLink;
+               rssDescriptionTextBox.Text = newsList[myCounter].rssDescription;
+               myCounter += 1;
+            }
+            else
+            {
+               myCounter = 0;
+               rssTitleLabel.Text = newsList[myCounter].rssTitle;
+               rssLinkLabel.Text = newsList[myCounter].rssLink;
+               rssDescriptionTextBox.Text = newsList[myCounter].rssDescription;
+               myCounter += 1;
+            }
+         }
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
+      }
 
-						if (newsFilter.Count() == 0)
-						{
-							newsStorage ne = new newsStorage
-							{
-								rssTitle = title,
-								rssLink = newsItem.Link,
-								rssDescription = RegularExpressions.htmlTagRemover(newsItem.Description),
-								rssDateAquired = DateTime.Now
-							};
-							db.newsStorages.InsertOnSubmit(ne);
-							db.SubmitChanges();
-						}
-					}
-				}
-				newsList = (from news in db.newsStorages
-								select news).ToList();
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.ToString());
-			}
-		}
+      private void rssFetcher()
+      {
+         try
+         {
+            dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+            var rssSubs = from subs in db.rssSubscriptions
+                          select subs.rssUrl;
 
-		/// <summary>
-		/// This method represents the action of reading a chapter. It sets the date last read of the selected manga to the current Date
-		/// (when the method was called) and increases the last chapter by one.
-		/// </summary>
-		private void justReadAChapter()
-		{
-			dataLinqSqlDataContext db = new dataLinqSqlDataContext();
-			var mID = (from current in db.mangaInfos
-						  where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
-						  select current.mangaID).Single();
-			var manga = (from current in db.mangaReadingLists
-							 where current.mangaID == mID
-							 select current).Single();
-			manga.mangaCurrentChapter += 1;
-			manga.mangaDateRead = DateTime.Now;
-			db.SubmitChanges();
+            foreach (var channel in rssSubs)
+            {
+               ArrayList result = RssManager.processNewsFeed(channel);
+               foreach (RssNewsItem newsItem in result)
+               {
+                  string title = newsItem.Title;
+                  title = title.Replace("'", "");
+                  title = title.Trim();
 
-			//Updates the DataGridView to reflect on the changes made to the database
-			mangaListDataGridView.CurrentRow.Cells["lastReadDataGridViewTextBoxColumn"].Value = DateTime.Now;
-			mangaListDataGridView.CurrentRow.Cells["currentChapterDataGridViewTextBoxColumn"].Value = Convert.ToDouble(mangaListDataGridView.CurrentRow.Cells["currentChapterDataGridViewTextBoxColumn"].Value) + 1;
-		}
+                  var newsFilter = from line in db.newsStorages
+                                   where line.rssTitle == title
+                                   select line;
 
-		private void justReadToolStripButton_Click(object sender, EventArgs e)
-		{
-			justReadAChapter();
-		}
+                  if (newsFilter.Count() == 0)
+                  {
+                     newsStorage ne = new newsStorage
+                     {
+                        rssTitle = title,
+                        rssLink = newsItem.Link,
+                        rssDescription = RegularExpressions.htmlTagRemover(newsItem.Description),
+                        rssDateAquired = DateTime.Now
+                     };
+                     db.newsStorages.InsertOnSubmit(ne);
+                     db.SubmitChanges();
+                  }
+               }
+            }
+            newsList = (from news in db.newsStorages
+                        select news).ToList();
+         }
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
+      }
 
-		private void searchToolStripTextBox_KeyUp(object sender, KeyEventArgs e)
-		{
-			dataLinqSqlDataContext db = new dataLinqSqlDataContext();
-			dataGridBindingSource.DataSource = from read in db.mangaReadingLists
-														  join mangas in db.mangaInfos
-														  on read.mangaID equals mangas.mangaID
-														  where mangas.mangaTitle.Contains(searchToolStripTextBox.Text)
-														  select new mangaRead(mangas.mangaTitle, read.mangaStartingChapter, read.mangaCurrentChapter, read.mangaDateRead, read.mangaURL, read.mangaReadingFinished);
-		}
+      /// <summary>
+      /// This method represents the action of reading a chapter. It sets the date last read of the selected manga to the current Date
+      /// (when the method was called) and increases the last chapter by one.
+      /// </summary>
+      private void justReadAChapter()
+      {
+         try
+         {
+            dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+            //var mID = (from current in db.mangaInfos
+            //where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
+            //select current.mangaID).Single();
+            int mID = DatabaseOperations.getMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
+            var manga = (from current in db.mangaReadingLists
+                         where current.mangaID == mID
+                         select current).Single();
+            manga.mangaCurrentChapter += 1;
+            manga.mangaDateRead = DateTime.Now;
+            db.SubmitChanges();
 
-		private void browserNavBar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-		{
-			if (e.ClickedItem == backToolStripButton)
-			{
-				geckoWiki.GoBack();
-			}
-			else if (e.ClickedItem == forwardToolStripButton)
-			{
-				geckoWiki.GoForward();
-			}
-			else if (e.ClickedItem == wReloadtoolStripButton)
-			{
-				geckoWiki.Reload();
-			}
-		}
+            //Updates the DataGridView to reflect on the changes made to the database
+            mangaListDataGridView.CurrentRow.Cells["lastReadDataGridViewTextBoxColumn"].Value = DateTime.Now;
+            mangaListDataGridView.CurrentRow.Cells["currentChapterDataGridViewTextBoxColumn"].Value = Convert.ToDouble(mangaListDataGridView.CurrentRow.Cells["currentChapterDataGridViewTextBoxColumn"].Value) + 1;
 
-		/// <summary>
-		/// Handles the Enter event of the wikipediaTabPage control. (Fires every time except the first time you enter the wikiTab)
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		private void wikipediaTabPage_Enter(object sender, EventArgs e)
-		{
-			int currentSelectedRow;
-			if (!(mangaListDataGridView.Rows.Count == 0))
-			{
-				currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-				string navigationURL = "http://en.wikipedia.org/w/index.php?search=" + RegularExpressions.whiteSpaceToUrlEncoding(mangaListDataGridView[0, currentSelectedRow].Value.ToString()) + "&go=Go";
-				try
-				{
-					geckoWiki.Parent = geckoPanel;
-					geckoWiki.CreateControl();
-					Application.DoEvents();
+         }
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
+      }
+      private void justReadToolStripButton_Click(object sender, EventArgs e)
+      {
+         justReadAChapter();
+      }
 
-					//Doesn't work the first time (handle must be created)
+      private void searchToolStripTextBox_KeyUp(object sender, KeyEventArgs e)
+      {
+         try
+         {
+            dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+            dataGridBindingSource.DataSource = from read in db.mangaReadingLists
+                                               join mangas in db.mangaInfos
+                                               on read.mangaID equals mangas.mangaID
+                                               where mangas.mangaTitle.Contains(searchToolStripTextBox.Text)
+                                               select new mangaRead(mangas.mangaTitle, read.mangaStartingChapter, read.mangaCurrentChapter, read.mangaDateRead, read.mangaURL, read.mangaReadingFinished);
 
-					if (geckoWiki.IsHandleCreated)
-					{
-						geckoWiki.Navigate(navigationURL);
-					}
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK);
-				}
-			}
-		}
+         }
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
+      }
 
-		/// <summary>
-		/// Handles the HandleCreated event of the geckoWiki control. (Fires when you first enter the wiki tab (after the handle is created)
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		private void geckoWiki_HandleCreated(object sender, EventArgs e)
-		{
-			int currentSelectedRow;
-			if (!(mangaListDataGridView.Rows.Count == 0))
-			{
-				currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-				string navigationURL = "http://en.wikipedia.org/w/index.php?search=" + RegularExpressions.whiteSpaceToUrlEncoding(mangaListDataGridView[0, currentSelectedRow].Value.ToString()) + "&go=Go";
-				try
-				{
-					geckoWiki.Parent = geckoPanel;
-					geckoWiki.CreateControl();
-					Application.DoEvents();
+      private void browserNavBar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+      {
+         if (e.ClickedItem == backToolStripButton)
+         {
+            geckoWiki.GoBack();
+         }
+         else if (e.ClickedItem == forwardToolStripButton)
+         {
+            geckoWiki.GoForward();
+         }
+         else if (e.ClickedItem == wReloadtoolStripButton)
+         {
+            geckoWiki.Reload();
+         }
+      }
 
-					//Doesn't work the first time (handle must be created)
+      /// <summary>
+      /// Handles the Enter event of the wikipediaTabPage control. (Fires every time except the first time you enter the wikiTab)
+      /// </summary>
+      /// <param name="sender">The source of the event.</param>
+      /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+      private void wikipediaTabPage_Enter(object sender, EventArgs e)
+      {
+         int currentSelectedRow;
+         if (!(mangaListDataGridView.Rows.Count == 0))
+         {
+            currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
+            string navigationURL = "http://en.wikipedia.org/w/index.php?search=" + RegularExpressions.whiteSpaceToUrlEncoding(mangaListDataGridView[0, currentSelectedRow].Value.ToString()) + "&go=Go";
+            try
+            {
+               geckoWiki.Parent = geckoPanel;
+               geckoWiki.CreateControl();
+               Application.DoEvents();
 
-					if (geckoWiki.IsHandleCreated)
-					{
-						geckoWiki.Navigate(navigationURL);
-					}
-				}
-				catch (Exception ex)
-				{
-					MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK);
-				}
-			}
-		}
+               //Doesn't work the first time (handle must be created)
 
-		private void openToBrowserToolStripButton_Click(object sender, EventArgs e)
-		{
-			WebForm web = new WebForm();
-			{
-				web.Show();
-				if (!(mangaListDataGridView.Rows.Count == 0))
-				{
-					int currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-					string mangaURL = mangaListDataGridView[4, currentSelectedRow].Value.ToString();
-					if (!String.IsNullOrEmpty(mangaURL))
-					{
-						web.Navigate(mangaURL);
-					}
-				}
-			}
-		}
+               if (geckoWiki.IsHandleCreated)
+               {
+                  geckoWiki.Navigate(navigationURL);
+               }
+            }
+            catch (Exception ex)
+            {
+               errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+               Logger.errorLogger("error.txt", ex.ToString());
+            }
+         }
+      }
 
-		private void reloadToolStripButton_Click(object sender, EventArgs e)
-		{
-			loadDatagrid();
-		}
+      /// <summary>
+      /// Handles the HandleCreated event of the geckoWiki control. (Fires when you first enter the wiki tab (after the handle is created)
+      /// </summary>
+      /// <param name="sender">The source of the event.</param>
+      /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+      private void geckoWiki_HandleCreated(object sender, EventArgs e)
+      {
+         int currentSelectedRow;
+         if (!(mangaListDataGridView.Rows.Count == 0))
+         {
+            currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
+            string navigationURL = "http://en.wikipedia.org/w/index.php?search=" + RegularExpressions.whiteSpaceToUrlEncoding(mangaListDataGridView[0, currentSelectedRow].Value.ToString()) + "&go=Go";
+            try
+            {
+               geckoWiki.Parent = geckoPanel;
+               geckoWiki.CreateControl();
+               Application.DoEvents();
 
-		private void editoToolStripButton_Click(object sender, EventArgs e)
-		{
-		}
+               //Doesn't work the first time (handle must be created)
 
-		private void rssSubscriptionsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			using (SubscriptionManagerForm manager = new SubscriptionManagerForm())
-			{
-				manager.ShowDialog();
-			}
-		}
+               if (geckoWiki.IsHandleCreated)
+               {
+                  geckoWiki.Navigate(navigationURL);
+               }
+            }
+            catch (Exception ex)
+            {
+               errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+               Logger.errorLogger("error.txt", ex.ToString());
+            }
+         }
+      }
 
-		private void editorToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-		}
+      private void openToBrowserToolStripButton_Click(object sender, EventArgs e)
+      {
+         try
+         {
+            WebForm web = new WebForm();
+            {
+               web.Show();
+               if (!(mangaListDataGridView.Rows.Count == 0))
+               {
+                  int currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
+                  string mangaURL = mangaListDataGridView[4, currentSelectedRow].Value.ToString();
+                  if (!String.IsNullOrEmpty(mangaURL))
+                  {
+                     web.Navigate(mangaURL);
+                  }
+               }
+            }
+         }
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
+      }
 
-		private void rssCheckTimer_Tick(object sender, EventArgs e)
-		{
-			rssFetchingThread.RunWorkerAsync();
-		}
+      private void reloadToolStripButton_Click(object sender, EventArgs e)
+      {
+         loadDatagrid();
+      }
 
-		private void rssTickTimer_Tick(object sender, EventArgs e)
-		{
-			rssTicker();
-		}
+      private void editoToolStripButton_Click(object sender, EventArgs e)
+      {
+      }
 
-		private void rssLinkLabel_Click(object sender, EventArgs e)
-		{
-			using (WebForm web = new WebForm())
-			{
-				web.Show();
-				web.Navigate(rssLinkLabel.Text);
-			}
-		}
+      private void rssSubscriptionsToolStripMenuItem_Click(object sender, EventArgs e)
+      {
+         using (SubscriptionManagerForm manager = new SubscriptionManagerForm())
+         {
+            manager.ShowDialog();
+         }
+      }
 
-		private void rssLinkLabel_MouseEnter(object sender, EventArgs e)
-		{
-			rssLinkLabel.ForeColor = Color.Blue;
-		}
+      private void editorToolStripMenuItem_Click(object sender, EventArgs e)
+      {
+      }
 
-		private void rssLinkLabel_MouseLeave(object sender, EventArgs e)
-		{
-			rssLinkLabel.ForeColor = Color.RoyalBlue;
-		}
+      private void rssCheckTimer_Tick(object sender, EventArgs e)
+      {
+         rssFetchingThread.RunWorkerAsync();
+      }
 
-		private void rssFetchingThread_DoWork(object sender, DoWorkEventArgs e)
-		{
-			rssFetcher();
-			DatabaseOperations.oldRssRemover(5);
-		}
+      private void rssTickTimer_Tick(object sender, EventArgs e)
+      {
+         rssTicker();
+      }
 
-		private void rssFetchingThread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-		{
-			rssTickTimer.Enabled = true;
-		}
+      private void rssLinkLabel_Click(object sender, EventArgs e)
+      {
+         using (WebForm web = new WebForm())
+         {
+            web.Show();
+            web.Navigate(rssLinkLabel.Text);
+         }
+      }
 
-		private void loadingText()
-		{
-		}
+      private void rssLinkLabel_MouseEnter(object sender, EventArgs e)
+      {
+         rssLinkLabel.ForeColor = Color.Blue;
+      }
 
-		private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			using (StatisticsForm stats = new StatisticsForm())
-			{
-				stats.ShowDialog();
-			}
-		}
+      private void rssLinkLabel_MouseLeave(object sender, EventArgs e)
+      {
+         rssLinkLabel.ForeColor = Color.RoyalBlue;
+      }
 
-		#region Linq to SQL data functions
+      private void rssFetchingThread_DoWork(object sender, DoWorkEventArgs e)
+      {
+         rssFetcher();
+         DatabaseOperations.oldRssRemover(5);
+      }
 
-		private void loadDatagrid()
-		{
-			dataLinqSqlDataContext mdb = new dataLinqSqlDataContext();
-			dataGridBindingSource.DataSource = from read in mdb.mangaReadingLists
-														  join mangas in mdb.mangaInfos
-														  on read.mangaID equals mangas.mangaID
-														  select new mangaRead(mangas.mangaTitle, read.mangaStartingChapter, read.mangaCurrentChapter, read.mangaDateRead, read.mangaURL, read.mangaReadingFinished);
-		}
+      private void rssFetchingThread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+      {
+         rssTickTimer.Enabled = true;
+      }
 
-		private void loadCurrentImage()
-		{
-			dataLinqSqlDataContext db = new dataLinqSqlDataContext();
-			if (mangaListDataGridView.CurrentRow != null)
-			{
-				var mID = (from current in db.mangaInfos
-							  where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
-							  select current.mangaID).SingleOrDefault();
-				var image = (from current in db.mangaInfos
-								 where current.mangaID == mID
-								 select current.mangaCover).Single();
-				byte[] imageByte = (byte[])image.ToArray();
-				mangaCoverPictureBox.Image = Image.FromStream(new MemoryStream(imageByte));
-			}
-		}
+      private void loadingText()
+      {
+      }
 
-		private void loadCurrentDescription()
-		{
-			if (mangaListDataGridView.CurrentRow != null)
-			{
-				dataLinqSqlDataContext db = new dataLinqSqlDataContext();
-				var mID = (from current in db.mangaInfos
-							  where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
-							  select current.mangaID).Single();
-				var description = (from current in db.mangaInfos
-										 where current.mangaID == mID
-										 select current.mangaDescription).SingleOrDefault();
-				mangaDescriptionTextBox.Text = description;
-			}
-		}
+      private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
+      {
+         using (StatisticsForm stats = new StatisticsForm())
+         {
+            stats.ShowDialog();
+         }
+      }
 
-		#endregion Linq to SQL data functions
+      #region Linq to SQL data functions
 
-		private void mangaListDataGridView_SelectionChanged(object sender, EventArgs e)
-		{
-			loadCurrentImage();
-			loadCurrentDescription();
-		}
+      private void loadDatagrid()
+      {
+         try
+         {
+            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+            {
+               dataGridBindingSource.DataSource = from read in db.mangaReadingLists
+                                                  join mangas in db.mangaInfos
+                                                  on read.mangaID equals mangas.mangaID
+                                                  select new mangaRead(mangas.mangaTitle, read.mangaStartingChapter, read.mangaCurrentChapter, read.mangaDateRead, read.mangaURL, read.mangaReadingFinished);
+            }
+         }
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
+      }
 
-		private void addMangaToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			using (AddMangaForm amf = new AddMangaForm())
-			{
-				amf.ShowDialog();
-				loadDatagrid();
-			}
-		}
-	}
+      private void loadCurrentImage()
+      {
+         try
+         {
+            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+            {
+               if (mangaListDataGridView.CurrentRow != null)
+               {
+                  //var mID = (from current in db.mangaInfos
+                  //           where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
+                  //           select current.mangaID).SingleOrDefault();
+                  int mID = DatabaseOperations.getMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
+                  var image = (from current in db.mangaInfos
+                               where current.mangaID == mID
+                               select current.mangaCover).Single();
+                  byte[] imageByte = (byte[])image.ToArray();
+                  mangaCoverPictureBox.Image = Image.FromStream(new MemoryStream(imageByte));
+               }
+            }
+         }
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
+      }
+
+      private void loadCurrentDescription()
+      {
+         try
+         {
+            if (mangaListDataGridView.CurrentRow != null)
+            {
+               using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+               {
+                  //var mID = (from current in db.mangaInfos
+                  //           where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
+                  //           select current.mangaID).Single();
+                  int mID = DatabaseOperations.getMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
+                  var description = (from current in db.mangaInfos
+                                     where current.mangaID == mID
+                                     select current.mangaDescription).SingleOrDefault();
+                  mangaDescriptionTextBox.Text = description;
+               }
+            }
+         }
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
+      }
+
+      #endregion Linq to SQL data functions
+
+      private void mangaListDataGridView_SelectionChanged(object sender, EventArgs e)
+      {
+         loadCurrentImage();
+         loadCurrentDescription();
+      }
+
+      private void addMangaToolStripMenuItem_Click(object sender, EventArgs e)
+      {
+         using (AddMangaForm amf = new AddMangaForm())
+         {
+            amf.ShowDialog();
+            loadDatagrid();
+         }
+      }
+   }
 }

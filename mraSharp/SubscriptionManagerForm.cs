@@ -22,7 +22,7 @@ namespace mraSharp
 		}
 
 		/// <summary>
-		/// Handles the Click event of the removeSubButton control.
+		/// Handles the Click event of the removeSubButton control. (Removes the selected value of the RssUrlComboBox form the database).
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -33,14 +33,15 @@ namespace mraSharp
 				DatabaseOperations.removeRssSubscription(rssUrlComboBox.Text);
 				loadSubscriptions();
 			}
-			catch (Exception ex)
-			{
-				Logger.errorLogger("error.txt", ex.ToString());
-			}
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
 		}
 
 		/// <summary>
-		/// Handles the Click event of the addSubButton control.
+		/// Handles the Click event of the addSubButton control. (Adds the rssSubTextBox Text to the database table that represents the subscriptions).
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -59,14 +60,15 @@ namespace mraSharp
 					MessageBox.Show("Cannot insert empty field!", "Information", MessageBoxButtons.OK);
 				}
 			}
-			catch (Exception ex)
-			{
-				Logger.errorLogger("error.txt", ex.ToString());
-			}
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
 		}
 
 		/// <summary>
-		/// Handles the Click event of the importButton control.
+		/// On the click event of importButton the function loads the RSS subscription URLs from the specified file.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -76,7 +78,7 @@ namespace mraSharp
 		}
 
 		/// <summary>
-		/// Handles the Click event of the exportPopup control.
+		/// On the click event of the exportButton the function exports the RSS subscriptions to the specified file.
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -85,11 +87,22 @@ namespace mraSharp
 			FileOperations.rssSubscriptionExporter("rss.txt");
 		}
 
+      /// <summary>
+      /// Loads the Rss Subscriptions (URLs) from the database.
+      /// </summary>
 		private void loadSubscriptions()
 		{
-			dataLinqSqlDataContext db = new dataLinqSqlDataContext();
-			rssUrlComboBox.DataSource = from url in db.rssSubscriptions
-												 select url;
+         try
+         {
+            dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+            rssUrlComboBox.DataSource = from url in db.rssSubscriptions
+                                        select url;
+         }
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            Logger.errorLogger("error.txt", ex.ToString());
+         }
 		}
 	}
 }

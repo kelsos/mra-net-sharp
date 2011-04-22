@@ -24,10 +24,10 @@ namespace mraSharp
 					stream = null;
 				}
 			}
-			catch (Exception ex)
-			{
-				throw;
-			}
+         catch (Exception ex)
+         {
+            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+         }
 		}
 	}
 }
