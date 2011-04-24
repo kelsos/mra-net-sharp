@@ -39,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -127,6 +128,7 @@
     <Compile Include="WebForm.Designer.cs">
       <DependentUpon>WebForm.cs</DependentUpon>
     </Compile>
+    <Content Include="changelog.txt" />
     <None Include="dataLinqSql.dbml.layout">
       <DependentUpon>dataLinqSql.dbml</DependentUpon>
     </None>
@@ -727,9 +729,11 @@
     <None Include="Icons\right_16.png" />
     <None Include="Icons\reload_16.png" />
     <None Include="Icons\search_16.png" />
+    <None Include="Resources\exclamation-red.png" />
     <Content Include="Skybound.Gecko.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TODO.txt" />
     <Content Include="xulrunner\AccessibleMarshal.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

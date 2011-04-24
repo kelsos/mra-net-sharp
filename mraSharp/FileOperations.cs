@@ -34,8 +34,9 @@ namespace mraSharp
 			}
 		}
 
-		public static void readingListFromXML(string fileName)
+		public static void readingListFromXML(string fileName, MainForm mf)
 		{
+			int count = 0;
 			XDocument xDoc = XDocument.Load(fileName);
 			dataLinqSqlDataContext db = new dataLinqSqlDataContext();
 			//progress bar goes here
@@ -50,7 +51,7 @@ namespace mraSharp
 								OnLineURL = (string)data.Element("onlineURL") ?? "",
 								Finished = (string)data.Element("finishedReading") ?? "false"
 							};
-			//progress bar size goes here
+			mf.progressChanged(xData.Count(), count);
 
 			foreach (var line in xData)
 			{
@@ -66,7 +67,8 @@ namespace mraSharp
 
 				db.mangaReadingLists.InsertOnSubmit(mR);
 				db.SubmitChanges();
-				//progress loader goes here
+
+				mf.progressChanged(xData.Count(), count + 1);
 			}
 		}
 

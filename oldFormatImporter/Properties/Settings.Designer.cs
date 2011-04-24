@@ -26,9 +26,9 @@ namespace oldFormatImporter.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=\"C:\\Users\\kelsos\\Documents\\Visual Studi" +
-            "o 2010\\Projects\\mraSharp-trunk\\Debug\\DataStore.mdf\";Integrated Security=True;Con" +
-            "nect Timeout=30;User Instance=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=\"F:\\Development Projects\\VS2010\\Project" +
+            "s\\mraSharp\\Debug\\DataStore.mdf\";Integrated Security=True;Connect Timeout=30;User" +
+            " Instance=True")]
         public string DataStoreConnectionString {
             get {
                 return ((string)(this["DataStoreConnectionString"]));
