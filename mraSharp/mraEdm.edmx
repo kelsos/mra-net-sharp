@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlServerCe.3.5" ProviderManifestToken="3.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="m_authorInfo" EntityType="Model1.Store.m_authorInfo" store:Type="Tables" />
+          <EntitySet Name="m_genreInfo" EntityType="Model1.Store.m_genreInfo" store:Type="Tables" />
+          <EntitySet Name="m_mangaInfo" EntityType="Model1.Store.m_mangaInfo" store:Type="Tables" />
+          <EntitySet Name="m_publisherInfo" EntityType="Model1.Store.m_publisherInfo" store:Type="Tables" />
+          <EntitySet Name="mm_mangaAuthors" EntityType="Model1.Store.mm_mangaAuthors" store:Type="Tables" />
+          <EntitySet Name="mm_mangaGenres" EntityType="Model1.Store.mm_mangaGenres" store:Type="Tables" />
+          <EntitySet Name="mr_readingList" EntityType="Model1.Store.mr_readingList" store:Type="Tables" />
+          <EntitySet Name="rss_NewsStorage" EntityType="Model1.Store.rss_NewsStorage" store:Type="Tables" />
+          <EntitySet Name="rss_Subscriptions" EntityType="Model1.Store.rss_Subscriptions" store:Type="Tables" />
+          <AssociationSet Name="FK_Author_MangaAuthors" Association="Model1.Store.FK_Author_MangaAuthors">
+            <End Role="m_authorInfo" EntitySet="m_authorInfo" />
+            <End Role="mm_mangaAuthors" EntitySet="mm_mangaAuthors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Genre_MangaGenre" Association="Model1.Store.FK_Genre_MangaGenre">
+            <End Role="m_genreInfo" EntitySet="m_genreInfo" />
+            <End Role="mm_mangaGenres" EntitySet="mm_mangaGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Manga_MangaAuthors" Association="Model1.Store.FK_Manga_MangaAuthors">
+            <End Role="m_mangaInfo" EntitySet="m_mangaInfo" />
+            <End Role="mm_mangaAuthors" EntitySet="mm_mangaAuthors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Manga_MangaGenre" Association="Model1.Store.FK_Manga_MangaGenre">
+            <End Role="m_mangaInfo" EntitySet="m_mangaInfo" />
+            <End Role="mm_mangaGenres" EntitySet="mm_mangaGenres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Manga_Publisher" Association="Model1.Store.FK_Manga_Publisher">
+            <End Role="m_publisherInfo" EntitySet="m_publisherInfo" />
+            <End Role="m_mangaInfo" EntitySet="m_mangaInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Manga_ReadingList" Association="Model1.Store.FK_Manga_ReadingList">
+            <End Role="m_mangaInfo" EntitySet="m_mangaInfo" />
+            <End Role="mr_readingList" EntitySet="mr_readingList" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="m_authorInfo">
+          <Key>
+            <PropertyRef Name="authorID" />
+          </Key>
+          <Property Name="authorID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="authorFullName" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="authorCountryOfOrigin" Type="nchar" MaxLength="40" />
+          <Property Name="authorDateOfBirth" Type="datetime" />
+          <Property Name="authorWebsite" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="m_genreInfo">
+          <Key>
+            <PropertyRef Name="genreID" />
+          </Key>
+          <Property Name="genreID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="genreName" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="m_mangaInfo">
+          <Key>
+            <PropertyRef Name="mangaID" />
+          </Key>
+          <Property Name="mangaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="mangaTitle" Type="nvarchar" Nullable="false" />
+          <Property Name="mangaDescription" Type="nvarchar" MaxLength="3000" />
+          <Property Name="mangaYearOfPublisher" Type="datetime" />
+          <Property Name="mangaStatus" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="mangaPublisherID" Type="int" />
+          <Property Name="mangaCover" Type="image" />
+        </EntityType>
+        <EntityType Name="m_publisherInfo">
+          <Key>
+            <PropertyRef Name="publisherID" />
+          </Key>
+          <Property Name="publisherID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="publisherName" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="publisherCountry" Type="nvarchar" MaxLength="40" />
+          <Property Name="publisherWebsite" Type="nvarchar" MaxLength="150" />
+          <Property Name="publisherNote" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="mm_mangaAuthors">
+          <Key>
+            <PropertyRef Name="ma_mangaID" />
+            <PropertyRef Name="ma_authorID" />
+          </Key>
+          <Property Name="ma_mangaID" Type="int" Nullable="false" />
+          <Property Name="ma_authorID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mm_mangaGenres">
+          <Key>
+            <PropertyRef Name="mm_mangaID" />
+            <PropertyRef Name="mm_genreID" />
+          </Key>
+          <Property Name="mm_mangaID" Type="int" Nullable="false" />
+          <Property Name="mm_genreID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mr_readingList">
+          <Key>
+            <PropertyRef Name="entryID" />
+          </Key>
+          <Property Name="entryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="mangaID" Type="int" Nullable="false" />
+          <Property Name="mr_StartingChapter" Type="float" Nullable="false" />
+          <Property Name="mr_CurrentChapter" Type="float" Nullable="false" />
+          <Property Name="mr_OnlineURL" Type="nvarchar" MaxLength="150" />
+          <Property Name="mr_IsReadingFinished" Type="bit" Nullable="false" />
+          <Property Name="mr_LastRead" Type="datetime" />
+          <Property Name="mr_Note" Type="nvarchar" MaxLength="400" />
+        </EntityType>
+        <EntityType Name="rss_NewsStorage">
+          <Key>
+            <PropertyRef Name="newsID" />
+          </Key>
+          <Property Name="newsID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="newsTitle" Type="nvarchar" MaxLength="150" />
+          <Property Name="newsLink" Type="nvarchar" MaxLength="150" />
+          <Property Name="newsDescription" Type="nvarchar" MaxLength="1000" />
+          <Property Name="newsDatePublisher" Type="datetime" />
+          <Property Name="newsDateAquired" Type="datetime" />
+        </EntityType>
+        <EntityType Name="rss_Subscriptions">
+          <Key>
+            <PropertyRef Name="rssID" />
+          </Key>
+          <Property Name="rssID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="rssURL" Type="nvarchar" Nullable="false" MaxLength="150" />
+          <Property Name="rssChannelName" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <Association Name="FK_Author_MangaAuthors">
+          <End Role="m_authorInfo" Type="Model1.Store.m_authorInfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mm_mangaAuthors" Type="Model1.Store.mm_mangaAuthors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_authorInfo">
+              <PropertyRef Name="authorID" />
+            </Principal>
+            <Dependent Role="mm_mangaAuthors">
+              <PropertyRef Name="ma_authorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Genre_MangaGenre">
+          <End Role="m_genreInfo" Type="Model1.Store.m_genreInfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mm_mangaGenres" Type="Model1.Store.mm_mangaGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_genreInfo">
+              <PropertyRef Name="genreID" />
+            </Principal>
+            <Dependent Role="mm_mangaGenres">
+              <PropertyRef Name="mm_genreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Manga_MangaAuthors">
+          <End Role="m_mangaInfo" Type="Model1.Store.m_mangaInfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mm_mangaAuthors" Type="Model1.Store.mm_mangaAuthors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_mangaInfo">
+              <PropertyRef Name="mangaID" />
+            </Principal>
+            <Dependent Role="mm_mangaAuthors">
+              <PropertyRef Name="ma_mangaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Manga_MangaGenre">
+          <End Role="m_mangaInfo" Type="Model1.Store.m_mangaInfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mm_mangaGenres" Type="Model1.Store.mm_mangaGenres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_mangaInfo">
+              <PropertyRef Name="mangaID" />
+            </Principal>
+            <Dependent Role="mm_mangaGenres">
+              <PropertyRef Name="mm_mangaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Manga_Publisher">
+          <End Role="m_publisherInfo" Type="Model1.Store.m_publisherInfo" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="m_mangaInfo" Type="Model1.Store.m_mangaInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_publisherInfo">
+              <PropertyRef Name="publisherID" />
+            </Principal>
+            <Dependent Role="m_mangaInfo">
+              <PropertyRef Name="mangaPublisherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Manga_ReadingList">
+          <End Role="m_mangaInfo" Type="Model1.Store.m_mangaInfo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="mr_readingList" Type="Model1.Store.mr_readingList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_mangaInfo">
+              <PropertyRef Name="mangaID" />
+            </Principal>
+            <Dependent Role="mr_readingList">
+              <PropertyRef Name="mangaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="mdbEdm" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="mdbEdmContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="m_authorInfo" EntityType="mdbEdm.m_authorInfo" />
+          <EntitySet Name="m_genreInfo" EntityType="mdbEdm.m_genreInfo" />
+          <EntitySet Name="m_mangaInfo" EntityType="mdbEdm.m_mangaInfo" />
+          <EntitySet Name="m_publisherInfo" EntityType="mdbEdm.m_publisherInfo" />
+          <EntitySet Name="mr_readingList" EntityType="mdbEdm.mr_readingList" />
+          <EntitySet Name="rss_NewsStorage" EntityType="mdbEdm.rss_NewsStorage" />
+          <EntitySet Name="rss_Subscriptions" EntityType="mdbEdm.rss_Subscriptions" />
+          <AssociationSet Name="FK_Manga_Publisher" Association="mdbEdm.FK_Manga_Publisher">
+            <End Role="m_publisherInfo" EntitySet="m_publisherInfo" />
+            <End Role="m_mangaInfo" EntitySet="m_mangaInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Manga_ReadingList" Association="mdbEdm.FK_Manga_ReadingList">
+            <End Role="m_mangaInfo" EntitySet="m_mangaInfo" />
+            <End Role="mr_readingList" EntitySet="mr_readingList" />
+          </AssociationSet>
+          <AssociationSet Name="mm_mangaAuthors" Association="mdbEdm.mm_mangaAuthors">
+            <End Role="m_authorInfo" EntitySet="m_authorInfo" />
+            <End Role="m_mangaInfo" EntitySet="m_mangaInfo" />
+          </AssociationSet>
+          <AssociationSet Name="mm_mangaGenres" Association="mdbEdm.mm_mangaGenres">
+            <End Role="m_genreInfo" EntitySet="m_genreInfo" />
+            <End Role="m_mangaInfo" EntitySet="m_mangaInfo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="m_authorInfo">
+          <Key>
+            <PropertyRef Name="authorID" />
+          </Key>
+          <Property Type="Int32" Name="authorID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="authorFullName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="authorCountryOfOrigin" MaxLength="40" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="authorDateOfBirth" />
+          <Property Type="String" Name="authorWebsite" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="m_mangaInfo" Relationship="mdbEdm.mm_mangaAuthors" FromRole="m_authorInfo" ToRole="m_mangaInfo" />
+        </EntityType>
+        <EntityType Name="m_genreInfo">
+          <Key>
+            <PropertyRef Name="genreID" />
+          </Key>
+          <Property Type="Int32" Name="genreID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="genreName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="m_mangaInfo" Relationship="mdbEdm.mm_mangaGenres" FromRole="m_genreInfo" ToRole="m_mangaInfo" />
+        </EntityType>
+        <EntityType Name="m_mangaInfo">
+          <Key>
+            <PropertyRef Name="mangaID" />
+          </Key>
+          <Property Type="Int32" Name="mangaID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="mangaTitle" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="mangaDescription" MaxLength="3000" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="mangaYearOfPublisher" />
+          <Property Type="String" Name="mangaStatus" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="mangaPublisherID" />
+          <Property Type="Binary" Name="mangaCover" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="m_publisherInfo" Relationship="mdbEdm.FK_Manga_Publisher" FromRole="m_mangaInfo" ToRole="m_publisherInfo" />
+          <NavigationProperty Name="mr_readingList" Relationship="mdbEdm.FK_Manga_ReadingList" FromRole="m_mangaInfo" ToRole="mr_readingList" />
+          <NavigationProperty Name="m_authorInfo" Relationship="mdbEdm.mm_mangaAuthors" FromRole="m_mangaInfo" ToRole="m_authorInfo" />
+          <NavigationProperty Name="m_genreInfo" Relationship="mdbEdm.mm_mangaGenres" FromRole="m_mangaInfo" ToRole="m_genreInfo" />
+        </EntityType>
+        <EntityType Name="m_publisherInfo">
+          <Key>
+            <PropertyRef Name="publisherID" />
+          </Key>
+          <Property Type="Int32" Name="publisherID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="publisherName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="publisherCountry" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="publisherWebsite" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="publisherNote" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="m_mangaInfo" Relationship="mdbEdm.FK_Manga_Publisher" FromRole="m_publisherInfo" ToRole="m_mangaInfo" />
+        </EntityType>
+        <EntityType Name="mr_readingList">
+          <Key>
+            <PropertyRef Name="entryID" />
+          </Key>
+          <Property Type="Int32" Name="entryID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="mangaID" Nullable="false" />
+          <Property Type="Double" Name="mr_StartingChapter" Nullable="false" />
+          <Property Type="Double" Name="mr_CurrentChapter" Nullable="false" />
+          <Property Type="String" Name="mr_OnlineURL" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="mr_IsReadingFinished" Nullable="false" />
+          <Property Type="DateTime" Name="mr_LastRead" />
+          <Property Type="String" Name="mr_Note" MaxLength="400" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="m_mangaInfo" Relationship="mdbEdm.FK_Manga_ReadingList" FromRole="mr_readingList" ToRole="m_mangaInfo" />
+        </EntityType>
+        <EntityType Name="rss_NewsStorage">
+          <Key>
+            <PropertyRef Name="newsID" />
+          </Key>
+          <Property Type="Int32" Name="newsID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="newsTitle" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="newsLink" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="newsDescription" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="newsDatePublisher" />
+          <Property Type="DateTime" Name="newsDateAquired" />
+        </EntityType>
+        <EntityType Name="rss_Subscriptions">
+          <Key>
+            <PropertyRef Name="rssID" />
+          </Key>
+          <Property Type="Int32" Name="rssID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="rssURL" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="rssChannelName" MaxLength="150" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Manga_Publisher">
+          <End Type="mdbEdm.m_publisherInfo" Role="m_publisherInfo" Multiplicity="0..1" />
+          <End Type="mdbEdm.m_mangaInfo" Role="m_mangaInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_publisherInfo">
+              <PropertyRef Name="publisherID" />
+            </Principal>
+            <Dependent Role="m_mangaInfo">
+              <PropertyRef Name="mangaPublisherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Manga_ReadingList">
+          <End Type="mdbEdm.m_mangaInfo" Role="m_mangaInfo" Multiplicity="1" />
+          <End Type="mdbEdm.mr_readingList" Role="mr_readingList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="m_mangaInfo">
+              <PropertyRef Name="mangaID" />
+            </Principal>
+            <Dependent Role="mr_readingList">
+              <PropertyRef Name="mangaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="mm_mangaAuthors">
+          <End Type="mdbEdm.m_authorInfo" Role="m_authorInfo" Multiplicity="*" />
+          <End Type="mdbEdm.m_mangaInfo" Role="m_mangaInfo" Multiplicity="*" />
+        </Association>
+        <Association Name="mm_mangaGenres">
+          <End Type="mdbEdm.m_genreInfo" Role="m_genreInfo" Multiplicity="*" />
+          <End Type="mdbEdm.m_mangaInfo" Role="m_mangaInfo" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Model1" />
+        <Alias Key="Target" Value="Model1.Store" />
+        <EntityContainerMapping CdmEntityContainer="mdbEdmContainer" StorageEntityContainer="Model1StoreContainer">
+          <EntitySetMapping Name="m_authorInfo">
+            <EntityTypeMapping TypeName="mdbEdm.m_authorInfo">
+              <MappingFragment StoreEntitySet="m_authorInfo">
+                <ScalarProperty Name="authorWebsite" ColumnName="authorWebsite" />
+                <ScalarProperty Name="authorDateOfBirth" ColumnName="authorDateOfBirth" />
+                <ScalarProperty Name="authorCountryOfOrigin" ColumnName="authorCountryOfOrigin" />
+                <ScalarProperty Name="authorFullName" ColumnName="authorFullName" />
+                <ScalarProperty Name="authorID" ColumnName="authorID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_genreInfo">
+            <EntityTypeMapping TypeName="mdbEdm.m_genreInfo">
+              <MappingFragment StoreEntitySet="m_genreInfo">
+                <ScalarProperty Name="genreName" ColumnName="genreName" />
+                <ScalarProperty Name="genreID" ColumnName="genreID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_mangaInfo">
+            <EntityTypeMapping TypeName="mdbEdm.m_mangaInfo">
+              <MappingFragment StoreEntitySet="m_mangaInfo">
+                <ScalarProperty Name="mangaCover" ColumnName="mangaCover" />
+                <ScalarProperty Name="mangaPublisherID" ColumnName="mangaPublisherID" />
+                <ScalarProperty Name="mangaStatus" ColumnName="mangaStatus" />
+                <ScalarProperty Name="mangaYearOfPublisher" ColumnName="mangaYearOfPublisher" />
+                <ScalarProperty Name="mangaDescription" ColumnName="mangaDescription" />
+                <ScalarProperty Name="mangaTitle" ColumnName="mangaTitle" />
+                <ScalarProperty Name="mangaID" ColumnName="mangaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_publisherInfo">
+            <EntityTypeMapping TypeName="mdbEdm.m_publisherInfo">
+              <MappingFragment StoreEntitySet="m_publisherInfo">
+                <ScalarProperty Name="publisherNote" ColumnName="publisherNote" />
+                <ScalarProperty Name="publisherWebsite" ColumnName="publisherWebsite" />
+                <ScalarProperty Name="publisherCountry" ColumnName="publisherCountry" />
+                <ScalarProperty Name="publisherName" ColumnName="publisherName" />
+                <ScalarProperty Name="publisherID" ColumnName="publisherID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mr_readingList">
+            <EntityTypeMapping TypeName="mdbEdm.mr_readingList">
+              <MappingFragment StoreEntitySet="mr_readingList">
+                <ScalarProperty Name="mr_Note" ColumnName="mr_Note" />
+                <ScalarProperty Name="mr_LastRead" ColumnName="mr_LastRead" />
+                <ScalarProperty Name="mr_IsReadingFinished" ColumnName="mr_IsReadingFinished" />
+                <ScalarProperty Name="mr_OnlineURL" ColumnName="mr_OnlineURL" />
+                <ScalarProperty Name="mr_CurrentChapter" ColumnName="mr_CurrentChapter" />
+                <ScalarProperty Name="mr_StartingChapter" ColumnName="mr_StartingChapter" />
+                <ScalarProperty Name="mangaID" ColumnName="mangaID" />
+                <ScalarProperty Name="entryID" ColumnName="entryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rss_NewsStorage">
+            <EntityTypeMapping TypeName="mdbEdm.rss_NewsStorage">
+              <MappingFragment StoreEntitySet="rss_NewsStorage">
+                <ScalarProperty Name="newsDateAquired" ColumnName="newsDateAquired" />
+                <ScalarProperty Name="newsDatePublisher" ColumnName="newsDatePublisher" />
+                <ScalarProperty Name="newsDescription" ColumnName="newsDescription" />
+                <ScalarProperty Name="newsLink" ColumnName="newsLink" />
+                <ScalarProperty Name="newsTitle" ColumnName="newsTitle" />
+                <ScalarProperty Name="newsID" ColumnName="newsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rss_Subscriptions">
+            <EntityTypeMapping TypeName="mdbEdm.rss_Subscriptions">
+              <MappingFragment StoreEntitySet="rss_Subscriptions">
+                <ScalarProperty Name="rssChannelName" ColumnName="rssChannelName" />
+                <ScalarProperty Name="rssURL" ColumnName="rssURL" />
+                <ScalarProperty Name="rssID" ColumnName="rssID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="mm_mangaAuthors" TypeName="mdbEdm.mm_mangaAuthors" StoreEntitySet="mm_mangaAuthors">
+            <EndProperty Name="m_mangaInfo">
+              <ScalarProperty Name="mangaID" ColumnName="ma_mangaID" />
+            </EndProperty>
+            <EndProperty Name="m_authorInfo">
+              <ScalarProperty Name="authorID" ColumnName="ma_authorID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="mm_mangaGenres" TypeName="mdbEdm.mm_mangaGenres" StoreEntitySet="mm_mangaGenres">
+            <EndProperty Name="m_mangaInfo">
+              <ScalarProperty Name="mangaID" ColumnName="mm_mangaID" />
+            </EndProperty>
+            <EndProperty Name="m_genreInfo">
+              <ScalarProperty Name="genreID" ColumnName="mm_genreID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="Model1" >
+        <EntityTypeShape EntityType="mdbEdm.m_authorInfo" Width="1.5" PointX="0.75" PointY="3.5" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="mdbEdm.m_genreInfo" Width="1.5" PointX="0.75" PointY="7.25" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="mdbEdm.m_mangaInfo" Width="1.5" PointX="3" PointY="3" Height="3.1340950520833317" />
+        <EntityTypeShape EntityType="mdbEdm.m_publisherInfo" Width="1.5" PointX="0.75" PointY="9.625" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="mdbEdm.mr_readingList" Width="1.5" PointX="5.25" PointY="3.125" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="mdbEdm.rss_NewsStorage" Width="1.5" PointX="5.75" PointY="6.75" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="mdbEdm.rss_Subscriptions" Width="1.5" PointX="5.75" PointY="0.75" Height="1.5956835937499996" />
+        <AssociationConnector Association="mdbEdm.FK_Manga_Publisher" >
+          <ConnectorPoint PointX="2.25" PointY="10.7112939453125" />
+          <ConnectorPoint PointX="3.75" PointY="10.7112939453125" />
+          <ConnectorPoint PointX="3.75" PointY="6.1340950520833317" />
+        </AssociationConnector>
+        <AssociationConnector Association="mdbEdm.FK_Manga_ReadingList" >
+          <ConnectorPoint PointX="4.5" PointY="4.49974609375" />
+          <ConnectorPoint PointX="5.25" PointY="4.49974609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="mdbEdm.mm_mangaAuthors" >
+          <ConnectorPoint PointX="2.25" PointY="4.5862939453125" />
+          <ConnectorPoint PointX="3" PointY="4.5862939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="mdbEdm.mm_mangaGenres" >
+          <ConnectorPoint PointX="2.25" PointY="8.047841796875" />
+          <ConnectorPoint PointX="3.3437475" PointY="8.047841796875" />
+          <ConnectorPoint PointX="3.3437475" PointY="6.1340950520833317" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
