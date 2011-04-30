@@ -94,6 +94,11 @@
     <Compile Include="FileOperations.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="mangaRead.cs" />
+    <Compile Include="mds.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mds.dbml</DependentUpon>
+    </Compile>
     <Compile Include="MessageFilter.cs" />
     <Compile Include="mraEdm.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -149,6 +154,9 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="mds.dbml.layout">
+      <DependentUpon>mds.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -184,6 +192,11 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>mraEdm.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="mds.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>mds.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\mangaRead.datasource" />
     <None Include="Properties\DataSources\mdbEdmContainer.datasource" />
     <None Include="Properties\Settings.settings">
@@ -1173,7 +1186,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
