@@ -69,7 +69,7 @@ namespace mraSharp
 
 		private void saveButton_Click(object sender, EventArgs e)
 		{
-			//TODO: field value validation
+			//TODO: Field value validation.
 			mR.StartingChapter = startingChapter;
 			mR.CurrentChapter = Convert.ToDouble(setCurrentChapterTextBox.Text);
 			mR.LastRead = DateTime.Parse(setDateLastReadDateTimePicker.Text);

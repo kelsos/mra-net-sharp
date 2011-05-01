@@ -26,11 +26,10 @@ namespace mraSharp.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=|DataDirectory|\\DataStore.mdf;Integrate" +
-            "d Security=True;Connect Timeout=30;User Instance=True")]
-        public string DataStoreConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\mds.sdf")]
+        public string DbConnection {
             get {
-                return ((string)(this["DataStoreConnectionString"]));
+                return ((string)(this["DbConnection"]));
             }
         }
     }

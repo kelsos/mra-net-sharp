@@ -9,12 +9,13 @@ namespace mraSharp
 	{
 		public static void readingListToXML(string fileName)
 		{
-			using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+			//TODO: Add Note to the save/restore functionality.
+			using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
 			{
-				var dataDump = from read in db.mangaReadingLists
-									join mangas in db.mangaInfos
-									on read.mangaID equals mangas.mangaID
-									select new mangaRead(mangas.mangaTitle, read.mangaStartingChapter, read.mangaCurrentChapter, read.mangaDateRead, read.mangaURL, read.mangaReadingFinished);
+				var dataDump = from read in db.Mr_readingList
+									join mangas in db.M_mangaInfo
+									on read.MangaID equals mangas.MangaID
+									select new mangaRead(mangas.MangaTitle, read.Mr_StartingChapter, read.Mr_CurrentChapter, read.Mr_LastRead, read.Mr_OnlineURL, read.Mr_IsReadingFinished);
 
 				XDocument xDoc = new XDocument(
 					new XDeclaration("1.0", "utf-8", "yes"),
@@ -34,11 +35,13 @@ namespace mraSharp
 			}
 		}
 
+		//TODO: Using(Mds db = new Mds(Properties.Settings.Default.DbConnection)). For every call of LINQ to SQL.
 		public static void readingListFromXML(string fileName, MainForm mf)
 		{
+			//TODO: Add Manga Personal Note here too.
 			int count = 0;
 			XDocument xDoc = XDocument.Load(fileName);
-			dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+			Mds db = new Mds(Properties.Settings.Default.DbConnection);
 			//progress bar goes here
 
 			var xData = from data in xDoc.Descendants("manga")
@@ -55,17 +58,17 @@ namespace mraSharp
 
 			foreach (var line in xData)
 			{
-				mangaReadingList mR = new mangaReadingList()
+				Mr_readingList mR = new Mr_readingList()
 				{
-					mangaID = DatabaseOperations.getMangaID(line.MangaTitle),
-					mangaStartingChapter = Convert.ToInt32(line.StartingChapter),
-					mangaCurrentChapter = Convert.ToInt32(line.CurrentChapter),
-					mangaDateRead = DateTime.Parse(line.DateLastRead),
-					mangaURL = line.OnLineURL,
-					mangaReadingFinished = Convert.ToBoolean(line.Finished)
+					MangaID = DatabaseOperations.getMangaID(line.MangaTitle),
+					Mr_StartingChapter = Convert.ToInt32(line.StartingChapter),
+					Mr_CurrentChapter = Convert.ToInt32(line.CurrentChapter),
+					Mr_LastRead = DateTime.Parse(line.DateLastRead),
+					Mr_OnlineURL = line.OnLineURL,
+					Mr_IsReadingFinished = Convert.ToBoolean(line.Finished)
 				};
 
-				db.mangaReadingLists.InsertOnSubmit(mR);
+				db.Mr_readingList.InsertOnSubmit(mR);
 				db.SubmitChanges();
 
 				mf.progressChanged(xData.Count(), count + 1);
@@ -81,14 +84,14 @@ namespace mraSharp
 			try
 			{
 				Stream stream = null;
-				dataLinqSqlDataContext data = new dataLinqSqlDataContext();
-				var rssSubs = from rssUrl in data.rssSubscriptions
+				Mds db = new Mds(Properties.Settings.Default.DbConnection);
+				var rssSubs = from rssUrl in db.Rss_Subscriptions
 								  select rssUrl;
 				foreach (var rssUrl in rssSubs)
 				{
 					stream = new FileStream(filePath, FileMode.Append);
 					StreamWriter file = new StreamWriter(stream);
-					file.WriteLine(rssUrl.rssUrl, "\n");
+					file.WriteLine(rssUrl.RssURL, "\n");
 					file.Close();
 					stream = null;
 				}
@@ -108,18 +111,18 @@ namespace mraSharp
 			try
 			{
 				Stream stream = null;
-				dataLinqSqlDataContext data = new dataLinqSqlDataContext();
+				Mds db = new Mds(Properties.Settings.Default.DbConnection);
 				stream = new FileStream(filePath, FileMode.Open);
 				StreamReader file = new StreamReader(stream);
 				string line;
 				while ((line = file.ReadLine()) != null)
 				{
-					rssSubscription sub = new rssSubscription
+					Rss_Subscriptions sub = new Rss_Subscriptions()
 					{
-						rssUrl = line
+						RssURL = line
 					};
-					data.rssSubscriptions.InsertOnSubmit(sub);
-					data.SubmitChanges();
+					db.Rss_Subscriptions.InsertOnSubmit(sub);
+					db.SubmitChanges();
 				}
 			}
 			catch (Exception ex)

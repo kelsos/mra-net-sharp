@@ -80,11 +80,6 @@
       <DependentUpon>AddMangaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseOperations.cs" />
-    <Compile Include="dataLinqSql.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dataLinqSql.dbml</DependentUpon>
-    </Compile>
     <Compile Include="errorMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,11 +95,6 @@
       <DependentUpon>mds.dbml</DependentUpon>
     </Compile>
     <Compile Include="MessageFilter.cs" />
-    <Compile Include="mraEdm.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>mraEdm.edmx</DependentUpon>
-    </Compile>
     <Compile Include="NetworkOperations.cs" />
     <Compile Include="RegularExpressions.cs" />
     <Compile Include="RssManager.cs" />
@@ -142,9 +132,6 @@
       <DependentUpon>WebForm.cs</DependentUpon>
     </Compile>
     <Content Include="changelog.txt" />
-    <None Include="dataLinqSql.dbml.layout">
-      <DependentUpon>dataLinqSql.dbml</DependentUpon>
-    </None>
     <EmbeddedResource Include="AddMangaForm.resx">
       <DependentUpon>AddMangaForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -183,15 +170,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="dataLinqSql.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>dataLinqSql.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <EntityDeploy Include="mraEdm.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>mraEdm.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="mds.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>mds.designer.cs</LastGenOutput>
@@ -744,13 +722,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataStore.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DataStore_log.ldf">
-      <DependentUpon>DataStore.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Icons\left_16.png" />
     <None Include="Icons\right_16.png" />
     <None Include="Icons\reload_16.png" />
@@ -1186,7 +1157,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
+      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

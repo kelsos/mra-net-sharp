@@ -40,7 +40,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_UseGlobalSettings = False
 		BuildVersion_AssemblyInfoFilename = mraSharp\Properties\AssemblyInfo.cs
+		BuildVersion_UseGlobalSettings = True
 	EndGlobalSection
 EndGlobal

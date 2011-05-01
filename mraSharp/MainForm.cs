@@ -54,7 +54,7 @@ namespace mraSharp
 					mangaDescriptionGroupBox.Bounds = new Rectangle(mangaNoteGroupBox.Left, mangaDescriptionGroupBox.Top, mangaDescriptionGroupBox.Right - mangaNoteGroupBox.Left, mangaDescriptionGroupBox.Height);
 					openToBrowserToolStripButton.Enabled = false;
 
-					//TODO: check on how to hide a tab page from a tab control.
+					//TODO: Check on how to hide a tab page from a tab control.
 					wikipediaTabPage.Hide();
 				}
 				else
@@ -65,7 +65,7 @@ namespace mraSharp
 					if (!rssTickerGroupBox.Visible)
 					{
 						rssTickerGroupBox.Show();
-						//TODO: keep the default mangaDescriptionGroupBox.Bounds in a variable and actually restore them if the Rss ticker is hidden and the internet connection is restored.
+						//TODO: Keep the default mangaDescriptionGroupBox.Bounds in a variable and actually restore them if the Rss ticker is hidden and the internet connection is restored.
 						mangaDescriptionGroupBox.Bounds = new Rectangle();
 						openToBrowserToolStripButton.Enabled = true;
 						wikipediaTabPage.Show();
@@ -120,8 +120,8 @@ namespace mraSharp
 			}
 		}
 
-		private List<newsStorage> newsList = new List<newsStorage>();
-
+		private List<Rss_NewsStorage> newsList = new List<Rss_NewsStorage>();
+		//TODO: Work on the RSS Ticker. Lack of internet connection plus Rss Already in the database.
 		private void rssTicker()
 		{
 			try
@@ -130,17 +130,17 @@ namespace mraSharp
 
 				if (newsItemsCount > myCounter)
 				{
-					rssTitleLabel.Text = newsList[myCounter].rssTitle;
-					rssLinkLabel.Text = newsList[myCounter].rssLink;
-					rssDescriptionTextBox.Text = newsList[myCounter].rssDescription;
+					rssTitleLabel.Text = newsList[myCounter].NewsTitle;
+					rssLinkLabel.Text = newsList[myCounter].NewsLink;
+					rssDescriptionTextBox.Text = newsList[myCounter].NewsDescription;
 					myCounter += 1;
 				}
 				else
 				{
 					myCounter = 0;
-					rssTitleLabel.Text = newsList[myCounter].rssTitle;
-					rssLinkLabel.Text = newsList[myCounter].rssLink;
-					rssDescriptionTextBox.Text = newsList[myCounter].rssDescription;
+					rssTitleLabel.Text = newsList[myCounter].NewsTitle;
+					rssLinkLabel.Text = newsList[myCounter].NewsLink;
+					rssDescriptionTextBox.Text = newsList[myCounter].NewsDescription;
 					myCounter += 1;
 				}
 			}
@@ -155,9 +155,10 @@ namespace mraSharp
 		{
 			try
 			{
-				dataLinqSqlDataContext db = new dataLinqSqlDataContext();
-				var rssSubs = from subs in db.rssSubscriptions
-								  select subs.rssUrl;
+				Mds db = new Mds(Properties.Settings.Default.DbConnection);
+				//Mds db = new Mds(Properties.Settings.Default.DbConnection);
+				var rssSubs = from subs in db.Rss_Subscriptions
+								  select subs.RssURL;
 
 				foreach (var channel in rssSubs)
 				{
@@ -168,25 +169,25 @@ namespace mraSharp
 						title = title.Replace("'", "");
 						title = title.Trim();
 
-						var newsFilter = from line in db.newsStorages
-											  where line.rssTitle == title
+						var newsFilter = from line in db.Rss_NewsStorage
+											  where line.NewsTitle == title
 											  select line;
-
+						//TODO: Add implementation for the RSS to keep info about the Publication Date.
 						if (newsFilter.Count() == 0)
 						{
-							newsStorage ne = new newsStorage
+							Rss_NewsStorage ne = new Rss_NewsStorage
 							{
-								rssTitle = title,
-								rssLink = newsItem.Link,
-								rssDescription = RegularExpressions.htmlTagRemover(newsItem.Description),
-								rssDateAquired = DateTime.Now
+								NewsTitle = title,
+								NewsLink = newsItem.Link,
+								NewsDescription = RegularExpressions.htmlTagRemover(newsItem.Description),
+								NewsDateAquired = DateTime.Now
 							};
-							db.newsStorages.InsertOnSubmit(ne);
+							db.Rss_NewsStorage.InsertOnSubmit(ne);
 							db.SubmitChanges();
 						}
 					}
 				}
-				newsList = (from news in db.newsStorages
+				newsList = (from news in db.Rss_NewsStorage
 								select news).ToList();
 			}
 			catch (Exception ex)
@@ -204,16 +205,16 @@ namespace mraSharp
 		{
 			try
 			{
-				dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+				Mds db = new Mds(Properties.Settings.Default.DbConnection);
 				//var mID = (from current in db.mangaInfos
 				//where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
 				//select current.mangaID).Single();
 				int mID = DatabaseOperations.getMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
-				var manga = (from current in db.mangaReadingLists
-								 where current.mangaID == mID
+				var manga = (from current in db.Mr_readingList
+								 where current.MangaID == mID
 								 select current).Single();
-				manga.mangaCurrentChapter += 1;
-				manga.mangaDateRead = DateTime.Now;
+				manga.Mr_CurrentChapter += 1;
+				manga.Mr_LastRead = DateTime.Now;
 				db.SubmitChanges();
 
 				//Updates the DataGridView to reflect on the changes made to the database
@@ -236,12 +237,12 @@ namespace mraSharp
 		{
 			try
 			{
-				dataLinqSqlDataContext db = new dataLinqSqlDataContext();
-				dataGridBindingSource.DataSource = from read in db.mangaReadingLists
-															  join mangas in db.mangaInfos
-															  on read.mangaID equals mangas.mangaID
-															  where mangas.mangaTitle.Contains(searchToolStripTextBox.Text)
-															  select new mangaRead(mangas.mangaTitle, read.mangaStartingChapter, read.mangaCurrentChapter, read.mangaDateRead, read.mangaURL, read.mangaReadingFinished);
+				Mds db = new Mds(Properties.Settings.Default.DbConnection);
+				dataGridBindingSource.DataSource = from read in db.Mr_readingList
+															  join mangas in db.M_mangaInfo
+															  on read.MangaID equals mangas.MangaID
+															  where mangas.MangaTitle.Contains(searchToolStripTextBox.Text)
+															  select new mangaRead(mangas.MangaTitle, read.Mr_StartingChapter, read.Mr_CurrentChapter, read.Mr_LastRead, read.Mr_OnlineURL, read.Mr_IsReadingFinished);
 			}
 			catch (Exception ex)
 			{
@@ -436,12 +437,12 @@ namespace mraSharp
 		{
 			try
 			{
-				using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+				using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
 				{
-					dataGridBindingSource.DataSource = from read in db.mangaReadingLists
-																  join mangas in db.mangaInfos
-																  on read.mangaID equals mangas.mangaID
-																  select new mangaRead(mangas.mangaTitle, read.mangaStartingChapter, read.mangaCurrentChapter, read.mangaDateRead, read.mangaURL, read.mangaReadingFinished);
+					dataGridBindingSource.DataSource = from read in db.Mr_readingList
+																  join mangas in db.M_mangaInfo
+																  on read.MangaID equals mangas.MangaID
+																  select new mangaRead(mangas.MangaTitle, read.Mr_StartingChapter, read.Mr_CurrentChapter, read.Mr_LastRead, read.Mr_OnlineURL, read.Mr_IsReadingFinished);
 				}
 			}
 			catch (Exception ex)
@@ -455,7 +456,7 @@ namespace mraSharp
 		{
 			try
 			{
-				using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+				using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
 				{
 					if (mangaListDataGridView.CurrentRow != null)
 					{
@@ -463,9 +464,9 @@ namespace mraSharp
 						//           where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
 						//           select current.mangaID).SingleOrDefault();
 						int mID = DatabaseOperations.getMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
-						var image = (from current in db.mangaInfos
-										 where current.mangaID == mID
-										 select current.mangaCover).Single();
+						var image = (from current in db.M_mangaInfo
+										 where current.MangaID == mID
+										 select current.MangaCover).Single();
 						byte[] imageByte = (byte[])image.ToArray();
 						mangaCoverPictureBox.Image = Image.FromStream(new MemoryStream(imageByte));
 					}
@@ -484,15 +485,15 @@ namespace mraSharp
 			{
 				if (mangaListDataGridView.CurrentRow != null)
 				{
-					using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+					using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
 					{
 						//var mID = (from current in db.mangaInfos
 						//           where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
 						//           select current.mangaID).Single();
 						int mID = DatabaseOperations.getMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
-						var description = (from current in db.mangaInfos
-												 where current.mangaID == mID
-												 select current.mangaDescription).SingleOrDefault();
+						var description = (from current in db.M_mangaInfo
+												 where current.MangaID == mID
+												 select current.MangaDescription).SingleOrDefault();
 						mangaDescriptionTextBox.Text = description;
 					}
 				}

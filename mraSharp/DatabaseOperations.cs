@@ -3,25 +3,26 @@ using System.Linq;
 
 namespace mraSharp
 {
+	//TODO: Database operations should use a temporary mds instance for each function.
 	public static class DatabaseOperations
 	{
-		private static dataLinqSqlDataContext db = new dataLinqSqlDataContext();
+		private static Mds db = new Mds(Properties.Settings.Default.DbConnection);
 
 		/// <summary>
 		/// Clears the database.
 		/// </summary>
 		public static void clearDatabase()
 		{
-         try
-         {
-            db.mangaReadingLists.DeleteAllOnSubmit(db.mangaReadingLists);
-            db.SubmitChanges();
-         }
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-         }
+			try
+			{
+				db.Mr_readingList.DeleteAllOnSubmit(db.Mr_readingList);
+				db.SubmitChanges();
+			}
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+			}
 		}
 
 		/// <summary>
@@ -35,20 +36,23 @@ namespace mraSharp
 				DateTime date = DateTime.Now;
 				TimeSpan tS = new TimeSpan(daysInDB, 0, 0, 0);
 				date = date.Subtract(tS);
-				var deleteOldRss = from rssNews in db.newsStorages
-										 where rssNews.rssDateAquired <= date
-										 select rssNews;
-				foreach (var rssNews in deleteOldRss)
+				//var deleteOldRss = from rssNews in db.Rss_NewsStorage
+				//                   where rssNews. <= date
+				//                   select rssNews;
+				var oldRssToDelete = from newsItems in db.Rss_NewsStorage
+											where newsItems.NewsDateAquired <= date
+											select newsItems;
+				foreach (var newsItem in oldRssToDelete)
 				{
-					db.newsStorages.DeleteOnSubmit(rssNews);
+					db.Rss_NewsStorage.DeleteOnSubmit(newsItem);
 				}
 				db.SubmitChanges();
 			}
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-         }
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+			}
 		}
 
 		/// <summary>
@@ -57,22 +61,22 @@ namespace mraSharp
 		/// <param name="url">The URL of the subscription to be removed.</param>
 		public static void removeRssSubscription(string url)
 		{
-         try
-         {
-            var deleteSub = from rssSub in db.rssSubscriptions
-                            where rssSub.rssUrl == url
-                            select rssSub;
-            foreach (var rssSub in deleteSub)
-            {
-               db.rssSubscriptions.DeleteOnSubmit(rssSub);
-            }
-            db.SubmitChanges();
-         }
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-         }
+			try
+			{
+				var subscriptionsToDelete = from rssSubscription in db.Rss_Subscriptions
+									 where rssSubscription.RssURL == url
+									 select rssSubscription;
+				foreach (var rssSubscription in subscriptionsToDelete)
+				{
+					db.Rss_Subscriptions.DeleteOnSubmit(rssSubscription);
+				}
+				db.SubmitChanges();
+			}
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+			}
 		}
 
 		/// <summary>
@@ -81,20 +85,20 @@ namespace mraSharp
 		/// <param name="url">The URL.</param>
 		public static void insertRssSubscription(string url)
 		{
-         try
-         {
-            rssSubscription sub = new rssSubscription
-            {
-               rssUrl = url
-            };
-            db.rssSubscriptions.InsertOnSubmit(sub);
-            db.SubmitChanges();
-         }
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-         }
+			try
+			{
+				Rss_Subscriptions subscription = new Rss_Subscriptions
+				{
+					RssURL = url
+				};
+				db.Rss_Subscriptions.InsertOnSubmit(subscription);
+				db.SubmitChanges();
+			}
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+			}
 		}
 
 		/// <summary>
@@ -104,29 +108,29 @@ namespace mraSharp
 		/// <returns></returns>
 		public static int getMangaID(string mangaTitle)
 		{
-         try
-         {
-            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
-            {
-               if (!string.IsNullOrEmpty(mangaTitle))
-               {
-                  var mangaID = (from manga in db.mangaInfos
-                                 where manga.mangaTitle == mangaTitle
-                                 select manga.mangaID).SingleOrDefault();
-                  return mangaID;
-               }
-               else
-               {
-                  return 0;
-               }
-            }
-         }
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-            return 0;
-         }
+			try
+			{
+				using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
+				{
+					if (!string.IsNullOrEmpty(mangaTitle))
+					{
+						var mangaID = (from manga in db.M_mangaInfo
+											where manga.MangaTitle == mangaTitle
+											select manga.MangaID).SingleOrDefault();
+						return mangaID;
+					}
+					else
+					{
+						return 0;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+				return 0;
+			}
 		}
 
 		#region Statistics Methods
@@ -137,19 +141,18 @@ namespace mraSharp
 		/// <returns></returns>
 		public static int numberOfMangasRead()
 		{
-         try
-         {
-            var mangaList = from mangas in db.mangaReadingLists
-                            select mangas;
-            return mangaList.Count();
-         }
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-            return 0;
-         }
-
+			try
+			{
+				var mangaList = from mangas in db.Mr_readingList
+									 select mangas;
+				return mangaList.Count();
+			}
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+				return 0;
+			}
 		}
 
 		/// <summary>
@@ -158,30 +161,30 @@ namespace mraSharp
 		/// <returns></returns>
 		public static int numberOfChaptersRead()
 		{
-         try
-         {
-            int chapterCount = 0;
-            var chaptersList = from mangas in db.mangaReadingLists
-                               select mangas;
-            foreach (var manga in chaptersList)
-            {
-               if (manga.mangaStartingChapter == 1)
-               {
-                  chapterCount += Convert.ToInt16(manga.mangaCurrentChapter);
-               }
-               else
-               {
-                  chapterCount += (Convert.ToInt16(manga.mangaCurrentChapter) - (Convert.ToInt16(manga.mangaStartingChapter) - 1));
-               }
-            }
-            return chapterCount;
-         }
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-            return 0;
-         }
+			try
+			{
+				int chapterCount = 0;
+				var chaptersList = from mangas in db.Mr_readingList
+										 select mangas;
+				foreach (var manga in chaptersList)
+				{
+					if (manga.Mr_StartingChapter == 1)
+					{
+						chapterCount += Convert.ToInt16(manga.Mr_CurrentChapter);
+					}
+					else
+					{
+						chapterCount += (Convert.ToInt16(manga.Mr_CurrentChapter) - (Convert.ToInt16(manga.Mr_StartingChapter) - 1));
+					}
+				}
+				return chapterCount;
+			}
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+				return 0;
+			}
 		}
 
 		/// <summary>
@@ -190,24 +193,24 @@ namespace mraSharp
 		/// <returns></returns>
 		public static int? numberofMangasFinished()
 		{
-         try
-         {
-            int mangasFinishedCount = 0;
-            var mangaList = from mangas in db.mangaReadingLists
-                            select mangas;
-            foreach (var manga in mangaList)
-            {
-               if (manga.mangaReadingFinished == true)
-                  mangasFinishedCount += 1;
-            }
-            return mangasFinishedCount;
-         }
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-            return null;
-         }
+			try
+			{
+				int mangasFinishedCount = 0;
+				var mangaList = from mangas in db.Mr_readingList
+									 select mangas;
+				foreach (var manga in mangaList)
+				{
+					if (manga.Mr_IsReadingFinished == true)
+						mangasFinishedCount += 1;
+				}
+				return mangasFinishedCount;
+			}
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+				return null;
+			}
 		}
 
 		/// <summary>
@@ -216,19 +219,19 @@ namespace mraSharp
 		/// <returns></returns>
 		public static DateTime? dateILastRead()
 		{
-         try
-         {
-            var mangaList = (from mangas in db.mangaReadingLists
-                             orderby mangas.mangaDateRead descending
-                             select mangas).First();
-            return mangaList.mangaDateRead;
-         }
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-            return null;
-         }
+			try
+			{
+				var mangaList = (from mangas in db.Mr_readingList
+									  orderby mangas.Mr_LastRead descending
+									  select mangas).First();
+				return mangaList.Mr_LastRead;
+			}
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+				return null;
+			}
 		}
 
 		/// <summary>
@@ -237,17 +240,17 @@ namespace mraSharp
 		/// <returns></returns>
 		public static int daysSinceILastRead()
 		{
-         try
-         {
-            TimeSpan dateDiff = DateTime.Now - Convert.ToDateTime(dateILastRead());
-            return dateDiff.Days;
-         }
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-            return 0;
-         }
+			try
+			{
+				TimeSpan dateDiff = DateTime.Now - Convert.ToDateTime(dateILastRead());
+				return dateDiff.Days;
+			}
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+				return 0;
+			}
 		}
 
 		#endregion Statistics Methods

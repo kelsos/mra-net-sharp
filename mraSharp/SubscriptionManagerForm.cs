@@ -33,11 +33,11 @@ namespace mraSharp
 				DatabaseOperations.removeRssSubscription(rssUrlComboBox.Text);
 				loadSubscriptions();
 			}
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-         }
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+			}
 		}
 
 		/// <summary>
@@ -60,11 +60,11 @@ namespace mraSharp
 					MessageBox.Show("Cannot insert empty field!", "Information", MessageBoxButtons.OK);
 				}
 			}
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-         }
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+			}
 		}
 
 		/// <summary>
@@ -87,22 +87,22 @@ namespace mraSharp
 			FileOperations.rssSubscriptionExporter("rss.txt");
 		}
 
-      /// <summary>
-      /// Loads the Rss Subscriptions (URLs) from the database.
-      /// </summary>
+		/// <summary>
+		/// Loads the Rss Subscriptions (URLs) from the database.
+		/// </summary>
 		private void loadSubscriptions()
 		{
-         try
-         {
-            dataLinqSqlDataContext db = new dataLinqSqlDataContext();
-            rssUrlComboBox.DataSource = from url in db.rssSubscriptions
-                                        select url;
-         }
-         catch (Exception ex)
-         {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-            Logger.errorLogger("error.txt", ex.ToString());
-         }
+			try
+			{
+				Mds db = new Mds(Properties.Settings.Default.DbConnection);
+				rssUrlComboBox.DataSource = from url in db.Rss_Subscriptions
+													 select url.RssURL;
+			}
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+			}
 		}
 	}
 }
