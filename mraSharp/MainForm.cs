@@ -127,21 +127,24 @@ namespace mraSharp
 			try
 			{
 				int newsItemsCount = newsList.Count();
+				if (newsItemsCount > 0)
+				{
 
-				if (newsItemsCount > myCounter)
-				{
-					rssTitleLabel.Text = newsList[myCounter].NewsTitle;
-					rssLinkLabel.Text = newsList[myCounter].NewsLink;
-					rssDescriptionTextBox.Text = newsList[myCounter].NewsDescription;
-					myCounter += 1;
-				}
-				else
-				{
-					myCounter = 0;
-					rssTitleLabel.Text = newsList[myCounter].NewsTitle;
-					rssLinkLabel.Text = newsList[myCounter].NewsLink;
-					rssDescriptionTextBox.Text = newsList[myCounter].NewsDescription;
-					myCounter += 1;
+					if (newsItemsCount > myCounter)
+					{
+						rssTitleLabel.Text = newsList[myCounter].NewsTitle;
+						rssLinkLabel.Text = newsList[myCounter].NewsLink;
+						rssDescriptionTextBox.Text = newsList[myCounter].NewsDescription;
+						myCounter += 1;
+					}
+					else
+					{
+						myCounter = 0;
+						rssTitleLabel.Text = newsList[myCounter].NewsTitle;
+						rssLinkLabel.Text = newsList[myCounter].NewsLink;
+						rssDescriptionTextBox.Text = newsList[myCounter].NewsDescription;
+						myCounter += 1;
+					}
 				}
 			}
 			catch (Exception ex)
@@ -206,7 +209,7 @@ namespace mraSharp
 			try
 			{
 				Mds db = new Mds(Properties.Settings.Default.DbConnection);
-				//var mID = (from current in db.mangaInfos
+				//var mID = (from current in db.M_mangaInfo
 				//where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
 				//select current.mangaID).Single();
 				int mID = DatabaseOperations.getMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
@@ -460,7 +463,7 @@ namespace mraSharp
 				{
 					if (mangaListDataGridView.CurrentRow != null)
 					{
-						//var mID = (from current in db.mangaInfos
+						//var mID = (from current in db.M_mangaInfo
 						//           where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
 						//           select current.mangaID).SingleOrDefault();
 						int mID = DatabaseOperations.getMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
@@ -487,7 +490,7 @@ namespace mraSharp
 				{
 					using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
 					{
-						//var mID = (from current in db.mangaInfos
+						//var mID = (from current in db.M_mangaInfo
 						//           where current.mangaTitle == (string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value
 						//           select current.mangaID).Single();
 						int mID = DatabaseOperations.getMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);

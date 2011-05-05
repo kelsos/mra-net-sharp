@@ -80,6 +80,7 @@
 			  this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			  this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			  this.mainStatusStrip = new System.Windows.Forms.StatusStrip();
+			  this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
 			  this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			  this.rssTickerGroupBox = new System.Windows.Forms.GroupBox();
 			  this.rssLinkLabel = new System.Windows.Forms.Label();
@@ -90,7 +91,6 @@
 			  this.rssFetchingThread = new System.ComponentModel.BackgroundWorker();
 			  this.rssTickTimer = new System.Windows.Forms.Timer(this.components);
 			  this.rssCheckTimer = new System.Windows.Forms.Timer(this.components);
-			  this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
 			  this.mainTabControl.SuspendLayout();
 			  this.mangaGridTabPage.SuspendLayout();
 			  ((System.ComponentModel.ISupportInitialize)(this.mangaListDataGridView)).BeginInit();
@@ -569,6 +569,11 @@
 			  this.mainStatusStrip.TabIndex = 8;
 			  this.mainStatusStrip.Text = "statusStrip1";
 			  // 
+			  // statusProgressBar
+			  // 
+			  this.statusProgressBar.Name = "statusProgressBar";
+			  this.statusProgressBar.Size = new System.Drawing.Size(100, 16);
+			  // 
 			  // statusLabel
 			  // 
 			  this.statusLabel.Name = "statusLabel";
@@ -642,11 +647,6 @@
 			  // 
 			  this.rssCheckTimer.Interval = 15000;
 			  this.rssCheckTimer.Tick += new System.EventHandler(this.rssCheckTimer_Tick);
-			  // 
-			  // statusProgressBar
-			  // 
-			  this.statusProgressBar.Name = "statusProgressBar";
-			  this.statusProgressBar.Size = new System.Drawing.Size(100, 16);
 			  // 
 			  // MainForm
 			  // 

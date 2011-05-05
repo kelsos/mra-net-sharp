@@ -63,10 +63,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="mdB.designer.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Include="mds.designer.cs">
+      <DependentUpon>mds.dbml</DependentUpon>
       <DesignTime>True</DesignTime>
-      <DependentUpon>mdB.dbml</DependentUpon>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="oldMangaDataLoader.cs">
       <SubType>Form</SubType>
@@ -77,8 +77,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="app.config" />
-    <None Include="mdB.dbml.layout">
-      <DependentUpon>mdB.dbml</DependentUpon>
+    <None Include="mds.dbml.layout">
+      <DependentUpon>mds.dbml</DependentUpon>
     </None>
     <EmbeddedResource Include="oldMangaDataLoader.resx">
       <DependentUpon>oldMangaDataLoader.cs</DependentUpon>
@@ -92,9 +92,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="mdB.dbml">
+    <None Include="mds.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>mdB.designer.cs</LastGenOutput>
+      <LastGenOutput>mds.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
@@ -135,7 +135,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

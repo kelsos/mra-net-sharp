@@ -41,22 +41,22 @@ namespace mraSharp
       {
          try
          {
-            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+            using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
             {
                //If display added manga checkbox is checked it will return every single manga in the list.
                if (displayAddedManga == true)
                {
-                  mangaListComboBox.DataSource = from mangas in db.mangaInfos
-                                                 select mangas.mangaTitle;
+                  mangaListComboBox.DataSource = from mangas in db.M_mangaInfo
+                                                 select mangas.MangaTitle;
                }
                //Else it will return only the mangas not in the reading list.
                else
                {
-                  mangaListComboBox.DataSource = (from mg in db.mangaInfos
-                                                  select mg.mangaTitle).Except(from mangas in db.mangaInfos
-                                                                               where (from manga in db.mangaReadingLists
-                                                                                      select manga.mangaID).Contains(mangas.mangaID)
-                                                                               select mangas.mangaTitle);
+                  mangaListComboBox.DataSource = (from mg in db.M_mangaInfo
+                                                  select mg.MangaTitle).Except(from mangas in db.M_mangaInfo
+                                                                               where (from manga in db.Mr_readingList
+                                                                                      select manga.MangaID).Contains(mangas.MangaID)
+                                                                               select mangas.MangaTitle);
                }
             }
          }
@@ -74,19 +74,19 @@ namespace mraSharp
       {
          try
          {
-            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+            using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
             {
                if (mangaListComboBox.Text != null)
                {
-                  //var mID = (from current in db.mangaInfos
+                  //var mID = (from current in db.M_mangaInfo
                   //           where current.mangaTitle == mangaListComboBox.Text
-                  //           select current.mangaID).SingleOrDefault();
+                  //           select current.MangaID).SingleOrDefault();
 
                   int mID = DatabaseOperations.getMangaID(mangaListComboBox.Text);
 
-                  var image = (from current in db.mangaInfos
-                               where current.mangaID == mID
-                               select current.mangaCover).Single();
+                  var image = (from current in db.M_mangaInfo
+                               where current.MangaID == mID
+                               select current.MangaCover).Single();
                   byte[] imageByte = (byte[])image.ToArray();
 
                   mangaCoverPictureBox.Image = Image.FromStream(new MemoryStream(imageByte));
@@ -107,18 +107,18 @@ namespace mraSharp
       {
          try
          {
-            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+            using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
             {
                if (mangaListComboBox.Text != null)
                {
-                  //var mID = (from current in db.mangaInfos
+                  //var mID = (from current in db.M_mangaInfo
                   //           where current.mangaTitle == mangaListComboBox.Text
-                  //           select current.mangaID).SingleOrDefault();
+                  //           select current.MangaID).SingleOrDefault();
                   int mID = DatabaseOperations.getMangaID(mangaListComboBox.Text);
 
-                  var description = (from current in db.mangaInfos
-                                     where current.mangaID == mID
-                                     select current.mangaDescription).SingleOrDefault();
+                  var description = (from current in db.M_mangaInfo
+                                     where current.MangaID == mID
+                                     select current.MangaDescription).SingleOrDefault();
                   descriptionTextBox.Text = description;
                }
             }
@@ -137,20 +137,20 @@ namespace mraSharp
       {
          try
          {
-            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+            using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
             {
                if (mangaListComboBox.Text != null)
                {
-                  //var mID = (from current in db.mangaInfos
+                  //var mID = (from current in db.M_mangaInfo
                   //           where current.mangaTitle == mangaListComboBox.Text
-                  //           select current.mangaID).SingleOrDefault();
+                  //           select current.MangaID).SingleOrDefault();
                   int mID = DatabaseOperations.getMangaID(mangaListComboBox.Text);
 
-                  var authors = from current in db.mangaAuthors
-                                join author in db.authorTables
-                                on current.authorID equals author.authorID
-                                where current.mangaID == mID
-                                select author.authorFullName;
+                  var authors = from current in db.Mm_mangaAuthors
+                                join author in db.M_authorInfo
+                                on current.Ma_authorID equals author.AuthorID
+                                where current.Ma_mangaID == mID
+                                select author.AuthorFullName;
                }
             }
          }
@@ -168,13 +168,13 @@ namespace mraSharp
       {
          try
          {
-            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+            using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
             {
                if (mangaListComboBox.Text != null)
                {
-                  var year = (from entry in db.mangaInfos
-                              where entry.mangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
-                              select entry.dateOfPublish).SingleOrDefault();
+                  var year = (from entry in db.M_mangaInfo
+                              where entry.MangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
+                              select entry.MangaYearOfPublisher).SingleOrDefault();
 
                   yearTextBox.Text = year.HasValue ? year.Value.ToString("yyyy") : "[N/A]";
                }
@@ -195,18 +195,18 @@ namespace mraSharp
          try
          {
             publisherTextBox.Text = "";
-            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+            using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
             {
                if (mangaListComboBox.Text != null)
                {
-                  var pubID = (from entry in db.mangaInfos
-                               where entry.mangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
-                               select entry.publisherID).SingleOrDefault();
+                  var pubID = (from entry in db.M_mangaInfo
+                               where entry.MangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
+                               select entry.MangaPublisherID).SingleOrDefault();
                   if (pubID != null)
                   {
-                     var publisherName = (from entry in db.publisherInfos
-                                          where entry.publisherID == (int)pubID
-                                          select entry.publisherName).SingleOrDefault();
+                     var publisherName = (from entry in db.M_publisherInfo
+                                          where entry.PublisherID == (int)pubID
+                                          select entry.PublisherName).SingleOrDefault();
                      publisherTextBox.Text = publisherName;
                   }
                   else
@@ -230,13 +230,13 @@ namespace mraSharp
       {
          try
          {
-            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+            using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
             {
                if (mangaListComboBox.Text != null)
                {
-                  var mStat = (from entry in db.mangaInfos
-                               where entry.mangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
-                               select entry.mangaStatus).SingleOrDefault();
+                  var mStat = (from entry in db.M_mangaInfo
+                               where entry.MangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
+                               select entry.MangaStatus).SingleOrDefault();
                   statusTextBox.Text = mStat;
                }
             }
@@ -255,12 +255,12 @@ namespace mraSharp
       {
          try
          {
-            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+            using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
             {
                genresListBox.DataSource =
-                   from mg in db.mangaGenres
-                   where mg.mangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
-                   select mg.genreInfo.genreName;
+                   from mg in db.Mm_mangaGenres
+                   where mg.Mm_mangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
+                   select mg.M_genreInfo.GenreName;
             }
          }
          catch (Exception ex)
@@ -277,12 +277,12 @@ namespace mraSharp
       {
          try
          {
-            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+            using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
             {
                authorsListBox.DataSource =
-                  from auth in db.mangaAuthors
-                  where auth.mangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
-                  select auth.authorTable.authorFullName;
+                  from auth in db.Mm_mangaAuthors
+                  where auth.Ma_mangaID == DatabaseOperations.getMangaID(mangaListComboBox.Text)
+                  select auth.M_authorInfo.AuthorFullName;
             }
          }
          catch (Exception ex)
@@ -320,41 +320,41 @@ namespace mraSharp
       {
          try
          {
-            using (dataLinqSqlDataContext db = new dataLinqSqlDataContext())
+            using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
             {
                if (mangaListComboBox.Text != null)
                {
-                  //var mID = (from current in db.mangaInfos
+                  //var mID = (from current in db.M_mangaInfo
                   //           where current.mangaTitle == mangaListComboBox.Text
-                  //           select current.mangaID).SingleOrDefault();
+                  //           select current.MangaID).SingleOrDefault();
                   int mID = DatabaseOperations.getMangaID(mangaListComboBox.Text);
                   if (setEntryInfo == false)
                   {
-                     mangaReadingList mRL = new mangaReadingList
+                     Mr_readingList mRL = new Mr_readingList
                      {
-                        mangaID = mID,
-                        mangaNote = "",
-                        mangaDateRead = DateTime.Now,
-                        mangaStartingChapter = 1,
-                        mangaCurrentChapter = 1,
-                        mangaReadingFinished = false,
-                        mangaURL = ""
+                        MangaID = mID,
+                        Mr_Note = "",
+                        Mr_LastRead = DateTime.Now,
+                        Mr_StartingChapter = 1,
+                        Mr_CurrentChapter = 1,
+								Mr_IsReadingFinished = false,
+                        Mr_OnlineURL = ""
                      };
-                     db.mangaReadingLists.InsertOnSubmit(mRL);
+                     db.Mr_readingList.InsertOnSubmit(mRL);
                   }
                   else
                   {
-                     mangaReadingList mRL = new mangaReadingList
+                     Mr_readingList mRL = new Mr_readingList
                      {
-                        mangaID = mID,
-                        mangaNote = interFormCommunicator.PersonalNote,
-                        mangaDateRead = interFormCommunicator.LastRead,
-                        mangaStartingChapter = interFormCommunicator.StartingChapter,
-                        mangaCurrentChapter = interFormCommunicator.CurrentChapter,
-                        mangaReadingFinished = interFormCommunicator.FinishedReading,
-                        mangaURL = interFormCommunicator.OnlineURL
+                        MangaID = mID,
+								Mr_Note = interFormCommunicator.PersonalNote,
+								Mr_LastRead = interFormCommunicator.LastRead,
+                        Mr_StartingChapter = (double)interFormCommunicator.StartingChapter,
+								Mr_CurrentChapter = (double)interFormCommunicator.CurrentChapter,
+								Mr_IsReadingFinished = (bool)interFormCommunicator.FinishedReading,
+								Mr_OnlineURL = interFormCommunicator.OnlineURL
                      };
-                     db.mangaReadingLists.InsertOnSubmit(mRL);
+                     db.Mr_readingList.InsertOnSubmit(mRL);
                   }
                   db.SubmitChanges();
                   setEntryInfo = false;

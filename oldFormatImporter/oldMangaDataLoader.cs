@@ -21,7 +21,7 @@ namespace oldFormatImporter
 			{
 				if (openXmlFileDialog.ShowDialog() == DialogResult.OK)
 				{
-					DataClasses1DataContext mdb = new DataClasses1DataContext();
+					Mds db = new Mds(Properties.Settings.Default.DbConnection);;
 					loadProgressBar.Value = 0;
 					XDocument xmDoc = XDocument.Load(openXmlFileDialog.FileName);
 
@@ -36,15 +36,15 @@ namespace oldFormatImporter
 					loadProgressBar.Maximum = xmlData.Count();
 					foreach (var line in xmlData)
 					{
-						mangaInfo mI = new mangaInfo
+						M_mangaInfo mI = new M_mangaInfo
 						{
-							mangaTitle = line.Title,
-							mangaDescription = line.Description,
-							mangaCover = sqlBinaryImage(imageSizeToStandard(Base64ToImage(line.Cover))),
-							mangaStatus = getStatus(line.FinishedStatus)
+							MangaTitle = line.Title,
+							MangaDescription = line.Description,
+							MangaCover = sqlBinaryImage(imageSizeToStandard(Base64ToImage(line.Cover))),
+							MangaStatus = getStatus(line.FinishedStatus)
 						};
-						mdb.mangaInfos.InsertOnSubmit(mI);
-						mdb.SubmitChanges();
+						db.M_mangaInfo.InsertOnSubmit(mI);
+						db.SubmitChanges();
 
 						loadProgressBar.Value += 1;
 					}
@@ -119,7 +119,7 @@ namespace oldFormatImporter
 			{
 				if (openXmlFileDialog.ShowDialog() == DialogResult.OK)
 				{
-					DataClasses1DataContext mdb = new DataClasses1DataContext();
+					Mds db = new Mds(Properties.Settings.Default.DbConnection);;
 					loadProgressBar.Value = 0;
 					XDocument xmDoc = XDocument.Load(openXmlFileDialog.FileName);
 
@@ -137,18 +137,18 @@ namespace oldFormatImporter
 
 					foreach (var line in xmlData)
 					{
-						mangaReadingList mR = new mangaReadingList()
+						Mr_readingList newMangaRead = new Mr_readingList()
 						{
-							mangaID = getMangaID(line.MangaTitle),
-							mangaStartingChapter = Convert.ToInt32(line.StartingChapter),
-							mangaCurrentChapter = Convert.ToInt32(line.CurrentChapter),
-							mangaDateRead = DateTime.Parse(line.DateLastRead),
-							mangaURL = line.OnLineURL,
-							mangaReadingFinished = getStatusBool(line.Finished)
+							MangaID = getMangaID(line.MangaTitle),
+							Mr_StartingChapter = Convert.ToInt32(line.StartingChapter),
+							Mr_CurrentChapter = Convert.ToInt32(line.CurrentChapter),
+							Mr_LastRead = DateTime.Parse(line.DateLastRead),
+							Mr_OnlineURL = line.OnLineURL,
+							Mr_IsReadingFinished = getStatusBool(line.Finished)
 						};
 
-						mdb.mangaReadingLists.InsertOnSubmit(mR);
-						mdb.SubmitChanges();
+						db.Mr_readingList.InsertOnSubmit(newMangaRead);
+						db.SubmitChanges();
 						loadProgressBar.Value += 1;
 					}
 				}
@@ -185,10 +185,10 @@ namespace oldFormatImporter
 
 		private int getMangaID(string mangaTitle)
 		{
-			DataClasses1DataContext mdE = new DataClasses1DataContext();
-			var mangaID = (from manga in mdE.mangaInfos
-								where manga.mangaTitle == mangaTitle
-								select manga.mangaID).Single();
+			Mds db = new Mds(Properties.Settings.Default.DbConnection);;
+			var mangaID = (from manga in db.M_mangaInfo
+								where manga.MangaTitle == mangaTitle
+								select manga.MangaID).Single();
 			return mangaID;
 		}
 	}

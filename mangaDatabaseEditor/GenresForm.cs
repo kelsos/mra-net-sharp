@@ -11,13 +11,13 @@ namespace mangaDatabaseEditor
 			InitializeComponent();
 		}
 
-		private MangaDBDataContext mangaDatabase = new MangaDBDataContext();
+		private Mds db = new Mds(Properties.Settings.Default.DbConnection);
 
 		private void refreshGenres()
 		{
 			genreInfoBindingSource.DataSource =
-				from genres in mangaDatabase.genreInfos
-				orderby genres.genreID
+				from genres in db.M_genreInfo
+				orderby genres.GenreID
 				select genres;
 			genreInfoBindingSource.MoveFirst();
 		}
@@ -25,9 +25,9 @@ namespace mangaDatabaseEditor
 		private void searchButton_Click(object sender, EventArgs e)
 		{
 			genreInfoBindingSource.DataSource =
-				from genres in mangaDatabase.genreInfos
-				where genres.genreName.Contains(searchTextBox.Text)
-				orderby genres.genreID
+				from genres in db.M_genreInfo
+				where genres.GenreName.Contains(searchTextBox.Text)
+				orderby genres.GenreID
 				select genres;
 			genreInfoBindingSource.MoveFirst();
 		}
@@ -47,7 +47,7 @@ namespace mangaDatabaseEditor
 		{
 			Validate();
 			genreInfoBindingSource.EndEdit();
-			mangaDatabase.SubmitChanges();
+			db.SubmitChanges();
 			refreshGenres();
 		}
 

@@ -122,7 +122,7 @@
 			// 
 			// genreInfoBindingSource
 			// 
-			this.genreInfoBindingSource.DataSource = typeof(mangaDatabaseEditor.genreInfo);
+			this.genreInfoBindingSource.DataSource = typeof(mangaDatabaseEditor.M_genreInfo);
 			// 
 			// bindingNavigatorCountItem
 			// 
@@ -134,7 +134,7 @@
 			// bindingNavigatorDeleteItem
 			// 
 			this.bindingNavigatorDeleteItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorDeleteItem.Image = global::mangaDatabaseEditor.Properties.Resources.cross_script;
+			this.bindingNavigatorDeleteItem.Image = global::mangaDatabaseEditor.Properties.Resources.crossScript;
 			this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
 			this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
 			this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
@@ -143,7 +143,7 @@
 			// bindingNavigatorMoveFirstItem
 			// 
 			this.bindingNavigatorMoveFirstItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorMoveFirstItem.Image = global::mangaDatabaseEditor.Properties.Resources.control_stop_180;
+			this.bindingNavigatorMoveFirstItem.Image = global::mangaDatabaseEditor.Properties.Resources.controlStop180;
 			this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
 			this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
 			this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
@@ -152,7 +152,7 @@
 			// bindingNavigatorMovePreviousItem
 			// 
 			this.bindingNavigatorMovePreviousItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorMovePreviousItem.Image = global::mangaDatabaseEditor.Properties.Resources.control_180;
+			this.bindingNavigatorMovePreviousItem.Image = global::mangaDatabaseEditor.Properties.Resources.control180;
 			this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
 			this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
 			this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
@@ -189,7 +189,7 @@
 			// bindingNavigatorMoveLastItem
 			// 
 			this.bindingNavigatorMoveLastItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.bindingNavigatorMoveLastItem.Image = global::mangaDatabaseEditor.Properties.Resources.control_stop;
+			this.bindingNavigatorMoveLastItem.Image = global::mangaDatabaseEditor.Properties.Resources.controlStop;
 			this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
 			this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
 			this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
@@ -203,7 +203,7 @@
 			// genreInfoBindingNavigatorSaveItem
 			// 
 			this.genreInfoBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.genreInfoBindingNavigatorSaveItem.Image = global::mangaDatabaseEditor.Properties.Resources.disk__pencil;
+			this.genreInfoBindingNavigatorSaveItem.Image = global::mangaDatabaseEditor.Properties.Resources.diskPencil;
 			this.genreInfoBindingNavigatorSaveItem.Name = "genreInfoBindingNavigatorSaveItem";
 			this.genreInfoBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
 			this.genreInfoBindingNavigatorSaveItem.Text = "Save Data";

@@ -26,12 +26,10 @@ namespace mangaDatabaseEditor.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;AttachDbFilename=\"C:\\Users\\kelsos\\Documents\\Visual Studi" +
-            "o 2010\\Projects\\mraSharp-trunk\\Debug\\DataStore.mdf\";Integrated Security=True;Con" +
-            "nect Timeout=30;User Instance=True")]
-        public string DataStoreConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=|DataDirectory|\\mds.sdf")]
+        public string DbConnection {
             get {
-                return ((string)(this["DataStoreConnectionString"]));
+                return ((string)(this["DbConnection"]));
             }
         }
     }
