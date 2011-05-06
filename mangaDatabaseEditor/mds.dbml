@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Database Name="mds" Class="Mds" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="mds" Class="Mds" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="m_authorInfo" Member="M_authorInfo">
     <Type Name="M_authorInfo">
       <Column Name="authorID" Member="AuthorID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -7,14 +6,14 @@
       <Column Name="authorCountryOfOrigin" Member="AuthorCountryOfOrigin" Type="System.String" DbType="NChar(40)" CanBeNull="true" />
       <Column Name="authorDateOfBirth" Member="AuthorDateOfBirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="authorWebsite" Member="AuthorWebsite" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
-      <Association Name="FK_Author_MangaAuthors" Member="Mm_mangaAuthors" ThisKey="AuthorID" OtherKey="Ma_authorID" Type="Mm_mangaAuthors" DeleteRule="CASCADE" />
+      <Association Name="M_authorInfo_Mm_mangaAuthors" Member="Mm_mangaAuthors" ThisKey="AuthorID" OtherKey="Ma_authorID" Type="Mm_mangaAuthors" />
     </Type>
   </Table>
   <Table Name="m_genreInfo" Member="M_genreInfo">
     <Type Name="M_genreInfo">
       <Column Name="genreID" Member="GenreID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="genreName" Member="GenreName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="FK_Genre_MangaGenre" Member="Mm_mangaGenres" ThisKey="GenreID" OtherKey="Mm_genreID" Type="Mm_mangaGenres" DeleteRule="CASCADE" />
+      <Association Name="M_genreInfo_Mm_mangaGenres" Member="Mm_mangaGenres" ThisKey="GenreID" OtherKey="Mm_genreID" Type="Mm_mangaGenres" />
     </Type>
   </Table>
   <Table Name="m_mangaInfo" Member="M_mangaInfo">
@@ -26,10 +25,10 @@
       <Column Name="mangaStatus" Member="MangaStatus" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="mangaPublisherID" Member="MangaPublisherID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="mangaCover" Member="MangaCover" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="FK_Manga_MangaAuthors" Member="Mm_mangaAuthors" ThisKey="MangaID" OtherKey="Ma_mangaID" Type="Mm_mangaAuthors" DeleteRule="CASCADE" />
-      <Association Name="FK_Manga_MangaGenre" Member="Mm_mangaGenres" ThisKey="MangaID" OtherKey="Mm_mangaID" Type="Mm_mangaGenres" DeleteRule="CASCADE" />
-      <Association Name="FK_Manga_Publisher" Member="M_publisherInfo" ThisKey="MangaPublisherID" OtherKey="PublisherID" Type="M_publisherInfo" IsForeignKey="true" />
-      <Association Name="FK_Manga_ReadingList" Member="Mr_readingList" ThisKey="MangaID" OtherKey="MangaID" Type="Mr_readingList" DeleteRule="CASCADE" />
+      <Association Name="M_mangaInfo_Mm_mangaAuthors" Member="Mm_mangaAuthors" ThisKey="MangaID" OtherKey="Ma_mangaID" Type="Mm_mangaAuthors" />
+      <Association Name="M_mangaInfo_Mm_mangaGenres" Member="Mm_mangaGenres" ThisKey="MangaID" OtherKey="Mm_mangaID" Type="Mm_mangaGenres" />
+      <Association Name="M_mangaInfo_Mr_readingList" Member="Mr_readingList" ThisKey="MangaID" OtherKey="MangaID" Type="Mr_readingList" />
+      <Association Name="M_publisherInfo_M_mangaInfo" Member="M_publisherInfo" ThisKey="MangaPublisherID" OtherKey="PublisherID" Type="M_publisherInfo" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="m_publisherInfo" Member="M_publisherInfo">
@@ -39,36 +38,36 @@
       <Column Name="publisherCountry" Member="PublisherCountry" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
       <Column Name="publisherWebsite" Member="PublisherWebsite" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
       <Column Name="publisherNote" Member="PublisherNote" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Association Name="FK_Manga_Publisher" Member="M_mangaInfo" ThisKey="PublisherID" OtherKey="MangaPublisherID" Type="M_mangaInfo" DeleteRule="CASCADE" />
+      <Association Name="M_publisherInfo_M_mangaInfo" Member="M_mangaInfo" ThisKey="PublisherID" OtherKey="MangaPublisherID" Type="M_mangaInfo" />
     </Type>
   </Table>
   <Table Name="mm_mangaAuthors" Member="Mm_mangaAuthors">
     <Type Name="Mm_mangaAuthors">
       <Column Name="ma_mangaID" Member="Ma_mangaID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ma_authorID" Member="Ma_authorID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="FK_Author_MangaAuthors" Member="M_authorInfo" ThisKey="Ma_authorID" OtherKey="AuthorID" Type="M_authorInfo" IsForeignKey="true" DeleteOnNull="true" />
-      <Association Name="FK_Manga_MangaAuthors" Member="M_mangaInfo" ThisKey="Ma_mangaID" OtherKey="MangaID" Type="M_mangaInfo" IsForeignKey="true" DeleteOnNull="true" />
+      <Association Name="M_authorInfo_Mm_mangaAuthors" Member="M_authorInfo" ThisKey="Ma_authorID" OtherKey="AuthorID" Type="M_authorInfo" IsForeignKey="true" DeleteOnNull="true" />
+      <Association Name="M_mangaInfo_Mm_mangaAuthors" Member="M_mangaInfo" ThisKey="Ma_mangaID" OtherKey="MangaID" Type="M_mangaInfo" IsForeignKey="true" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="mm_mangaGenres" Member="Mm_mangaGenres">
     <Type Name="Mm_mangaGenres">
       <Column Name="mm_mangaID" Member="Mm_mangaID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="mm_genreID" Member="Mm_genreID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="FK_Genre_MangaGenre" Member="M_genreInfo" ThisKey="Mm_genreID" OtherKey="GenreID" Type="M_genreInfo" IsForeignKey="true" DeleteOnNull="true" />
-      <Association Name="FK_Manga_MangaGenre" Member="M_mangaInfo" ThisKey="Mm_mangaID" OtherKey="MangaID" Type="M_mangaInfo" IsForeignKey="true" DeleteOnNull="true" />
+      <Association Name="M_genreInfo_Mm_mangaGenres" Member="M_genreInfo" ThisKey="Mm_genreID" OtherKey="GenreID" Type="M_genreInfo" IsForeignKey="true" DeleteOnNull="true" />
+      <Association Name="M_mangaInfo_Mm_mangaGenres" Member="M_mangaInfo" ThisKey="Mm_mangaID" OtherKey="MangaID" Type="M_mangaInfo" IsForeignKey="true" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="mr_readingList" Member="Mr_readingList">
     <Type Name="Mr_readingList">
       <Column Name="entryID" Member="EntryID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="mangaID" Member="MangaID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="mr_StartingChapter" Member="Mr_StartingChapter" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
-      <Column Name="mr_CurrentChapter" Member="Mr_CurrentChapter" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="mr_StartingChapter" Member="Mr_StartingChapter" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="mr_CurrentChapter" Member="Mr_CurrentChapter" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="mr_OnlineURL" Member="Mr_OnlineURL" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
       <Column Name="mr_IsReadingFinished" Member="Mr_IsReadingFinished" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="mr_LastRead" Member="Mr_LastRead" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="mr_Note" Member="Mr_Note" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
-      <Association Name="FK_Manga_ReadingList" Member="M_mangaInfo" ThisKey="MangaID" OtherKey="MangaID" Type="M_mangaInfo" IsForeignKey="true" DeleteOnNull="true" />
+      <Association Name="M_mangaInfo_Mr_readingList" Member="M_mangaInfo" ThisKey="MangaID" OtherKey="MangaID" Type="M_mangaInfo" IsForeignKey="true" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="rss_NewsStorage" Member="Rss_NewsStorage">

@@ -1299,9 +1299,9 @@ namespace mraSharp
 		
 		private int _MangaID;
 		
-		private double _Mr_StartingChapter;
+		private System.Nullable<double> _Mr_StartingChapter;
 		
-		private double _Mr_CurrentChapter;
+		private System.Nullable<double> _Mr_CurrentChapter;
 		
 		private string _Mr_OnlineURL;
 		
@@ -1321,9 +1321,9 @@ namespace mraSharp
     partial void OnEntryIDChanged();
     partial void OnMangaIDChanging(int value);
     partial void OnMangaIDChanged();
-    partial void OnMr_StartingChapterChanging(double value);
+    partial void OnMr_StartingChapterChanging(System.Nullable<double> value);
     partial void OnMr_StartingChapterChanged();
-    partial void OnMr_CurrentChapterChanging(double value);
+    partial void OnMr_CurrentChapterChanging(System.Nullable<double> value);
     partial void OnMr_CurrentChapterChanged();
     partial void OnMr_OnlineURLChanging(string value);
     partial void OnMr_OnlineURLChanged();
@@ -1381,8 +1381,8 @@ namespace mraSharp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="mr_StartingChapter", Storage="_Mr_StartingChapter", DbType="Float NOT NULL")]
-		public double Mr_StartingChapter
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="mr_StartingChapter", Storage="_Mr_StartingChapter", DbType="Float")]
+		public System.Nullable<double> Mr_StartingChapter
 		{
 			get
 			{
@@ -1401,8 +1401,8 @@ namespace mraSharp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="mr_CurrentChapter", Storage="_Mr_CurrentChapter", DbType="Float NOT NULL")]
-		public double Mr_CurrentChapter
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="mr_CurrentChapter", Storage="_Mr_CurrentChapter", DbType="Float")]
+		public System.Nullable<double> Mr_CurrentChapter
 		{
 			get
 			{

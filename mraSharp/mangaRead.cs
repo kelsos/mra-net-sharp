@@ -65,6 +65,17 @@ namespace mraSharp
          _personalNote = null;
 		}
 
+		public mangaRead(string title, double? startingChapter, double? currentChapter, DateTime? lastRead, string onlineURL, bool? finishedReading, string note)
+		{
+			_title = title;
+			_startingChapter = startingChapter;
+			_currentChapter = currentChapter;
+			_lastRead = lastRead;
+			_onlineURL = onlineURL;
+			_finishedReading = finishedReading;
+			_personalNote = note;
+		}
+
       public mangaRead(double? startingChapter, double? currentChapter, DateTime? lastRead, string onlineURL, bool? finishedReading, string personalNote)
       {
          _title = null;

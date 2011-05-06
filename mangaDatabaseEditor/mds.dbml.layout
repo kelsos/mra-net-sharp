@@ -1,1 +1,102 @@
-﻿
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 9.625" name="mds">
+  <DataContextMoniker Name="/Mds" />
+  <nestedChildShapes>
+    <classShape Id="ee5e6412-4acd-48f9-bd0a-d24d5ee94d1d" absoluteBounds="3.5, 6.5, 2, 1.7708968098958344">
+      <DataClassMoniker Name="/Mds/M_authorInfo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="23b01917-a4e6-4690-ba58-607bcac23840" absoluteBounds="3.515, 6.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ab5ea007-283c-4d29-bbc6-f7b194445cb5" absoluteBounds="3.5, 0.75, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/Mds/M_genreInfo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4e44f91e-e4a5-424b-8903-f1f9495b316d" absoluteBounds="3.515, 1.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6027ed7b-eb30-43fe-8fb3-9a2866a8b468" absoluteBounds="3.5, 3.25, 2, 2.155499674479167">
+      <DataClassMoniker Name="/Mds/M_mangaInfo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="81fceb6c-028a-4c30-835c-f7dec1e4953d" absoluteBounds="3.515, 3.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f9814464-f720-4a13-b45b-5db15699f71c" absoluteBounds="0.75, 3.5, 2, 1.7708968098958322">
+      <DataClassMoniker Name="/Mds/M_publisherInfo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6c0be0cb-c53e-4a8a-b4df-fc4e23ea3127" absoluteBounds="0.765, 3.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2925c85f-1638-4828-9ea8-bdda7a4da922" absoluteBounds="6.25, 3.75, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/Mds/Mm_mangaAuthors" />
+      <nestedChildShapes>
+        <elementListCompartment Id="31cb2464-c24f-417d-9722-aee4d2ea9314" absoluteBounds="6.265, 4.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="553fa6ab-96ef-46aa-ae0b-9a002f973d3f" absoluteBounds="6.25, 1.75, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/Mds/Mm_mangaGenres" />
+      <nestedChildShapes>
+        <elementListCompartment Id="93a9794a-a45d-4849-b6a2-c1a56f021bce" absoluteBounds="6.265, 2.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8ee10d35-6167-4250-ad64-864dbe11d670" absoluteBounds="6.25, 7, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/Mds/Mr_readingList" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0ba6d57e-4f8d-483d-85c1-960e8b6d7912" absoluteBounds="6.265, 7.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="715c36e3-2c45-476a-9bcd-7fdf0efbacca" absoluteBounds="8.75, 0.875, 2, 1.9631982421875003">
+      <DataClassMoniker Name="/Mds/Rss_NewsStorage" />
+      <nestedChildShapes>
+        <elementListCompartment Id="99b9a131-b08a-4968-975a-83be5565d50d" absoluteBounds="8.765, 1.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8a92688e-5d9f-4ba1-9bf3-08740aaa0ab0" absoluteBounds="8.75, 3.875, 2, 1.3862939453125009">
+      <DataClassMoniker Name="/Mds/Rss_Subscriptions" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a1206017-7d95-449c-9178-f0c69f682726" absoluteBounds="8.765, 4.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 4.38544840494792); (3.5 : 4.38544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Mds/M_publisherInfo/M_publisherInfo_M_mangaInfo" />
+      <nodes>
+        <classShapeMoniker Id="f9814464-f720-4a13-b45b-5db15699f71c" />
+        <classShapeMoniker Id="6027ed7b-eb30-43fe-8fb3-9a2866a8b468" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 6.5); (5.875 : 6.125); (5.875 : 4.34699625651042); (6.25 : 4.34699625651042)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Mds/M_authorInfo/M_authorInfo_Mm_mangaAuthors" />
+      <nodes>
+        <classShapeMoniker Id="ee5e6412-4acd-48f9-bd0a-d24d5ee94d1d" />
+        <classShapeMoniker Id="2925c85f-1638-4828-9ea8-bdda7a4da922" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 3.98599812825521); (6.25 : 3.98599812825521)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Mds/M_mangaInfo/M_mangaInfo_Mm_mangaAuthors" />
+      <nodes>
+        <classShapeMoniker Id="6027ed7b-eb30-43fe-8fb3-9a2866a8b468" />
+        <classShapeMoniker Id="2925c85f-1638-4828-9ea8-bdda7a4da922" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 1.94399251302083); (4.5 : 2.44399301302083); (6.25 : 2.44399301302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Mds/M_genreInfo/M_genreInfo_Mm_mangaGenres" />
+      <nodes>
+        <classShapeMoniker Id="ab5ea007-283c-4d29-bbc6-f7b194445cb5" />
+        <classShapeMoniker Id="553fa6ab-96ef-46aa-ae0b-9a002f973d3f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 3.25); (5.875 : 2.875); (5.875 : 3.31899251302083); (6.25 : 2.94399251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/Mds/M_mangaInfo/M_mangaInfo_Mm_mangaGenres" />
+      <nodes>
+        <classShapeMoniker Id="6027ed7b-eb30-43fe-8fb3-9a2866a8b468" />
+        <classShapeMoniker Id="553fa6ab-96ef-46aa-ae0b-9a002f973d3f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 5.34396021294071); (5.81607443490112 : 5.66003464784183 : JumpStart); (5.93392556509888 : 5.77788577803958 : JumpEnd); (6.0625 : 5.90646021294071); (6.0625 : 8.17390055338542); (6.25 : 8.17390055338542)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/Mds/M_mangaInfo/M_mangaInfo_Mr_readingList" />
+      <nodes>
+        <classShapeMoniker Id="6027ed7b-eb30-43fe-8fb3-9a2866a8b468" />
+        <classShapeMoniker Id="8ee10d35-6167-4250-ad64-864dbe11d670" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
