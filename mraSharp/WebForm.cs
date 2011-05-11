@@ -6,6 +6,7 @@ namespace mraSharp
 	public partial class WebForm : Form
 	{
 		private MessageFilter _mbfilter;
+		private MainForm _form;
 
 		public WebForm()
 		{
@@ -14,6 +15,24 @@ namespace mraSharp
 			this.HandleDestroyed += new EventHandler(webForm_HandleDestroyed);
 			this.Activated += new EventHandler(webForm_Activated);
 			this.Deactivate += new EventHandler(webForm_Deactivate);
+			justReadButton.Enabled = false;
+			_form = null;
+		}
+
+		public WebForm(MainForm form)
+		{
+			InitializeComponent();
+			this.HandleCreated += new EventHandler(webForm_HandleCreated);
+			this.HandleDestroyed += new EventHandler(webForm_HandleDestroyed);
+			this.Activated += new EventHandler(webForm_Activated);
+			this.Deactivate += new EventHandler(webForm_Deactivate);
+			_form = form;
+			justReadButton.Enabled = true;
+		}
+
+		public void setTitle(string newTitle)
+		{
+			this.Text = newTitle;
 		}
 
 		private void webForm_HandleCreated(object sender, EventArgs e)
@@ -76,6 +95,19 @@ namespace mraSharp
 		private void geckoReader_Navigated(object sender, Skybound.Gecko.GeckoNavigatedEventArgs e)
 		{
 			statusLabel.Text = geckoReader.Url.ToString();
+		}
+
+		private void justReadButton_Click(object sender, EventArgs e)
+		{
+			_form.justReadAChapter();
+		}
+
+		private void WebForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (_form != null)
+			{
+				_form.webFormClosed();
+			}
 		}
 	}
 }

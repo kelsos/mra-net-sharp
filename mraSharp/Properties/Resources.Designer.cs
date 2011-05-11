@@ -60,9 +60,23 @@ namespace mraSharp.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap arrow_circle_double {
+            get {
+                object obj = ResourceManager.GetObject("arrow-circle-double", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap calendar_48 {
             get {
                 object obj = ResourceManager.GetObject("calendar_48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap calendar_day {
+            get {
+                object obj = ResourceManager.GetObject("calendar-day", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -84,6 +98,20 @@ namespace mraSharp.Properties {
         internal static System.Drawing.Bitmap left_16 {
             get {
                 object obj = ResourceManager.GetObject("left_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigation {
+            get {
+                object obj = ResourceManager.GetObject("navigation", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap navigation_180 {
+            get {
+                object obj = ResourceManager.GetObject("navigation-180", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

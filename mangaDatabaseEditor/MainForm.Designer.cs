@@ -37,6 +37,9 @@
 			System.Windows.Forms.Label publisherNameLabel1;
 			this.tabControl = new System.Windows.Forms.TabControl();
 			this.tabManga = new System.Windows.Forms.TabPage();
+			this.databaseEditorStatusStrip = new System.Windows.Forms.StatusStrip();
+			this.tableLoadProgress = new System.Windows.Forms.ToolStripProgressBar();
+			this.currentTableLoadProgress = new System.Windows.Forms.ToolStripProgressBar();
 			this.dateOfPublicationGroupBox = new System.Windows.Forms.GroupBox();
 			this.dateOfPublishDateTimePicker = new System.Windows.Forms.DateTimePicker();
 			this.mangaInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -157,9 +160,6 @@
 			this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mangaGenresBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.mangaInfoBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-			this.tableLoadProgress = new System.Windows.Forms.ToolStripProgressBar();
-			this.currentTableLoadProgress = new System.Windows.Forms.ToolStripProgressBar();
 			mangaIDLabel = new System.Windows.Forms.Label();
 			mangaTitleLabel = new System.Windows.Forms.Label();
 			authorIDLabel = new System.Windows.Forms.Label();
@@ -168,6 +168,7 @@
 			publisherNameLabel1 = new System.Windows.Forms.Label();
 			this.tabControl.SuspendLayout();
 			this.tabManga.SuspendLayout();
+			this.databaseEditorStatusStrip.SuspendLayout();
 			this.dateOfPublicationGroupBox.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mangaInfoBindingSource)).BeginInit();
 			this.descriptionGroupBox.SuspendLayout();
@@ -204,7 +205,6 @@
 			this.addAuthorContextMenu.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.mangaGenresBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.mangaInfoBindingSource1)).BeginInit();
-			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// mangaIDLabel
@@ -276,7 +276,7 @@
 			// tabManga
 			// 
 			this.tabManga.AutoScroll = true;
-			this.tabManga.Controls.Add(this.statusStrip1);
+			this.tabManga.Controls.Add(this.databaseEditorStatusStrip);
 			this.tabManga.Controls.Add(this.dateOfPublicationGroupBox);
 			this.tabManga.Controls.Add(this.descriptionGroupBox);
 			this.tabManga.Controls.Add(this.mangaInfoGroupBox);
@@ -295,6 +295,27 @@
 			this.tabManga.TabIndex = 0;
 			this.tabManga.Text = "Manga";
 			this.tabManga.UseVisualStyleBackColor = true;
+			// 
+			// databaseEditorStatusStrip
+			// 
+			this.databaseEditorStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tableLoadProgress,
+            this.currentTableLoadProgress});
+			this.databaseEditorStatusStrip.Location = new System.Drawing.Point(3, 614);
+			this.databaseEditorStatusStrip.Name = "databaseEditorStatusStrip";
+			this.databaseEditorStatusStrip.Size = new System.Drawing.Size(470, 22);
+			this.databaseEditorStatusStrip.TabIndex = 34;
+			this.databaseEditorStatusStrip.Text = "statusStrip1";
+			// 
+			// tableLoadProgress
+			// 
+			this.tableLoadProgress.Name = "tableLoadProgress";
+			this.tableLoadProgress.Size = new System.Drawing.Size(100, 16);
+			// 
+			// currentTableLoadProgress
+			// 
+			this.currentTableLoadProgress.Name = "currentTableLoadProgress";
+			this.currentTableLoadProgress.Size = new System.Drawing.Size(100, 16);
 			// 
 			// dateOfPublicationGroupBox
 			// 
@@ -336,11 +357,11 @@
 			this.mangaDescriptionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.mangaDescriptionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.mangaInfoBindingSource, "mangaDescription", true));
 			this.mangaDescriptionTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.mangaDescriptionTextBox.Location = new System.Drawing.Point(3, 18);
+			this.mangaDescriptionTextBox.Location = new System.Drawing.Point(3, 16);
 			this.mangaDescriptionTextBox.Multiline = true;
 			this.mangaDescriptionTextBox.Name = "mangaDescriptionTextBox";
 			this.mangaDescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.mangaDescriptionTextBox.Size = new System.Drawing.Size(277, 174);
+			this.mangaDescriptionTextBox.Size = new System.Drawing.Size(277, 176);
 			this.mangaDescriptionTextBox.TabIndex = 16;
 			// 
 			// mangaInfoGroupBox
@@ -751,7 +772,7 @@
 			this.tabAuthor.Location = new System.Drawing.Point(4, 22);
 			this.tabAuthor.Name = "tabAuthor";
 			this.tabAuthor.Padding = new System.Windows.Forms.Padding(3);
-			this.tabAuthor.Size = new System.Drawing.Size(476, 620);
+			this.tabAuthor.Size = new System.Drawing.Size(476, 639);
 			this.tabAuthor.TabIndex = 1;
 			this.tabAuthor.Text = "Author";
 			this.tabAuthor.UseVisualStyleBackColor = true;
@@ -1022,7 +1043,7 @@
 			this.tabPublisher.Location = new System.Drawing.Point(4, 22);
 			this.tabPublisher.Name = "tabPublisher";
 			this.tabPublisher.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPublisher.Size = new System.Drawing.Size(476, 620);
+			this.tabPublisher.Size = new System.Drawing.Size(476, 639);
 			this.tabPublisher.TabIndex = 2;
 			this.tabPublisher.Text = "Publisher";
 			this.tabPublisher.UseVisualStyleBackColor = true;
@@ -1042,11 +1063,11 @@
 			this.publisherNoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.publisherNoteTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.publisherInfoBindingSource, "publisherNote", true));
 			this.publisherNoteTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.publisherNoteTextBox.Location = new System.Drawing.Point(3, 18);
+			this.publisherNoteTextBox.Location = new System.Drawing.Point(3, 16);
 			this.publisherNoteTextBox.Multiline = true;
 			this.publisherNoteTextBox.Name = "publisherNoteTextBox";
 			this.publisherNoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.publisherNoteTextBox.Size = new System.Drawing.Size(443, 90);
+			this.publisherNoteTextBox.Size = new System.Drawing.Size(443, 92);
 			this.publisherNoteTextBox.TabIndex = 9;
 			// 
 			// publisherInfoBindingSource
@@ -1387,7 +1408,8 @@
 			// 
 			// openImageFileDialog
 			// 
-			this.openImageFileDialog.Filter = "JPG files|*.jpg|PNG files|.*png|All files|.*.";
+			this.openImageFileDialog.Filter = "JPG files|*.jpg|PNG files|*.png|All files|.*.";
+			this.openImageFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openImageFileDialog_FileOk);
 			// 
 			// addAuthorContextMenu
 			// 
@@ -1418,27 +1440,6 @@
 			// 
 			this.mangaInfoBindingSource1.DataSource = typeof(mangaDatabaseEditor.M_mangaInfo);
 			// 
-			// statusStrip1
-			// 
-			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tableLoadProgress,
-            this.currentTableLoadProgress});
-			this.statusStrip1.Location = new System.Drawing.Point(3, 614);
-			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(470, 22);
-			this.statusStrip1.TabIndex = 34;
-			this.statusStrip1.Text = "statusStrip1";
-			// 
-			// tableLoadProgress
-			// 
-			this.tableLoadProgress.Name = "tableLoadProgress";
-			this.tableLoadProgress.Size = new System.Drawing.Size(100, 16);
-			// 
-			// currentTableLoadProgress
-			// 
-			this.currentTableLoadProgress.Name = "currentTableLoadProgress";
-			this.currentTableLoadProgress.Size = new System.Drawing.Size(100, 16);
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1455,6 +1456,8 @@
 			this.tabControl.ResumeLayout(false);
 			this.tabManga.ResumeLayout(false);
 			this.tabManga.PerformLayout();
+			this.databaseEditorStatusStrip.ResumeLayout(false);
+			this.databaseEditorStatusStrip.PerformLayout();
 			this.dateOfPublicationGroupBox.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.mangaInfoBindingSource)).EndInit();
 			this.descriptionGroupBox.ResumeLayout(false);
@@ -1510,8 +1513,6 @@
 			this.addAuthorContextMenu.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.mangaGenresBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.mangaInfoBindingSource1)).EndInit();
-			this.statusStrip1.ResumeLayout(false);
-			this.statusStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -1641,7 +1642,7 @@
       private System.Windows.Forms.ToolStripMenuItem importDatabaseToolStripMenuItem;
       private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
       private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
-		private System.Windows.Forms.StatusStrip statusStrip1;
+		private System.Windows.Forms.StatusStrip databaseEditorStatusStrip;
 		private System.Windows.Forms.ToolStripProgressBar tableLoadProgress;
 		private System.Windows.Forms.ToolStripProgressBar currentTableLoadProgress;
 	}

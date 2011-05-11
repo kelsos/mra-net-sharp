@@ -28,7 +28,7 @@ namespace mraSharp
 
       private void closeMessageBoxButton_Click(object sender, EventArgs e)
       {
-         erMb.Dispose();
+         this.Dispose();
       }
 
       private void copyToClipboardButton_Click(object sender, EventArgs e)

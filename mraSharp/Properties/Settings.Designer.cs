@@ -32,5 +32,17 @@ namespace mraSharp.Properties {
                 return ((string)(this["DbConnection"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool displayFinished {
+            get {
+                return ((bool)(this["displayFinished"]));
+            }
+            set {
+                this["displayFinished"] = value;
+            }
+        }
     }
 }

@@ -37,8 +37,12 @@ namespace mraSharp
 			}
 		}
 
-		public static void readingListFromXML(string fileName, MainForm mf)
+		public static void readingListFromXML(object info)
 		{
+			dataPasser information = (dataPasser)info;
+			string fileName = information.FilePath;
+			MainForm mf = information.Form;
+
 			int count = 0;
 			XDocument xDoc = XDocument.Load(fileName);
 			Mds db = new Mds(Properties.Settings.Default.DbConnection);
@@ -71,8 +75,10 @@ namespace mraSharp
 				db.Mr_readingList.InsertOnSubmit(mR);
 				db.SubmitChanges();
 
-				mf.progressChanged(xData.Count(), count + 1);
+				count++;
+				mf.progressChanged(xData.Count(), count);
 			}
+			mf.loadDatagrid();
 		}
 
 		/// <summary>

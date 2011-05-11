@@ -58,7 +58,6 @@
 			  this.openToBrowserToolStripButton = new System.Windows.Forms.ToolStripButton();
 			  this.justReadToolStripButton = new System.Windows.Forms.ToolStripButton();
 			  this.reloadToolStripButton = new System.Windows.Forms.ToolStripButton();
-			  this.editoToolStripButton = new System.Windows.Forms.ToolStripButton();
 			  this.searchToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
 			  this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
 			  this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,11 +67,12 @@
 			  this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			  this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			  this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			  this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			  this.displayFinishedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			  this.rssSubscriptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			  this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			  this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			  this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			  this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			  this.editorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			  this.rssSubscriptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			  this.addMangaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			  this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			  this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -236,9 +236,10 @@
 			  // geckoPanel
 			  // 
 			  this.geckoPanel.Controls.Add(this.geckoWiki);
-			  this.geckoPanel.Location = new System.Drawing.Point(3, 31);
+			  this.geckoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+			  this.geckoPanel.Location = new System.Drawing.Point(3, 28);
 			  this.geckoPanel.Name = "geckoPanel";
-			  this.geckoPanel.Size = new System.Drawing.Size(700, 392);
+			  this.geckoPanel.Size = new System.Drawing.Size(700, 395);
 			  this.geckoPanel.TabIndex = 1;
 			  // 
 			  // geckoWiki
@@ -246,7 +247,7 @@
 			  this.geckoWiki.Dock = System.Windows.Forms.DockStyle.Fill;
 			  this.geckoWiki.Location = new System.Drawing.Point(0, 0);
 			  this.geckoWiki.Name = "geckoWiki";
-			  this.geckoWiki.Size = new System.Drawing.Size(700, 392);
+			  this.geckoWiki.Size = new System.Drawing.Size(700, 395);
 			  this.geckoWiki.TabIndex = 0;
 			  // 
 			  // browserNavBar
@@ -267,7 +268,7 @@
 			  // backToolStripButton
 			  // 
 			  this.backToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			  this.backToolStripButton.Image = global::mraSharp.Properties.Resources.left_16;
+			  this.backToolStripButton.Image = global::mraSharp.Properties.Resources.navigation_180;
 			  this.backToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			  this.backToolStripButton.Name = "backToolStripButton";
 			  this.backToolStripButton.Size = new System.Drawing.Size(23, 22);
@@ -276,7 +277,7 @@
 			  // forwardToolStripButton
 			  // 
 			  this.forwardToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			  this.forwardToolStripButton.Image = global::mraSharp.Properties.Resources.right_16;
+			  this.forwardToolStripButton.Image = global::mraSharp.Properties.Resources.navigation;
 			  this.forwardToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			  this.forwardToolStripButton.Name = "forwardToolStripButton";
 			  this.forwardToolStripButton.Size = new System.Drawing.Size(23, 22);
@@ -285,7 +286,7 @@
 			  // wReloadtoolStripButton
 			  // 
 			  this.wReloadtoolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			  this.wReloadtoolStripButton.Image = global::mraSharp.Properties.Resources.reload_16;
+			  this.wReloadtoolStripButton.Image = global::mraSharp.Properties.Resources.arrow_circle_double;
 			  this.wReloadtoolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			  this.wReloadtoolStripButton.Name = "wReloadtoolStripButton";
 			  this.wReloadtoolStripButton.Size = new System.Drawing.Size(23, 22);
@@ -356,7 +357,6 @@
             this.openToBrowserToolStripButton,
             this.justReadToolStripButton,
             this.reloadToolStripButton,
-            this.editoToolStripButton,
             this.searchToolStripTextBox});
 			  this.mainToolStrip.Location = new System.Drawing.Point(0, 24);
 			  this.mainToolStrip.Name = "mainToolStrip";
@@ -395,16 +395,6 @@
 			  this.reloadToolStripButton.Text = "Reload The List!";
 			  this.reloadToolStripButton.Click += new System.EventHandler(this.reloadToolStripButton_Click);
 			  // 
-			  // editoToolStripButton
-			  // 
-			  this.editoToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			  this.editoToolStripButton.Image = global::mraSharp.Properties.Resources.pencil_48;
-			  this.editoToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			  this.editoToolStripButton.Name = "editoToolStripButton";
-			  this.editoToolStripButton.Size = new System.Drawing.Size(52, 52);
-			  this.editoToolStripButton.Text = "Edit The Database!";
-			  this.editoToolStripButton.Click += new System.EventHandler(this.editoToolStripButton_Click);
-			  // 
 			  // searchToolStripTextBox
 			  // 
 			  this.searchToolStripTextBox.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -419,6 +409,7 @@
 			  // 
 			  this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.optionsToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.aboutToolStripMenuItem});
 			  this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
@@ -478,13 +469,41 @@
 			  this.quitToolStripMenuItem.Text = "Quit";
 			  this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
 			  // 
+			  // optionsToolStripMenuItem
+			  // 
+			  this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.displayFinishedToolStripMenuItem,
+            this.rssSubscriptionsToolStripMenuItem,
+            this.settingsToolStripMenuItem});
+			  this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+			  this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+			  this.optionsToolStripMenuItem.Text = "Options";
+			  // 
+			  // displayFinishedToolStripMenuItem
+			  // 
+			  this.displayFinishedToolStripMenuItem.CheckOnClick = true;
+			  this.displayFinishedToolStripMenuItem.Name = "displayFinishedToolStripMenuItem";
+			  this.displayFinishedToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+			  this.displayFinishedToolStripMenuItem.Text = "Display Finished";
+			  this.displayFinishedToolStripMenuItem.Click += new System.EventHandler(this.displayFinishedToolStripMenuItem_Click);
+			  // 
+			  // rssSubscriptionsToolStripMenuItem
+			  // 
+			  this.rssSubscriptionsToolStripMenuItem.Name = "rssSubscriptionsToolStripMenuItem";
+			  this.rssSubscriptionsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+			  this.rssSubscriptionsToolStripMenuItem.Text = "Subscription Manager";
+			  this.rssSubscriptionsToolStripMenuItem.Click += new System.EventHandler(this.rssSubscriptionsToolStripMenuItem_Click);
+			  // 
+			  // settingsToolStripMenuItem
+			  // 
+			  this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+			  this.settingsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+			  this.settingsToolStripMenuItem.Text = "Settings";
+			  // 
 			  // toolsToolStripMenuItem
 			  // 
 			  this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statisticsToolStripMenuItem,
-            this.settingsToolStripMenuItem,
-            this.editorToolStripMenuItem,
-            this.rssSubscriptionsToolStripMenuItem,
             this.addMangaToolStripMenuItem});
 			  this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
 			  this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
@@ -493,34 +512,14 @@
 			  // statisticsToolStripMenuItem
 			  // 
 			  this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
-			  this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+			  this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			  this.statisticsToolStripMenuItem.Text = "Statistics";
 			  this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
-			  // 
-			  // settingsToolStripMenuItem
-			  // 
-			  this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-			  this.settingsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-			  this.settingsToolStripMenuItem.Text = "Settings";
-			  // 
-			  // editorToolStripMenuItem
-			  // 
-			  this.editorToolStripMenuItem.Name = "editorToolStripMenuItem";
-			  this.editorToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-			  this.editorToolStripMenuItem.Text = "Editor";
-			  this.editorToolStripMenuItem.Click += new System.EventHandler(this.editorToolStripMenuItem_Click);
-			  // 
-			  // rssSubscriptionsToolStripMenuItem
-			  // 
-			  this.rssSubscriptionsToolStripMenuItem.Name = "rssSubscriptionsToolStripMenuItem";
-			  this.rssSubscriptionsToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-			  this.rssSubscriptionsToolStripMenuItem.Text = "Rss Subscriptions";
-			  this.rssSubscriptionsToolStripMenuItem.Click += new System.EventHandler(this.rssSubscriptionsToolStripMenuItem_Click);
 			  // 
 			  // addMangaToolStripMenuItem
 			  // 
 			  this.addMangaToolStripMenuItem.Name = "addMangaToolStripMenuItem";
-			  this.addMangaToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+			  this.addMangaToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			  this.addMangaToolStripMenuItem.Text = "Add Manga";
 			  this.addMangaToolStripMenuItem.Click += new System.EventHandler(this.addMangaToolStripMenuItem_Click);
 			  // 
@@ -665,6 +664,7 @@
 			  this.MainMenuStrip = this.mainMenuStrip;
 			  this.Name = "MainForm";
 			  this.Text = "Manga Reading Assistant";
+			  this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 			  this.Load += new System.EventHandler(this.MainForm_Load);
 			  this.mainTabControl.ResumeLayout(false);
 			  this.mangaGridTabPage.ResumeLayout(false);
@@ -711,8 +711,7 @@
 		  private System.Windows.Forms.GroupBox rssTickerGroupBox;
         private System.Windows.Forms.ToolStripButton openToBrowserToolStripButton;
         private System.Windows.Forms.ToolStripButton justReadToolStripButton;
-        private System.Windows.Forms.ToolStripButton reloadToolStripButton;
-        private System.Windows.Forms.ToolStripButton editoToolStripButton;
+		  private System.Windows.Forms.ToolStripButton reloadToolStripButton;
         private System.Windows.Forms.ToolStripMenuItem backupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -720,10 +719,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rssSubscriptionsToolStripMenuItem;
+		  private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeLogToolStripMenuItem;
@@ -755,6 +751,10 @@
 		  private System.Windows.Forms.Timer rssCheckTimer;
 		  private System.Windows.Forms.ToolStripMenuItem addMangaToolStripMenuItem;
 		  private System.Windows.Forms.ToolStripProgressBar statusProgressBar;
+		  private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+		  private System.Windows.Forms.ToolStripMenuItem displayFinishedToolStripMenuItem;
+		  private System.Windows.Forms.ToolStripMenuItem rssSubscriptionsToolStripMenuItem;
+		  private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
 
     }
 }

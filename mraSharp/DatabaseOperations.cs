@@ -11,7 +11,7 @@ namespace mraSharp
 		/// <summary>
 		/// Clears the database.
 		/// </summary>
-		public static void clearDatabase()
+		public static void clearTheReadingList()
 		{
 			try
 			{
@@ -64,8 +64,8 @@ namespace mraSharp
 			try
 			{
 				var subscriptionsToDelete = from rssSubscription in db.Rss_Subscriptions
-									 where rssSubscription.RssURL == url
-									 select rssSubscription;
+													 where rssSubscription.RssURL == url
+													 select rssSubscription;
 				foreach (var rssSubscription in subscriptionsToDelete)
 				{
 					db.Rss_Subscriptions.DeleteOnSubmit(rssSubscription);
@@ -83,13 +83,14 @@ namespace mraSharp
 		/// Inserts an RSS subscription url to the database.
 		/// </summary>
 		/// <param name="url">The URL.</param>
-		public static void insertRssSubscription(string url)
+		public static void insertRssSubscription(string url, string channelName)
 		{
 			try
 			{
 				Rss_Subscriptions subscription = new Rss_Subscriptions
 				{
-					RssURL = url
+					RssURL = url,
+					RssChannelName = channelName
 				};
 				db.Rss_Subscriptions.InsertOnSubmit(subscription);
 				db.SubmitChanges();
@@ -221,16 +222,27 @@ namespace mraSharp
 		{
 			try
 			{
-				var mangaList = (from mangas in db.Mr_readingList
-									  orderby mangas.Mr_LastRead descending
-									  select mangas).First();
-				return mangaList.Mr_LastRead;
+				var mangaTest = from mangas in db.Mr_readingList
+									 select mangas;
+				if (mangaTest.Count() > 0)
+				{
+
+					var mangaList = (from mangas in db.Mr_readingList
+										  orderby mangas.Mr_LastRead descending
+										  select mangas).First();
+
+					return mangaList.Mr_LastRead;
+				}
+				else
+				{
+					return (DateTime?)null;
+				}
 			}
 			catch (Exception ex)
 			{
 				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
 				Logger.errorLogger("error.txt", ex.ToString());
-				return null;
+				return (DateTime?)null;
 			}
 		}
 
@@ -243,7 +255,14 @@ namespace mraSharp
 			try
 			{
 				TimeSpan dateDiff = DateTime.Now - Convert.ToDateTime(dateILastRead());
-				return dateDiff.Days;
+				if (dateILastRead() != null)
+				{
+					return dateDiff.Days;
+				}
+				else
+				{
+					return 0;
+				}
 			}
 			catch (Exception ex)
 			{

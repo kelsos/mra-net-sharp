@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using System.IO;
+using System.Net;
+using System.Xml;
 
 namespace mraSharp
 {
@@ -32,6 +35,7 @@ namespace mraSharp
 			{
 				DatabaseOperations.removeRssSubscription(rssUrlComboBox.Text);
 				loadSubscriptions();
+				getChannelName();
 			}
 			catch (Exception ex)
 			{
@@ -51,9 +55,16 @@ namespace mraSharp
 			{
 				if (rssSubTextBox.Text.Length > 0)
 				{
-					DatabaseOperations.insertRssSubscription(rssSubTextBox.Text);
-					rssSubTextBox.Text = null;
-					loadSubscriptions();
+					if (!String.IsNullOrEmpty(checkRssChannel(rssSubTextBox.Text)))
+					{
+						DatabaseOperations.insertRssSubscription(rssSubTextBox.Text, checkRssChannel(rssSubTextBox.Text));
+						rssSubTextBox.Text = null;
+						loadSubscriptions();
+					}
+					else
+					{
+						MessageBox.Show("Couldn't get Channel Info", "Information", MessageBoxButtons.OK);
+					}
 				}
 				else
 				{
@@ -102,6 +113,50 @@ namespace mraSharp
 			{
 				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
 				Logger.errorLogger("error.txt", ex.ToString());
+			}
+		}
+
+		private string checkRssChannel(string rssURL)
+		{
+			try
+			{
+
+				WebRequest myRequest = WebRequest.Create(rssURL);
+				WebResponse myResponse = myRequest.GetResponse();
+				Stream rssStream = myResponse.GetResponseStream();
+				XmlDocument rssChannel = new XmlDocument();
+				rssChannel.Load(rssStream);
+				XmlNode channelName = rssChannel.SelectSingleNode("rss/channel/title");
+				return channelName.InnerText;
+			}
+			catch (Exception ex)
+			{
+				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+				Logger.errorLogger("error.txt", ex.ToString());
+				return "";
+			}
+		}
+
+		private void rssUrlComboBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			getChannelName();
+		}
+
+		private void getChannelName()
+		{
+			using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
+			{
+				if (!String.IsNullOrEmpty(rssUrlComboBox.Text))
+				{
+					string channelName = (from data in db.Rss_Subscriptions
+												 where data.RssURL == rssUrlComboBox.Text
+												 select data.RssChannelName).SingleOrDefault();
+					channelTitleTextBox.Text = channelName;
+				}
+				else
+				{
+					channelTitleTextBox.Text = "";
+				}
 			}
 		}
 	}

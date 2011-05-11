@@ -80,9 +80,9 @@
 			this.finishedReadingCheckBox.AutoSize = true;
 			this.finishedReadingCheckBox.Location = new System.Drawing.Point(12, 262);
 			this.finishedReadingCheckBox.Name = "finishedReadingCheckBox";
-			this.finishedReadingCheckBox.Size = new System.Drawing.Size(169, 17);
+			this.finishedReadingCheckBox.Size = new System.Drawing.Size(156, 17);
 			this.finishedReadingCheckBox.TabIndex = 4;
-			this.finishedReadingCheckBox.Text = "Did you finished reading it?";
+			this.finishedReadingCheckBox.Text = "Did you finish reading it?";
 			this.finishedReadingCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// chapterGroupBox
@@ -152,11 +152,11 @@
 			// 
 			this.personalNoteTextBox.BackColor = System.Drawing.SystemColors.Window;
 			this.personalNoteTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.personalNoteTextBox.Location = new System.Drawing.Point(3, 18);
+			this.personalNoteTextBox.Location = new System.Drawing.Point(3, 16);
 			this.personalNoteTextBox.Multiline = true;
 			this.personalNoteTextBox.Name = "personalNoteTextBox";
 			this.personalNoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.personalNoteTextBox.Size = new System.Drawing.Size(357, 71);
+			this.personalNoteTextBox.Size = new System.Drawing.Size(357, 73);
 			this.personalNoteTextBox.TabIndex = 9;
 			// 
 			// personalNoteGroupBox
