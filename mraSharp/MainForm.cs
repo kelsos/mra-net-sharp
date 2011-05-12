@@ -46,47 +46,61 @@ namespace mraSharp
 
 		#region Rss and Network functions and Event Handlers
 
-		/// <summary>
-		/// Checks if the computer has an active internet connection and if it has it enables the rssTicker.
-		/// </summary>
-		private void networkRssChecker()
-		{
-			try
-			{
-				internetIsUp = NetworkOperations.isInternetUp();
-				rssCheckTimer.Enabled = internetIsUp;
-				rssTickTimer.Enabled = internetIsUp;
+        private void rssStatusChecker()
+        {
+            internetIsUp = NetworkOperations.isInternetUp();
+            if (!internetIsUp)
+            {
+                if (areThereFeedsInTheDatabase())
+                {
+                    using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
+                        newsList = (from news in db.Rss_NewsStorage
+                                    select news).ToList();
 
-				if (!internetIsUp)
-				{
-					statusLabel.Text = "No Internet Connection Available";
-					rssTickerGroupBox.Hide();
-					mangaDescriptionGroupBox.Bounds = new Rectangle(mangaNoteGroupBox.Left, mangaDescriptionGroupBox.Top, mangaDescriptionGroupBox.Right - mangaNoteGroupBox.Left, mangaDescriptionGroupBox.Height);
-					openToBrowserToolStripButton.Enabled = false;
-				}
-				else
-				{
-					rssTitleLabel.Text = "";
-					rssDescriptionTextBox.Text = "";
-					rssLinkLabel.Text = "";
-					if (!rssTickerGroupBox.Visible)
-					{
-						rssTickerGroupBox.Show();
-						//TODO: Keep the default mangaDescriptionGroupBox.Bounds in a variable and actually restore them if the Rss ticker is hidden and the internet connection is restored.
-						mangaDescriptionGroupBox.Bounds = new Rectangle();
-						openToBrowserToolStripButton.Enabled = true;
-					}
+                    rssTickTimer.Enabled = true;
+                    rssCheckTimer.Enabled = false;
+                    statusLabel.Text = "No Internet Connection Available";
+                }
+                else
+                {
+                    rssTitleLabel.Text = "";
+                    rssDescriptionTextBox.Text = "";
+                    rssLinkLabel.Text = "";
+                    statusLabel.Text = "No Internet Connection Available";
+                    //TODO: HIde when connection is not available.
+                    //rssTickerGroupBox.Hide();
+                    //mangaDescriptionGroupBox.Bounds = new Rectangle(mangaNoteGroupBox.Left, mangaDescriptionGroupBox.Top, mangaDescriptionGroupBox.Right - mangaNoteGroupBox.Left, mangaDescriptionGroupBox.Height);
+                    //openToBrowserToolStripButton.Enabled = false;
+                }
+            }
+            else
+            {
+                rssTitleLabel.Text = "";
+                rssDescriptionTextBox.Text = "";
+                rssLinkLabel.Text = "";
+                rssCheckTimer.Enabled = true;
+                //Start Fetcher.
+                //rssFetchingThread.RunWorkerAsync();
+            }
+        }
 
-					rssFetchingThread.RunWorkerAsync();
-				}
-			}
+        private bool areThereFeedsInTheDatabase()
+        {
+            using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
+            {
+                var rssFeedData = from data in db.Rss_NewsStorage
+                                  select data;
 
-			catch (Exception ex)
-			{
-				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-				Logger.errorLogger("error.txt", ex.ToString());
-			}
-		}
+                if (rssFeedData.Count() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
 		private List<Rss_NewsStorage> newsList = new List<Rss_NewsStorage>();
 		//TODO: Work on the RSS Ticker. Lack of internet connection plus Rss Already in the database.
@@ -172,6 +186,7 @@ namespace mraSharp
 			using (SubscriptionManagerForm manager = new SubscriptionManagerForm())
 			{
 				manager.ShowDialog();
+                rssStatusChecker();
 			}
 		}
 
@@ -212,7 +227,7 @@ namespace mraSharp
 		private void rssFetchingThread_DoWork(object sender, DoWorkEventArgs e)
 		{
 			rssFetcher();
-			DatabaseOperations.oldRssRemover(5);
+			DatabaseOperations.oldRssRemover(Properties.Settings.Default.keepInDatabaseFor);
 		}
 
 		private void rssFetchingThread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -380,12 +395,17 @@ namespace mraSharp
 		{
 			loadDatagrid();
 			mangaListDataGridView.AutoGenerateColumns = false;
-			networkRssChecker();
+            rssStatusChecker();
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			Properties.Settings.Default.Save();
+            if (MessageBox.Show("Are you sure you want to close the application?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+
 		}
 
 		private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
@@ -435,7 +455,7 @@ namespace mraSharp
 
 		private void networkAvailabilityChanged_handler(object sender, EventArgs e)
 		{
-			networkRssChecker();
+            rssStatusChecker();
 		}
 
 		private void backupToolStripMenuItem_Click(object sender, EventArgs e)

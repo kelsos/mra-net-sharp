@@ -22,6 +22,7 @@ namespace mraSharp
 		private void SubscriptionManagerForm_Load(object sender, EventArgs e)
 		{
 			loadSubscriptions();
+            keepInDatabaseForTextBox.Text = Properties.Settings.Default.keepInDatabaseFor.ToString();
 		}
 
 		/// <summary>
@@ -159,5 +160,16 @@ namespace mraSharp
 				}
 			}
 		}
+
+        private void SubscriptionManagerForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
+        private void keepInDatabaseForTextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            //TODO: Validation of the textbox.
+            Properties.Settings.Default.keepInDatabaseFor = Convert.ToInt32(keepInDatabaseForTextBox.Text);
+        }
 	}
 }

@@ -106,26 +106,32 @@ namespace mangaDatabaseEditor
 
 		private void loadCurrentImage()
 		{
-			var image = (from current in db.M_mangaInfo
-							 where current.MangaID == Convert.ToInt32(mangaIDTextBox.Text)
-							 select current.MangaCover).Single();
-			byte[] imageByte = (byte[])image.ToArray();
-			mangaCoverPictureBox.Image = Image.FromStream(new MemoryStream(imageByte));
+            if (!String.IsNullOrEmpty(mangaIDTextBox.Text))
+            {
+                var image = (from current in db.M_mangaInfo
+                             where current.MangaID == Convert.ToInt32(mangaIDTextBox.Text)
+                             select current.MangaCover).Single();
+                byte[] imageByte = (byte[])image.ToArray();
+                mangaCoverPictureBox.Image = Image.FromStream(new MemoryStream(imageByte));
+            }
 		}
 
 		private void loadMangaPublisher()
 		{
 			publisherNameTextBox1.Text = "";
-			var curPubID = (from current in db.M_mangaInfo
-								 where current.MangaID == Convert.ToInt32(mangaIDTextBox.Text)
-								 select current.MangaPublisherID).Single();
-			if (curPubID != null)
-			{
-				var publisherName = (from current in db.M_publisherInfo
-											where current.PublisherID == curPubID
-											select current.PublisherName).Single();
-				publisherNameTextBox1.Text = publisherName;
-			}
+            if (!String.IsNullOrEmpty(mangaIDTextBox.Text))
+            {
+                var curPubID = (from current in db.M_mangaInfo
+                                where current.MangaID == Convert.ToInt32(mangaIDTextBox.Text)
+                                select current.MangaPublisherID).Single();
+                if (curPubID != null)
+                {
+                    var publisherName = (from current in db.M_publisherInfo
+                                         where current.PublisherID == curPubID
+                                         select current.PublisherName).Single();
+                    publisherNameTextBox1.Text = publisherName;
+                }
+            }
 		}
 
 		#endregion Private Methods
@@ -400,7 +406,11 @@ namespace mangaDatabaseEditor
 
 		private void exportDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			DatabaseInfoExporter("temp.xml");
+            //TODO: Not null & more checks.
+            if (ExportDatabaseSaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                DatabaseInfoExporter(ExportDatabaseSaveFileDialog.FileName);
+            }
 		}
 
 		private void DatabaseInfoExporter(string fileName)
@@ -678,12 +688,10 @@ namespace mangaDatabaseEditor
 
 		private void importDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			databaseInfoImporter("temp_2.xml");
-		}
-
-		private void openImageFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-
+            if (importDatabaseOpenFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                databaseInfoImporter(importDatabaseOpenFileDialog.FileName);
+            }
 		}
 	}
 }

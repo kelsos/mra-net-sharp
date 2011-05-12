@@ -44,5 +44,17 @@ namespace mraSharp.Properties {
                 this["displayFinished"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("7")]
+        public int keepInDatabaseFor {
+            get {
+                return ((int)(this["keepInDatabaseFor"]));
+            }
+            set {
+                this["keepInDatabaseFor"] = value;
+            }
+        }
     }
 }
