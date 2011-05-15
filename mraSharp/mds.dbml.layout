@@ -91,7 +91,7 @@
         <classShapeMoniker Id="2da20e99-2a95-44b1-87d0-ce58f07a8b80" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 5.34396021294071); (6.0625 : 5.90646021294071); (6.0625 : 8.17390055338542); (6.25 : 8.17390055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(5.5 : 5.34396021294071); (5.81607443490112 : 5.66003464784183 : JumpStart); (5.93392556509888 : 5.77788577803959 : JumpEnd); (6.0625 : 5.90646021294071); (6.0625 : 8.17390055338542); (6.25 : 8.17390055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/Mds/M_mangaInfo/M_mangaInfo_Mr_readingList" />
       <nodes>
         <classShapeMoniker Id="79f3f914-8f99-4762-9c8c-9154f1c699d4" />

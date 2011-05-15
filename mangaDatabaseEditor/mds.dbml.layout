@@ -56,28 +56,28 @@
         <elementListCompartment Id="a1206017-7d95-449c-9178-f0c69f682726" absoluteBounds="8.765, 4.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 4.38544840494792); (3.5 : 4.38544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 4.38544840494792); (3.5 : 4.38544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/Mds/M_publisherInfo/M_publisherInfo_M_mangaInfo" />
       <nodes>
         <classShapeMoniker Id="f9814464-f720-4a13-b45b-5db15699f71c" />
         <classShapeMoniker Id="6027ed7b-eb30-43fe-8fb3-9a2866a8b468" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 6.5); (5.875 : 6.125); (5.875 : 4.34699625651042); (6.25 : 4.34699625651042)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 6.5); (5.875 : 6.125); (5.875 : 4.34699625651042); (6.25 : 4.34699625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/Mds/M_authorInfo/M_authorInfo_Mm_mangaAuthors" />
       <nodes>
         <classShapeMoniker Id="ee5e6412-4acd-48f9-bd0a-d24d5ee94d1d" />
         <classShapeMoniker Id="2925c85f-1638-4828-9ea8-bdda7a4da922" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 3.98599812825521); (6.25 : 3.98599812825521)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 3.98599812825521); (6.25 : 3.98599812825521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/Mds/M_mangaInfo/M_mangaInfo_Mm_mangaAuthors" />
       <nodes>
         <classShapeMoniker Id="6027ed7b-eb30-43fe-8fb3-9a2866a8b468" />
         <classShapeMoniker Id="2925c85f-1638-4828-9ea8-bdda7a4da922" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 1.94399251302083); (4.5 : 2.44399301302083); (6.25 : 2.44399301302083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.5 : 1.94399251302083); (4.5 : 2.44399301302083); (6.25 : 2.44399301302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/Mds/M_genreInfo/M_genreInfo_Mm_mangaGenres" />
       <nodes>
         <classShapeMoniker Id="ab5ea007-283c-4d29-bbc6-f7b194445cb5" />
@@ -91,7 +91,7 @@
         <classShapeMoniker Id="553fa6ab-96ef-46aa-ae0b-9a002f973d3f" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 5.34396021294071); (5.81607443490112 : 5.66003464784183 : JumpStart); (5.93392556509888 : 5.77788577803958 : JumpEnd); (6.0625 : 5.90646021294071); (6.0625 : 8.17390055338542); (6.25 : 8.17390055338542)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 5.34396021294071); (6.0625 : 5.90646021294071); (6.0625 : 8.17390055338542); (6.25 : 8.17390055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/Mds/M_mangaInfo/M_mangaInfo_Mr_readingList" />
       <nodes>
         <classShapeMoniker Id="6027ed7b-eb30-43fe-8fb3-9a2866a8b468" />

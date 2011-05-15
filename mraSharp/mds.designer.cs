@@ -236,7 +236,7 @@ namespace mraSharp
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="authorCountryOfOrigin", Storage="_AuthorCountryOfOrigin", DbType="NChar(40)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="authorCountryOfOrigin", Storage="_AuthorCountryOfOrigin", DbType="NVarChar(40)")]
 		public string AuthorCountryOfOrigin
 		{
 			get

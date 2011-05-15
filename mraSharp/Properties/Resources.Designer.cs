@@ -95,13 +95,6 @@ namespace mraSharp.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap left_16 {
-            get {
-                object obj = ResourceManager.GetObject("left_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap navigation {
             get {
                 object obj = ResourceManager.GetObject("navigation", resourceCulture);
@@ -116,37 +109,9 @@ namespace mraSharp.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap pencil_48 {
-            get {
-                object obj = ResourceManager.GetObject("pencil_48", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap reload_16 {
-            get {
-                object obj = ResourceManager.GetObject("reload_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap reload_48 {
             get {
                 object obj = ResourceManager.GetObject("reload_48", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap right_16 {
-            get {
-                object obj = ResourceManager.GetObject("right_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap search_16 {
-            get {
-                object obj = ResourceManager.GetObject("search_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

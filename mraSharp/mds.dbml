@@ -3,7 +3,7 @@
     <Type Name="M_authorInfo">
       <Column Name="authorID" Member="AuthorID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="authorFullName" Member="AuthorFullName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="authorCountryOfOrigin" Member="AuthorCountryOfOrigin" Type="System.String" DbType="NChar(40)" CanBeNull="true" />
+      <Column Name="authorCountryOfOrigin" Member="AuthorCountryOfOrigin" Type="System.String" DbType="NVarChar(40)" CanBeNull="true" />
       <Column Name="authorDateOfBirth" Member="AuthorDateOfBirth" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="authorWebsite" Member="AuthorWebsite" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
       <Association Name="M_authorInfo_Mm_mangaAuthors" Member="Mm_mangaAuthors" ThisKey="AuthorID" OtherKey="Ma_authorID" Type="Mm_mangaAuthors" />

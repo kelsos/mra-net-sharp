@@ -41,7 +41,7 @@ namespace mraSharp
 				displayFinishedToolStripMenuItem.CheckState = CheckState.Unchecked;
 			}
 			//checks if network is up
-			System.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged += networkAvailabilityChanged_handler;
+			System.Net.NetworkInformation.NetworkChange.NetworkAddressChanged += networkAddressChanged_handler;
 		}
 
 		#region Rss and Network functions and Event Handlers
@@ -67,6 +67,8 @@ namespace mraSharp
                     rssDescriptionTextBox.Text = "";
                     rssLinkLabel.Text = "";
                     statusLabel.Text = "No Internet Connection Available";
+						  rssTickTimer.Enabled = false;
+						  rssCheckTimer.Enabled = false;
                     //TODO: HIde when connection is not available.
                     //rssTickerGroupBox.Hide();
                     //mangaDescriptionGroupBox.Bounds = new Rectangle(mangaNoteGroupBox.Left, mangaDescriptionGroupBox.Top, mangaDescriptionGroupBox.Right - mangaNoteGroupBox.Left, mangaDescriptionGroupBox.Height);
@@ -147,6 +149,10 @@ namespace mraSharp
 				foreach (var channel in rssSubs)
 				{
 					ArrayList result = RssManager.processNewsFeed(channel);
+					
+					progressChanged(result.Count, 0);
+					int count = 0;
+
 					foreach (RssNewsItem newsItem in result)
 					{
 						string title = newsItem.Title;
@@ -169,6 +175,9 @@ namespace mraSharp
 							db.Rss_NewsStorage.InsertOnSubmit(ne);
 							db.SubmitChanges();
 						}
+
+						count++;
+						progressChanged(result.Count, count);
 					}
 				}
 				newsList = (from news in db.Rss_NewsStorage
@@ -453,7 +462,7 @@ namespace mraSharp
 			}
 		}
 
-		private void networkAvailabilityChanged_handler(object sender, EventArgs e)
+		private void networkAddressChanged_handler(object sender, EventArgs e)
 		{
             rssStatusChecker();
 		}

@@ -159,6 +159,7 @@ namespace mangaDatabaseEditor
 			publisherInfoBindingSource.EndEdit();
 			db.SubmitChanges();
 			refreshPublisherData();
+			loadPublisherData();
 		}
 
 		private void MainForm_Load(object sender, EventArgs e)

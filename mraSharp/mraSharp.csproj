@@ -143,26 +143,33 @@
     <Compile Include="WebForm.Designer.cs">
       <DependentUpon>WebForm.cs</DependentUpon>
     </Compile>
-    <Content Include="..\..\..\..\..\..\..\Program Files\Microsoft SQL Server Compact Edition\v3.5\sqlceca35.dll">
+    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlceca35.dll">
       <Link>x86\sqlceca35.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\..\..\..\..\Program Files\Microsoft SQL Server Compact Edition\v3.5\sqlcecompact35.dll">
+    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlcecompact35.dll">
       <Link>x86\sqlcecompact35.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\..\..\..\..\Program Files\Microsoft SQL Server Compact Edition\v3.5\sqlceer35EN.dll">
+    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlceer35EN.dll">
       <Link>x86\sqlceer35EN.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\..\..\..\..\Program Files\Microsoft SQL Server Compact Edition\v3.5\sqlceme35.dll">
+    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlceme35.dll">
       <Link>x86\sqlceme35.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\..\..\..\..\Program Files\Microsoft SQL Server Compact Edition\v3.5\sqlceoledb35.dll">
+    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlceoledb35.dll">
       <Link>x86\sqlceoledb35.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\..\..\..\..\Program Files\Microsoft SQL Server Compact Edition\v3.5\sqlceqp35.dll">
+    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlceqp35.dll">
       <Link>x86\sqlceqp35.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\..\..\..\..\..\Program Files\Microsoft SQL Server Compact Edition\v3.5\sqlcese35.dll">
+    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlcese35.dll">
       <Link>x86\sqlcese35.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="changelog.txt" />
     <Content Include="xulrunner\AccessibleMarshal.dll">
@@ -910,10 +917,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Icons\left_16.png" />
-    <None Include="Icons\right_16.png" />
-    <None Include="Icons\reload_16.png" />
-    <None Include="Icons\search_16.png" />
     <None Include="Resources\exclamation-red.png" />
     <Content Include="mds.sdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -921,8 +924,6 @@
     <Content Include="Skybound.Gecko.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TODO.txt" />
-    <None Include="Icons\pencil_48.png" />
     <None Include="Icons\reload_48.png" />
     <None Include="Icons\calendar_48.png" />
     <None Include="Icons\globe_48.png" />
