@@ -106,20 +106,23 @@ namespace mangaDatabaseEditor
 
 		private void loadCurrentImage()
 		{
-            if (!String.IsNullOrEmpty(mangaIDTextBox.Text))
+            if (!String.IsNullOrEmpty(mangaIDTextBox.Text)&&mangaIDTextBox.Text.ToString()!="0")
             {
                 var image = (from current in db.M_mangaInfo
                              where current.MangaID == Convert.ToInt32(mangaIDTextBox.Text)
                              select current.MangaCover).Single();
-                byte[] imageByte = (byte[])image.ToArray();
-                mangaCoverPictureBox.Image = Image.FromStream(new MemoryStream(imageByte));
+					 if (image != null)
+					 {
+						 byte[] imageByte = (byte[])image.ToArray();
+						 mangaCoverPictureBox.Image = Image.FromStream(new MemoryStream(imageByte));
+					 }
             }
 		}
 
 		private void loadMangaPublisher()
 		{
 			publisherNameTextBox1.Text = "";
-            if (!String.IsNullOrEmpty(mangaIDTextBox.Text))
+            if (!String.IsNullOrEmpty(mangaIDTextBox.Text)&&mangaIDTextBox.Text.ToString()!="0")
             {
                 var curPubID = (from current in db.M_mangaInfo
                                 where current.MangaID == Convert.ToInt32(mangaIDTextBox.Text)
@@ -565,9 +568,9 @@ namespace mangaDatabaseEditor
 									  select new
 									  {
 										  AuthorID = (int)data.Element("AuthorID"),
-										  AuthorName = (string)data.Element("AuthorFullName"),
-										  AuthorCountry = (string)data.Element("AuthorCountryOfOrigin") ?? "",
-										  AuthorBirth = String.IsNullOrEmpty((string)data.Element("AuthorDateOfBirth")) ? (DateTime?)null : (DateTime)data.Element("AuthorDateOfBirth"),
+										  AuthorName = (string)data.Element("AuthorName"),
+										  AuthorCountry = (string)data.Element("AuthorCountry") ?? "",
+										  AuthorBirth = String.IsNullOrEmpty((string)data.Element("AuthorBirth")) ? (DateTime?)null : (DateTime)data.Element("AuthorBirth"),
 										  AuthorWebsite = (string)data.Element("AuthorWebsite") ?? ""
 									  };
 
@@ -693,6 +696,13 @@ namespace mangaDatabaseEditor
             {
                 databaseInfoImporter(importDatabaseOpenFileDialog.FileName);
             }
+		}
+
+		private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+		{
+			//When the user tries to insert a new entry in the database the following statements select the first value "Ongoing" as default.
+			mangaStatusComboBox.SelectedIndex = -1;
+			mangaStatusComboBox.SelectedIndex = 0;
 		}
 	}
 }
