@@ -153,7 +153,7 @@ namespace mraSharp
 					progressChanged(result.Count, 0);
 					int count = 0;
 
-					foreach (RssNewsItem newsItem in result)
+					foreach (NewsItem newsItem in result)
 					{
 						string title = newsItem.Title;
 						title = title.Replace("'", "");

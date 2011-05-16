@@ -32,7 +32,7 @@ namespace mraSharp
 				foreach (XmlNode currentRssItem in rssItems)
 				{
 					XmlNode rssDetail;
-					RssNewsItem tempNewsItem = new RssNewsItem();
+					NewsItem tempNewsItem = new NewsItem();
 
 					//Gets the title of the current RSS node.
 					rssDetail = currentRssItem.SelectSingleNode("title");

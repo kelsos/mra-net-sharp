@@ -78,69 +78,70 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddMangaForm.cs">
+    <Compile Include="Forms\AddMangaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddMangaForm.Designer.cs">
+    <Compile Include="Forms\AddMangaForm.Designer.cs">
       <DependentUpon>AddMangaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseOperations.cs" />
-    <Compile Include="dataPasser.cs" />
-    <Compile Include="errorMessageBox.cs">
+    <Compile Include="Classes\DatabaseOperations.cs" />
+    <Compile Include="Classes\dataPasser.cs" />
+    <Compile Include="Forms\errorMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="errorMessageBox.Designer.cs">
+    <Compile Include="Forms\errorMessageBox.Designer.cs">
       <DependentUpon>errorMessageBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileOperations.cs" />
-    <Compile Include="Logger.cs" />
-    <Compile Include="mangaRead.cs" />
+    <Compile Include="Classes\FeedManager.cs" />
+    <Compile Include="Classes\FileOperations.cs" />
+    <Compile Include="Classes\Logger.cs" />
+    <Compile Include="Classes\mangaRead.cs" />
     <Compile Include="mds.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>mds.dbml</DependentUpon>
     </Compile>
-    <Compile Include="MessageFilter.cs" />
-    <Compile Include="NetworkOperations.cs" />
-    <Compile Include="RegularExpressions.cs" />
-    <Compile Include="RssManager.cs" />
-    <Compile Include="RssNewsItem.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Classes\MessageFilter.cs" />
+    <Compile Include="Classes\NetworkOperations.cs" />
+    <Compile Include="Classes\RegularExpressions.cs" />
+    <Compile Include="Classes\RssManager.cs" />
+    <Compile Include="Classes\NewsItem.cs" />
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingsForm.cs">
+    <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsForm.Designer.cs">
+    <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SpecifyNewEntryInfoForm.cs">
+    <Compile Include="Forms\SpecifyNewEntryInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SpecifyNewEntryInfoForm.Designer.cs">
+    <Compile Include="Forms\SpecifyNewEntryInfoForm.Designer.cs">
       <DependentUpon>SpecifyNewEntryInfoForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatisticsForm.cs">
+    <Compile Include="Forms\StatisticsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StatisticsForm.Designer.cs">
+    <Compile Include="Forms\StatisticsForm.Designer.cs">
       <DependentUpon>StatisticsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubscriptionManagerForm.cs">
+    <Compile Include="Forms\SubscriptionManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubscriptionManagerForm.Designer.cs">
+    <Compile Include="Forms\SubscriptionManagerForm.Designer.cs">
       <DependentUpon>SubscriptionManagerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WebForm.cs">
+    <Compile Include="Forms\WebForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WebForm.Designer.cs">
+    <Compile Include="Forms\WebForm.Designer.cs">
       <DependentUpon>WebForm.cs</DependentUpon>
     </Compile>
     <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlceca35.dll">
@@ -171,7 +172,9 @@
       <Link>x86\sqlcese35.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="changelog.txt" />
+    <Content Include="Files\changelog.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="xulrunner\AccessibleMarshal.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -557,13 +560,13 @@
     <None Include="Resources\arrow-circle-double.png" />
     <None Include="Resources\navigation.png" />
     <None Include="Resources\navigation-180.png" />
-    <EmbeddedResource Include="AddMangaForm.resx">
+    <EmbeddedResource Include="Forms\AddMangaForm.resx">
       <DependentUpon>AddMangaForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="errorMessageBox.resx">
+    <EmbeddedResource Include="Forms\errorMessageBox.resx">
       <DependentUpon>errorMessageBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="mds.dbml.layout">
@@ -579,21 +582,21 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SettingsForm.resx">
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SpecifyNewEntryInfoForm.resx">
+    <EmbeddedResource Include="Forms\SpecifyNewEntryInfoForm.resx">
       <DependentUpon>SpecifyNewEntryInfoForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StatisticsForm.resx">
+    <EmbeddedResource Include="Forms\StatisticsForm.resx">
       <DependentUpon>StatisticsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubscriptionManagerForm.resx">
+    <EmbeddedResource Include="Forms\SubscriptionManagerForm.resx">
       <DependentUpon>SubscriptionManagerForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WebForm.resx">
+    <EmbeddedResource Include="Forms\WebForm.resx">
       <DependentUpon>WebForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
