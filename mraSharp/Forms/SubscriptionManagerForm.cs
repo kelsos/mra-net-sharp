@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using System.IO;
 using System.Net;
 using System.Xml;
+using mraSharp.Classes;
+using mraSharp.Properties;
 
-namespace mraSharp
+namespace mraSharp.Forms
 {
 	public partial class SubscriptionManagerForm : Form
 	{
@@ -19,10 +20,10 @@ namespace mraSharp
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		private void SubscriptionManagerForm_Load(object sender, EventArgs e)
+		private void SubscriptionManagerFormLoad(object sender, EventArgs e)
 		{
-			loadSubscriptions();
-            keepInDatabaseForTextBox.Text = Properties.Settings.Default.keepInDatabaseFor.ToString();
+			LoadSubscriptions();
+            keepInDatabaseForTextBox.Text = Settings.Default.keepInDatabaseFor.ToString();
 		}
 
 		/// <summary>
@@ -30,18 +31,18 @@ namespace mraSharp
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		private void removeSubButton_Click(object sender, EventArgs e)
+		private void RemoveSubButtonClick(object sender, EventArgs e)
 		{
 			try
 			{
-				DatabaseOperations.removeRssSubscription(rssUrlComboBox.Text);
-				loadSubscriptions();
-				getChannelName();
+				DatabaseOperations.RemoveRssSubscription(rssUrlComboBox.Text);
+				LoadSubscriptions();
+				GetChannelName();
 			}
 			catch (Exception ex)
 			{
-				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-				Logger.errorLogger("error.txt", ex.ToString());
+				ErrorMessageBox.Show(ex.Message, ex.ToString());
+				Logger.ErrorLogger("error.txt", ex.ToString());
 			}
 		}
 
@@ -50,32 +51,32 @@ namespace mraSharp
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		private void addSubButton_Click(object sender, EventArgs e)
+		private void AddSubButtonClick(object sender, EventArgs e)
 		{
 			try
 			{
 				if (rssSubTextBox.Text.Length > 0)
 				{
-					if (!String.IsNullOrEmpty(checkRssChannel(rssSubTextBox.Text)))
+					if (!String.IsNullOrEmpty(CheckRssChannel(rssSubTextBox.Text)))
 					{
-						DatabaseOperations.insertRssSubscription(rssSubTextBox.Text, checkRssChannel(rssSubTextBox.Text));
+						DatabaseOperations.InsertRssSubscription(rssSubTextBox.Text, CheckRssChannel(rssSubTextBox.Text));
 						rssSubTextBox.Text = null;
-						loadSubscriptions();
+						LoadSubscriptions();
 					}
 					else
 					{
-						MessageBox.Show("Couldn't get Channel Info", "Information", MessageBoxButtons.OK);
+						MessageBox.Show(Resources.SubscriptionManagerForm_AddSubButtonClick_Couldn_t_get_Channel_Info, Resources.SubscriptionManagerForm_AddSubButtonClick_Information, MessageBoxButtons.OK);
 					}
 				}
 				else
 				{
-					MessageBox.Show("Cannot insert empty field!", "Information", MessageBoxButtons.OK);
+					MessageBox.Show(Resources.SubscriptionManagerForm_AddSubButtonClick_Cannot_insert_empty_field_, Resources.SubscriptionManagerForm_AddSubButtonClick_Information, MessageBoxButtons.OK);
 				}
 			}
 			catch (Exception ex)
 			{
-				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-				Logger.errorLogger("error.txt", ex.ToString());
+				ErrorMessageBox.Show(ex.Message, ex.ToString());
+				Logger.ErrorLogger("error.txt", ex.ToString());
 			}
 		}
 
@@ -84,9 +85,9 @@ namespace mraSharp
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		private void importButton_Click(object sender, EventArgs e)
+		private void ImportButtonClick(object sender, EventArgs e)
 		{
-			FileOperations.rssSubscriptionImporter("rss.txt");
+			FileOperations.RssSubscriptionImporter("rss.txt");
 		}
 
 		/// <summary>
@@ -94,62 +95,64 @@ namespace mraSharp
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		private void exportPopup_Click(object sender, EventArgs e)
+		private void ExportPopupClick(object sender, EventArgs e)
 		{
-			FileOperations.rssSubscriptionExporter("rss.txt");
+			FileOperations.RssSubscriptionExporter("rss.txt");
 		}
 
 		/// <summary>
 		/// Loads the Rss Subscriptions (URLs) from the database.
 		/// </summary>
-		private void loadSubscriptions()
+		private void LoadSubscriptions()
 		{
 			try
 			{
-				Mds db = new Mds(Properties.Settings.Default.DbConnection);
-				rssUrlComboBox.DataSource = from url in db.Rss_Subscriptions
-													 select url.RssURL;
+                using (var db = new Mds(Settings.Default.DbConnection))
+                {
+                    rssUrlComboBox.DataSource = from url in db.Rss_Subscriptions
+                                                select url.RssURL;
+                }
 			}
 			catch (Exception ex)
 			{
-				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-				Logger.errorLogger("error.txt", ex.ToString());
+				ErrorMessageBox.Show(ex.Message, ex.ToString());
+				Logger.ErrorLogger("error.txt", ex.ToString());
 			}
 		}
 
-		private string checkRssChannel(string rssURL)
+		private static string CheckRssChannel(string rssURL)
 		{
-			try
+		    try
 			{
 
-				WebRequest myRequest = WebRequest.Create(rssURL);
-				WebResponse myResponse = myRequest.GetResponse();
-				Stream rssStream = myResponse.GetResponseStream();
-				XmlDocument rssChannel = new XmlDocument();
-				rssChannel.Load(rssStream);
-				XmlNode channelName = rssChannel.SelectSingleNode("rss/channel/title");
-				return channelName.InnerText;
+				var myRequest = WebRequest.Create(rssURL);
+				var myResponse = myRequest.GetResponse();
+				var rssStream = myResponse.GetResponseStream();
+				var rssChannel = new XmlDocument();
+			    if (rssStream != null) rssChannel.Load(rssStream);
+			    var channelName = rssChannel.SelectSingleNode("rss/channel/title");
+			    if (channelName != null) return channelName.InnerText;
 			}
 			catch (Exception ex)
 			{
-				errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
-				Logger.errorLogger("error.txt", ex.ToString());
-				return "";
+				ErrorMessageBox.Show(ex.Message, ex.ToString());
+				Logger.ErrorLogger("error.txt", ex.ToString());
 			}
+		    return null;
 		}
 
-		private void rssUrlComboBox_SelectedIndexChanged(object sender, EventArgs e)
+	    private void RssUrlComboBoxSelectedIndexChanged(object sender, EventArgs e)
 		{
-			getChannelName();
+			GetChannelName();
 		}
 
-		private void getChannelName()
+		private void GetChannelName()
 		{
-			using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
+			using (var db = new Mds(Settings.Default.DbConnection))
 			{
 				if (!String.IsNullOrEmpty(rssUrlComboBox.Text))
 				{
-					string channelName = (from data in db.Rss_Subscriptions
+					var channelName = (from data in db.Rss_Subscriptions
 												 where data.RssURL == rssUrlComboBox.Text
 												 select data.RssChannelName).SingleOrDefault();
 					channelTitleTextBox.Text = channelName;
@@ -161,15 +164,15 @@ namespace mraSharp
 			}
 		}
 
-        private void SubscriptionManagerForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void SubscriptionManagerFormFormClosing(object sender, FormClosingEventArgs e)
         {
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
         }
 
-        private void keepInDatabaseForTextBox_KeyUp(object sender, KeyEventArgs e)
+        private void KeepInDatabaseForTextBoxKeyUp(object sender, KeyEventArgs e)
         {
             //TODO: Validation of the textbox.
-            Properties.Settings.Default.keepInDatabaseFor = Convert.ToInt32(keepInDatabaseForTextBox.Text);
+            Settings.Default.keepInDatabaseFor = Convert.ToInt32(keepInDatabaseForTextBox.Text);
         }
 	}
 }

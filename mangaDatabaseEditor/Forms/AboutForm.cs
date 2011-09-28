@@ -2,14 +2,14 @@
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace mangaDatabaseEditor
+namespace mangaDatabaseEditor.Forms
 {
 	partial class AboutForm : Form
 	{
 		public AboutForm()
 		{
 			InitializeComponent();
-			this.Text = String.Format("About {0}", AssemblyTitle);
+			Text = String.Format("About {0}", AssemblyTitle);
 			this.labelProductName.Text = AssemblyProduct;
 			this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
 			this.labelCopyright.Text = AssemblyCopyright;
@@ -17,7 +17,13 @@ namespace mangaDatabaseEditor
 			this.textBoxDescription.Text = AssemblyDescription;
 		}
 
-		#region Assembly Attribute Accessors
+	    public override sealed string Text
+	    {
+	        get { return base.Text; }
+	        set { base.Text = value; }
+	    }
+
+	    #region Assembly Attribute Accessors
 
 		public string AssemblyTitle
 		{

@@ -142,4 +142,37 @@
   <data name="navigation-180" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\navigation-180.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="MainForm_RssStatusChecker_No_Internet_Connection_Available">
+    <value xml:space="preserve">No Internet Connection Available</value>
+  </data>
+  <data name="MainForm_RssCheckTimerTick_Internet_Connection__N_A___Cannot_Fetch_RSS_feeds_">
+    <value xml:space="preserve">Internet Connection [N/A]: Cannot Fetch RSS feeds.</value>
+  </data>
+  <data name="MainForm_MainFormFormClosing_Are_you_sure_you_want_to_close_the_application_">
+    <value xml:space="preserve">Are you sure you want to close the application?</value>
+  </data>
+  <data name="MainForm_RestoreToolStripMenuItemClick_Are_you_sure_you_want_to_clear_the_reading_List_">
+    <value xml:space="preserve">Are you sure you want to clear the reading List?</value>
+  </data>
+  <data name="MainForm_ClearToolStripMenuItemClick_Are_you_sure_to_clear_the_database_">
+    <value xml:space="preserve">Are you sure to clear the database?</value>
+  </data>
+  <data name="MainForm_ClearToolStripMenuItemClick_Question">
+    <value xml:space="preserve">Question</value>
+  </data>
+  <data name="MainForm_MainFormFormClosing_Confirmation">
+    <value xml:space="preserve">Confirmation</value>
+  </data>
+  <data name="AddMangaForm_GetPublisherName__N_A_">
+    <value xml:space="preserve">[N/A]</value>
+  </data>
+  <data name="SubscriptionManagerForm_AddSubButtonClick_Couldn_t_get_Channel_Info">
+    <value xml:space="preserve">Couldn't get Channel Info</value>
+  </data>
+  <data name="SubscriptionManagerForm_AddSubButtonClick_Cannot_insert_empty_field_">
+    <value xml:space="preserve">Cannot insert empty field!</value>
+  </data>
+  <data name="SubscriptionManagerForm_AddSubButtonClick_Information">
+    <value xml:space="preserve">Information</value>
+  </data>
 </root>

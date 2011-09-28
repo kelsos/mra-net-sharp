@@ -1,4 +1,4 @@
-﻿namespace mangaDatabaseEditor
+﻿namespace mangaDatabaseEditor.Forms
 {
 	partial class MainForm
 	{
@@ -342,7 +342,7 @@
 			// mangaInfoBindingSource
 			// 
 			this.mangaInfoBindingSource.DataSource = typeof(mangaDatabaseEditor.M_mangaInfo);
-			this.mangaInfoBindingSource.CurrentChanged += new System.EventHandler(this.mangaInfoBindingSource_CurrentChanged);
+			this.mangaInfoBindingSource.CurrentChanged += new System.EventHandler(this.MangaInfoBindingSourceCurrentChanged);
 			// 
 			// descriptionGroupBox
 			// 
@@ -387,7 +387,7 @@
 			this.mangaIDTextBox.ReadOnly = true;
 			this.mangaIDTextBox.Size = new System.Drawing.Size(115, 22);
 			this.mangaIDTextBox.TabIndex = 1;
-			this.mangaIDTextBox.TextChanged += new System.EventHandler(this.mangaIDTextBox_TextChanged);
+			this.mangaIDTextBox.TextChanged += new System.EventHandler(this.MangaIDTextBoxTextChanged);
 			// 
 			// mangaTitleTextBox
 			// 
@@ -420,7 +420,7 @@
 			this.removePublisherButton.Size = new System.Drawing.Size(21, 21);
 			this.removePublisherButton.TabIndex = 30;
 			this.removePublisherButton.UseVisualStyleBackColor = true;
-			this.removePublisherButton.Click += new System.EventHandler(this.removePublisherButton_Click);
+			this.removePublisherButton.Click += new System.EventHandler(this.RemovePublisherButtonClick);
 			// 
 			// addPublisherButton
 			// 
@@ -431,7 +431,7 @@
 			this.addPublisherButton.Size = new System.Drawing.Size(21, 21);
 			this.addPublisherButton.TabIndex = 30;
 			this.addPublisherButton.UseVisualStyleBackColor = true;
-			this.addPublisherButton.Click += new System.EventHandler(this.addPublisherButton_Click);
+			this.addPublisherButton.Click += new System.EventHandler(this.AddPublisherButtonClick);
 			// 
 			// publisherComboBox
 			// 
@@ -471,7 +471,7 @@
 			this.removeAuthorButton.Size = new System.Drawing.Size(21, 21);
 			this.removeAuthorButton.TabIndex = 30;
 			this.removeAuthorButton.UseVisualStyleBackColor = true;
-			this.removeAuthorButton.Click += new System.EventHandler(this.removeAuthorButton_Click);
+			this.removeAuthorButton.Click += new System.EventHandler(this.RemoveAuthorButtonClick);
 			// 
 			// addAuthorButton
 			// 
@@ -482,7 +482,7 @@
 			this.addAuthorButton.Size = new System.Drawing.Size(21, 21);
 			this.addAuthorButton.TabIndex = 30;
 			this.addAuthorButton.UseVisualStyleBackColor = true;
-			this.addAuthorButton.Click += new System.EventHandler(this.addAuthorButton_Click);
+			this.addAuthorButton.Click += new System.EventHandler(this.AddAuthorButtonClick);
 			// 
 			// authorsComboBox
 			// 
@@ -531,7 +531,7 @@
 			this.removeGenreButton.Size = new System.Drawing.Size(21, 21);
 			this.removeGenreButton.TabIndex = 28;
 			this.removeGenreButton.UseVisualStyleBackColor = true;
-			this.removeGenreButton.Click += new System.EventHandler(this.removeGenreButton_Click);
+			this.removeGenreButton.Click += new System.EventHandler(this.RemoveGenreButtonClick);
 			// 
 			// addGenreButton
 			// 
@@ -542,7 +542,7 @@
 			this.addGenreButton.Size = new System.Drawing.Size(21, 21);
 			this.addGenreButton.TabIndex = 27;
 			this.addGenreButton.UseVisualStyleBackColor = true;
-			this.addGenreButton.Click += new System.EventHandler(this.addGenreButton_Click);
+			this.addGenreButton.Click += new System.EventHandler(this.AddGenreButtonClick);
 			// 
 			// genreNameComboBox
 			// 
@@ -626,7 +626,7 @@
 			this.buttonImageLoad.TabIndex = 19;
 			this.buttonImageLoad.Text = "Add Cover Image";
 			this.buttonImageLoad.UseVisualStyleBackColor = true;
-			this.buttonImageLoad.Click += new System.EventHandler(this.buttonImageLoad_Click);
+			this.buttonImageLoad.Click += new System.EventHandler(this.ButtonImageLoadClick);
 			// 
 			// mangaCoverPictureBox
 			// 
@@ -678,7 +678,7 @@
 			this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
 			this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
 			this.bindingNavigatorAddNewItem.Text = "Add new";
-			this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
+			this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.BindingNavigatorAddNewItemClick);
 			// 
 			// bindingNavigatorCountItem
 			// 
@@ -763,7 +763,7 @@
 			this.mangaInfoBindingNavigatorSaveItem.Name = "mangaInfoBindingNavigatorSaveItem";
 			this.mangaInfoBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
 			this.mangaInfoBindingNavigatorSaveItem.Text = "Save Data";
-			this.mangaInfoBindingNavigatorSaveItem.Click += new System.EventHandler(this.mangaInfoBindingNavigatorSaveItem_Click);
+			this.mangaInfoBindingNavigatorSaveItem.Click += new System.EventHandler(this.MangaInfoBindingNavigatorSaveItemClick);
 			// 
 			// tabAuthor
 			// 
@@ -940,7 +940,7 @@
 			this.authorTableBindingNavigator.Size = new System.Drawing.Size(470, 25);
 			this.authorTableBindingNavigator.TabIndex = 10;
 			this.authorTableBindingNavigator.Text = "Author Binding Navigator";
-			this.authorTableBindingNavigator.Click += new System.EventHandler(this.authorTableBindingNavigatorSaveItem_Click);
+			this.authorTableBindingNavigator.Click += new System.EventHandler(this.AuthorTableBindingNavigatorSaveItemClick);
 			// 
 			// authorTableBindingNavigatorAddNewItem
 			// 
@@ -1035,7 +1035,7 @@
 			this.authorTableBindingNavigatorSaveItem.Name = "authorTableBindingNavigatorSaveItem";
 			this.authorTableBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
 			this.authorTableBindingNavigatorSaveItem.Text = "authorSaveToolStripButton";
-			this.authorTableBindingNavigatorSaveItem.Click += new System.EventHandler(this.authorTableBindingNavigatorSaveItem_Click);
+			this.authorTableBindingNavigatorSaveItem.Click += new System.EventHandler(this.AuthorTableBindingNavigatorSaveItemClick);
 			// 
 			// tabPublisher
 			// 
@@ -1309,7 +1309,7 @@
 			this.publisherInfoBindingNavigatorSaveItem.Name = "publisherInfoBindingNavigatorSaveItem";
 			this.publisherInfoBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
 			this.publisherInfoBindingNavigatorSaveItem.Text = "toolStripButton1";
-			this.publisherInfoBindingNavigatorSaveItem.Click += new System.EventHandler(this.publisherInfoBindingNavigatorSaveItem_Click);
+			this.publisherInfoBindingNavigatorSaveItem.Click += new System.EventHandler(this.PublisherInfoBindingNavigatorSaveItemClick);
 			// 
 			// genreInfoBindingSource
 			// 
@@ -1361,14 +1361,14 @@
 			this.exportDatabaseToolStripMenuItem.Name = "exportDatabaseToolStripMenuItem";
 			this.exportDatabaseToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
 			this.exportDatabaseToolStripMenuItem.Text = "Export Database";
-			this.exportDatabaseToolStripMenuItem.Click += new System.EventHandler(this.exportDatabaseToolStripMenuItem_Click);
+			this.exportDatabaseToolStripMenuItem.Click += new System.EventHandler(this.ExportDatabaseToolStripMenuItemClick);
 			// 
 			// importDatabaseToolStripMenuItem
 			// 
 			this.importDatabaseToolStripMenuItem.Name = "importDatabaseToolStripMenuItem";
 			this.importDatabaseToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
 			this.importDatabaseToolStripMenuItem.Text = "Import Database";
-			this.importDatabaseToolStripMenuItem.Click += new System.EventHandler(this.importDatabaseToolStripMenuItem_Click);
+			this.importDatabaseToolStripMenuItem.Click += new System.EventHandler(this.ImportDatabaseToolStripMenuItemClick);
 			// 
 			// toolStripSeparator2
 			// 
@@ -1394,7 +1394,7 @@
 			this.genresToolStripMenuItem.Name = "genresToolStripMenuItem";
 			this.genresToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
 			this.genresToolStripMenuItem.Text = "Genres";
-			this.genresToolStripMenuItem.Click += new System.EventHandler(this.genresToolStripMenuItem_Click);
+			this.genresToolStripMenuItem.Click += new System.EventHandler(this.GenresToolStripMenuItemClick);
 			// 
 			// helpToolStripMenuItem
 			// 
@@ -1409,7 +1409,7 @@
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
 			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
 			this.aboutToolStripMenuItem.Text = "About";
-			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItemClick);
 			// 
 			// openImageFileDialog
 			// 
@@ -1464,7 +1464,7 @@
 			this.MainMenuStrip = this.mainMenuStrip;
 			this.Name = "MainForm";
 			this.Text = "Manga Database Editor";
-			this.Load += new System.EventHandler(this.MainForm_Load);
+			this.Load += new System.EventHandler(this.MainFormLoad);
 			this.tabControl.ResumeLayout(false);
 			this.tabManga.ResumeLayout(false);
 			this.tabManga.PerformLayout();

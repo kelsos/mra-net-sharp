@@ -1,4 +1,4 @@
-﻿namespace mraSharp
+﻿namespace mraSharp.Forms
 {
 	partial class WebForm
 	{
@@ -49,7 +49,7 @@
 			this.geckoReader.Name = "geckoReader";
 			this.geckoReader.Size = new System.Drawing.Size(766, 423);
 			this.geckoReader.TabIndex = 0;
-			this.geckoReader.Navigated += new Skybound.Gecko.GeckoNavigatedEventHandler(this.geckoReader_Navigated);
+			this.geckoReader.Navigated += new Skybound.Gecko.GeckoNavigatedEventHandler(this.GeckoReaderNavigated);
 			// 
 			// webNavigation
 			// 
@@ -72,7 +72,7 @@
 			this.backToolStripButton.Name = "backToolStripButton";
 			this.backToolStripButton.Size = new System.Drawing.Size(23, 22);
 			this.backToolStripButton.Text = "Back";
-			this.backToolStripButton.Click += new System.EventHandler(this.backToolStripButton_Click);
+			this.backToolStripButton.Click += new System.EventHandler(this.BackToolStripButtonClick);
 			// 
 			// forwardToolStripButton
 			// 
@@ -82,7 +82,7 @@
 			this.forwardToolStripButton.Name = "forwardToolStripButton";
 			this.forwardToolStripButton.Size = new System.Drawing.Size(23, 22);
 			this.forwardToolStripButton.Text = "Forward";
-			this.forwardToolStripButton.Click += new System.EventHandler(this.forwardToolStripButton_Click);
+			this.forwardToolStripButton.Click += new System.EventHandler(this.ForwardToolStripButtonClick);
 			// 
 			// reloadToolStripButton
 			// 
@@ -92,7 +92,7 @@
 			this.reloadToolStripButton.Name = "reloadToolStripButton";
 			this.reloadToolStripButton.Size = new System.Drawing.Size(23, 22);
 			this.reloadToolStripButton.Text = "Reload Page";
-			this.reloadToolStripButton.Click += new System.EventHandler(this.reloadToolStripButton_Click);
+			this.reloadToolStripButton.Click += new System.EventHandler(this.ReloadToolStripButtonClick);
 			// 
 			// justReadButton
 			// 
@@ -102,7 +102,7 @@
 			this.justReadButton.Name = "justReadButton";
 			this.justReadButton.Size = new System.Drawing.Size(23, 22);
 			this.justReadButton.Text = "Just Read A Chapter";
-			this.justReadButton.Click += new System.EventHandler(this.justReadButton_Click);
+			this.justReadButton.Click += new System.EventHandler(this.JustReadButtonClick);
 			// 
 			// webStatus
 			// 
@@ -132,7 +132,7 @@
 			this.Name = "WebForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "WebForm";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WebForm_FormClosing);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WebFormFormClosing);
 			this.webNavigation.ResumeLayout(false);
 			this.webNavigation.PerformLayout();
 			this.webStatus.ResumeLayout(false);

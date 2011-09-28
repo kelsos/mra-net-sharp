@@ -1,4 +1,4 @@
-﻿namespace mangaDatabaseEditor
+﻿namespace mangaDatabaseEditor.Forms
 {
 	partial class AboutForm
 	{

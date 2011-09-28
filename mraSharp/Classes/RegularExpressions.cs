@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace mraSharp
+namespace mraSharp.Classes
 {
 	public static class RegularExpressions
 	{
@@ -9,11 +9,11 @@ namespace mraSharp
 		/// </summary>
 		/// <param name="toProcess">The string to be processed.</param>
 		/// <returns></returns>
-		public static string whiteSpaceToUrlEncoding(string toProcess)
+		public static string WhiteSpaceToUrlEncoding(string toProcess)
 		{
-			string patternUsed = "\\s+";
-			string replacementString = "%20";
-			Regex regExp = new Regex(patternUsed);
+			const string patternUsed = "\\s+";
+            const string replacementString = "%20";
+			var regExp = new Regex(patternUsed);
 			return regExp.Replace(toProcess, replacementString);
 		}
 
@@ -22,11 +22,11 @@ namespace mraSharp
 		/// </summary>
 		/// <param name="toProcess">The string to process.</param>
 		/// <returns></returns>
-		public static string escapeApostropheForQuery(string toProcess)
+		public static string EscapeApostropheForQuery(string toProcess)
 		{
-			string patternUsed = "'";
-			string replacementString = "''";
-			Regex regExp = new Regex(patternUsed);
+			const string patternUsed = "'";
+			const string replacementString = "''";
+			var regExp = new Regex(patternUsed);
 			return regExp.Replace(toProcess, replacementString);
 		}
 
@@ -35,11 +35,11 @@ namespace mraSharp
 		/// </summary>
 		/// <param name="toProcess">The string to process.</param>
 		/// <returns></returns>
-		public static string htmlTagRemover(string toProcess)
+		public static string HtmlTagRemover(string toProcess)
 		{
-			string patternUsed = "<.*>";
-			string replacementString = "";
-			Regex regExp = new Regex(patternUsed);
+			const string patternUsed = "<.*>";
+			const string replacementString = "";
+			var regExp = new Regex(patternUsed);
 			return regExp.Replace(toProcess, replacementString);
 		}
 	}

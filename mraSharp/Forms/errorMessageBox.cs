@@ -1,37 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
-namespace mraSharp
+namespace mraSharp.Forms
 {
-   public partial class errorMessageBox : Form
+   public partial class ErrorMessageBox : Form
    {
-      private static errorMessageBox erMb;
+      private static ErrorMessageBox _erMb;
       
-      public errorMessageBox()
+      public ErrorMessageBox()
       {
          InitializeComponent();
       }
 
       public static void Show(string windowTitle, string errorString)
       {
-         erMb = new errorMessageBox();
-         erMb.Text = windowTitle;
-         erMb.errorDescriptionTextBox.Text = errorString;
-         erMb.ShowDialog();
+          _erMb = new ErrorMessageBox {Text = windowTitle, errorDescriptionTextBox = {Text = errorString}};
+          _erMb.ShowDialog();
       }
 
-      private void closeMessageBoxButton_Click(object sender, EventArgs e)
+      private void CloseMessageBoxButtonClick(object sender, EventArgs e)
       {
-         this.Dispose();
+         Dispose();
       }
 
-      private void copyToClipboardButton_Click(object sender, EventArgs e)
+      private void CopyToClipboardButtonClick(object sender, EventArgs e)
       {
          Clipboard.SetDataObject(errorDescriptionTextBox.Text);
       }

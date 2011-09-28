@@ -1,4 +1,4 @@
-﻿namespace mraSharp
+﻿namespace mraSharp.Forms
 {
 	partial class AddMangaForm
 	{
@@ -178,7 +178,7 @@
 			this.mangaListComboBox.Name = "mangaListComboBox";
 			this.mangaListComboBox.Size = new System.Drawing.Size(256, 21);
 			this.mangaListComboBox.TabIndex = 5;
-			this.mangaListComboBox.SelectedIndexChanged += new System.EventHandler(this.mangaListComboBox_SelectedIndexChanged);
+			this.mangaListComboBox.SelectedIndexChanged += new System.EventHandler(this.MangaListComboBoxSelectedIndexChanged);
 			// 
 			// groupBox4
 			// 
@@ -200,7 +200,7 @@
 			this.displayMangaInMyListCheckBox.TabIndex = 6;
 			this.displayMangaInMyListCheckBox.Text = "Display Manga Already In My List";
 			this.displayMangaInMyListCheckBox.UseVisualStyleBackColor = true;
-			this.displayMangaInMyListCheckBox.CheckedChanged += new System.EventHandler(this.displayMangaInMyListCheckBox_CheckedChanged);
+			this.displayMangaInMyListCheckBox.CheckedChanged += new System.EventHandler(this.DisplayMangaInMyListCheckBoxCheckedChanged);
 			// 
 			// addToReadingListButton
 			// 
@@ -211,7 +211,7 @@
 			this.addToReadingListButton.TabIndex = 7;
 			this.addToReadingListButton.Text = "Add To Reading List";
 			this.addToReadingListButton.UseVisualStyleBackColor = true;
-			this.addToReadingListButton.Click += new System.EventHandler(this.addToReadingListButton_Click);
+			this.addToReadingListButton.Click += new System.EventHandler(this.AddToReadingListButtonClick);
 			// 
 			// publisherTextBox
 			// 
@@ -304,7 +304,7 @@
 			this.specifyNewEntryInfoButton.TabIndex = 15;
 			this.specifyNewEntryInfoButton.Text = "Specify New Entry Info";
 			this.specifyNewEntryInfoButton.UseVisualStyleBackColor = true;
-			this.specifyNewEntryInfoButton.Click += new System.EventHandler(this.specifyNewEntryInfoButton_Click);
+			this.specifyNewEntryInfoButton.Click += new System.EventHandler(this.SpecifyNewEntryInfoButtonClick);
 			// 
 			// mangaCoverPictureBox
 			// 
@@ -335,7 +335,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Name = "AddMangaForm";
 			this.Text = "AddMangaForm";
-			this.Load += new System.EventHandler(this.AddMangaForm_Load);
+			this.Load += new System.EventHandler(this.AddMangaFormLoad);
 			this.searchGroupBox.ResumeLayout(false);
 			this.searchGroupBox.PerformLayout();
 			this.groupBox1.ResumeLayout(false);

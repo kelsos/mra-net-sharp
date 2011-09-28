@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Windows.Forms;
+using mraSharp.Classes;
 
-namespace mraSharp
+namespace mraSharp.Forms
 {
 	public partial class StatisticsForm : Form
 	{
 		public StatisticsForm()
 		{
 			InitializeComponent();
-			numberOfMangasReadTextBox.Text = DatabaseOperations.numberOfMangasRead().ToString();
-			numberOfChaptersReadTextBox.Text = DatabaseOperations.numberOfChaptersRead().ToString();
-			numberOfMangasFinishedTextBox.Text = DatabaseOperations.numberofMangasFinished().ToString();
-			dateILastReadTextBox.Text = Convert.ToDateTime(DatabaseOperations.dateILastRead()).ToShortDateString();
-			daysSinceTextBox.Text = DatabaseOperations.daysSinceILastRead().ToString();
+			numberOfMangasReadTextBox.Text = DatabaseOperations.NumberOfMangasRead().ToString();
+			numberOfChaptersReadTextBox.Text = DatabaseOperations.NumberOfChaptersRead().ToString();
+			numberOfMangasFinishedTextBox.Text = DatabaseOperations.NumberofMangasFinished().ToString();
+			dateILastReadTextBox.Text = Convert.ToDateTime(DatabaseOperations.DateILastRead()).ToShortDateString();
+			daysSinceTextBox.Text = DatabaseOperations.DaysSinceILastRead().ToString();
 		}
 	}
 }

@@ -1,6 +1,6 @@
-﻿namespace mraSharp
+﻿namespace mraSharp.Forms
 {
-   partial class errorMessageBox
+   partial class ErrorMessageBox
    {
       /// <summary>
       /// Required designer variable.
@@ -57,7 +57,7 @@
 			this.copyToClipboardButton.TabIndex = 1;
 			this.copyToClipboardButton.Text = "Copy";
 			this.copyToClipboardButton.UseVisualStyleBackColor = true;
-			this.copyToClipboardButton.Click += new System.EventHandler(this.copyToClipboardButton_Click);
+			this.copyToClipboardButton.Click += new System.EventHandler(this.CopyToClipboardButtonClick);
 			// 
 			// closeMessageBoxButton
 			// 
@@ -68,7 +68,7 @@
 			this.closeMessageBoxButton.TabIndex = 2;
 			this.closeMessageBoxButton.Text = "Close";
 			this.closeMessageBoxButton.UseVisualStyleBackColor = true;
-			this.closeMessageBoxButton.Click += new System.EventHandler(this.closeMessageBoxButton_Click);
+			this.closeMessageBoxButton.Click += new System.EventHandler(this.CloseMessageBoxButtonClick);
 			// 
 			// errorMessageBox
 			// 
@@ -81,7 +81,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "errorMessageBox";
+			this.Name = "ErrorMessageBox";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "errorMessageBox";
 			this.ResumeLayout(false);

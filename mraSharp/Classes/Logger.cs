@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using mraSharp.Forms;
 
-namespace mraSharp
+namespace mraSharp.Classes
 {
 	internal class Logger
 	{
@@ -10,23 +11,21 @@ namespace mraSharp
 		/// </summary>
 		/// <param name="fileName">Name of the file.</param>
 		/// <param name="errorText">The error text.</param>
-		public static void errorLogger(string fileName, string errorText)
+		public static void ErrorLogger(string fileName, string errorText)
 		{
-			Stream stream = null;
-			try
+		    try
 			{
-				stream = new FileStream(fileName, FileMode.Append);
-				using (StreamWriter fW = new StreamWriter(stream))
+			    Stream stream = new FileStream(fileName, FileMode.Append);
+			    using (var fW = new StreamWriter(stream))
 				{
-					fW.WriteLine(DateTime.Now.ToString() + "\n");
+					fW.WriteLine(DateTime.Now + "\n");
 					fW.Write(errorText);
 					fW.WriteLine("\n");
-					stream = null;
 				}
 			}
-         catch (Exception ex)
+			catch (Exception ex)
          {
-            errorMessageBox.Show(ex.Message.ToString(), ex.ToString());
+            ErrorMessageBox.Show(ex.Message, ex.ToString());
          }
 		}
 	}

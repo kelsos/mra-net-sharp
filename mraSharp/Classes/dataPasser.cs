@@ -1,30 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using mraSharp.Forms;
 
-namespace mraSharp
+namespace mraSharp.Classes
 {
-	class dataPasser
+	class DataPasser
 	{
-		private MainForm _form;
-		private string _filePath;
-
-		public dataPasser(MainForm form, string filepath)
+	    public DataPasser(MainForm form, string filepath)
 		{
-			_form = form;
-			_filePath = filepath;
-		}
-		public MainForm Form
-		{
-			get { return _form; }
-			set { _form = value; }
+			Form = form;
+			FilePath = filepath;
 		}
 
-		public string FilePath
-		{
-			get { return _filePath; }
-			set { _filePath = value; }
-		}
+	    public MainForm Form { get; set; }
+
+	    public string FilePath { get; set; }
 	}
 }

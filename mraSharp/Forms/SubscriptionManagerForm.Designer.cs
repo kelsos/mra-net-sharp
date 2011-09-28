@@ -1,4 +1,4 @@
-﻿namespace mraSharp
+﻿namespace mraSharp.Forms
 {
 	partial class SubscriptionManagerForm
 	{
@@ -50,7 +50,7 @@
             this.rssUrlComboBox.Name = "rssUrlComboBox";
             this.rssUrlComboBox.Size = new System.Drawing.Size(367, 21);
             this.rssUrlComboBox.TabIndex = 2;
-            this.rssUrlComboBox.SelectedIndexChanged += new System.EventHandler(this.rssUrlComboBox_SelectedIndexChanged);
+            this.rssUrlComboBox.SelectedIndexChanged += new System.EventHandler(this.RssUrlComboBoxSelectedIndexChanged);
             // 
             // rssSubGroupBox
             // 
@@ -89,7 +89,7 @@
             this.exportPopup.TabIndex = 7;
             this.exportPopup.Text = "Export";
             this.exportPopup.UseVisualStyleBackColor = true;
-            this.exportPopup.Click += new System.EventHandler(this.exportPopup_Click);
+            this.exportPopup.Click += new System.EventHandler(this.ExportPopupClick);
             // 
             // importButton
             // 
@@ -100,7 +100,7 @@
             this.importButton.TabIndex = 6;
             this.importButton.Text = "Import";
             this.importButton.UseVisualStyleBackColor = true;
-            this.importButton.Click += new System.EventHandler(this.importButton_Click);
+            this.importButton.Click += new System.EventHandler(this.ImportButtonClick);
             // 
             // addSubButton
             // 
@@ -111,7 +111,7 @@
             this.addSubButton.TabIndex = 5;
             this.addSubButton.Text = "Add";
             this.addSubButton.UseVisualStyleBackColor = true;
-            this.addSubButton.Click += new System.EventHandler(this.addSubButton_Click);
+            this.addSubButton.Click += new System.EventHandler(this.AddSubButtonClick);
             // 
             // removeSubButton
             // 
@@ -122,7 +122,7 @@
             this.removeSubButton.TabIndex = 4;
             this.removeSubButton.Text = "Remove";
             this.removeSubButton.UseVisualStyleBackColor = true;
-            this.removeSubButton.Click += new System.EventHandler(this.removeSubButton_Click);
+            this.removeSubButton.Click += new System.EventHandler(this.RemoveSubButtonClick);
             // 
             // rssSubTextBox
             // 
@@ -148,7 +148,7 @@
             this.keepInDatabaseForTextBox.Name = "keepInDatabaseForTextBox";
             this.keepInDatabaseForTextBox.Size = new System.Drawing.Size(108, 22);
             this.keepInDatabaseForTextBox.TabIndex = 10;
-            this.keepInDatabaseForTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.keepInDatabaseForTextBox_KeyUp);
+            this.keepInDatabaseForTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeepInDatabaseForTextBoxKeyUp);
             // 
             // SubscriptionManagerForm
             // 
@@ -161,8 +161,8 @@
             this.Name = "SubscriptionManagerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Subscription Manager";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SubscriptionManagerForm_FormClosing);
-            this.Load += new System.EventHandler(this.SubscriptionManagerForm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SubscriptionManagerFormFormClosing);
+            this.Load += new System.EventHandler(this.SubscriptionManagerFormLoad);
             this.rssSubGroupBox.ResumeLayout(false);
             this.rssSubGroupBox.PerformLayout();
             this.ResumeLayout(false);

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using mraSharp.Forms;
 
-namespace mraSharp
+namespace mraSharp.Classes
 {
 	/// <summary>
 	/// A Message Filter
@@ -12,9 +13,9 @@ namespace mraSharp
 		const int MK_XBUTTON1 = 65568;
 		const int MK_XBUTTON2 = 131136;
 
-		private Form _form;
-		private EventHandler _backevent;
-		private EventHandler _forwardevent;
+		private readonly Form _form;
+		private readonly EventHandler _backevent;
+		private readonly EventHandler _forwardevent;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MessageFilter"/> class.
@@ -24,7 +25,8 @@ namespace mraSharp
 		/// <param name="forwardevent">The forwardevent.</param>
 		public MessageFilter(WebForm f, ref EventHandler backevent, ref EventHandler forwardevent)
 		{
-			_form = f;
+		    if (f == null) throw new ArgumentNullException("f");
+		    _form = f;
 			_backevent = backevent;
 			_forwardevent = forwardevent;
 		}
@@ -38,23 +40,24 @@ namespace mraSharp
 		/// </returns>
 		public bool PreFilterMessage(ref Message m)
 		{
-			bool bHandled = false;
+			var bHandled = false;
 
 			if (m.Msg == WM_XBUTTONDOWN)
 			{
-				int w = m.WParam.ToInt32();
-				if (w == MK_XBUTTON1)
-				{
-					_backevent.Invoke(_form, EventArgs.Empty);
-					bHandled = true;
-				}
-				else if (w == MK_XBUTTON2)
-				{
-					_forwardevent.Invoke(_form, EventArgs.Empty);
-					bHandled = true;
-				}
+			    var w = m.WParam.ToInt32();
+			    switch (w)
+			    {
+			        case MK_XBUTTON1:
+			            _backevent.Invoke(_form, EventArgs.Empty);
+			            bHandled = true;
+			            break;
+			        case MK_XBUTTON2:
+			            _forwardevent.Invoke(_form, EventArgs.Empty);
+			            bHandled = true;
+			            break;
+			    }
 			}
-			return bHandled;
+		    return bHandled;
 		}
 	}
 }

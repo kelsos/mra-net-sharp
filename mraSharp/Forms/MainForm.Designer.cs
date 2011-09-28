@@ -1,4 +1,6 @@
-﻿namespace mraSharp
+﻿using mraSharp.Classes;
+
+namespace mraSharp.Forms
 {
     partial class MainForm
     {
@@ -152,7 +154,7 @@
 			  this.mangaListDataGridView.ReadOnly = true;
 			  this.mangaListDataGridView.Size = new System.Drawing.Size(700, 420);
 			  this.mangaListDataGridView.TabIndex = 0;
-			  this.mangaListDataGridView.SelectionChanged += new System.EventHandler(this.mangaListDataGridView_SelectionChanged);
+			  this.mangaListDataGridView.SelectionChanged += new System.EventHandler(this.MangaListDataGridViewSelectionChanged);
 			  // 
 			  // titleDataGridViewTextBoxColumn
 			  // 
@@ -218,7 +220,7 @@
 			  // 
 			  // dataGridBindingSource
 			  // 
-			  this.dataGridBindingSource.DataSource = typeof(mraSharp.mangaRead);
+			  this.dataGridBindingSource.DataSource = typeof(MangaRead);
 			  // 
 			  // wikipediaTabPage
 			  // 
@@ -231,7 +233,7 @@
 			  this.wikipediaTabPage.TabIndex = 1;
 			  this.wikipediaTabPage.Text = "Wikipedia (en)";
 			  this.wikipediaTabPage.UseVisualStyleBackColor = true;
-			  this.wikipediaTabPage.Enter += new System.EventHandler(this.wikipediaTabPage_Enter);
+			  this.wikipediaTabPage.Enter += new System.EventHandler(this.WikipediaTabPageEnter);
 			  // 
 			  // geckoPanel
 			  // 
@@ -263,7 +265,7 @@
 			  this.browserNavBar.Size = new System.Drawing.Size(700, 25);
 			  this.browserNavBar.TabIndex = 0;
 			  this.browserNavBar.Text = "Navigation Bar";
-			  this.browserNavBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.browserNavBar_ItemClicked);
+			  this.browserNavBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.BrowserNavBarItemClicked);
 			  // 
 			  // backToolStripButton
 			  // 
@@ -373,7 +375,7 @@
 			  this.openToBrowserToolStripButton.Size = new System.Drawing.Size(52, 52);
 			  this.openToBrowserToolStripButton.Text = "Open to Browser";
 			  this.openToBrowserToolStripButton.ToolTipText = "Opens the manga url to the browser.";
-			  this.openToBrowserToolStripButton.Click += new System.EventHandler(this.openToBrowserToolStripButton_Click);
+			  this.openToBrowserToolStripButton.Click += new System.EventHandler(this.OpenToBrowserToolStripButtonClick);
 			  // 
 			  // justReadToolStripButton
 			  // 
@@ -383,7 +385,7 @@
 			  this.justReadToolStripButton.Name = "justReadToolStripButton";
 			  this.justReadToolStripButton.Size = new System.Drawing.Size(52, 52);
 			  this.justReadToolStripButton.Text = "I Just read a chapter!";
-			  this.justReadToolStripButton.Click += new System.EventHandler(this.justReadToolStripButton_Click);
+			  this.justReadToolStripButton.Click += new System.EventHandler(this.JustReadToolStripButtonClick);
 			  // 
 			  // reloadToolStripButton
 			  // 
@@ -393,7 +395,7 @@
 			  this.reloadToolStripButton.Name = "reloadToolStripButton";
 			  this.reloadToolStripButton.Size = new System.Drawing.Size(52, 52);
 			  this.reloadToolStripButton.Text = "Reload The List!";
-			  this.reloadToolStripButton.Click += new System.EventHandler(this.reloadToolStripButton_Click);
+			  this.reloadToolStripButton.Click += new System.EventHandler(this.ReloadToolStripButtonClick);
 			  // 
 			  // searchToolStripTextBox
 			  // 
@@ -403,7 +405,7 @@
 			  this.searchToolStripTextBox.Margin = new System.Windows.Forms.Padding(1, 0, 15, 0);
 			  this.searchToolStripTextBox.Name = "searchToolStripTextBox";
 			  this.searchToolStripTextBox.Size = new System.Drawing.Size(100, 55);
-			  this.searchToolStripTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.searchToolStripTextBox_KeyUp);
+			  this.searchToolStripTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchToolStripTextBoxKeyUp);
 			  // 
 			  // mainMenuStrip
 			  // 
@@ -436,14 +438,14 @@
 			  this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
 			  this.backupToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
 			  this.backupToolStripMenuItem.Text = "Backup";
-			  this.backupToolStripMenuItem.Click += new System.EventHandler(this.backupToolStripMenuItem_Click);
+			  this.backupToolStripMenuItem.Click += new System.EventHandler(this.BackupToolStripMenuItemClick);
 			  // 
 			  // restoreToolStripMenuItem
 			  // 
 			  this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
 			  this.restoreToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
 			  this.restoreToolStripMenuItem.Text = "Restore";
-			  this.restoreToolStripMenuItem.Click += new System.EventHandler(this.restoreToolStripMenuItem_Click);
+			  this.restoreToolStripMenuItem.Click += new System.EventHandler(this.RestoreToolStripMenuItemClick);
 			  // 
 			  // toolStripSeparator1
 			  // 
@@ -455,7 +457,7 @@
 			  this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
 			  this.clearToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
 			  this.clearToolStripMenuItem.Text = "Clear";
-			  this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
+			  this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItemClick);
 			  // 
 			  // toolStripSeparator2
 			  // 
@@ -467,7 +469,7 @@
 			  this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
 			  this.quitToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
 			  this.quitToolStripMenuItem.Text = "Quit";
-			  this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+			  this.quitToolStripMenuItem.Click += new System.EventHandler(this.QuitToolStripMenuItemClick);
 			  // 
 			  // optionsToolStripMenuItem
 			  // 
@@ -485,14 +487,14 @@
 			  this.displayFinishedToolStripMenuItem.Name = "displayFinishedToolStripMenuItem";
 			  this.displayFinishedToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
 			  this.displayFinishedToolStripMenuItem.Text = "Display Finished";
-			  this.displayFinishedToolStripMenuItem.Click += new System.EventHandler(this.displayFinishedToolStripMenuItem_Click);
+			  this.displayFinishedToolStripMenuItem.Click += new System.EventHandler(this.DisplayFinishedToolStripMenuItemClick);
 			  // 
 			  // rssSubscriptionsToolStripMenuItem
 			  // 
 			  this.rssSubscriptionsToolStripMenuItem.Name = "rssSubscriptionsToolStripMenuItem";
 			  this.rssSubscriptionsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
 			  this.rssSubscriptionsToolStripMenuItem.Text = "Subscription Manager";
-			  this.rssSubscriptionsToolStripMenuItem.Click += new System.EventHandler(this.rssSubscriptionsToolStripMenuItem_Click);
+			  this.rssSubscriptionsToolStripMenuItem.Click += new System.EventHandler(this.RssSubscriptionsToolStripMenuItemClick);
 			  // 
 			  // settingsToolStripMenuItem
 			  // 
@@ -514,14 +516,14 @@
 			  this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
 			  this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			  this.statisticsToolStripMenuItem.Text = "Statistics";
-			  this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
+			  this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.StatisticsToolStripMenuItemClick);
 			  // 
 			  // addMangaToolStripMenuItem
 			  // 
 			  this.addMangaToolStripMenuItem.Name = "addMangaToolStripMenuItem";
 			  this.addMangaToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
 			  this.addMangaToolStripMenuItem.Text = "Add Manga";
-			  this.addMangaToolStripMenuItem.Click += new System.EventHandler(this.addMangaToolStripMenuItem_Click);
+			  this.addMangaToolStripMenuItem.Click += new System.EventHandler(this.AddMangaToolStripMenuItemClick);
 			  // 
 			  // aboutToolStripMenuItem
 			  // 
@@ -601,9 +603,9 @@
 			  this.rssLinkLabel.Size = new System.Drawing.Size(367, 13);
 			  this.rssLinkLabel.TabIndex = 3;
 			  this.rssLinkLabel.Text = "RssLink";
-			  this.rssLinkLabel.Click += new System.EventHandler(this.rssLinkLabel_Click);
-			  this.rssLinkLabel.MouseEnter += new System.EventHandler(this.rssLinkLabel_MouseEnter);
-			  this.rssLinkLabel.MouseLeave += new System.EventHandler(this.rssLinkLabel_MouseLeave);
+			  this.rssLinkLabel.Click += new System.EventHandler(this.RssLinkLabelClick);
+			  this.rssLinkLabel.MouseEnter += new System.EventHandler(this.RssLinkLabelMouseEnter);
+			  this.rssLinkLabel.MouseLeave += new System.EventHandler(this.RssLinkLabelMouseLeave);
 			  // 
 			  // rssDescriptionTextBox
 			  // 
@@ -634,18 +636,18 @@
 			  // rssFetchingThread
 			  // 
 			  this.rssFetchingThread.WorkerReportsProgress = true;
-			  this.rssFetchingThread.DoWork += new System.ComponentModel.DoWorkEventHandler(this.rssFetchingThread_DoWork);
-			  this.rssFetchingThread.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.rssFetchingThread_RunWorkerCompleted);
+			  this.rssFetchingThread.DoWork += new System.ComponentModel.DoWorkEventHandler(this.RssFetchingThreadDoWork);
+			  this.rssFetchingThread.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.RssFetchingThreadRunWorkerCompleted);
 			  // 
 			  // rssTickTimer
 			  // 
 			  this.rssTickTimer.Interval = 8000;
-			  this.rssTickTimer.Tick += new System.EventHandler(this.rssTickTimer_Tick);
+			  this.rssTickTimer.Tick += new System.EventHandler(this.RssTickTimerTick);
 			  // 
 			  // rssCheckTimer
 			  // 
 			  this.rssCheckTimer.Interval = 15000;
-			  this.rssCheckTimer.Tick += new System.EventHandler(this.rssCheckTimer_Tick);
+			  this.rssCheckTimer.Tick += new System.EventHandler(this.RssCheckTimerTick);
 			  // 
 			  // MainForm
 			  // 
@@ -664,8 +666,8 @@
 			  this.MainMenuStrip = this.mainMenuStrip;
 			  this.Name = "MainForm";
 			  this.Text = "Manga Reading Assistant";
-			  this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-			  this.Load += new System.EventHandler(this.MainForm_Load);
+			  this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
+			  this.Load += new System.EventHandler(this.MainFormLoad);
 			  this.mainTabControl.ResumeLayout(false);
 			  this.mangaGridTabPage.ResumeLayout(false);
 			  ((System.ComponentModel.ISupportInitialize)(this.mangaListDataGridView)).EndInit();

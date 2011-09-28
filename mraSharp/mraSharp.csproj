@@ -85,7 +85,7 @@
       <DependentUpon>AddMangaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\DatabaseOperations.cs" />
-    <Compile Include="Classes\dataPasser.cs" />
+    <Compile Include="Classes\DataPasser.cs" />
     <Compile Include="Forms\errorMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,7 +95,7 @@
     <Compile Include="Classes\FeedManager.cs" />
     <Compile Include="Classes\FileOperations.cs" />
     <Compile Include="Classes\Logger.cs" />
-    <Compile Include="Classes\mangaRead.cs" />
+    <Compile Include="Classes\MangaRead.cs" />
     <Compile Include="mds.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -988,7 +988,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
+      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

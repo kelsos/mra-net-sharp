@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
+﻿using System.Net;
 
-namespace mraSharp
+namespace mraSharp.Classes
 {
    public static class NetworkOperations
    {
@@ -14,14 +10,14 @@ namespace mraSharp
       /// <returns>
       ///   <c>true</c> if [internet is up]; otherwise, <c>false</c>.
       /// </returns>
-      public static bool isInternetUp()
+      public static bool IsInternetUp()
       {
          try
          {
             using (var client = new WebClient())
-            using (var stream = client.OpenRead("http://www.google.com"))
+            using (client.OpenRead("http://www.google.com"))
             {
-               return true;
+                return true;
             }
          }
          catch

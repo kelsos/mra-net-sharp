@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using mraSharp.Classes;
 
-namespace mraSharp
+namespace mraSharp.Forms
 {
 	public partial class SpecifyNewEntryInfoForm : Form
 	{
@@ -11,27 +12,27 @@ namespace mraSharp
 			InitializeComponent();
 		}
 
-		private mangaRead mR;
-		private double startingChapter;
-		private double currentChapter;
+		private MangaRead mR;
+		private double _startingChapter;
+		private double _currentChapter;
 
-		public SpecifyNewEntryInfoForm(ref mangaRead mRe)
+		public SpecifyNewEntryInfoForm(ref MangaRead mRe)
 		{
 			InitializeComponent();
 
 			mR = mRe;
-			currentChapter = startingChapter = 1;
-			setCurrentChapterTextBox.Text = setStartingChapterTextBox.Text = "1";
+			_currentChapter = _startingChapter = 1;
+			setCurrentChapterTextBox.Text = setStartingChapterTextBox.Text = @"1";
 
-			setStartingChapterTextBox.KeyUp += new KeyEventHandler(setStartingChapterTextBox_Validate);
-			setCurrentChapterTextBox.KeyUp += new KeyEventHandler(setCurrentChapterTextBox_Validate);
+			setStartingChapterTextBox.KeyUp += SetStartingChapterTextBoxValidate;
+			setCurrentChapterTextBox.KeyUp += SetCurrentChapterTextBoxValidate;
 		}
 
-		private void setStartingChapterTextBox_Validate(object sender, EventArgs e)
+		private void SetStartingChapterTextBoxValidate(object sender, EventArgs e)
 		{
-			if (!double.TryParse(setStartingChapterTextBox.Text, out startingChapter))
+			if (!double.TryParse(setStartingChapterTextBox.Text, out _startingChapter))
 			{
-				using (Graphics g = chapterGroupBox.CreateGraphics())
+				using (var g = chapterGroupBox.CreateGraphics())
 				{
 					Image wrongEntry = Properties.Resources.exclamation_red;
 					g.DrawImage(wrongEntry, (chapterGroupBox.Width / 2) - 18, (chapterGroupBox.Height / 2) - 4, 16, 16);
@@ -39,19 +40,19 @@ namespace mraSharp
 			}
 			else
 			{
-				using (Graphics g = chapterGroupBox.CreateGraphics())
+				using (var g = chapterGroupBox.CreateGraphics())
 				{
-					Rectangle rec = new Rectangle((chapterGroupBox.Width / 2) - 18, (chapterGroupBox.Height / 2) - 4, 16, 16);
+					var rec = new Rectangle((chapterGroupBox.Width / 2) - 18, (chapterGroupBox.Height / 2) - 4, 16, 16);
 					g.FillRectangle(new SolidBrush(chapterGroupBox.BackColor), rec);
 				}
 			}
 		}
 
-		private void setCurrentChapterTextBox_Validate(object sender, EventArgs e)
+		private void SetCurrentChapterTextBoxValidate(object sender, EventArgs e)
 		{
-			if (!double.TryParse(setCurrentChapterTextBox.Text, out currentChapter))
+			if (!double.TryParse(setCurrentChapterTextBox.Text, out _currentChapter))
 			{
-				using (Graphics g = chapterGroupBox.CreateGraphics())
+				using (var g = chapterGroupBox.CreateGraphics())
 				{
 					Image wrongEntry = Properties.Resources.exclamation_red;
 					g.DrawImage(wrongEntry, chapterGroupBox.Width - 22, (chapterGroupBox.Height / 2) - 4, 16, 16);
@@ -59,18 +60,18 @@ namespace mraSharp
 			}
 			else
 			{
-				using (Graphics g = chapterGroupBox.CreateGraphics())
+				using (var g = chapterGroupBox.CreateGraphics())
 				{
-					Rectangle rec = new Rectangle(chapterGroupBox.Width - 22, (chapterGroupBox.Height / 2) - 4, 16, 16);
+					var rec = new Rectangle(chapterGroupBox.Width - 22, (chapterGroupBox.Height / 2) - 4, 16, 16);
 					g.FillRectangle(new SolidBrush(chapterGroupBox.BackColor), rec);
 				}
 			}
 		}
 
-		private void saveButton_Click(object sender, EventArgs e)
+		private void SaveButtonClick(object sender, EventArgs e)
 		{
 			//TODO: Field value validation.
-			mR.StartingChapter = startingChapter;
+			mR.StartingChapter = _startingChapter;
 			mR.CurrentChapter = Convert.ToDouble(setCurrentChapterTextBox.Text);
 			mR.LastRead = DateTime.Parse(setDateLastReadDateTimePicker.Text);
 			mR.OnlineURL = setOnlineURLTextbox.Text;
@@ -79,11 +80,13 @@ namespace mraSharp
 			mR.Title = null;
 		}
 
-		private void drawErrorImage()
+/*
+		private void DrawErrorImage()
 		{
 			Graphics g = this.CreateGraphics();
 			Image wrongEntry = Properties.Resources.exclamation_red;
 			g.DrawImage(wrongEntry, new Rectangle(setStartingChapterTextBox.Left, setStartingChapterTextBox.Top, wrongEntry.Width, wrongEntry.Height));
 		}
+*/
 	}
 }

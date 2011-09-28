@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
-namespace mangaDatabaseEditor
+namespace mangaDatabaseEditor.Forms
 {
 	public partial class MainForm : Form
 	{
@@ -19,7 +19,7 @@ namespace mangaDatabaseEditor
 		//TODO: db object with using in each method.
 		private Mds db = new Mds(Properties.Settings.Default.DbConnection);
 
-		private void refreshMangaData()
+		private void RefreshMangaData()
 		{
 			mangaInfoBindingSource.DataSource =
 				from manga in db.M_mangaInfo
@@ -28,7 +28,7 @@ namespace mangaDatabaseEditor
 			mangaInfoBindingSource.MoveFirst();
 		}
 
-		private void refreshAuthorData()
+		private void RefreshAuthorData()
 		{
 			authorTableBindingSource.DataSource =
 				from author in db.M_authorInfo
@@ -37,7 +37,7 @@ namespace mangaDatabaseEditor
 			mangaAuthorsBindingSource.MoveFirst();
 		}
 
-		private void refreshPublisherData()
+		private void RefreshPublisherData()
 		{
 			publisherInfoBindingSource.DataSource =
 				from publishers in db.M_publisherInfo
@@ -46,7 +46,7 @@ namespace mangaDatabaseEditor
 			publisherInfoBindingSource.MoveFirst();
 		}
 
-		private void loadGenreData()
+		private void LoadGenreData()
 		{
 			genreNameComboBox.DataSource =
 				from genres in db.M_genreInfo
@@ -54,7 +54,7 @@ namespace mangaDatabaseEditor
 				select genres.GenreName;
 		}
 
-		private void loadMangaGenre()
+		private void LoadMangaGenre()
 		{
 			genreNameListBox.DataSource =
 				from mg in db.Mm_mangaGenres
@@ -62,7 +62,7 @@ namespace mangaDatabaseEditor
 				select mg.M_genreInfo.GenreName;
 		}
 
-		private void loadAuthorData()
+		private void LoadAuthorData()
 		{
 			authorsComboBox.DataSource =
 				from auth in db.M_authorInfo
@@ -70,7 +70,7 @@ namespace mangaDatabaseEditor
 				select auth.AuthorFullName;
 		}
 
-		private void loadAuthorManga()
+		private void LoadAuthorManga()
 		{
 			authorsNameListBox.DataSource =
 				from auth in db.Mm_mangaAuthors
@@ -78,7 +78,7 @@ namespace mangaDatabaseEditor
 				select auth.M_authorInfo.AuthorFullName;
 		}
 
-		private void loadPublisherData()
+		private void LoadPublisherData()
 		{
 			publisherComboBox.DataSource =
 				from publishers in db.M_publisherInfo
@@ -86,9 +86,9 @@ namespace mangaDatabaseEditor
 				select publishers.PublisherName;
 		}
 
-		private void checkIfEntryExists()
+		private void CheckIfEntryExists()
 		{
-			if (mangaIDTextBox.Text != null && mangaIDTextBox.Text != "0")
+			if (mangaIDTextBox.Text != null && mangaIDTextBox.Text != @"0")
 			{
 				mangaAuthorGroupBox.Enabled = true;
 				publisherGroupBox.Enabled = true;
@@ -104,108 +104,98 @@ namespace mangaDatabaseEditor
 			}
 		}
 
-		private void loadCurrentImage()
+		private void LoadCurrentImage()
 		{
-            if (!String.IsNullOrEmpty(mangaIDTextBox.Text)&&mangaIDTextBox.Text.ToString()!="0")
-            {
-                var image = (from current in db.M_mangaInfo
-                             where current.MangaID == Convert.ToInt32(mangaIDTextBox.Text)
-                             select current.MangaCover).Single();
-					 if (image != null)
-					 {
-						 byte[] imageByte = (byte[])image.ToArray();
-						 mangaCoverPictureBox.Image = Image.FromStream(new MemoryStream(imageByte));
-					 }
-            }
+		    if (String.IsNullOrEmpty(mangaIDTextBox.Text) || mangaIDTextBox.Text == @"0") return;
+		    var image = (from current in db.M_mangaInfo
+		                 where current.MangaID == Convert.ToInt32(mangaIDTextBox.Text)
+		                 select current.MangaCover).Single();
+		    if (image == null) return;
+		    var imageByte = image.ToArray();
+		    mangaCoverPictureBox.Image = Image.FromStream(new MemoryStream(imageByte));
 		}
 
-		private void loadMangaPublisher()
+		private void LoadMangaPublisher()
 		{
 			publisherNameTextBox1.Text = "";
-            if (!String.IsNullOrEmpty(mangaIDTextBox.Text)&&mangaIDTextBox.Text.ToString()!="0")
-            {
-                var curPubID = (from current in db.M_mangaInfo
-                                where current.MangaID == Convert.ToInt32(mangaIDTextBox.Text)
-                                select current.MangaPublisherID).Single();
-                if (curPubID != null)
-                {
-                    var publisherName = (from current in db.M_publisherInfo
-                                         where current.PublisherID == curPubID
-                                         select current.PublisherName).Single();
-                    publisherNameTextBox1.Text = publisherName;
-                }
-            }
+		    if (String.IsNullOrEmpty(mangaIDTextBox.Text) || mangaIDTextBox.Text == @"0") return;
+		    var curPubID = (from current in db.M_mangaInfo
+		                    where current.MangaID == Convert.ToInt32(mangaIDTextBox.Text)
+		                    select current.MangaPublisherID).Single();
+		    if (curPubID == null) return;
+		    var publisherName = (from current in db.M_publisherInfo
+		                         where current.PublisherID == curPubID
+		                         select current.PublisherName).Single();
+		    publisherNameTextBox1.Text = publisherName;
 		}
 
 		#endregion Private Methods
 
-		private void mangaInfoBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+		private void MangaInfoBindingNavigatorSaveItemClick(object sender, EventArgs e)
 		{
 			Validate();
 			mangaInfoBindingSource.EndEdit();
 			db.SubmitChanges();
-			refreshMangaData();
+			RefreshMangaData();
 		}
 
-		private void authorTableBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+		private void AuthorTableBindingNavigatorSaveItemClick(object sender, EventArgs e)
 		{
 			Validate();
 			authorTableBindingSource.EndEdit();
 			db.SubmitChanges();
-			refreshAuthorData();
-			loadAuthorData();
+			RefreshAuthorData();
+			LoadAuthorData();
 		}
 
-		private void publisherInfoBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+		private void PublisherInfoBindingNavigatorSaveItemClick(object sender, EventArgs e)
 		{
 			Validate();
 			publisherInfoBindingSource.EndEdit();
 			db.SubmitChanges();
-			refreshPublisherData();
-			loadPublisherData();
+			RefreshPublisherData();
+			LoadPublisherData();
 		}
 
-		private void MainForm_Load(object sender, EventArgs e)
+		private void MainFormLoad(object sender, EventArgs e)
 		{
-			refreshAuthorData();
-			refreshPublisherData();
-			loadGenreData();
-			refreshMangaData();
-			loadAuthorData();
-			checkIfEntryExists();
-			loadPublisherData();
+			RefreshAuthorData();
+			RefreshPublisherData();
+			LoadGenreData();
+			RefreshMangaData();
+			LoadAuthorData();
+			CheckIfEntryExists();
+			LoadPublisherData();
 		}
 
-		private void genresToolStripMenuItem_Click(object sender, EventArgs e)
+		private void GenresToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			using (GenresForm gF = new GenresForm())
+			using (var gF = new GenresForm())
 			{
 				gF.ShowDialog();
-				loadGenreData();
+				LoadGenreData();
 			}
 		}
 
-		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+		private void AboutToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			using (AboutForm ab = new AboutForm())
+			using (var ab = new AboutForm())
 			{
 				ab.ShowDialog();
 			}
 		}
 
-		private void buttonImageLoad_Click(object sender, EventArgs e)
+		private void ButtonImageLoadClick(object sender, EventArgs e)
 		{
-			if (openImageFileDialog.ShowDialog() == DialogResult.OK)
-			{
-				mangaCoverPictureBox.Image = Image.FromFile(openImageFileDialog.FileName);
-				imageToDatabaseLoader(ImageToByteArray(imageSizeToStandard(mangaCoverPictureBox.Image)));
-			}
+		    if (openImageFileDialog.ShowDialog() != DialogResult.OK) return;
+		    mangaCoverPictureBox.Image = Image.FromFile(openImageFileDialog.FileName);
+		    ImageToDatabaseLoader(ImageToByteArray(ImageSizeToStandard(mangaCoverPictureBox.Image)));
 		}
 
-		private void addGenreButton_Click(object sender, EventArgs e)
+		private void AddGenreButtonClick(object sender, EventArgs e)
 		{
-			bool mgE = false;
-			var genID =
+		    var mgE = false;
+		    var genID =
 				(from genres in db.M_genreInfo
 				 where genres.GenreName.Equals(genreNameComboBox.Text)
 				 select genres.GenreID).Single();
@@ -216,9 +206,9 @@ namespace mangaDatabaseEditor
 			{
 				mgE = true;
 			}
-			if (mgE == true)
+			if (mgE)
 			{
-				Mm_mangaGenres mangaGenre = new Mm_mangaGenres
+				var mangaGenre = new Mm_mangaGenres
 				{
 					Mm_genreID = genID,
 					Mm_mangaID = Convert.ToInt32(mangaIDTextBox.Text)
@@ -226,18 +216,18 @@ namespace mangaDatabaseEditor
 				db.Mm_mangaGenres.InsertOnSubmit(mangaGenre);
 				db.SubmitChanges();
 			}
-			loadMangaGenre();
+			LoadMangaGenre();
 		}
 
-		private void mangaInfoBindingSource_CurrentChanged(object sender, EventArgs e)
+		private void MangaInfoBindingSourceCurrentChanged(object sender, EventArgs e)
 		{
-			loadMangaGenre();
-			loadAuthorManga();
-			loadCurrentImage();
-			loadMangaPublisher();
+			LoadMangaGenre();
+			LoadAuthorManga();
+			LoadCurrentImage();
+			LoadMangaPublisher();
 		}
 
-		private void removeGenreButton_Click(object sender, EventArgs e)
+		private void RemoveGenreButtonClick(object sender, EventArgs e)
 		{
 			if (genreNameListBox.Items.Count >= 1)
 			{
@@ -255,12 +245,12 @@ namespace mangaDatabaseEditor
 				}
 				db.SubmitChanges();
 			}
-			loadMangaGenre();
+			LoadMangaGenre();
 		}
 
-		private void addAuthorButton_Click(object sender, EventArgs e)
+		private void AddAuthorButtonClick(object sender, EventArgs e)
 		{
-			bool auE = false;
+			var auE = false;
 			var authID =
 				(from auth in db.M_authorInfo
 				 where auth.AuthorFullName.Equals(authorsComboBox.Text)
@@ -273,9 +263,9 @@ namespace mangaDatabaseEditor
 			{
 				auE = true;
 			}
-			if (auE == true)
+			if (auE)
 			{
-				Mm_mangaAuthors mangaAuthor = new Mm_mangaAuthors
+				var mangaAuthor = new Mm_mangaAuthors
 				{
 					Ma_authorID = authID,
 					Ma_mangaID = Convert.ToInt32(mangaIDTextBox.Text)
@@ -283,10 +273,10 @@ namespace mangaDatabaseEditor
 				db.Mm_mangaAuthors.InsertOnSubmit(mangaAuthor);
 				db.SubmitChanges();
 			}
-			loadAuthorManga();
+			LoadAuthorManga();
 		}
 
-		private void removeAuthorButton_Click(object sender, EventArgs e)
+		private void RemoveAuthorButtonClick(object sender, EventArgs e)
 		{
 			try
 			{
@@ -306,7 +296,7 @@ namespace mangaDatabaseEditor
 					}
 					db.SubmitChanges();
 				}
-				loadAuthorManga();
+				LoadAuthorManga();
 			}
 			catch (Exception ex)
 			{
@@ -314,7 +304,7 @@ namespace mangaDatabaseEditor
 			}
 		}
 
-		private void addPublisherButton_Click(object sender, EventArgs e)
+		private void AddPublisherButtonClick(object sender, EventArgs e)
 		{
 			var publID =
 				(from pub in db.M_publisherInfo
@@ -326,22 +316,22 @@ namespace mangaDatabaseEditor
 				 select manga).Single();
 			mangaPublisher.MangaPublisherID = publID;
 			db.SubmitChanges();
-			loadMangaPublisher();
+			LoadMangaPublisher();
 		}
 
-		private void removePublisherButton_Click(object sender, EventArgs e)
+		private void RemovePublisherButtonClick(object sender, EventArgs e)
 		{
 			var mangaPublisher = (from manga in db.M_mangaInfo
 										 where (manga.MangaID == Convert.ToInt32(mangaIDTextBox.Text))
 										 select manga).Single();
 			mangaPublisher.MangaPublisherID = null;
 			db.SubmitChanges();
-			loadMangaPublisher();
+			LoadMangaPublisher();
 		}
 
-		private void mangaIDTextBox_TextChanged(object sender, EventArgs e)
+		private void MangaIDTextBoxTextChanged(object sender, EventArgs e)
 		{
-			checkIfEntryExists();
+			CheckIfEntryExists();
 		}
 
 		/// <summary>
@@ -349,27 +339,26 @@ namespace mangaDatabaseEditor
 		/// </summary>
 		/// <param name="myImage">My image.</param>
 		/// <returns></returns>
-		private byte[] ImageToByteArray(System.Drawing.Image myImage)
+		private static byte[] ImageToByteArray(Image myImage)
 		{
-			using (MemoryStream ms = new MemoryStream())
+			using (var ms = new MemoryStream())
 			{
 				myImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
 				return ms.ToArray();
 			}
 		}
 
-		/// <summary>
-		/// Inserts an image to the database entry with the specified MangaTitle.
-		/// </summary>
-		/// <param name="imageByteArray">The image byte array.</param>
-		/// <param name="myMangaTitle">My manga title.</param>
-		public void imageToDatabaseLoader(byte[] imageByteArray)
+	    /// <summary>
+	    /// Inserts an image to the database entry with the specified MangaTitle.
+	    /// </summary>
+	    /// <param name="imageByteArray">The image byte array.</param>
+	    public void ImageToDatabaseLoader(byte[] imageByteArray)
 		{
-			System.Data.Linq.Binary binary_file = new System.Data.Linq.Binary(imageByteArray);
+			var binaryFile = new System.Data.Linq.Binary(imageByteArray);
 			var mangaCoverImage = (from image in db.M_mangaInfo
 										  where image.MangaID == Convert.ToInt16(mangaIDTextBox.Text)
 										  select image).Single();
-			mangaCoverImage.MangaCover = binary_file;
+			mangaCoverImage.MangaCover = binaryFile;
 			db.SubmitChanges();
 		}
 
@@ -378,37 +367,32 @@ namespace mangaDatabaseEditor
 		/// </summary>
 		/// <param name="sourceImage">The source image.</param>
 		/// <returns>The resized Image</returns>
-		private static Image imageSizeToStandard(Image sourceImage)
+		private static Image ImageSizeToStandard(Image sourceImage)
 		{
-			int sourceWidth = sourceImage.Width;
-			int sourceHeight = sourceImage.Height;
+			var sourceWidth = sourceImage.Width;
+			var sourceHeight = sourceImage.Height;
 
-			float nPercent = 0;
-			float nPercentW = 0;
-			float nPercentH = 0;
+		    var nPercentW = (160 / (float)sourceWidth);
+			var nPercentH = (230 / (float)sourceHeight);
 
-			nPercentW = ((float)160 / (float)sourceWidth);
-			nPercentH = ((float)230 / (float)sourceHeight);
+			var nPercent = nPercentH < nPercentW ? nPercentH : nPercentW;
 
-			if (nPercentH < nPercentW)
-				nPercent = nPercentH;
-			else
-				nPercent = nPercentW;
+			var destWidth = (int)(sourceWidth * nPercent);
+			var destHeight = (int)(sourceHeight * nPercent);
 
-			int destWidth = (int)(sourceWidth * nPercent);
-			int destHeight = (int)(sourceHeight * nPercent);
+		    using (var bmp = new Bitmap(destWidth, destHeight))
+		    {
+		        var graph = Graphics.FromImage(bmp);
+		        graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-			Bitmap bmp = new Bitmap(destWidth, destHeight);
-			Graphics graph = Graphics.FromImage((Image)bmp);
-			graph.InterpolationMode = InterpolationMode.HighQualityBicubic;
+		        graph.DrawImage(sourceImage, 0, 0, destWidth, destHeight);
+		        graph.Dispose();
 
-			graph.DrawImage(sourceImage, 0, 0, destWidth, destHeight);
-			graph.Dispose();
-
-			return (Image)bmp;
+		        return bmp;
+		    }
 		}
 
-		private void exportDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ExportDatabaseToolStripMenuItemClick(object sender, EventArgs e)
 		{
             //TODO: Not null & more checks.
             if (ExportDatabaseSaveFileDialog.ShowDialog() == DialogResult.OK)
@@ -432,11 +416,11 @@ namespace mangaDatabaseEditor
 			var mangaAuthorData = from mangaAuthorsInfo in db.Mm_mangaAuthors
 										 select mangaAuthorsInfo;
 
-			XDocument xDoc = new XDocument();
-			XDeclaration xDeclaration = new XDeclaration("1.0", "utf-8", "yes");
-			XComment xComment = new XComment("Manga Reading Assistant Database Exporter");
+			var xDoc = new XDocument();
+			var xDeclaration = new XDeclaration("1.0", "utf-8", "yes");
+			var xComment = new XComment("Manga Reading Assistant Database Exporter");
 
-			XElement publisherXElement = new XElement("Publishers",
+			var publisherXElement = new XElement("Publishers",
 						from entry in publisherData
 						select new XElement("Publisher",
 							new XElement("PublisherID", entry.PublisherID),
@@ -445,14 +429,14 @@ namespace mangaDatabaseEditor
 							new XElement("PublisherWebsite", entry.PublisherWebsite),
 							new XElement("PublisherNote", entry.PublisherNote))
 					);
-			XElement genresXElement = new XElement("Genres",
+			var genresXElement = new XElement("Genres",
 						from entry in genreData
 						select new XElement("Genre",
 							new XElement("GenreID", entry.GenreID),
 							new XElement("GenreName", entry.GenreName))
 					);
 
-			XElement authorXElement = new XElement("Authors",
+			var authorXElement = new XElement("Authors",
 						from entry in authorData
 						select new XElement("Author",
 							new XElement("AuthorID", entry.AuthorID),
@@ -462,7 +446,7 @@ namespace mangaDatabaseEditor
 							new XElement("AuthorWebsite", entry.AuthorWebsite))
 					);
 
-			XElement mangaXElement = new XElement("Mangas",
+			var mangaXElement = new XElement("Mangas",
 						from entry in mangaData
 						select new XElement("Manga",
 							new XElement("MangaID", entry.MangaID),
@@ -474,14 +458,14 @@ namespace mangaDatabaseEditor
 							new XElement("MangaCover", Convert.ToBase64String(entry.MangaCover.ToArray())))
 					);
 
-			XElement mangaGenreXElement = new XElement("MangaGenres",
+			var mangaGenreXElement = new XElement("MangaGenres",
 						from entry in mangaGenreData
 						select new XElement("MangaGenre",
 							new XElement("MangaID", entry.Mm_mangaID),
 							new XElement("GenreID", entry.Mm_genreID))
 					);
 
-			XElement mangaAuthorsXElement = new XElement("MangaAuthors",
+			var mangaAuthorsXElement = new XElement("MangaAuthors",
 				from entry in mangaAuthorData
 				select new XElement("MangaAuthor",
 					new XElement("MangaID", entry.Ma_mangaID),
@@ -490,21 +474,24 @@ namespace mangaDatabaseEditor
 			xDoc.Declaration = xDeclaration;
 			xDoc.Add(xComment);
 			xDoc.Add(new XElement("MangaDatabase"));
-			xDoc.Root.Add(publisherXElement);
-			xDoc.Root.Add(genresXElement);
-			xDoc.Root.Add(authorXElement);
-			xDoc.Root.Add(mangaXElement);
-			xDoc.Root.Add(mangaGenreXElement);
-			xDoc.Root.Add(mangaAuthorsXElement);
-			xDoc.Save(fileName);
+		    if (xDoc.Root != null)
+		    {
+		        xDoc.Root.Add(publisherXElement);
+		        xDoc.Root.Add(genresXElement);
+		        xDoc.Root.Add(authorXElement);
+		        xDoc.Root.Add(mangaXElement);
+		        xDoc.Root.Add(mangaGenreXElement);
+		        xDoc.Root.Add(mangaAuthorsXElement);
+		    }
+		    xDoc.Save(fileName);
 		}
 
-		private void databaseInfoImporter(string fileName)
+		private void DatabaseInfoImporter(string fileName)
 		{
-			using (Mds db = new Mds(Properties.Settings.Default.DbConnection))
+			using (var db = new Mds(Properties.Settings.Default.DbConnection))
 			{
 				//TODO: Fix the Import - Export Progress Report
-				XDocument xDoc = XDocument.Load(fileName);
+				var xDoc = XDocument.Load(fileName);
 				tableLoadProgress.Maximum = 6;
 				tableLoadProgress.Value = 0;
 
@@ -521,20 +508,19 @@ namespace mangaDatabaseEditor
 				currentTableLoadProgress.Maximum = publisherData.Count();
 				currentTableLoadProgress.Value = 0;
 
-				foreach (var line in publisherData)
+				foreach (M_publisherInfo publisher in publisherData.Select(line => new M_publisherInfo()
+				                                                                       {
+				                                                                           PublisherID = line.PublisherID,
+				                                                                           PublisherName = line.PublisherName,
+				                                                                           PublisherCountry = line.PublisherCountry,
+				                                                                           PublisherWebsite = line.PublisherWebsite,
+				                                                                           PublisherNote = line.PublisherNote
+				                                                                       }))
 				{
-					M_publisherInfo publisher = new M_publisherInfo()
-					{
-						PublisherID = line.PublisherID,
-						PublisherName = line.PublisherName,
-						PublisherCountry = line.PublisherCountry,
-						PublisherWebsite = line.PublisherWebsite,
-						PublisherNote = line.PublisherNote
-					};
-					db.M_publisherInfo.InsertOnSubmit(publisher);
-					db.SubmitChanges();
+				    db.M_publisherInfo.InsertOnSubmit(publisher);
+				    db.SubmitChanges();
 
-					currentTableLoadProgress.Value++;
+				    currentTableLoadProgress.Value++;
 				}
 
 				tableLoadProgress.Value++;
@@ -549,17 +535,16 @@ namespace mangaDatabaseEditor
 				currentTableLoadProgress.Maximum = genresData.Count();
 				currentTableLoadProgress.Value = 0;
 
-				foreach (var line in genresData)
+				foreach (var genre in genresData.Select(line => new M_genreInfo()
+				                                                    {
+				                                                        GenreID = line.GenreID,
+				                                                        GenreName = line.GenreName
+				                                                    }))
 				{
-					M_genreInfo genre = new M_genreInfo()
-					{
-						GenreID = line.GenreID,
-						GenreName = line.GenreName
-					};
-					db.M_genreInfo.InsertOnSubmit(genre);
-					db.SubmitChanges();
+				    db.M_genreInfo.InsertOnSubmit(genre);
+				    db.SubmitChanges();
 
-					currentTableLoadProgress.Value++;
+				    currentTableLoadProgress.Value++;
 				}
 
 				tableLoadProgress.Value++;
@@ -577,20 +562,19 @@ namespace mangaDatabaseEditor
 				currentTableLoadProgress.Maximum = authorData.Count();
 				currentTableLoadProgress.Value = 0;
 
-				foreach (var line in authorData)
+				foreach (var authorInfo in authorData.Select(line => new M_authorInfo
+				                                                         {
+				                                                             AuthorID = line.AuthorID,
+				                                                             AuthorFullName = line.AuthorName,
+				                                                             AuthorCountryOfOrigin = line.AuthorCountry,
+				                                                             AuthorDateOfBirth = line.AuthorBirth,
+				                                                             AuthorWebsite = line.AuthorWebsite
+				                                                         }))
 				{
-					M_authorInfo authorInfo = new M_authorInfo
-					{
-						AuthorID = line.AuthorID,
-						AuthorFullName = line.AuthorName,
-						AuthorCountryOfOrigin = line.AuthorCountry,
-						AuthorDateOfBirth = line.AuthorBirth,
-						AuthorWebsite = line.AuthorWebsite
-					};
-					db.M_authorInfo.InsertOnSubmit(authorInfo);
-					db.SubmitChanges();
+				    db.M_authorInfo.InsertOnSubmit(authorInfo);
+				    db.SubmitChanges();
 
-					currentTableLoadProgress.Value++;
+				    currentTableLoadProgress.Value++;
 				}
 
 				tableLoadProgress.Value++;
@@ -610,22 +594,21 @@ namespace mangaDatabaseEditor
 				currentTableLoadProgress.Maximum = mangaData.Count();
 				currentTableLoadProgress.Value = 0;
 
-				foreach (var line in mangaData)
+				foreach (var mangaInfo in mangaData.Select(line => new M_mangaInfo()
+				                                                       {
+				                                                           MangaID = line.MangaID,
+				                                                           MangaTitle = line.MangaTitle,
+				                                                           MangaYearOfPublisher = line.MangaYearOfPublish,
+				                                                           MangaStatus = line.MangaStatus,
+				                                                           MangaPublisherID = line.MangaPublisherID,
+				                                                           MangaDescription = line.MangaDescription,
+				                                                           MangaCover = new System.Data.Linq.Binary(Convert.FromBase64String(line.MangaCover))
+				                                                       }))
 				{
-					M_mangaInfo mangaInfo = new M_mangaInfo()
-					{
-						MangaID = line.MangaID,
-						MangaTitle = line.MangaTitle,
-						MangaYearOfPublisher = line.MangaYearOfPublish,
-						MangaStatus = line.MangaStatus,
-						MangaPublisherID = line.MangaPublisherID,
-						MangaDescription = line.MangaDescription,
-						MangaCover = new System.Data.Linq.Binary(Convert.FromBase64String(line.MangaCover))
-					};
-					db.M_mangaInfo.InsertOnSubmit(mangaInfo);
-					db.SubmitChanges();
+				    db.M_mangaInfo.InsertOnSubmit(mangaInfo);
+				    db.SubmitChanges();
 
-					currentTableLoadProgress.Value++;
+				    currentTableLoadProgress.Value++;
 				}
 				tableLoadProgress.Value++;
 
@@ -639,17 +622,16 @@ namespace mangaDatabaseEditor
 				currentTableLoadProgress.Maximum = mangaGenreData.Count();
 				currentTableLoadProgress.Value = 0;
 
-				foreach (var line in mangaGenreData)
+				foreach (var mangaGenreInfo in mangaGenreData.Select(line => new Mm_mangaGenres()
+				                                                                 {
+				                                                                     Mm_mangaID = line.MangaID,
+				                                                                     Mm_genreID = line.GenreID
+				                                                                 }))
 				{
-					Mm_mangaGenres mangaGenreInfo = new Mm_mangaGenres()
-					{
-						Mm_mangaID = line.MangaID,
-						Mm_genreID = line.GenreID
-					};
-					db.Mm_mangaGenres.InsertOnSubmit(mangaGenreInfo);
-					db.SubmitChanges();
+				    db.Mm_mangaGenres.InsertOnSubmit(mangaGenreInfo);
+				    db.SubmitChanges();
 
-					currentTableLoadProgress.Value++;
+				    currentTableLoadProgress.Value++;
 				}
 
 				tableLoadProgress.Value++;
@@ -664,41 +646,40 @@ namespace mangaDatabaseEditor
 				currentTableLoadProgress.Maximum = mangaAuthorData.Count();
 				currentTableLoadProgress.Value = 0;
 
-				foreach (var line in mangaAuthorData)
+				foreach (var mangaAuthorInfo in mangaAuthorData.Select(line => new Mm_mangaAuthors()
+				                                                                   {
+				                                                                       Ma_mangaID = line.MangaID,
+				                                                                       Ma_authorID = line.AuthorID
+				                                                                   }))
 				{
-					Mm_mangaAuthors mangaAuthorInfo = new Mm_mangaAuthors()
-					{
-						Ma_mangaID = line.MangaID,
-						Ma_authorID = line.AuthorID
-					};
-					db.Mm_mangaAuthors.InsertOnSubmit(mangaAuthorInfo);
-					db.SubmitChanges();
+				    db.Mm_mangaAuthors.InsertOnSubmit(mangaAuthorInfo);
+				    db.SubmitChanges();
 
-					currentTableLoadProgress.Value++;
+				    currentTableLoadProgress.Value++;
 				}
 
 				tableLoadProgress.Value++;
 
 				//Refreshing all the data after the import
-				refreshAuthorData();
-				refreshPublisherData();
-				loadGenreData();
-				refreshMangaData();
-				loadAuthorData();
-				checkIfEntryExists();
-				loadPublisherData();
+				RefreshAuthorData();
+				RefreshPublisherData();
+				LoadGenreData();
+				RefreshMangaData();
+				LoadAuthorData();
+				CheckIfEntryExists();
+				LoadPublisherData();
 			}
 		}
 
-		private void importDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ImportDatabaseToolStripMenuItemClick(object sender, EventArgs e)
 		{
             if (importDatabaseOpenFileDialog.ShowDialog() == DialogResult.OK)
             {
-                databaseInfoImporter(importDatabaseOpenFileDialog.FileName);
+                DatabaseInfoImporter(importDatabaseOpenFileDialog.FileName);
             }
 		}
 
-		private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+		private void BindingNavigatorAddNewItemClick(object sender, EventArgs e)
 		{
 			//When the user tries to insert a new entry in the database the following statements select the first value "Ongoing" as default.
 			mangaStatusComboBox.SelectedIndex = -1;

@@ -1,4 +1,4 @@
-﻿namespace mraSharp
+﻿namespace mraSharp.Forms
 {
 	partial class StatisticsForm
 	{
