@@ -158,10 +158,12 @@ namespace mraSharp.Classes
                     sqLiteConnection.Open();
 
 
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
-                    sqLiteCommand.CommandText = "SELECT MANGA_DESCRIPTION " +
-                                                "FROM MANGA_INFO " +
-                                                "WHERE MANGA_ID = ?";
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                                                      {
+                                                          CommandText = "SELECT MANGA_DESCRIPTION " +
+                                                                        "FROM MANGA_INFO " +
+                                                                        "WHERE MANGA_ID = ?"
+                                                      };
 
                     sqLiteCommand.Parameters.AddWithValue(null, mangaId);
                     SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
@@ -185,14 +187,16 @@ namespace mraSharp.Classes
 
         public static bool FeedDataExistInTheDatabase()
         {
-            bool returnData = false;
+            bool returnData;
             using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
             {
                 sqLiteConnection.Open();
 
-                SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
-                sqLiteCommand.CommandText = "SELECT COUNT(*) " +
-                                            "FROM NEWS_STORAGE ";
+                SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                                                  {
+                                                      CommandText = "SELECT COUNT(*) " +
+                                                                    "FROM NEWS_STORAGE "
+                                                  };
 
                 SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
                 returnData = reader.HasRows;
@@ -339,5 +343,391 @@ namespace mraSharp.Classes
                 return stream.ToArray();
             }
         }
+        /// <summary>
+        /// Clears the database.
+        /// </summary>
+        public static void ClearTheReadingList()
+        {
+            try
+            {
+                //db.Mr_readingList.DeleteAllOnSubmit(db.Mr_readingList);
+                //db.SubmitChanges();
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Removes the old entries (entries that have been in the database more than the specified time) from the database.
+        /// </summary>
+        /// <param name="olderThan">The number of days in the database after which the entry is considered old...</param>
+        public static void OldRssRemover(int olderThan)
+        {
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+
+                    DateTime olderDate = DateTime.Now;
+                    TimeSpan daySpan = new TimeSpan(olderThan,0,0,0);
+                    olderDate = olderDate.Subtract(daySpan);
+
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                                                      {
+                                                          CommandText = "DELETE " +
+                                                                        "FROM NEWS_STORAGE " +
+                                                                        "WHERE NEWSITEM_AQUISITION_DATE <= ?"
+                                                      };
+                    sqLiteCommand.Parameters.AddWithValue(null, olderDate);
+                    sqLiteCommand.ExecuteNonQuery();
+
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+   
+        }
+
+        /// <summary>
+        /// Removes the specified RSS subscription.
+        /// </summary>
+        /// <param name="url">The URL of the subscription to be removed.</param>
+        public static void RemoveNewsSubscription(string url)
+        {
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                                                      {
+                                                          CommandText = "DELETE * " +
+                                                                        "FROM NEWS_SUBSCRIPTIONS " +
+                                                                        "WHERE SUBSCRIPTION_URL = ?"
+                                                      };
+                    sqLiteCommand.Parameters.AddWithValue(null, url);
+                    sqLiteCommand.ExecuteNonQuery();
+
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Inserts an RSS subscription url to the database.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="channelName">The RSS channel name.</param>
+        public static void InsertNewsSubscription(string url, string channelName)
+        {
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                                                      {
+                                                          CommandText =
+                                                              "INSERT INTO NEWS_SUBSCRIPTIONS (SUBSCRIPTION_URL, SUBSCRIPTION_CHANNEL_NAME) " +
+                                                              "VALUES (?, ?)"
+                                                      };
+                    sqLiteCommand.Parameters.AddWithValue(null, url);
+                    sqLiteCommand.Parameters.AddWithValue(null, channelName);
+                    sqLiteCommand.ExecuteNonQuery();
+
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Loads the Rss Subscriptions (URLs) from the database.
+        /// </summary>
+        public static List<string> LoadSubscriptions()
+        {
+            List<String> returnData = new List<string>();
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                    {
+                        CommandText = "SELECT SUBSCRIPTION_URL " +
+                                      "FROM NEWS_SUBSCRIPTIONS"
+                    };
+
+                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        returnData.Add(reader.GetString(0));
+                    }
+
+                    reader.Close();
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+            return returnData;
+        }
+
+        public static string GetNewsSubscriptionChannelName(string subscriptionUrl)
+        {
+            string returnData = null;
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                    {
+                        CommandText = "SELECT SUBSCRIPTION_CHANNEL_NAME " +
+                                      "FROM NEWS_SUBSCRIPTIONS " +
+                                      "WHERE SUBSCRIPTION_URL = ?"
+                    };
+                    sqLiteCommand.Parameters.AddWithValue(null, subscriptionUrl);
+                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        returnData = reader.GetString(0);
+                    }
+
+                    reader.Close();
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+            return returnData;
+        }
+
+        //private void GetChannelName()
+        //{
+        //    using (mdbEntities db = new mdbEntities())
+        //    {
+        //        if (!String.IsNullOrEmpty(SUBSCRIPTION_URLComboBox.Text))
+        //        {
+        //            var channelName = (from data in db.NEWS_SUBSCRIPTIONS
+        //                               where data.SUBSCRIPTION_URL == SUBSCRIPTION_URLComboBox.Text
+        //                               select data.SUBSCRIPTION_CHANNEL_NAME).SingleOrDefault();
+        //            channelTitleTextBox.Text = channelName;
+        //        }
+        //        else
+        //        {
+        //            channelTitleTextBox.Text = "";
+        //        }
+        //    }
+        //}
+
+        #region Statistics Methods
+
+        /// <summary>
+        /// Returns the of the mangas read.
+        /// </summary>
+        /// <returns></returns>
+        public static int GetNumberOfMangasRead()
+        {
+            int returnData = 0;
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                    {
+                        CommandText = "SELECT COUNT(*) " +
+                                      "FROM READING_LIST "
+                    };
+
+                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        returnData = reader.GetInt16(0);
+                    }
+
+                    reader.Close();
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+            return returnData;
+        }
+
+        /// <summary>
+        /// Returns the number the of chapters read.
+        /// </summary>
+        /// <returns></returns>
+        public static int GetNumberOfChaptersRead()
+        {
+            int returnData = 0;
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                    {
+                        CommandText = "SELECT * " +
+                                      "FROM READING_LIST "
+                    };
+
+                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
+                    DataTable dataTable = new DataTable();
+                    dataTable.Load(reader);
+                    for (int i = 0; i < dataTable.Rows.Count; i++)
+                    {
+                        if (dataTable.Rows[i][2].Equals(1))
+                        {
+                            returnData += dataTable.Rows[i][3] is int ? (int)dataTable.Rows[i][3] : 0;
+                        }
+                        else
+                        {
+                            //TODO: Change it a little bit.
+                            returnData += (int)dataTable.Rows[i][3] - (int)dataTable.Rows[i][2] - 1;
+                        }
+                    }
+                    reader.Close();
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+            return returnData;
+        }
+
+        /// <summary>
+        /// Returns the number of the mangas finished.
+        /// </summary>
+        /// <returns></returns>
+        public static int? NumberofMangasFinished()
+        {
+            int returnData = 0;
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                    {
+                        CommandText = "SELECT COUNT(*) " +
+                                      "FROM READING_LIST " +
+                                      "WHERE READ_IS_FINISHED = 'false'"
+                    };
+
+                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        returnData = reader.GetInt16(0);
+                    }
+
+                    reader.Close();
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+            return returnData;
+        }
+
+        /// <summary>
+        /// Returns the date the latest manga was read.
+        /// </summary>
+        /// <returns></returns>
+        public static DateTime? DateILastRead()
+        {
+            DateTime? returnData = null;
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                    {
+                        CommandText = "SELECT READ_LAST_TIME " +
+                                      "FROM READING_LIST " +
+                                      "ORDER BY READ_LAST_TIME DESC"
+                    };
+
+                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
+
+                    returnData = reader.GetDateTime(0);
+                    
+                    reader.Close();
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+            return returnData;
+        }
+
+        /// <summary>
+        /// Returns the period from the date last read to the current day.
+        /// </summary>
+        /// <returns></returns>
+        public static int DaysSinceILastRead()
+        {
+            try
+            {
+                TimeSpan dateDiff = DateTime.Now - Convert.ToDateTime(DateILastRead());
+                return DateILastRead() != null ? dateDiff.Days : 0;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+                return 0;
+            }
+        }
+
+        #endregion Statistics Methods
     }
+
 }

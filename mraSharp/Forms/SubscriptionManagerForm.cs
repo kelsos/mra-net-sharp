@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
 using System.Net;
 using System.Xml;
 using mraSharp.Classes;
-using mraSharp.Data;
 using mraSharp.Properties;
 
 namespace mraSharp.Forms
@@ -24,12 +22,12 @@ namespace mraSharp.Forms
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void SubscriptionManagerFormLoad(object sender, EventArgs e)
         {
-            LoadSubscriptions();
+            subscriptionUrlComboBox.DataSource = DatabaseWrapper.LoadSubscriptions();
             keepInDatabaseForTextBox.Text = Settings.Default.keepInDatabaseFor.ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
-        /// Handles the Click event of the removeSubButton control. (Removes the selected value of the SUBSCRIPTION_URLComboBox form the database).
+        /// Handles the Click event of the removeSubButton control. (Removes the selected value of the subscriptionUrlComboBox form the database).
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -37,9 +35,9 @@ namespace mraSharp.Forms
         {
             try
             {
-                DatabaseOperations.RemoveRssSubscription(SUBSCRIPTION_URLComboBox.Text);
-                LoadSubscriptions();
-                GetChannelName();
+                DatabaseWrapper.RemoveNewsSubscription(subscriptionUrlComboBox.Text);
+                subscriptionUrlComboBox.DataSource = DatabaseWrapper.LoadSubscriptions();
+                //GetChannelName();
             }
             catch (Exception ex)
             {
@@ -61,9 +59,9 @@ namespace mraSharp.Forms
                 {
                     if (!String.IsNullOrEmpty(CheckRssChannel(rssSubTextBox.Text)))
                     {
-                        DatabaseOperations.InsertRssSubscription(rssSubTextBox.Text, CheckRssChannel(rssSubTextBox.Text));
+                        DatabaseWrapper.InsertNewsSubscription(rssSubTextBox.Text, CheckRssChannel(rssSubTextBox.Text));
                         rssSubTextBox.Text = null;
-                        LoadSubscriptions();
+                        subscriptionUrlComboBox.DataSource = DatabaseWrapper.LoadSubscriptions();
                     }
                     else
                     {
@@ -106,25 +104,6 @@ namespace mraSharp.Forms
             FileOperations.RssSubscriptionExporter("rss.txt");
         }
 
-        /// <summary>
-        /// Loads the Rss Subscriptions (URLs) from the database.
-        /// </summary>
-        private void LoadSubscriptions()
-        {
-            try
-            {
-                using (Main db = new Main(@"Data Source=database.db;DbLinqProvider=sqlite"))
-                {
-                    SUBSCRIPTION_URLComboBox.DataSource = from url in db.NewsSubscriptions
-                                                          select url.SubscriptionURL;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorMessageBox.Show(ex.Message, ex.ToString());
-                Logger.ErrorLogger("error.txt", ex.ToString());
-            }
-        }
 
         private static string CheckRssChannel(string subscriptionUrl)
         {
@@ -148,25 +127,7 @@ namespace mraSharp.Forms
 
         private void SubscriptionUrlComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
-            GetChannelName();
-        }
-
-        private void GetChannelName()
-        {
-            using (mdbEntities db = new mdbEntities())
-            {
-                if (!String.IsNullOrEmpty(SUBSCRIPTION_URLComboBox.Text))
-                {
-                    var channelName = (from data in db.NEWS_SUBSCRIPTIONS
-                                       where data.SUBSCRIPTION_URL == SUBSCRIPTION_URLComboBox.Text
-                                       select data.SUBSCRIPTION_CHANNEL_NAME).SingleOrDefault();
-                    channelTitleTextBox.Text = channelName;
-                }
-                else
-                {
-                    channelTitleTextBox.Text = "";
-                }
-            }
+            channelTitleTextBox.Text = !String.IsNullOrEmpty(subscriptionUrlComboBox.Text) ? DatabaseWrapper.GetNewsSubscriptionChannelName(subscriptionUrlComboBox.Text) : "";
         }
 
         private void SubscriptionManagerFormFormClosing(object sender, FormClosingEventArgs e)

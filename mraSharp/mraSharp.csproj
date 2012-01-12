@@ -59,12 +59,6 @@
     <OutputPath>bin\x64\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DbLinq">
-      <HintPath>D:\Program Files\DbLinq-0.20.1\DbLinq.dll</HintPath>
-    </Reference>
-    <Reference Include="DbLinq.Sqlite">
-      <HintPath>D:\Program Files\DbLinq-0.20.1\DbLinq.Sqlite.dll</HintPath>
-    </Reference>
     <Reference Include="JSCore, Version=1.0.4377.27765, Culture=neutral, PublicKeyToken=d6b823da6d3fa04b, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Libraries\openwebkitsharp_r113\Binary\JSCore.dll</HintPath>
@@ -117,16 +111,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DatabaseWrapper.cs" />
-    <Compile Include="Data\sqliteDb.cs">
-      <DependentUpon>sqliteDb.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\AddMangaForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\AddMangaForm.Designer.cs">
       <DependentUpon>AddMangaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\DatabaseOperations.cs" />
     <Compile Include="Classes\DataPasser.cs" />
     <Compile Include="Forms\errorMessageBox.cs">
       <SubType>Form</SubType>
@@ -148,11 +138,6 @@
     </Compile>
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="dbModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -699,22 +684,11 @@
     <None Include="Core\WebKit.resources\zh_CN.lproj\Localizable.strings" />
     <None Include="Core\WebKit.resources\zh_TW.lproj\Localizable.strings" />
     <None Include="Core\WebKit2WebProcess.resources\Info.plist" />
-    <EntityDeploy Include="dbModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>dbModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Data\sqliteDb.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\DataSources\mdbEntities.datasource" />
     <None Include="Resources\calendar-day.png" />
     <None Include="Resources\arrow-circle-double.png" />
     <None Include="Resources\navigation.png" />
     <None Include="Resources\navigation-180.png" />
-    <None Include="Data\sqliteDb.dbml.layout">
-      <DependentUpon>sqliteDb.dbml</DependentUpon>
-    </None>
     <EmbeddedResource Include="Forms\AddMangaForm.resx">
       <DependentUpon>AddMangaForm.cs</DependentUpon>
     </EmbeddedResource>

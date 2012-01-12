@@ -165,7 +165,7 @@ namespace mraSharp.Forms
         private void RssFetchingThreadDoWork(object sender, DoWorkEventArgs e)
         {
             //RssFetcher();
-            DatabaseOperations.OldRssRemover(Settings.Default.keepInDatabaseFor);
+            DatabaseWrapper.OldRssRemover(Settings.Default.keepInDatabaseFor);
         }
 
         private void RssFetchingThreadRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -299,7 +299,7 @@ namespace mraSharp.Forms
                     Resources.MainForm_ClearToolStripMenuItemClick_Question, MessageBoxButtons.YesNo) ==
                 DialogResult.Yes)
             {
-                DatabaseOperations.ClearTheReadingList();
+                DatabaseWrapper.ClearTheReadingList();
                 if (restoreOpenFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     var readFromXml = new Thread(FileOperations.ReadingListFromXml);
@@ -360,7 +360,7 @@ namespace mraSharp.Forms
                                 Resources.MainForm_ClearToolStripMenuItemClick_Question, MessageBoxButtons.YesNo) ==
                 DialogResult.Yes)
             {
-                DatabaseOperations.ClearTheReadingList();
+                DatabaseWrapper.ClearTheReadingList();
             }
         }
 

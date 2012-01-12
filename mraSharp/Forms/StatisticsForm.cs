@@ -10,11 +10,11 @@ namespace mraSharp.Forms
 		public StatisticsForm()
 		{
 			InitializeComponent();
-			numberOfMangasReadTextBox.Text = DatabaseOperations.NumberOfMangasRead().ToString(CultureInfo.InvariantCulture);
-			numberOfChaptersReadTextBox.Text = DatabaseOperations.NumberOfChaptersRead().ToString(CultureInfo.InvariantCulture);
-			numberOfMangasFinishedTextBox.Text = DatabaseOperations.NumberofMangasFinished().ToString();
-			dateILastReadTextBox.Text = Convert.ToDateTime(DatabaseOperations.DateILastRead()).ToShortDateString();
-			daysSinceTextBox.Text = DatabaseOperations.DaysSinceILastRead().ToString(CultureInfo.InvariantCulture);
+			numberOfMangasReadTextBox.Text = DatabaseWrapper.GetNumberOfMangasRead().ToString(CultureInfo.InvariantCulture);
+			numberOfChaptersReadTextBox.Text = DatabaseWrapper.GetNumberOfChaptersRead().ToString(CultureInfo.InvariantCulture);
+			numberOfMangasFinishedTextBox.Text = DatabaseWrapper.NumberofMangasFinished().ToString();
+			dateILastReadTextBox.Text = Convert.ToDateTime(DatabaseWrapper.DateILastRead()).ToShortDateString();
+			daysSinceTextBox.Text = DatabaseWrapper.DaysSinceILastRead().ToString(CultureInfo.InvariantCulture);
 		}
 	}
 }
