@@ -125,7 +125,7 @@
       <DependentUpon>errorMessageBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\FeedManager.cs" />
-    <Compile Include="Classes\FileOperations.cs" />
+    <Compile Include="Classes\IoWrapper.cs" />
     <Compile Include="Classes\Logger.cs" />
     <Compile Include="Classes\MangaRead.cs" />
     <Compile Include="Classes\MessageFilter.cs" />

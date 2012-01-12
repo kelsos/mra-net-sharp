@@ -35,7 +35,7 @@ namespace mraSharp.Forms
             this.mangaGridTabPage = new System.Windows.Forms.TabPage();
             this.mangaListDataGridView = new System.Windows.Forms.DataGridView();
             this.wikipediaTabPage = new System.Windows.Forms.TabPage();
-            this.geckoPanel = new System.Windows.Forms.Panel();
+            this.wikiPanel = new System.Windows.Forms.Panel();
             this.browserNavBar = new System.Windows.Forms.ToolStrip();
             this.backToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.forwardToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -136,7 +136,7 @@ namespace mraSharp.Forms
             // 
             // wikipediaTabPage
             // 
-            this.wikipediaTabPage.Controls.Add(this.geckoPanel);
+            this.wikipediaTabPage.Controls.Add(this.wikiPanel);
             this.wikipediaTabPage.Controls.Add(this.browserNavBar);
             this.wikipediaTabPage.Location = new System.Drawing.Point(4, 22);
             this.wikipediaTabPage.Name = "wikipediaTabPage";
@@ -147,13 +147,13 @@ namespace mraSharp.Forms
             this.wikipediaTabPage.UseVisualStyleBackColor = true;
             this.wikipediaTabPage.Enter += new System.EventHandler(this.WikipediaTabPageEnter);
             // 
-            // geckoPanel
+            // wikiPanel
             // 
-            this.geckoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.geckoPanel.Location = new System.Drawing.Point(3, 28);
-            this.geckoPanel.Name = "geckoPanel";
-            this.geckoPanel.Size = new System.Drawing.Size(700, 395);
-            this.geckoPanel.TabIndex = 1;
+            this.wikiPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wikiPanel.Location = new System.Drawing.Point(3, 28);
+            this.wikiPanel.Name = "wikiPanel";
+            this.wikiPanel.Size = new System.Drawing.Size(700, 395);
+            this.wikiPanel.TabIndex = 1;
             // 
             // browserNavBar
             // 
@@ -632,7 +632,7 @@ namespace mraSharp.Forms
 		  private System.Windows.Forms.ToolStripButton backToolStripButton;
 		  private System.Windows.Forms.ToolStripButton forwardToolStripButton;
 		  private System.Windows.Forms.ToolStripButton wReloadtoolStripButton;
-		  private System.Windows.Forms.Panel geckoPanel;
+		  private System.Windows.Forms.Panel wikiPanel;
 
 		  private System.Windows.Forms.Label rssLinkLabel;
 		  private System.Windows.Forms.TextBox rssDescriptionTextBox;

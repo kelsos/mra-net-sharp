@@ -91,7 +91,7 @@ namespace mraSharp.Forms
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ImportButtonClick(object sender, EventArgs e)
         {
-            FileOperations.RssSubscriptionImporter("rss.txt");
+            IoWrapper.RssSubscriptionImporter("rss.txt");
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace mraSharp.Forms
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ExportPopupClick(object sender, EventArgs e)
         {
-            FileOperations.NewsSubscriptionToTextFile("rss.txt");
+            IoWrapper.NewsSubscriptionToTextFile("rss.txt");
         }
 
 

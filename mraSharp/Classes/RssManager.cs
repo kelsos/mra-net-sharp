@@ -18,7 +18,7 @@ namespace mraSharp.Classes
         public static ArrayList ProcessNewsFeed(string subscriptionUrl)
         {
             if (subscriptionUrl == null) throw new ArgumentNullException("subscriptionUrl");
-            var returnList = new ArrayList();
+            ArrayList returnList = new ArrayList();
             try
             {
                 var myRequest = WebRequest.Create(subscriptionUrl);

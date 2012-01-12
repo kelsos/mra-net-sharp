@@ -23,7 +23,6 @@ namespace mraSharp.Forms
         {
             InitializeComponent();
 
-            //Initialization of GeckoFX
             _myCounter = 0;
             rssCheckTimer.Enabled = false;
             rssTickTimer.Enabled = false;
@@ -37,7 +36,7 @@ namespace mraSharp.Forms
             //checks if network is up
             System.Net.NetworkInformation.NetworkChange.NetworkAddressChanged += NetworkAddressChangedHandler;
             _wikiWebKitBrowser = new WebKitBrowser {Visible = true};
-            wikipediaTabPage.Controls.Add(_wikiWebKitBrowser);
+            wikiPanel.Controls.Add(_wikiWebKitBrowser);
             _wikiWebKitBrowser.Dock = DockStyle.Fill;
             _wikiWebKitBrowser.AllowDownloads = false;
         }
@@ -248,7 +247,7 @@ namespace mraSharp.Forms
             }
             else
             {
-                mangaListDataGridView.DataSource = DatabaseWrapper.GetReadingData();
+                mangaListDataGridView.DataSource = DatabaseWrapper.GetReadingData(Settings.Default.displayFinished);
             }
         }
 
@@ -256,8 +255,8 @@ namespace mraSharp.Forms
         {
             if (mangaListDataGridView.CurrentRow == null)
                 return;
-            mangaCoverPictureBox.Image = DatabaseWrapper.GetMangaCover(DatabaseWrapper.GetMangaId(
-                (string) mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value));
+            mangaCoverPictureBox.Image = DatabaseWrapper.GetMangaCover(
+                (string) mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
         }
 
         private void LoadCurrentDescription()
@@ -266,8 +265,7 @@ namespace mraSharp.Forms
                 return;
 
             mangaDescriptionTextBox.Text = DatabaseWrapper.GetMangaDescriptions(
-                DatabaseWrapper.GetMangaId(
-                    (string) mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value));
+                    (string) mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
         }
 
         #endregion Data Loading Functions
@@ -304,7 +302,7 @@ namespace mraSharp.Forms
                 DatabaseWrapper.ClearTheReadingList();
                 if (restoreOpenFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    var readFromXml = new Thread(FileOperations.ReadingListFromXml);
+                    var readFromXml = new Thread(IoWrapper.ReadingListFromXml);
                     readFromXml.Start(new DataPasser(this, restoreOpenFileDialog.FileName));
                     //loadDatagrid();
                 }
@@ -346,7 +344,7 @@ namespace mraSharp.Forms
         {
             if (backupSaveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                FileOperations.ReadingListToXml(backupSaveFileDialog.FileName);
+                IoWrapper.ReadingListToXml(backupSaveFileDialog.FileName);
             }
         }
 
