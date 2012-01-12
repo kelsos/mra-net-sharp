@@ -97,57 +97,53 @@ namespace mraSharp.Classes
         }
 
         /// <summary>
-        /// RSS subscription exporter.
+        /// Saves the stored in database news subscription urls to the specified file.
         /// </summary>
-        /// <param name="filePath">The file path.</param>
-        public static void RssSubscriptionExporter(string filePath)
+        /// <param name="fileName">The filename.</param>
+        public static void NewsSubscriptionToTextFile(string fileName)
         {
-            //try
-            //{
-            //    using (mdbEntities db = new mdbEntities())
-            //    {
-            //        var rssSubs = from subscriptionUrl in db.NEWS_SUBSCRIPTIONS
-            //                      select subscriptionUrl;
-            //        foreach (var subscriptionUrl in rssSubs)
-            //        {
-            //            Stream stream = new FileStream(filePath, FileMode.Append);
-            //            var file = new StreamWriter(stream);
-            //            file.WriteLine(subscriptionUrl.SUBSCRIPTION_URL, "\n");
-            //            file.Close();
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Logger.ErrorLogger("error.txt", ex.ToString());
-            //}
+            try
+            {
+                using (Stream subStream = new FileStream(fileName, FileMode.Append))
+                {
+                    foreach (var entry in DatabaseWrapper.GetSubscriptionList())
+                    {
+                        StreamWriter subFile = new StreamWriter(subStream);
+                        subFile.WriteLine(entry);
+                        subFile.Close();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
         }
 
         /// <summary>
         /// RSS subscription importer.
         /// </summary>
-        /// <param name="filePath">The file path.</param>
-        public static void RssSubscriptionImporter(string filePath)
+        /// <param name="fileName">The file path.</param>
+        public static void RssSubscriptionImporter(string fileName)
         {
-            //try
-            //{
-            //    using (mdbEntities db = new mdbEntities())
-            //    {
-            //        Stream stream = new FileStream(filePath, FileMode.Open);
-            //        var file = new StreamReader(stream);
-            //        string line;
-            //        while ((line = file.ReadLine()) != null)
-            //        {
-            //            var sub = new NEWS_SUBSCRIPTIONS {SUBSCRIPTION_URL = line};
-            //            db.NEWS_SUBSCRIPTIONS.AddObject(sub);
-            //            db.SaveChanges();
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Logger.ErrorLogger("error.txt", ex.ToString());
-            //}
+            try
+            {
+                using (Stream subStream = new FileStream(fileName, FileMode.Open))
+                {
+                    StreamReader subFile = new StreamReader(subStream);
+                    string line;
+                    while((line = subFile.ReadLine())!=null)
+                    {
+                        DatabaseWrapper.InsertNewsSubscription(line,RssManager.GetSubscriptionChannelName(line));
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
         }
     }
 }

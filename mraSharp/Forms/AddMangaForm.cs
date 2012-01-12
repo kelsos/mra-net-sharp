@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using mraSharp.Classes;
-using mraSharp.Properties;
 
 namespace mraSharp.Forms
 {

@@ -22,7 +22,7 @@ namespace mraSharp.Forms
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void SubscriptionManagerFormLoad(object sender, EventArgs e)
         {
-            subscriptionUrlComboBox.DataSource = DatabaseWrapper.LoadSubscriptions();
+            subscriptionUrlComboBox.DataSource = DatabaseWrapper.GetSubscriptionList();
             keepInDatabaseForTextBox.Text = Settings.Default.keepInDatabaseFor.ToString(CultureInfo.InvariantCulture);
         }
 
@@ -36,7 +36,7 @@ namespace mraSharp.Forms
             try
             {
                 DatabaseWrapper.RemoveNewsSubscription(subscriptionUrlComboBox.Text);
-                subscriptionUrlComboBox.DataSource = DatabaseWrapper.LoadSubscriptions();
+                subscriptionUrlComboBox.DataSource = DatabaseWrapper.GetSubscriptionList();
                 //GetChannelName();
             }
             catch (Exception ex)
@@ -57,11 +57,11 @@ namespace mraSharp.Forms
             {
                 if (rssSubTextBox.Text.Length > 0)
                 {
-                    if (!String.IsNullOrEmpty(CheckRssChannel(rssSubTextBox.Text)))
+                    if (!String.IsNullOrEmpty(RssManager.GetSubscriptionChannelName(rssSubTextBox.Text)))
                     {
-                        DatabaseWrapper.InsertNewsSubscription(rssSubTextBox.Text, CheckRssChannel(rssSubTextBox.Text));
+                        DatabaseWrapper.InsertNewsSubscription(rssSubTextBox.Text, RssManager.GetSubscriptionChannelName(rssSubTextBox.Text));
                         rssSubTextBox.Text = null;
-                        subscriptionUrlComboBox.DataSource = DatabaseWrapper.LoadSubscriptions();
+                        subscriptionUrlComboBox.DataSource = DatabaseWrapper.GetSubscriptionList();
                     }
                     else
                     {
@@ -101,29 +101,9 @@ namespace mraSharp.Forms
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ExportPopupClick(object sender, EventArgs e)
         {
-            FileOperations.RssSubscriptionExporter("rss.txt");
+            FileOperations.NewsSubscriptionToTextFile("rss.txt");
         }
 
-
-        private static string CheckRssChannel(string subscriptionUrl)
-        {
-            try
-            {
-                var myRequest = WebRequest.Create(subscriptionUrl);
-                var myResponse = myRequest.GetResponse();
-                var rssStream = myResponse.GetResponseStream();
-                var rssChannel = new XmlDocument();
-                if (rssStream != null) rssChannel.Load(rssStream);
-                var channelName = rssChannel.SelectSingleNode("rss/channel/title");
-                if (channelName != null) return channelName.InnerText;
-            }
-            catch (Exception ex)
-            {
-                ErrorMessageBox.Show(ex.Message, ex.ToString());
-                Logger.ErrorLogger("error.txt", ex.ToString());
-            }
-            return null;
-        }
 
         private void SubscriptionUrlComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {

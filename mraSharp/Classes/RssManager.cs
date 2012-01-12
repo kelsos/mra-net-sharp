@@ -58,5 +58,24 @@ namespace mraSharp.Classes
             }
             return returnList;
         }
+        public static string GetSubscriptionChannelName(string subscriptionUrl)
+        {
+            try
+            {
+                var myRequest = WebRequest.Create(subscriptionUrl);
+                var myResponse = myRequest.GetResponse();
+                var rssStream = myResponse.GetResponseStream();
+                var rssChannel = new XmlDocument();
+                if (rssStream != null) rssChannel.Load(rssStream);
+                var channelName = rssChannel.SelectSingleNode("rss/channel/title");
+                if (channelName != null) return channelName.InnerText;
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+            return null;
+        }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using mraSharp.Forms;
 using mraSharp.Properties;
@@ -91,10 +91,11 @@ namespace mraSharp.Classes
                         sqLiteCommand.CommandText =
                             "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME " +
                             "FROM MANGA_INFO MI, READING_LIST RL " +
-                            "WHERE MI.MANGA_ID = RL.MANGA_ID AND RL.READ_IS_FINISHED = 'false' AND MI.MANGA_TITLE LIKE '%"+keyword+"%'";
+                            "WHERE MI.MANGA_ID = RL.MANGA_ID AND RL.READ_IS_FINISHED = 'false' AND MI.MANGA_TITLE LIKE '%" +
+                            keyword + "%'";
                     }
                     SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-                        
+
                     returnData.Load(reader);
                     reader.Close();
                     sqLiteConnection.Close();
@@ -115,7 +116,7 @@ namespace mraSharp.Classes
         /// <returns>Image of the cover</returns>
         public static Image GetMangaCover(int mangaId)
         {
-            if(mangaId<=0)
+            if (mangaId <= 0)
                 throw new Exception("Invalid manga id value.");
             try
             {
@@ -168,11 +169,11 @@ namespace mraSharp.Classes
                     sqLiteCommand.Parameters.AddWithValue(null, mangaId);
                     SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
 
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         returnData = reader.GetString(0);
                     }
-                    
+
                     reader.Close();
                     sqLiteConnection.Close();
                 }
@@ -200,7 +201,7 @@ namespace mraSharp.Classes
 
                 SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
                 returnData = reader.HasRows;
-         
+
                 reader.Close();
                 sqLiteConnection.Close();
             }
@@ -231,99 +232,150 @@ namespace mraSharp.Classes
 
                     SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
 
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         returnData = reader.GetInt16(0);
                     }
 
                     reader.Close();
                     sqLiteConnection.Close();
-                    return returnData;
                 }
             }
             catch (Exception ex)
             {
                 ErrorMessageBox.Show(ex.Message, ex.ToString());
                 Logger.ErrorLogger("error.txt", ex.ToString());
-                return 0;
+            }
+            return returnData;
+        }
+
+        public static List<NewsItem> GetNewsItemList()
+        {
+            List<NewsItem> returnData = new List<NewsItem>();
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
+
+                    sqLiteCommand.CommandText = "SELECT * " +
+                                                "FROM NEWS_STORAGE ";
+
+                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
+                    DataTable dataTable = new DataTable();
+
+                    dataTable.Load(reader);
+
+                    for (int i = 0; i < dataTable.Rows.Count; i++)
+                    {
+                        NewsItem newsItem = new NewsItem
+                                                {
+                                                    Title = dataTable.Rows[i][1] as string,
+                                                    Link = dataTable.Rows[i][2] as string,
+                                                    Description = dataTable.Rows[i][3] as string,
+                                                    AquisitionDate = dataTable.Rows[i][5] as DateTime?
+                                                };
+
+                        returnData.Add(newsItem);
+                    }
+                    reader.Close();
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+            return returnData;
+        }
+
+        public static void NewsItemsRetriever()
+        {
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
+
+                    sqLiteCommand.CommandText = "SELECT SUBSCRIPTION_URL " +
+                                                "FROM NEWS_SUBSCRIPTIONS ";
+
+                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
+
+                    ArrayList storedNews = new ArrayList();
+                    while (reader.Read())
+                    {
+                        storedNews = RssManager.ProcessNewsFeed(reader.GetString(0));
+                        foreach (NewsItem newsItem in storedNews)
+                        {
+                            string title = newsItem.Title;
+                            title = title.Replace("'", "").Trim();
+                            using (SQLiteCommand filterCommand = new SQLiteCommand(sqLiteConnection))
+                            {
+                                filterCommand.CommandText = "SELECT * " +
+                                    "FROM NEWS_STORAGE " +
+                                "WHERE NEWSITEM_TITLE = ? ";
+                                filterCommand.Parameters.AddWithValue(null, title);
+                                SQLiteDataReader filterReader = filterCommand.ExecuteReader();
+                                if(filterReader.HasRows)
+                                    continue;
+                                filterReader.Close();
+                            }
+                            using (SQLiteCommand insertCommand = new SQLiteCommand(sqLiteConnection))
+                            {
+                                insertCommand.CommandText =
+                                    "INSERT INTO NEWS_STORAGE (NEWSITEM_TITLE, NEWSITEM_HYPERLINK, NEWSITEM_DESCRIPTION, NEWSITEM_AQUISITION_DATE) " +
+                                    "VALUES (?, ?, ?, ?)";
+                                insertCommand.Parameters.AddWithValue(null, newsItem.Title);
+                                insertCommand.Parameters.AddWithValue(null, newsItem.Link);
+                                insertCommand.Parameters.AddWithValue(null, newsItem.Description);
+                                insertCommand.Parameters.AddWithValue(null, DateTime.Now);
+                                insertCommand.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                    reader.Close();
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
             }
         }
 
-        //public List<NewsItem> GetNewsList()
-        //{
-        //    using (mdbEntities db = new mdbEntities())
-        //        _newsList = (from news in db.NEWS_STORAGE
-        //                     select news).ToList();
-        //}
+        public static void ChapterFinished(string mangaTitle)
+        {
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
 
-        //private void RssFetcher()
-        //{
-        //    try
-        //    {
-        //        using (mdbEntities db = new mdbEntities())
-        //        {
-        //            //Mds db = new Mds(Properties.Settings.Default.DbConnection);
-        //            var rssSubs = from subs in db.NEWS_SUBSCRIPTIONS
-        //                          select subs.SUBSCRIPTION_URL;
-        //            foreach (var result in rssSubs.Select(channel => RssManager.ProcessNewsFeed(channel)))
-        //            {
-        //                ProgressChanged(result.Count, 0);
-        //                var count = 0;
-        //                foreach (NewsItem newsItem in result)
-        //                {
-        //                    var title = newsItem.Title;
-        //                    title = title.Replace("'", "");
-        //                    title = title.Trim();
-        //                    var newsFilter = from line in db.NEWS_STORAGE
-        //                                     where line.NEWSITEM_TITLE == title
-        //                                     select line;
-        //                    //TODO: Add implementation for the RSS to keep info about the Publication Date.
-        //                    if (!newsFilter.Any())
-        //                    {
-        //                        var ne = new NEWS_STORAGE
-        //                        {
-        //                            NEWSITEM_TITLE = title,
-        //                            NEWSITEM_HYPERLINK = newsItem.Link,
-        //                            NEWSITEM_DESCRIPTION =
-        //                                RegularExpressions.HtmlTagRemover(newsItem.Description),
-        //                            NEWSITEM_AQUISITION_DATE = DateTime.Now
-        //                        };
-        //                        db.NEWS_STORAGE.AddObject(ne);
-        //                        db.SaveChanges();
-        //                    }
-        //                    count++;
-        //                    ProgressChanged(result.Count, count);
-        //                }
-        //            }
-        //            _newsList = (from news in db.NEWS_STORAGE
-        //                         select news).ToList();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ErrorMessageBox.Show(ex.Message, ex.ToString());
-        //        Logger.ErrorLogger("error.txt", ex.ToString());
-        //    }
-        //}
-
-        //TODO:Just Read a Chapter functionality
-
-                //        using (mdbEntities db = new mdbEntities())
-                //{
-                //    if (mangaListDataGridView.CurrentRow != null)
-                //    {
-                //        var mId =
-                //            DatabaseOperations.GetMANGA_ID(
-                //                (string) mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
-                //        var manga = (from current in db.READING_LIST
-                //                     where current.MANGA_ID == mId
-                //                     select current).Single();
-                //        manga.READ_CURRENT_CHAPTER += 1;
-                //        manga.READ_LAST_TIME = DateTime.Now;
-                //    }
-                //    db.SaveChanges();
-                //}
-       
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                    {
+                        CommandText = "UPDATE READING_LIST " +
+                                      "SET READ_CURRENT_CHAPTER = READ_CURRENT_CHAPTER + 1, READ_LAST_TIME = ? " +
+                                      "WHERE MANGA_ID = ?"
+              
+                    };
+                    sqLiteCommand.Parameters.AddWithValue(null, DateTime.Now);
+                    sqLiteCommand.Parameters.AddWithValue(null, GetMangaId(mangaTitle));
+                    sqLiteCommand.ExecuteNonQuery();
+      
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+        }
 
         private static byte[] GetBytes(SQLiteDataReader reader)
         {
@@ -463,7 +515,7 @@ namespace mraSharp.Classes
         /// <summary>
         /// Loads the Rss Subscriptions (URLs) from the database.
         /// </summary>
-        public static List<string> LoadSubscriptions()
+        public static List<string> GetSubscriptionList()
         {
             List<String> returnData = new List<string>();
             try
@@ -529,24 +581,6 @@ namespace mraSharp.Classes
             }
             return returnData;
         }
-
-        //private void GetChannelName()
-        //{
-        //    using (mdbEntities db = new mdbEntities())
-        //    {
-        //        if (!String.IsNullOrEmpty(SUBSCRIPTION_URLComboBox.Text))
-        //        {
-        //            var channelName = (from data in db.NEWS_SUBSCRIPTIONS
-        //                               where data.SUBSCRIPTION_URL == SUBSCRIPTION_URLComboBox.Text
-        //                               select data.SUBSCRIPTION_CHANNEL_NAME).SingleOrDefault();
-        //            channelTitleTextBox.Text = channelName;
-        //        }
-        //        else
-        //        {
-        //            channelTitleTextBox.Text = "";
-        //        }
-        //    }
-        //}
 
         #region Statistics Methods
 

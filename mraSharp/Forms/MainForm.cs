@@ -51,7 +51,7 @@ namespace mraSharp.Forms
             {
                 if (DatabaseWrapper.FeedDataExistInTheDatabase())
                 {
-                   //TODO: Here goes the news list fetch
+                    //TODO: Here goes the news list fetch
 
                     rssTickTimer.Enabled = true;
                     rssCheckTimer.Enabled = false;
@@ -87,6 +87,8 @@ namespace mraSharp.Forms
         //TODO: Work on the RSS Ticker. Lack of Internet connection plus Rss Already in the database.
         private void RssTicker()
         {
+            DatabaseWrapper.NewsItemsRetriever();
+            _newsList = DatabaseWrapper.GetNewsItemList();
             try
             {
                 var newsItemsCount = _newsList.Count();
@@ -116,7 +118,6 @@ namespace mraSharp.Forms
             }
         }
 
-   
 
         private void RssSubscriptionsToolStripMenuItemClick(object sender, EventArgs e)
         {
@@ -164,8 +165,8 @@ namespace mraSharp.Forms
 
         private void RssFetchingThreadDoWork(object sender, DoWorkEventArgs e)
         {
-            //RssFetcher();
-            DatabaseWrapper.OldRssRemover(Settings.Default.keepInDatabaseFor);
+            ////RssFetcher();
+            //DatabaseWrapper.OldRssRemover(Settings.Default.keepInDatabaseFor);
         }
 
         private void RssFetchingThreadRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -185,24 +186,25 @@ namespace mraSharp.Forms
         {
             try
             {
-                //TODO: Add a check for an empty List.
-                //TODO: Call just read function
+                if (mangaListDataGridView.CurrentRow == null)
+                    return;
+                DatabaseWrapper.ChapterFinished(
+                    (string) mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
 
-                //Updates the DataGridView to reflect on the changes made to the database
-                if (mangaListDataGridView.CurrentRow != null)
+                if (mangaListDataGridView.CurrentRow == null)
+                    return;
+
+                mangaListDataGridView.CurrentRow.Cells["lastReadDataGridViewTextBoxColumn"].Value = DateTime.Now;
+                mangaListDataGridView.CurrentRow.Cells["currentChapterDataGridViewTextBoxColumn"].Value =
+                    Convert.ToDouble(
+                        mangaListDataGridView.CurrentRow.Cells["currentChapterDataGridViewTextBoxColumn"].Value) + 1;
+                if (_isWebFormOpen)
                 {
-                    mangaListDataGridView.CurrentRow.Cells["lastReadDataGridViewTextBoxColumn"].Value = DateTime.Now;
-                    mangaListDataGridView.CurrentRow.Cells["currentChapterDataGridViewTextBoxColumn"].Value =
-                        Convert.ToDouble(
-                            mangaListDataGridView.CurrentRow.Cells["currentChapterDataGridViewTextBoxColumn"].Value) + 1;
-                    if (_isWebFormOpen)
-                    {
-                        var currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-                        _web.SetTitle(string.Format("Manga: {0} - Current Chapter: {1} - Last Read: {2}",
-                                                    mangaListDataGridView[0, currentSelectedRow].Value,
-                                                    mangaListDataGridView[2, currentSelectedRow].Value,
-                                                    mangaListDataGridView[3, currentSelectedRow].Value));
-                    }
+                    var currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
+                    _web.SetTitle(string.Format("Manga: {0} - Current Chapter: {1} - Last Read: {2}",
+                                                mangaListDataGridView[0, currentSelectedRow].Value,
+                                                mangaListDataGridView[2, currentSelectedRow].Value,
+                                                mangaListDataGridView[3, currentSelectedRow].Value));
                 }
             }
             catch (Exception ex)

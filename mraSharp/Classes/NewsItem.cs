@@ -19,7 +19,7 @@ namespace mraSharp.Classes
             Title = title;
             Link = link;
             Description = description;
-            PublicationDate = publicationDate;
+            AquisitionDate = publicationDate;
         }
 
         public NewsItem()
@@ -27,7 +27,7 @@ namespace mraSharp.Classes
             Title = "";
             Link = "";
             Description = "";
-            PublicationDate = null;
+            AquisitionDate = null;
         }
 
         /// <summary>
@@ -60,6 +60,6 @@ namespace mraSharp.Classes
         /// <value>
         /// The publication date.
         /// </value>
-        public DateTime? PublicationDate { get; set; }
+        public DateTime? AquisitionDate { get; set; }
     }
 }
