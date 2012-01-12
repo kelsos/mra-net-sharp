@@ -698,9 +698,6 @@
     <None Include="Resources\arrow-circle-double.png" />
     <None Include="Resources\navigation.png" />
     <None Include="Resources\navigation-180.png" />
-    <None Include="Files\LinqToSQL.dbml.layout">
-      <DependentUpon>LinqToSQL.dbml</DependentUpon>
-    </None>
     <EmbeddedResource Include="Forms\AddMangaForm.resx">
       <DependentUpon>AddMangaForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -810,7 +807,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.None.Increment" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

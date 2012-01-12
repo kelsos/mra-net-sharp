@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.rssUrlComboBox = new System.Windows.Forms.ComboBox();
+            this.SUBSCRIPTION_URLComboBox = new System.Windows.Forms.ComboBox();
             this.rssSubGroupBox = new System.Windows.Forms.GroupBox();
             this.channelTitleTextBox = new System.Windows.Forms.TextBox();
             this.exportPopup = new System.Windows.Forms.Button();
@@ -41,16 +41,16 @@
             this.rssSubGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // rssUrlComboBox
+            // SUBSCRIPTION_URLComboBox
             // 
-            this.rssUrlComboBox.DisplayMember = "rssUrl";
-            this.rssUrlComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.rssUrlComboBox.FormattingEnabled = true;
-            this.rssUrlComboBox.Location = new System.Drawing.Point(6, 49);
-            this.rssUrlComboBox.Name = "rssUrlComboBox";
-            this.rssUrlComboBox.Size = new System.Drawing.Size(367, 21);
-            this.rssUrlComboBox.TabIndex = 2;
-            this.rssUrlComboBox.SelectedIndexChanged += new System.EventHandler(this.RssUrlComboBoxSelectedIndexChanged);
+            this.SUBSCRIPTION_URLComboBox.DisplayMember = "SUBSCRIPTION_URL";
+            this.SUBSCRIPTION_URLComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SUBSCRIPTION_URLComboBox.FormattingEnabled = true;
+            this.SUBSCRIPTION_URLComboBox.Location = new System.Drawing.Point(6, 49);
+            this.SUBSCRIPTION_URLComboBox.Name = "SUBSCRIPTION_URLComboBox";
+            this.SUBSCRIPTION_URLComboBox.Size = new System.Drawing.Size(367, 21);
+            this.SUBSCRIPTION_URLComboBox.TabIndex = 2;
+            this.SUBSCRIPTION_URLComboBox.SelectedIndexChanged += new System.EventHandler(this.SubscriptionUrlComboBoxSelectedIndexChanged);
             // 
             // rssSubGroupBox
             // 
@@ -62,7 +62,7 @@
             this.rssSubGroupBox.Controls.Add(this.addSubButton);
             this.rssSubGroupBox.Controls.Add(this.removeSubButton);
             this.rssSubGroupBox.Controls.Add(this.rssSubTextBox);
-            this.rssSubGroupBox.Controls.Add(this.rssUrlComboBox);
+            this.rssSubGroupBox.Controls.Add(this.SUBSCRIPTION_URLComboBox);
             this.rssSubGroupBox.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.rssSubGroupBox.Location = new System.Drawing.Point(12, 12);
             this.rssSubGroupBox.Name = "rssSubGroupBox";
@@ -171,7 +171,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.ComboBox rssUrlComboBox;
+		private System.Windows.Forms.ComboBox SUBSCRIPTION_URLComboBox;
 		private System.Windows.Forms.GroupBox rssSubGroupBox;
 		private System.Windows.Forms.Button exportPopup;
 		private System.Windows.Forms.Button importButton;

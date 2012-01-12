@@ -2,18 +2,16 @@
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using System.Data.SQLite;
-using System.Data.SQLite.Properties;
 
 namespace mraSharp.Classes
 {
     public static class FileOperations
     {
-        public static void ReadingListToXML(string fileName)
+        public static void ReadingListToXml(string fileName)
         {
             //TODO: Disable reload/backup when database is empty.
             //TODO: Insert Countries of MangaKa
-            using (mangaDatabaseEntities mdb = new mangaDatabaseEntities())
+            using (mdbEntities mdb = new mdbEntities())
             {
 
                 var dataDump = from read in mdb.READING_LIST
@@ -40,7 +38,7 @@ namespace mraSharp.Classes
             }
         }
 
-        public static void ReadingListFromXML(object info)
+        public static void ReadingListFromXml(object info)
         {
             var information = (DataPasser)info;
             var fileName = information.FilePath;
@@ -48,7 +46,7 @@ namespace mraSharp.Classes
 
             var count = 0;
             var xDoc = XDocument.Load(fileName);
-            using (var db = new Mds(Properties.Settings.Default.DbConnection))
+            using (mdbEntities db = new mdbEntities())
             {
                 var xData = from data in xDoc.Descendants("manga")
                             select new
@@ -62,10 +60,10 @@ namespace mraSharp.Classes
                                            Note = (string)data.Element("mangaNote") ?? ""
                                        };
                 mf.ProgressChanged(xData.Count(), count);
-                foreach (var mR in xData.Select(line => new Mr_readingList() { MangaID = DatabaseOperations.GetMangaID(line.MangaTitle), Mr_StartingChapter = line.StartingChapter, Mr_CurrentChapter = line.CurrentChapter, Mr_LastRead = line.DateLastRead, Mr_OnlineURL = line.OnLineURL, Mr_IsReadingFinished = line.Finished }))
+                foreach (var mR in xData.Select(line => new READING_LIST() { MANGA_ID = DatabaseOperations.GetMANGA_ID(line.MangaTitle), READ_STARTING_CHAPTER = (long?) line.StartingChapter, READ_CURRENT_CHAPTER = (long?) line.CurrentChapter, READ_LAST_TIME = line.DateLastRead, READ_ONLINE_URL = line.OnLineURL, READ_IS_FINISHED = line.Finished }))
                 {
-                    db.Mr_readingList.InsertOnSubmit(mR);
-                    db.SubmitChanges();
+                    db.READING_LIST.AddObject(mR);
+                    db.SaveChanges();
                     count++;
                     mf.ProgressChanged(xData.Count(), count);
                 }
@@ -81,15 +79,15 @@ namespace mraSharp.Classes
         {
             try
             {
-                using (var db = new Mds(Properties.Settings.Default.DbConnection))
+                using (mdbEntities db = new mdbEntities())
                 {
-                    var rssSubs = from rssUrl in db.Rss_Subscriptions
-                                  select rssUrl;
-                    foreach (var rssUrl in rssSubs)
+                    var rssSubs = from subscriptionUrl in db.NEWS_SUBSCRIPTIONS
+                                  select subscriptionUrl;
+                    foreach (var subscriptionUrl in rssSubs)
                     {
                         Stream stream = new FileStream(filePath, FileMode.Append);
                         var file = new StreamWriter(stream);
-                        file.WriteLine(rssUrl.RssURL, "\n");
+                        file.WriteLine(subscriptionUrl.SUBSCRIPTION_URL, "\n");
                         file.Close();
                     }
                 }
@@ -108,16 +106,16 @@ namespace mraSharp.Classes
         {
             try
             {
-                using (var db = new Mds(Properties.Settings.Default.DbConnection))
+                using (mdbEntities db = new mdbEntities())
                 {
                     Stream stream = new FileStream(filePath, FileMode.Open);
                     var file = new StreamReader(stream);
                     string line;
                     while ((line = file.ReadLine()) != null)
                     {
-                        var sub = new Rss_Subscriptions { RssURL = line };
-                        db.Rss_Subscriptions.InsertOnSubmit(sub);
-                        db.SubmitChanges();
+                        var sub = new NEWS_SUBSCRIPTIONS { SUBSCRIPTION_URL = line };
+                        db.NEWS_SUBSCRIPTIONS.AddObject(sub);
+                        db.SaveChanges();
                     }
                 }
             }

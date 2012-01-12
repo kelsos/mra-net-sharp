@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using System.Net;
@@ -23,11 +24,11 @@ namespace mraSharp.Forms
 		private void SubscriptionManagerFormLoad(object sender, EventArgs e)
 		{
 			LoadSubscriptions();
-            keepInDatabaseForTextBox.Text = Settings.Default.keepInDatabaseFor.ToString();
+            keepInDatabaseForTextBox.Text = Settings.Default.keepInDatabaseFor.ToString(CultureInfo.InvariantCulture);
 		}
 
 		/// <summary>
-		/// Handles the Click event of the removeSubButton control. (Removes the selected value of the RssUrlComboBox form the database).
+		/// Handles the Click event of the removeSubButton control. (Removes the selected value of the SUBSCRIPTION_URLComboBox form the database).
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
@@ -35,7 +36,7 @@ namespace mraSharp.Forms
 		{
 			try
 			{
-				DatabaseOperations.RemoveRssSubscription(rssUrlComboBox.Text);
+				DatabaseOperations.RemoveRssSubscription(SUBSCRIPTION_URLComboBox.Text);
 				LoadSubscriptions();
 				GetChannelName();
 			}
@@ -107,10 +108,10 @@ namespace mraSharp.Forms
 		{
 			try
 			{
-                using (var db = new Mds(Settings.Default.DbConnection))
+                using (mdbEntities db = new mdbEntities())
                 {
-                    rssUrlComboBox.DataSource = from url in db.Rss_Subscriptions
-                                                select url.RssURL;
+                    SUBSCRIPTION_URLComboBox.DataSource = from url in db.NEWS_SUBSCRIPTIONS
+                                                select url.SUBSCRIPTION_URL;
                 }
 			}
 			catch (Exception ex)
@@ -120,12 +121,12 @@ namespace mraSharp.Forms
 			}
 		}
 
-		private static string CheckRssChannel(string rssURL)
+		private static string CheckRssChannel(string subscriptionUrl)
 		{
 		    try
 			{
 
-				var myRequest = WebRequest.Create(rssURL);
+				var myRequest = WebRequest.Create(subscriptionUrl);
 				var myResponse = myRequest.GetResponse();
 				var rssStream = myResponse.GetResponseStream();
 				var rssChannel = new XmlDocument();
@@ -141,20 +142,20 @@ namespace mraSharp.Forms
 		    return null;
 		}
 
-	    private void RssUrlComboBoxSelectedIndexChanged(object sender, EventArgs e)
+	    private void SubscriptionUrlComboBoxSelectedIndexChanged(object sender, EventArgs e)
 		{
 			GetChannelName();
 		}
 
 		private void GetChannelName()
 		{
-			using (var db = new Mds(Settings.Default.DbConnection))
+			using (mdbEntities db = new mdbEntities())
 			{
-				if (!String.IsNullOrEmpty(rssUrlComboBox.Text))
+				if (!String.IsNullOrEmpty(SUBSCRIPTION_URLComboBox.Text))
 				{
-					var channelName = (from data in db.Rss_Subscriptions
-												 where data.RssURL == rssUrlComboBox.Text
-												 select data.RssChannelName).SingleOrDefault();
+					var channelName = (from data in db.NEWS_SUBSCRIPTIONS
+												 where data.SUBSCRIPTION_URL == SUBSCRIPTION_URLComboBox.Text
+												 select data.SUBSCRIPTION_CHANNEL_NAME).SingleOrDefault();
 					channelTitleTextBox.Text = channelName;
 				}
 				else
@@ -171,7 +172,7 @@ namespace mraSharp.Forms
 
         private void KeepInDatabaseForTextBoxKeyUp(object sender, KeyEventArgs e)
         {
-            //TODO: Validation of the textbox.
+            //TODO: Validation of the text box.
             Settings.Default.keepInDatabaseFor = Convert.ToInt32(keepInDatabaseForTextBox.Text);
         }
 	}
