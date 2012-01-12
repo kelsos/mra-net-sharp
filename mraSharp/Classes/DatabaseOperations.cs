@@ -116,8 +116,8 @@ namespace mraSharp.Classes
                 if (!string.IsNullOrEmpty(mangaTitle))
                 {
                     var MANGA_ID = (from manga in db.MANGA_INFO
-                                   where manga.MANGA_TITLE == mangaTitle
-                                   select manga.MANGA_ID).SingleOrDefault();
+                                    where manga.MANGA_TITLE == mangaTitle
+                                    select manga.MANGA_ID).SingleOrDefault();
                     return (int) MANGA_ID;
                 }
                 return 0;

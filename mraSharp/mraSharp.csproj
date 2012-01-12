@@ -59,6 +59,12 @@
     <OutputPath>bin\x64\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DbLinq">
+      <HintPath>D:\Program Files\DbLinq-0.20.1\DbLinq.dll</HintPath>
+    </Reference>
+    <Reference Include="DbLinq.Sqlite">
+      <HintPath>D:\Program Files\DbLinq-0.20.1\DbLinq.Sqlite.dll</HintPath>
+    </Reference>
     <Reference Include="JSCore, Version=1.0.4377.27765, Culture=neutral, PublicKeyToken=d6b823da6d3fa04b, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Libraries\openwebkitsharp_r113\Binary\JSCore.dll</HintPath>
@@ -110,6 +116,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DatabaseWrapper.cs" />
+    <Compile Include="Data\sqliteDb.cs">
+      <DependentUpon>sqliteDb.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddMangaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -693,11 +703,18 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>dbModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Properties\DataSources\mangaDatabaseEntities.datasource" />
+    <None Include="Data\sqliteDb.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\mdbEntities.datasource" />
     <None Include="Resources\calendar-day.png" />
     <None Include="Resources\arrow-circle-double.png" />
     <None Include="Resources\navigation.png" />
     <None Include="Resources\navigation-180.png" />
+    <None Include="Data\sqliteDb.dbml.layout">
+      <DependentUpon>sqliteDb.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="Forms\AddMangaForm.resx">
       <DependentUpon>AddMangaForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -807,7 +824,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.None.Increment" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

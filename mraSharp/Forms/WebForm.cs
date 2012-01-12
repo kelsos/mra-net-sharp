@@ -9,132 +9,130 @@ using WebKit.JSCore;
 
 namespace mraSharp.Forms
 {
-	public partial class WebForm : Form
-	{
-		private MessageFilter _mbfilter;
-		private readonly MainForm _form;
-	    private readonly WebKitBrowser _webKitBrowser;
+    public partial class WebForm : Form
+    {
+        private MessageFilter _mbfilter;
+        private readonly MainForm _form;
+        private readonly WebKitBrowser _webKitBrowser;
 
-		public WebForm()
-		{
-			InitializeComponent();
-			HandleCreated += WebFormHandleCreated;
-			HandleDestroyed += WebFormHandleDestroyed;
-			Activated += WebFormActivated;
-			Deactivate += WebFormDeactivate;
-			justReadButton.Enabled = false;
-			_form = null;
-            _webKitBrowser = new WebKitBrowser();
-            browserPanel.Controls.Add(_webKitBrowser);
-		    _webKitBrowser.Dock = DockStyle.Fill;
-            _webKitBrowser.Navigate("http://www.google.com");
-
-		}
-
-		public WebForm(MainForm form)
-		{
-			InitializeComponent();
-			HandleCreated += WebFormHandleCreated;
-			HandleDestroyed += WebFormHandleDestroyed;
-			Activated += WebFormActivated;
-			Deactivate += WebFormDeactivate;
- 
-			_form = form;
-			justReadButton.Enabled = true;
+        public WebForm()
+        {
+            InitializeComponent();
+            HandleCreated += WebFormHandleCreated;
+            HandleDestroyed += WebFormHandleDestroyed;
+            Activated += WebFormActivated;
+            Deactivate += WebFormDeactivate;
+            justReadButton.Enabled = false;
+            _form = null;
             _webKitBrowser = new WebKitBrowser();
             browserPanel.Controls.Add(_webKitBrowser);
             _webKitBrowser.Dock = DockStyle.Fill;
-		    _webKitBrowser.Top = 10;
             _webKitBrowser.Navigate("http://www.google.com");
-		    _webKitBrowser.AllowDownloads = false;
-		    _webKitBrowser.Visible = true;
+        }
 
-                _webKitBrowser.Navigated+=WebKitBrowserNavigated;
-            
-		}
+        public WebForm(MainForm form)
+        {
+            InitializeComponent();
+            HandleCreated += WebFormHandleCreated;
+            HandleDestroyed += WebFormHandleDestroyed;
+            Activated += WebFormActivated;
+            Deactivate += WebFormDeactivate;
 
-	    private void WebKitBrowserNavigated(object sender, WebBrowserNavigatedEventArgs e)
-	    {
-	        statusLabel.Text = _webKitBrowser.Url.ToString();
-	    }
+            _form = form;
+            justReadButton.Enabled = true;
+            _webKitBrowser = new WebKitBrowser();
+            browserPanel.Controls.Add(_webKitBrowser);
+            _webKitBrowser.Dock = DockStyle.Fill;
+            _webKitBrowser.Top = 10;
+            _webKitBrowser.Navigate("http://www.google.com");
+            _webKitBrowser.AllowDownloads = false;
+            _webKitBrowser.Visible = true;
 
-	    public void SetTitle(string newTitle)
-		{
-			Text = newTitle;
-		}
+            _webKitBrowser.Navigated += WebKitBrowserNavigated;
+        }
 
-		private void WebFormHandleCreated(object sender, EventArgs e)
-		{
-			EventHandler backevent = BackToolStripButtonClick;
-			EventHandler forwardevent = ForwardToolStripButtonClick;
-			_mbfilter = new MessageFilter(this, ref backevent, ref forwardevent);
-		}
+        private void WebKitBrowserNavigated(object sender, WebBrowserNavigatedEventArgs e)
+        {
+            statusLabel.Text = _webKitBrowser.Url.ToString();
+        }
 
-		private void WebFormHandleDestroyed(object sender, EventArgs e)
-		{
-			_mbfilter = null;
-		}
+        public void SetTitle(string newTitle)
+        {
+            Text = newTitle;
+        }
 
-		private void WebFormActivated(object sender, EventArgs e)
-		{
-			Application.AddMessageFilter(_mbfilter);
-		}
+        private void WebFormHandleCreated(object sender, EventArgs e)
+        {
+            EventHandler backevent = BackToolStripButtonClick;
+            EventHandler forwardevent = ForwardToolStripButtonClick;
+            _mbfilter = new MessageFilter(this, ref backevent, ref forwardevent);
+        }
 
-		private void WebFormDeactivate(object sender, EventArgs e)
-		{
-			Application.RemoveMessageFilter(_mbfilter);
-		}
+        private void WebFormHandleDestroyed(object sender, EventArgs e)
+        {
+            _mbfilter = null;
+        }
 
-		private void BackToolStripButtonClick(object sender, EventArgs e)
-		{
+        private void WebFormActivated(object sender, EventArgs e)
+        {
+            Application.AddMessageFilter(_mbfilter);
+        }
+
+        private void WebFormDeactivate(object sender, EventArgs e)
+        {
+            Application.RemoveMessageFilter(_mbfilter);
+        }
+
+        private void BackToolStripButtonClick(object sender, EventArgs e)
+        {
             if (_webKitBrowser.CanGoBack)
                 _webKitBrowser.GoBack();
-		}
+        }
 
-		private void ForwardToolStripButtonClick(object sender, EventArgs e)
-		{
-			try
-			{
-			    if (_webKitBrowser.CanGoForward)
-			    {
-			        _webKitBrowser.GoForward();
-			    }
-			    else
-			    {
+        private void ForwardToolStripButtonClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_webKitBrowser.CanGoForward)
+                {
+                    _webKitBrowser.GoForward();
+                }
+                else
+                {
                     SendKeys.Send("{RIGHT}");
-			    }
-			}
-			catch (Exception ex)
-			{
-				Logger.ErrorLogger("error.txt", ex.ToString());
-			}
-		}
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+        }
 
-		private void ReloadToolStripButtonClick(object sender, EventArgs e)
-		{
+        private void ReloadToolStripButtonClick(object sender, EventArgs e)
+        {
             //geckoReader.Reload();
-		}
+        }
 
-		/// <summary>
-		/// Navigates to the specified URL.
-		/// </summary>
-		/// <param name="url">The URL.</param>
-		public void Navigate(string url)
-		{
+        /// <summary>
+        /// Navigates to the specified URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        public void Navigate(string url)
+        {
             _webKitBrowser.Navigate(url);
-		}
+        }
 
-		private void JustReadButtonClick(object sender, EventArgs e)
-		{
-			_form.JustReadAChapter();
-		}
+        private void JustReadButtonClick(object sender, EventArgs e)
+        {
+            _form.JustReadAChapter();
+        }
 
-		private void WebFormFormClosing(object sender, FormClosingEventArgs e)
-		{
-			if (_form != null)
-			{
-				_form.WebFormClosed();
-			}
-		}
-	}
+        private void WebFormFormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_form != null)
+            {
+                _form.WebFormClosed();
+            }
+        }
+    }
 }
