@@ -46,7 +46,6 @@ namespace mraSharp.Forms
 			  this.dataGridBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			  this.wikipediaTabPage = new System.Windows.Forms.TabPage();
 			  this.geckoPanel = new System.Windows.Forms.Panel();
-			  this.geckoWiki = new Skybound.Gecko.GeckoWebBrowser();
 			  this.browserNavBar = new System.Windows.Forms.ToolStrip();
 			  this.backToolStripButton = new System.Windows.Forms.ToolStripButton();
 			  this.forwardToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -237,20 +236,13 @@ namespace mraSharp.Forms
 			  // 
 			  // geckoPanel
 			  // 
-			  this.geckoPanel.Controls.Add(this.geckoWiki);
+
 			  this.geckoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			  this.geckoPanel.Location = new System.Drawing.Point(3, 28);
 			  this.geckoPanel.Name = "geckoPanel";
 			  this.geckoPanel.Size = new System.Drawing.Size(700, 395);
 			  this.geckoPanel.TabIndex = 1;
-			  // 
-			  // geckoWiki
-			  // 
-			  this.geckoWiki.Dock = System.Windows.Forms.DockStyle.Fill;
-			  this.geckoWiki.Location = new System.Drawing.Point(0, 0);
-			  this.geckoWiki.Name = "geckoWiki";
-			  this.geckoWiki.Size = new System.Drawing.Size(700, 395);
-			  this.geckoWiki.TabIndex = 0;
+
 			  // 
 			  // browserNavBar
 			  // 
@@ -741,7 +733,6 @@ namespace mraSharp.Forms
 		  private System.Windows.Forms.ToolStripTextBox searchToolStripTextBox;
 		  private System.ComponentModel.BackgroundWorker rssFetchingThread;
 		  private System.Windows.Forms.ToolStripStatusLabel statusLabel;
-		  private Skybound.Gecko.GeckoWebBrowser geckoWiki;
 		  private System.Windows.Forms.BindingSource dataGridBindingSource;
 		  private System.Windows.Forms.DataGridViewTextBoxColumn titleDataGridViewTextBoxColumn;
 		  private System.Windows.Forms.DataGridViewTextBoxColumn startingChapterDataGridViewTextBoxColumn;

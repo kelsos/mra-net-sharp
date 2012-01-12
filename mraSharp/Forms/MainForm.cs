@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Windows.Forms;
 using System.Threading;
 using mraSharp.Classes;
 using mraSharp.Properties;
+using WebKit;
 
 namespace mraSharp.Forms
 {
@@ -17,14 +19,13 @@ namespace mraSharp.Forms
 		private bool _internetIsUp;
 		private bool _isWebFormOpen;
 		WebForm _web;
+	    private readonly WebKitBrowser _wikiWebKitBrowser;
 
 		public MainForm()
 		{
 			InitializeComponent();
 
 			//Initialization of GeckoFX
-			Skybound.Gecko.Xpcom.Initialize(Application.StartupPath + "\\xulrunner\\");
-			geckoWiki.HandleCreated += GeckoWikiHandleCreated;// creates a new event handler for the HandleCreated event of GeckoWiki
 			_myCounter = 0;
 			rssCheckTimer.Enabled = false;
 			rssTickTimer.Enabled = false;
@@ -35,6 +36,10 @@ namespace mraSharp.Forms
 			displayFinishedToolStripMenuItem.CheckState = Settings.Default.displayFinished ? CheckState.Checked : CheckState.Unchecked;
 			//checks if network is up
 			System.Net.NetworkInformation.NetworkChange.NetworkAddressChanged += NetworkAddressChangedHandler;
+		    _wikiWebKitBrowser = new WebKitBrowser {Visible = true};
+		    wikipediaTabPage.Controls.Add(_wikiWebKitBrowser);
+		    _wikiWebKitBrowser.Dock = DockStyle.Fill;
+		    _wikiWebKitBrowser.AllowDownloads = false;
 		}
 
 		#region Rss and Network functions and Event Handlers
@@ -86,7 +91,7 @@ namespace mraSharp.Forms
                 var rssFeedData = from data in db.Rss_NewsStorage
                                   select data;
 
-                return rssFeedData.Count() > 0;
+                return rssFeedData.Any();
             }
         }
 
@@ -145,7 +150,7 @@ namespace mraSharp.Forms
                                              where line.NewsTitle == title
                                              select line;
                             //TODO: Add implementation for the RSS to keep info about the Publication Date.
-                            if (newsFilter.Count() == 0)
+                            if (!newsFilter.Any())
                             {
                                 var ne = new Rss_NewsStorage { NewsTitle = title, NewsLink = newsItem.Link, NewsDescription = RegularExpressions.HtmlTagRemover(newsItem.Description), NewsDateAquired = DateTime.Now };
                                 db.Rss_NewsStorage.InsertOnSubmit(ne);
@@ -177,7 +182,7 @@ namespace mraSharp.Forms
 
 		private void RssCheckTimerTick(object sender, EventArgs e)
 		{
-			if (_internetIsUp)
+			if (_internetIsUp&&!rssFetchingThread.IsBusy)
 			{
 				rssFetchingThread.RunWorkerAsync();
 			}
@@ -237,9 +242,9 @@ namespace mraSharp.Forms
 				{
 				    if (mangaListDataGridView.CurrentRow != null)
 				    {
-				        var mID = DatabaseOperations.GetMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
+				        var mId = DatabaseOperations.GetMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
 				        var manga = (from current in db.Mr_readingList
-				                     where current.MangaID == mID
+				                     where current.MangaID == mId
 				                     select current).Single();
 				        manga.Mr_CurrentChapter += 1;
 				        manga.Mr_LastRead = DateTime.Now;
@@ -302,24 +307,25 @@ namespace mraSharp.Forms
 			{
 				try
 				{
-					using (var db = new Mds(Settings.Default.DbConnection))
+
+                    using (mdbEntities db = new mdbEntities())
 					{
 						if (Settings.Default.displayFinished)
 						{
-							dataGridBindingSource.DataSource = from read in db.Mr_readingList
-																		  join mangas in db.M_mangaInfo
-																		  on read.MangaID equals mangas.MangaID
-																		  orderby mangas.MangaTitle
-																		  select new MangaRead(mangas.MangaTitle, read.Mr_StartingChapter, read.Mr_CurrentChapter, read.Mr_LastRead, read.Mr_OnlineURL, read.Mr_IsReadingFinished);
+							dataGridBindingSource.DataSource = from read in db.READING_LIST
+																		  join mangas in db.MANGA_INFO
+																		  on read.MANGA_ID equals mangas.MANGA_ID
+																		  orderby mangas.MANGA_TITLE
+                                                                          select new MangaRead(mangas.MANGA_TITLE, read.READ_STARTING_CHAPTER, read.READ_CURRENT_CHAPTER, read.READ_LAST_TIME, read.READ_ONLINE_URL, read.READ_IS_FINISHED);
 						}
 						else
 						{
-							dataGridBindingSource.DataSource = from read in db.Mr_readingList
-																		  join mangas in db.M_mangaInfo
-																		  on read.MangaID equals mangas.MangaID
-																		  where read.Mr_IsReadingFinished == false
-																		  orderby mangas.MangaTitle
-																		  select new MangaRead(mangas.MangaTitle, read.Mr_StartingChapter, read.Mr_CurrentChapter, read.Mr_LastRead, read.Mr_OnlineURL, read.Mr_IsReadingFinished);
+							dataGridBindingSource.DataSource = from read in db.READING_LIST
+																		  join mangas in db.MANGA_INFO
+																		  on read.MANGA_ID equals mangas.MANGA_ID
+																		  where read.READ_IS_FINISHED == false
+																		  orderby mangas.MANGA_TITLE
+																		  select new MangaRead(mangas.MANGA_TITLE, read.READ_STARTING_CHAPTER, read.READ_CURRENT_CHAPTER, read.READ_LAST_TIME, read.READ_ONLINE_URL, read.READ_IS_FINISHED);
 						}
 					}
 				}
@@ -335,14 +341,14 @@ namespace mraSharp.Forms
 		{
 			try
 			{
-				using (var db = new Mds(Settings.Default.DbConnection))
+				using (mdbEntities db = new mdbEntities())
 				{
 					if (mangaListDataGridView.CurrentRow != null)
 					{
-						int mID = DatabaseOperations.GetMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
-						var image = (from current in db.M_mangaInfo
-										 where current.MangaID == mID
-										 select current.MangaCover).Single();
+						int mId = DatabaseOperations.GetMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
+						var image = (from current in db.MANGA_INFO
+										 where current.MANGA_ID == mId
+										 select current.MANGA_COVER).Single();
 						var imageByte = image.ToArray();
 						mangaCoverPictureBox.Image = Image.FromStream(new MemoryStream(imageByte));
 					}
@@ -363,9 +369,9 @@ namespace mraSharp.Forms
 				{
 					using (var db = new Mds(Settings.Default.DbConnection))
 					{
-						var mID = DatabaseOperations.GetMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
+						var mId = DatabaseOperations.GetMangaID((string)mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
 						var description = (from current in db.M_mangaInfo
-												 where current.MangaID == mID
+												 where current.MangaID == mId
 												 select current.MangaDescription).SingleOrDefault();
 						mangaDescriptionTextBox.Text = description;
 					}
@@ -406,8 +412,8 @@ namespace mraSharp.Forms
 				DatabaseOperations.ClearTheReadingList();
 				if (restoreOpenFileDialog.ShowDialog() == DialogResult.OK)
 				{
-					var readFromXML = new Thread(FileOperations.ReadingListFromXML);
-					readFromXML.Start(new DataPasser(this, restoreOpenFileDialog.FileName));
+					var readFromXml = new Thread(FileOperations.ReadingListFromXML);
+					readFromXml.Start(new DataPasser(this, restoreOpenFileDialog.FileName));
 					//loadDatagrid();
 				}
 			}
@@ -511,15 +517,15 @@ namespace mraSharp.Forms
 		{
 			if (e.ClickedItem == backToolStripButton)
 			{
-				geckoWiki.GoBack();
+			    _wikiWebKitBrowser.GoBack();
 			}
 			else if (e.ClickedItem == forwardToolStripButton)
 			{
-				geckoWiki.GoForward();
+                _wikiWebKitBrowser.GoForward();
 			}
 			else if (e.ClickedItem == wReloadtoolStripButton)
 			{
-				geckoWiki.Reload();
+                _wikiWebKitBrowser.Reload();
 			}
 		}
 
@@ -533,50 +539,10 @@ namespace mraSharp.Forms
 		    if (mangaListDataGridView.Rows.Count == 0) return;
 		    if (mangaListDataGridView.CurrentRow == null) return;
 		    var currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-		    var navigationURL = string.Format("http://en.wikipedia.org/w/index.php?search={0}&go=Go", RegularExpressions.WhiteSpaceToUrlEncoding(mangaListDataGridView[0, currentSelectedRow].Value.ToString()));
+		    var navigationUrl = string.Format("http://en.wikipedia.org/w/index.php?search={0}&go=Go", RegularExpressions.WhiteSpaceToUrlEncoding(mangaListDataGridView[0, currentSelectedRow].Value.ToString()));
 		    try
 		    {
-		        geckoWiki.Parent = geckoPanel;
-		        geckoWiki.CreateControl();
-		        Application.DoEvents();
-
-		        //Doesn't work the first time (handle must be created)
-
-		        if (geckoWiki.IsHandleCreated)
-		        {
-		            geckoWiki.Navigate(navigationURL);
-		        }
-		    }
-		    catch (Exception ex)
-		    {
-		        ErrorMessageBox.Show(ex.Message, ex.ToString());
-		        Logger.ErrorLogger("error.txt", ex.ToString());
-		    }
-		}
-
-		/// <summary>
-		/// Handles the HandleCreated event of the geckoWiki control. (Fires when you first enter the wiki tab (after the handle is created)
-		/// </summary>
-		/// <param name="sender">The source of the event.</param>
-		/// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-		private void GeckoWikiHandleCreated(object sender, EventArgs e)
-		{
-		    if (mangaListDataGridView.Rows.Count == 0) return;
-		    if (mangaListDataGridView.CurrentRow == null) return;
-		    var currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-		    var navigationURL = string.Format("http://en.wikipedia.org/w/index.php?search={0}&go=Go", RegularExpressions.WhiteSpaceToUrlEncoding(mangaListDataGridView[0, currentSelectedRow].Value.ToString()));
-		    try
-		    {
-		        geckoWiki.Parent = geckoPanel;
-		        geckoWiki.CreateControl();
-		        Application.DoEvents();
-
-		        //Doesn't work the first time (handle must be created)
-
-		        if (geckoWiki.IsHandleCreated)
-		        {
-		            geckoWiki.Navigate(navigationURL);
-		        }
+              _wikiWebKitBrowser.Navigate(navigationUrl);
 		    }
 		    catch (Exception ex)
 		    {
@@ -600,10 +566,10 @@ namespace mraSharp.Forms
 				    if (mangaListDataGridView.CurrentRow != null)
 				    {
 				        var currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-				        var mangaURL = mangaListDataGridView[4, currentSelectedRow].Value.ToString();
-				        if (!String.IsNullOrEmpty(mangaURL))
+				        var mangaUrl = mangaListDataGridView[4, currentSelectedRow].Value.ToString();
+				        if (!String.IsNullOrEmpty(mangaUrl))
 				        {
-				            _web.Navigate(mangaURL);
+				            _web.Navigate(mangaUrl);
 				            _web.SetTitle(string.Format("Manga: {0} - Current Chapter: {1} - Last Read: {2}", mangaListDataGridView[0, currentSelectedRow].Value, mangaListDataGridView[2, currentSelectedRow].Value, mangaListDataGridView[3, currentSelectedRow].Value));
 				        }
 				    }

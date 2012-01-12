@@ -50,16 +50,37 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JSCore, Version=1.0.4377.27765, Culture=neutral, PublicKeyToken=d6b823da6d3fa04b, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Libraries\openwebkitsharp_r113\Binary\JSCore.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-    <Reference Include="Skybound.Gecko">
-      <HintPath>.\Skybound.Gecko.dll</HintPath>
+    <Reference Include="MyDownloader.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Libraries\openwebkitsharp_r113\References\MyDownloader.Core.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="OpenWebKitSharp">
+      <HintPath>..\..\..\..\Libraries\openwebkitsharp_r113\Binary\OpenWebKitSharp.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
-    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Data.Linq">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Data.SQLite, Version=1.0.76.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
       <HintPath>C:\Program Files (x86)\System.Data.SQLite\2010\bin\System.Data.SQLite.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -69,7 +90,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\System.Data.SQLite\2010\bin\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Runtime.Serialization" />
@@ -82,6 +103,11 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebKit.Interop, Version=536.0.0.0, Culture=neutral, PublicKeyToken=d6b823da6d3fa04b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\..\..\..\Libraries\openwebkitsharp_r113\JavaScript\bin\Release\WebKit.Interop.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Forms\AddMangaForm.cs">
@@ -102,11 +128,6 @@
     <Compile Include="Classes\FileOperations.cs" />
     <Compile Include="Classes\Logger.cs" />
     <Compile Include="Classes\MangaRead.cs" />
-    <Compile Include="mds.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>mds.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Classes\MessageFilter.cs" />
     <Compile Include="Classes\NetworkOperations.cs" />
     <Compile Include="Classes\RegularExpressions.cs" />
@@ -118,10 +139,10 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="databaseModel.Designer.cs">
+    <Compile Include="dbModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>databaseModel.edmx</DependentUpon>
+      <DependentUpon>dbModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -155,426 +176,531 @@
     <Compile Include="Forms\WebForm.Designer.cs">
       <DependentUpon>WebForm.cs</DependentUpon>
     </Compile>
-    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlceca35.dll">
-      <Link>x86\sqlceca35.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlcecompact35.dll">
-      <Link>x86\sqlcecompact35.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlceer35EN.dll">
-      <Link>x86\sqlceer35EN.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlceme35.dll">
-      <Link>x86\sqlceme35.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlceoledb35.dll">
-      <Link>x86\sqlceoledb35.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlceqp35.dll">
-      <Link>x86\sqlceqp35.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="C:\Program Files %28x86%29\Microsoft SQL Server Compact Edition\v3.5\sqlcese35.dll">
-      <Link>x86\sqlcese35.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="Core\ApplePushService.dll" />
+    <Content Include="Core\AppleVersions.dll" />
+    <Content Include="Core\APSDaemon.exe" />
+    <Content Include="Core\APSDaemon_main.dll" />
+    <Content Include="Core\ASL.dll" />
+    <Content Include="Core\AVFoundationCF.dll" />
+    <Content Include="Core\CFNetwork.dll" />
+    <Content Include="Core\CFNetwork.resources\PACSupport.js" />
+    <Content Include="Core\CoreAudioToolbox.dll" />
+    <Content Include="Core\CoreFoundation.dll" />
+    <Content Include="Core\CoreGraphics.dll" />
+    <Content Include="Core\CoreMedia.dll" />
+    <Content Include="Core\CoreVideo.dll" />
+    <Content Include="Core\defaults.exe" />
+    <Content Include="Core\distnoted.exe" />
+    <Content Include="Core\Foundation.dll" />
+    <Content Include="Core\icudt46.dll" />
+    <Content Include="Core\icuin40.dll" />
+    <Content Include="Core\icuuc40.dll" />
+    <Content Include="Core\JavaScriptCore.dll" />
+    <Content Include="Core\LanguageLoader.resources\Credits.txt" />
+    <Content Include="Core\libcache.dll" />
+    <Content Include="Core\libdispatch.dll" />
+    <Content Include="Core\libicuin.dll" />
+    <Content Include="Core\libicuuc.dll" />
+    <Content Include="Core\libtidy.dll" />
+    <Content Include="Core\libxml2.dll" />
+    <Content Include="Core\libxslt.dll" />
+    <Content Include="Core\MediaToolbox.dll" />
+    <Content Include="Core\objc.dll" />
+    <Content Include="Core\plutil.exe" />
+    <Content Include="Core\pthreadVC2.dll" />
+    <Content Include="Core\QTMovieWin.dll" />
+    <Content Include="Core\QuartzCore.dll" />
+    <Content Include="Core\SQLite3.dll" />
+    <Content Include="Core\VideoToolbox.dll" />
+    <Content Include="Core\WebKit.dll" />
+    <Content Include="Core\WebKit.resources\da.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\de.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\en.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\es.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\fi.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\fr.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\inspector\AdvancedSearchController.js" />
+    <Content Include="Core\WebKit.resources\inspector\ApplicationCacheItemsView.js" />
+    <Content Include="Core\WebKit.resources\inspector\ApplicationCacheModel.js" />
+    <Content Include="Core\WebKit.resources\inspector\AuditCategories.js" />
+    <Content Include="Core\WebKit.resources\inspector\AuditFormatters.js" />
+    <Content Include="Core\WebKit.resources\inspector\AuditLauncherView.js" />
+    <Content Include="Core\WebKit.resources\inspector\AuditResultView.js" />
+    <Content Include="Core\WebKit.resources\inspector\AuditRules.js" />
+    <Content Include="Core\WebKit.resources\inspector\audits.css" />
+    <Content Include="Core\WebKit.resources\inspector\auditsPanel.css" />
+    <Content Include="Core\WebKit.resources\inspector\AuditsPanel.js" />
+    <Content Include="Core\WebKit.resources\inspector\BinarySearch.js" />
+    <Content Include="Core\WebKit.resources\inspector\BottomUpProfileDataGridTree.js" />
+    <Content Include="Core\WebKit.resources\inspector\BreakpointManager.js" />
+    <Content Include="Core\WebKit.resources\inspector\BreakpointsSidebarPane.js" />
+    <Content Include="Core\WebKit.resources\inspector\CallStackSidebarPane.js" />
+    <Content Include="Core\WebKit.resources\inspector\Checkbox.js" />
+    <Content Include="Core\WebKit.resources\inspector\Color.js" />
+    <Content Include="Core\WebKit.resources\inspector\CompilerSourceMapping.js" />
+    <Content Include="Core\WebKit.resources\inspector\ConsoleMessage.js" />
+    <Content Include="Core\WebKit.resources\inspector\ConsoleModel.js" />
+    <Content Include="Core\WebKit.resources\inspector\ConsolePanel.js" />
+    <Content Include="Core\WebKit.resources\inspector\ConsoleView.js" />
+    <Content Include="Core\WebKit.resources\inspector\ContentProviders.js" />
+    <Content Include="Core\WebKit.resources\inspector\ContextMenu.js" />
+    <Content Include="Core\WebKit.resources\inspector\CookieItemsView.js" />
+    <Content Include="Core\WebKit.resources\inspector\CookieParser.js" />
+    <Content Include="Core\WebKit.resources\inspector\CookiesTable.js" />
+    <Content Include="Core\WebKit.resources\inspector\CSSCompletions.js" />
+    <Content Include="Core\WebKit.resources\inspector\CSSKeywordCompletions.js" />
+    <Content Include="Core\WebKit.resources\inspector\CSSStyleModel.js" />
+    <Content Include="Core\WebKit.resources\inspector\Database.js" />
+    <Content Include="Core\WebKit.resources\inspector\DatabaseQueryView.js" />
+    <Content Include="Core\WebKit.resources\inspector\DatabaseTableView.js" />
+    <Content Include="Core\WebKit.resources\inspector\dataGrid.css" />
+    <Content Include="Core\WebKit.resources\inspector\DataGrid.js" />
+    <Content Include="Core\WebKit.resources\inspector\DebuggerModel.js" />
+    <Content Include="Core\WebKit.resources\inspector\DebuggerPresentationModel.js" />
+    <Content Include="Core\WebKit.resources\inspector\DetailedHeapshotGridNodes.js" />
+    <Content Include="Core\WebKit.resources\inspector\DetailedHeapshotView.js" />
+    <Content Include="Core\WebKit.resources\inspector\DOMAgent.js" />
+    <Content Include="Core\WebKit.resources\inspector\DOMBreakpointsSidebarPane.js" />
+    <Content Include="Core\WebKit.resources\inspector\DOMPresentationUtils.js" />
+    <Content Include="Core\WebKit.resources\inspector\DOMStorage.js" />
+    <Content Include="Core\WebKit.resources\inspector\DOMStorageItemsView.js" />
+    <Content Include="Core\WebKit.resources\inspector\DOMSyntaxHighlighter.js" />
+    <Content Include="Core\WebKit.resources\inspector\Drawer.js" />
+    <Content Include="Core\WebKit.resources\inspector\elementsPanel.css" />
+    <Content Include="Core\WebKit.resources\inspector\ElementsPanel.js" />
+    <Content Include="Core\WebKit.resources\inspector\ElementsTreeOutline.js" />
+    <Content Include="Core\WebKit.resources\inspector\EmptyView.js" />
+    <Content Include="Core\WebKit.resources\inspector\EventListenersSidebarPane.js" />
+    <Content Include="Core\WebKit.resources\inspector\ExtensionAPI.js" />
+    <Content Include="Core\WebKit.resources\inspector\ExtensionAuditCategory.js" />
+    <Content Include="Core\WebKit.resources\inspector\ExtensionCommon.js" />
+    <Content Include="Core\WebKit.resources\inspector\ExtensionPanel.js" />
+    <Content Include="Core\WebKit.resources\inspector\ExtensionRegistryStub.js" />
+    <Content Include="Core\WebKit.resources\inspector\ExtensionServer.js" />
+    <Content Include="Core\WebKit.resources\inspector\externs.js" />
+    <Content Include="Core\WebKit.resources\inspector\FontView.js" />
+    <Content Include="Core\WebKit.resources\inspector\goToLineDialog.css" />
+    <Content Include="Core\WebKit.resources\inspector\GoToLineDialog.js" />
+    <Content Include="Core\WebKit.resources\inspector\HandlerRegistry.js" />
+    <Content Include="Core\WebKit.resources\inspector\HAREntry.js" />
+    <Content Include="Core\WebKit.resources\inspector\heapProfiler.css" />
+    <Content Include="Core\WebKit.resources\inspector\HeapSnapshot.js" />
+    <Content Include="Core\WebKit.resources\inspector\HeapSnapshotProxy.js" />
+    <Content Include="Core\WebKit.resources\inspector\HeapSnapshotView.js" />
+    <Content Include="Core\WebKit.resources\inspector\HeapSnapshotWorker.js" />
+    <Content Include="Core\WebKit.resources\inspector\HeapSnapshotWorkerDispatcher.js" />
+    <Content Include="Core\WebKit.resources\inspector\helpScreen.css" />
+    <Content Include="Core\WebKit.resources\inspector\HelpScreen.js" />
+    <Content Include="Core\WebKit.resources\inspector\Images\applicationCache.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\back.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\breakpointBorder.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\breakpointConditionalBorder.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\breakpointConditionalCounterBorder.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\breakpointCounterBorder.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\checker.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\closeButtons.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\cookie.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\database.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\databaseTable.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\debuggerContinue.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\debuggerPause.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\debuggerStepInto.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\debuggerStepOut.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\debuggerStepOver.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\deleteIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\disclosureTriangleSmallDown.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\disclosureTriangleSmallDownBlack.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\disclosureTriangleSmallDownWhite.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\disclosureTriangleSmallRight.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\disclosureTriangleSmallRightBlack.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\disclosureTriangleSmallRightDown.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\disclosureTriangleSmallRightDownBlack.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\disclosureTriangleSmallRightDownWhite.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\disclosureTriangleSmallRightWhite.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\domain.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\errorIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\errorMediumIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\errorRedDot.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\forward.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\frame.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\glossyHeader.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\glossyHeaderPressed.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\glossyHeaderSelected.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\glossyHeaderSelectedPressed.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\goArrow.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\graphLabelCalloutLeft.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\graphLabelCalloutRight.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\localStorage.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\paneAddButtons.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\paneBottomGrow.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\paneBottomGrowActive.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\paneElementStateButtons.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\paneFilterButtons.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\paneGrowHandleLine.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\paneRefreshButtons.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\paneSettingsButtons.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\popoverArrows.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\popoverBackground.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\profileGroupIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\profileIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\profileSmallIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\profilesSilhouette.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\programCounterBorder.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\radioDot.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\resourceCSSIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\resourceDocumentIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\resourceDocumentIconSmall.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\resourceJSIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\resourcePlainIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\resourcePlainIconSmall.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\resourcesSizeGraphIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\resourcesTimeGraphIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\scriptsSilhouette.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\searchSmallBlue.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\searchSmallBrightBlue.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\searchSmallGray.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\searchSmallWhite.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\segment.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\segmentEnd.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\segmentHover.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\segmentHoverEnd.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\segmentSelected.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\segmentSelectedEnd.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\sessionStorage.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\spinner.gif" />
+    <Content Include="Core\WebKit.resources\inspector\Images\spinnerActive.gif" />
+    <Content Include="Core\WebKit.resources\inspector\Images\spinnerActiveSelected.gif" />
+    <Content Include="Core\WebKit.resources\inspector\Images\spinnerInactive.gif" />
+    <Content Include="Core\WebKit.resources\inspector\Images\spinnerInactiveSelected.gif" />
+    <Content Include="Core\WebKit.resources\inspector\Images\splitviewDimple.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\splitviewDividerBackground.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\statusbarBackground.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\statusbarBottomBackground.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\statusbarButtonGlyphs.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\statusbarButtons.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\statusbarMenuButton.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\statusbarMenuButtonSelected.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\statusbarResizerHorizontal.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\statusbarResizerVertical.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\successGreenDot.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\thumbActiveHoriz.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\thumbActiveVert.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\thumbHoriz.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\thumbHoverHoriz.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\thumbHoverVert.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\thumbVert.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineBarBlue.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineBarGray.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineBarGreen.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineBarOrange.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineBarPurple.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineBarRed.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineBarYellow.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineCheckmarks.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineDots.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineHollowPillBlue.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineHollowPillGray.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineHollowPillGreen.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineHollowPillOrange.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineHollowPillPurple.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineHollowPillRed.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelineHollowPillYellow.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelinePillBlue.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelinePillGray.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelinePillGreen.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelinePillOrange.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelinePillPurple.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelinePillRed.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\timelinePillYellow.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\toolbarIcons.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\toolbarIconsSmall.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\toolbarItemSelected.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\trackHoriz.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\trackVert.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\treeDownTriangleBlack.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\treeDownTriangleWhite.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\treeRightTriangleBlack.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\treeRightTriangleWhite.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\treeUpTriangleBlack.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\treeUpTriangleWhite.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\userInputIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\userInputPreviousIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\userInputResultIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\warningIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\warningMediumIcon.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\warningOrangeDot.png" />
+    <Content Include="Core\WebKit.resources\inspector\Images\warningsErrors.png" />
+    <Content Include="Core\WebKit.resources\inspector\ImageView.js" />
+    <Content Include="Core\WebKit.resources\inspector\InjectedFakeWorker.js" />
+    <Content Include="Core\WebKit.resources\inspector\inspector.css" />
+    <Content Include="Core\WebKit.resources\inspector\inspector.html" />
+    <Content Include="Core\WebKit.resources\inspector\inspector.js" />
+    <Content Include="Core\WebKit.resources\inspector\InspectorBackend.js" />
+    <Content Include="Core\WebKit.resources\inspector\InspectorBackendStub.js" />
+    <Content Include="Core\WebKit.resources\inspector\inspectorCommon.css" />
+    <Content Include="Core\WebKit.resources\inspector\InspectorFrontendAPI.js" />
+    <Content Include="Core\WebKit.resources\inspector\InspectorFrontendHostStub.js" />
+    <Content Include="Core\WebKit.resources\inspector\inspectorSyntaxHighlight.css" />
+    <Content Include="Core\WebKit.resources\inspector\InspectorView.js" />
+    <Content Include="Core\WebKit.resources\inspector\JavaScriptContextManager.js" />
+    <Content Include="Core\WebKit.resources\inspector\JavaScriptFormatter.js" />
+    <Content Include="Core\WebKit.resources\inspector\JavaScriptSourceFrame.js" />
+    <Content Include="Core\WebKit.resources\inspector\KeyboardShortcut.js" />
+    <Content Include="Core\WebKit.resources\inspector\MetricsSidebarPane.js" />
+    <Content Include="Core\WebKit.resources\inspector\NetworkItemView.js" />
+    <Content Include="Core\WebKit.resources\inspector\NetworkLog.js" />
+    <Content Include="Core\WebKit.resources\inspector\networkLogView.css" />
+    <Content Include="Core\WebKit.resources\inspector\NetworkManager.js" />
+    <Content Include="Core\WebKit.resources\inspector\networkPanel.css" />
+    <Content Include="Core\WebKit.resources\inspector\NetworkPanel.js" />
+    <Content Include="Core\WebKit.resources\inspector\Object.js" />
+    <Content Include="Core\WebKit.resources\inspector\ObjectPopoverHelper.js" />
+    <Content Include="Core\WebKit.resources\inspector\ObjectPropertiesSection.js" />
+    <Content Include="Core\WebKit.resources\inspector\Panel.js" />
+    <Content Include="Core\WebKit.resources\inspector\panelEnablerView.css" />
+    <Content Include="Core\WebKit.resources\inspector\PanelEnablerView.js" />
+    <Content Include="Core\WebKit.resources\inspector\PartialQuickSort.js" />
+    <Content Include="Core\WebKit.resources\inspector\Placard.js" />
+    <Content Include="Core\WebKit.resources\inspector\PleaseWaitMessage.js" />
+    <Content Include="Core\WebKit.resources\inspector\popover.css" />
+    <Content Include="Core\WebKit.resources\inspector\Popover.js" />
+    <Content Include="Core\WebKit.resources\inspector\ProfileDataGridTree.js" />
+    <Content Include="Core\WebKit.resources\inspector\profilesPanel.css" />
+    <Content Include="Core\WebKit.resources\inspector\ProfilesPanel.js" />
+    <Content Include="Core\WebKit.resources\inspector\ProfileView.js" />
+    <Content Include="Core\WebKit.resources\inspector\PropertiesSection.js" />
+    <Content Include="Core\WebKit.resources\inspector\PropertiesSidebarPane.js" />
+    <Content Include="Core\WebKit.resources\inspector\RawSourceCode.js" />
+    <Content Include="Core\WebKit.resources\inspector\RemoteObject.js" />
+    <Content Include="Core\WebKit.resources\inspector\Resource.js" />
+    <Content Include="Core\WebKit.resources\inspector\ResourceCategory.js" />
+    <Content Include="Core\WebKit.resources\inspector\ResourceCookiesView.js" />
+    <Content Include="Core\WebKit.resources\inspector\ResourceHeadersView.js" />
+    <Content Include="Core\WebKit.resources\inspector\ResourceHTMLView.js" />
+    <Content Include="Core\WebKit.resources\inspector\ResourceJSONView.js" />
+    <Content Include="Core\WebKit.resources\inspector\ResourcePreviewView.js" />
+    <Content Include="Core\WebKit.resources\inspector\ResourceResponseView.js" />
+    <Content Include="Core\WebKit.resources\inspector\resourcesPanel.css" />
+    <Content Include="Core\WebKit.resources\inspector\ResourcesPanel.js" />
+    <Content Include="Core\WebKit.resources\inspector\ResourceTimingView.js" />
+    <Content Include="Core\WebKit.resources\inspector\ResourceTreeModel.js" />
+    <Content Include="Core\WebKit.resources\inspector\ResourceUtils.js" />
+    <Content Include="Core\WebKit.resources\inspector\resourceView.css" />
+    <Content Include="Core\WebKit.resources\inspector\ResourceView.js" />
+    <Content Include="Core\WebKit.resources\inspector\ScopeChainSidebarPane.js" />
+    <Content Include="Core\WebKit.resources\inspector\Script.js" />
+    <Content Include="Core\WebKit.resources\inspector\ScriptFormatter.js" />
+    <Content Include="Core\WebKit.resources\inspector\ScriptFormatterWorker.js" />
+    <Content Include="Core\WebKit.resources\inspector\ScriptsNavigator.js" />
+    <Content Include="Core\WebKit.resources\inspector\scriptsPanel.css" />
+    <Content Include="Core\WebKit.resources\inspector\ScriptsPanel.js" />
+    <Content Include="Core\WebKit.resources\inspector\ScriptsSearchScope.js" />
+    <Content Include="Core\WebKit.resources\inspector\SearchController.js" />
+    <Content Include="Core\WebKit.resources\inspector\Section.js" />
+    <Content Include="Core\WebKit.resources\inspector\Settings.js" />
+    <Content Include="Core\WebKit.resources\inspector\SettingsScreen.js" />
+    <Content Include="Core\WebKit.resources\inspector\ShortcutsHelp.js" />
+    <Content Include="Core\WebKit.resources\inspector\ShortcutsScreen.js" />
+    <Content Include="Core\WebKit.resources\inspector\ShowMoreDataGridNode.js" />
+    <Content Include="Core\WebKit.resources\inspector\SidebarPane.js" />
+    <Content Include="Core\WebKit.resources\inspector\SidebarTreeElement.js" />
+    <Content Include="Core\WebKit.resources\inspector\SoftContextMenu.js" />
+    <Content Include="Core\WebKit.resources\inspector\SourceCSSTokenizer.js" />
+    <Content Include="Core\WebKit.resources\inspector\SourceFile.js" />
+    <Content Include="Core\WebKit.resources\inspector\SourceFrame.js" />
+    <Content Include="Core\WebKit.resources\inspector\SourceHTMLTokenizer.js" />
+    <Content Include="Core\WebKit.resources\inspector\SourceJavaScriptTokenizer.js" />
+    <Content Include="Core\WebKit.resources\inspector\SourceTokenizer.js" />
+    <Content Include="Core\WebKit.resources\inspector\splitView.css" />
+    <Content Include="Core\WebKit.resources\inspector\SplitView.js" />
+    <Content Include="Core\WebKit.resources\inspector\StatusBarButton.js" />
+    <Content Include="Core\WebKit.resources\inspector\StylesSidebarPane.js" />
+    <Content Include="Core\WebKit.resources\inspector\SummaryBar.js" />
+    <Content Include="Core\WebKit.resources\inspector\tabbedPane.css" />
+    <Content Include="Core\WebKit.resources\inspector\TabbedPane.js" />
+    <Content Include="Core\WebKit.resources\inspector\TestController.js" />
+    <Content Include="Core\WebKit.resources\inspector\TextEditorHighlighter.js" />
+    <Content Include="Core\WebKit.resources\inspector\TextEditorModel.js" />
+    <Content Include="Core\WebKit.resources\inspector\textPrompt.css" />
+    <Content Include="Core\WebKit.resources\inspector\TextPrompt.js" />
+    <Content Include="Core\WebKit.resources\inspector\textViewer.css" />
+    <Content Include="Core\WebKit.resources\inspector\TextViewer.js" />
+    <Content Include="Core\WebKit.resources\inspector\TimelineAgent.js" />
+    <Content Include="Core\WebKit.resources\inspector\TimelineGrid.js" />
+    <Content Include="Core\WebKit.resources\inspector\TimelineManager.js" />
+    <Content Include="Core\WebKit.resources\inspector\TimelineOverviewPane.js" />
+    <Content Include="Core\WebKit.resources\inspector\timelinePanel.css" />
+    <Content Include="Core\WebKit.resources\inspector\TimelinePanel.js" />
+    <Content Include="Core\WebKit.resources\inspector\Toolbar.js" />
+    <Content Include="Core\WebKit.resources\inspector\TopDownProfileDataGridTree.js" />
+    <Content Include="Core\WebKit.resources\inspector\treeoutline.js" />
+    <Content Include="Core\WebKit.resources\inspector\UglifyJS\parse-js.js" />
+    <Content Include="Core\WebKit.resources\inspector\UISourceCode.js" />
+    <Content Include="Core\WebKit.resources\inspector\UIUtils.js" />
+    <Content Include="Core\WebKit.resources\inspector\UserMetrics.js" />
+    <Content Include="Core\WebKit.resources\inspector\utilities.js" />
+    <Content Include="Core\WebKit.resources\inspector\View.js" />
+    <Content Include="Core\WebKit.resources\inspector\WatchExpressionsSidebarPane.js" />
+    <Content Include="Core\WebKit.resources\inspector\WelcomeView.js" />
+    <Content Include="Core\WebKit.resources\inspector\WorkerManager.js" />
+    <Content Include="Core\WebKit.resources\inspector\WorkersSidebarPane.js" />
+    <Content Include="Core\WebKit.resources\it.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\ja.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\ko.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\nb.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\nl.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\pl.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\pt.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\pt_PT.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\ru.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\sv.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\zh_CN.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit.resources\zh_TW.lproj\localizedStrings.js" />
+    <Content Include="Core\WebKit2WebProcess.exe" />
+    <Content Include="Core\WebKitQuartzCoreAdditions.dll" />
+    <Content Include="Core\YSCrashDump.dll" />
+    <Content Include="Core\YSUtilities.dll" />
+    <Content Include="Core\zlib1.dll" />
     <Content Include="Files\changelog.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="xulrunner\AccessibleMarshal.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\chrome\en-US.jar">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\chrome\pippki.jar">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\chrome\toolkit.jar">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\addonManager.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\amContentHandler.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\amWebInstallListener.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\ConsoleAPI.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\contentAreaDropListener.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\contentSecurityPolicy.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\crypto-SDR.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\FeedProcessor.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\GPSDGeolocationProvider.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\jsconsole-clhandler.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\messageWakeupService.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\NetworkGeolocationProvider.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsBadCertHandler.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsBlocklistService.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsContentDispatchChooser.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsContentPrefService.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsDefaultCLH.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsDownloadManagerUI.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsFormAutoComplete.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsFormHistory.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsHandlerService.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsHelperAppDlg.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsINIProcessor.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsInputListAutoComplete.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsLivemarkService.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsLoginInfo.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsLoginManager.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsLoginManagerPrompter.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsMicrosummaryService.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsPlacesAutoComplete.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsPlacesExpiration.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsPrompter.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsProxyAutoConfig.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsSearchService.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsSearchSuggestions.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsTaggingService.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsTryToClose.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsUpdateService.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsUpdateServiceStub.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsUpdateTimerManager.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsUrlClassifierLib.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsUrlClassifierListManager.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsURLFormatter.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsWebHandlerApp.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\nsXULAppInstall.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\PlacesCategoriesStarter.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\storage-Legacy.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\storage-mozStorage.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\components\txEXSLTRegExFunctions.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\crashreporter.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\D3DCompiler_42.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\d3dx9_42.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\defaults\autoconfig\platform.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\defaults\autoconfig\prefcalls.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\defaults\pref\xulrunner.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\defaults\profile\chrome\userChrome-example.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\defaults\profile\chrome\userContent-example.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\defaults\profile\US\chrome\userChrome-example.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\defaults\profile\US\chrome\userContent-example.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\freebl3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\greprefs.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\IA2Marshal.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\js.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\libEGL.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\libGLESv2.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\modules\debug.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\modules\Microformats.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\modules\SpatialNavigation.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\modules\utils.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\mozalloc.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\mozcpp19.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\mozcrt19.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\mozjs.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\mozsqlite3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\msvcm80.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\msvcp80.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\msvcr80.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\nspr4.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\nss3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\nssckbi.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\nssdbm3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\nssutil3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\plc4.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\plds4.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\plugin-container.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\README.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\redit.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\contenteditable.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\designmode.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\EditorOverride.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\grabber.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\html\folder.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\svg.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-add-column-after-active.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-add-column-after-hover.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-add-column-after.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-add-column-before-active.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-add-column-before-hover.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-add-column-before.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-add-row-after-active.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-add-row-after-hover.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-add-row-after.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-add-row-before-active.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-add-row-before-hover.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-add-row-before.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-remove-column-active.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-remove-column-hover.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-remove-column.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-remove-row-active.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-remove-row-hover.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\res\table-remove-row.gif">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\smime3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\softokn3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\ssl3.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\updater.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\xpcom.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\xpcshell.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\xpidl.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\xpt_dump.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\xpt_link.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\xul.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\xulrunner-stub.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="xulrunner\xulrunner.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="databaseModel.edmx">
+    <None Include="Core\AVFoundationCF.resources\AVCFAssetExportPresets.plist" />
+    <None Include="Core\AVFoundationCF.resources\AVFoundationCFSupport.plist" />
+    <None Include="Core\AVFoundationCF.resources\Info.plist" />
+    <None Include="Core\CFNetwork.resources\ar.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\CFNetworkCoreTypes-Info.plist" />
+    <None Include="Core\CFNetwork.resources\da.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\de.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\English.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\es.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\fi.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\fr.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\Info.plist" />
+    <None Include="Core\CFNetwork.resources\it.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\ja.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\ko.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\nb.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\nl.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\pl.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\pt.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\pt_PT.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\ru.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\sv.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\types.plist" />
+    <None Include="Core\CFNetwork.resources\zh_CN.lproj\Localizable.strings" />
+    <None Include="Core\CFNetwork.resources\zh_TW.lproj\Localizable.strings" />
+    <None Include="Core\ColorSync.resources\Profiles\AdobeRGB1998.icc" />
+    <None Include="Core\ColorSync.resources\Profiles\Generic CMYK Profile.icc" />
+    <None Include="Core\ColorSync.resources\Profiles\Generic Gray Gamma 2.2 Profile.icc" />
+    <None Include="Core\ColorSync.resources\Profiles\Generic Gray Profile.icc" />
+    <None Include="Core\ColorSync.resources\Profiles\Generic Lab Profile.icc" />
+    <None Include="Core\ColorSync.resources\Profiles\Generic RGB Profile.icc" />
+    <None Include="Core\ColorSync.resources\Profiles\Generic XYZ Profile.icc" />
+    <None Include="Core\ColorSync.resources\Profiles\sRGB Profile.icc" />
+    <None Include="Core\CoreFoundation.resources\CFCharacterSetBitmaps.bitmap" />
+    <None Include="Core\CoreFoundation.resources\CFUniCharPropertyDatabase.data" />
+    <None Include="Core\CoreFoundation.resources\CFUnicodeData-L.mapping" />
+    <None Include="Core\CoreFoundation.resources\da.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\da.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\de.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\de.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\en.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\es.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\es.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\fi.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\fi.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\fr.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\fr.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\Info.plist" />
+    <None Include="Core\CoreFoundation.resources\it.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\it.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\ja.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\ja.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\ko.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\ko.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\nb.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\nb.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\nl.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\nl.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\pl.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\pl.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\pt_PT.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\pt_PT.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\ru.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\ru.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\sv.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\sv.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\zh_CN.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\zh_CN.lproj\Error.strings" />
+    <None Include="Core\CoreFoundation.resources\zh_TW.lproj\CFSafeLaunch.strings" />
+    <None Include="Core\CoreFoundation.resources\zh_TW.lproj\Error.strings" />
+    <None Include="Core\CoreGraphics.resources\Info.plist" />
+    <None Include="Core\Foundation.resources\en.lproj\Document.strings" />
+    <None Include="Core\Foundation.resources\en.lproj\EncodingNames.strings" />
+    <None Include="Core\Foundation.resources\en.lproj\Formatter.strings" />
+    <None Include="Core\Foundation.resources\en.lproj\FoundationErrors.strings" />
+    <None Include="Core\Foundation.resources\en.lproj\URL.strings" />
+    <None Include="Core\Foundation.resources\Info.plist" />
+    <None Include="Core\IncompatibleApps.list" />
+    <None Include="Core\JavaScriptCore.resources\Info.plist" />
+    <None Include="Core\LanguageLoader.resources\English.ini" />
+    <None Include="Core\LanguageLoader.resources\Finnish.ini" />
+    <None Include="Core\LanguageLoader.resources\French.ini" />
+    <None Include="Core\LanguageLoader.resources\German.ini" />
+    <None Include="Core\LanguageLoader.resources\Greek.ini" />
+    <None Include="Core\LanguageLoader.resources\Indonesian.ini" />
+    <None Include="Core\LanguageLoader.resources\Na%27vi.ini" />
+    <None Include="Core\LanguageLoader.resources\Russian.ini" />
+    <None Include="Core\LanguageLoader.resources\Spanish.ini" />
+    <None Include="Core\LinguisticData.resources\de\hyphenation.dat" />
+    <None Include="Core\LinguisticData.resources\en\GB\hyphenation.dat" />
+    <None Include="Core\LinguisticData.resources\en\US\hyphenation.dat" />
+    <None Include="Core\LinguisticData.resources\es\hyphenation.dat" />
+    <None Include="Core\LinguisticData.resources\fr\hyphenation.dat" />
+    <None Include="Core\LinguisticData.resources\it\hyphenation.dat" />
+    <None Include="Core\LinguisticData.resources\nl\hyphenation.dat" />
+    <None Include="Core\LinguisticData.resources\ru\hyphenation.dat" />
+    <None Include="Core\MediaToolbox.resources\Info.plist" />
+    <None Include="Core\MediaToolbox.resources\MediaToolbox.icxs" />
+    <None Include="Core\OpenWebKitSharp.manifest" />
+    <None Include="Core\WebKit.resources\da.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\de.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\en.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\es.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\fi.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\fr.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\Info.plist" />
+    <None Include="Core\WebKit.resources\inspector\ExtensionAPISchema.json" />
+    <None Include="Core\WebKit.resources\inspector\InspectorBackendStub.qrc" />
+    <None Include="Core\WebKit.resources\inspector\SourceCSSTokenizer.re2js" />
+    <None Include="Core\WebKit.resources\inspector\SourceHTMLTokenizer.re2js" />
+    <None Include="Core\WebKit.resources\inspector\SourceJavaScriptTokenizer.re2js" />
+    <None Include="Core\WebKit.resources\inspector\WebKit.qrc" />
+    <None Include="Core\WebKit.resources\it.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\ja.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\ko.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\nb.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\nl.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\pl.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\pt.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\pt_PT.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\ru.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\sv.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\zh_CN.lproj\Localizable.strings" />
+    <None Include="Core\WebKit.resources\zh_TW.lproj\Localizable.strings" />
+    <None Include="Core\WebKit2WebProcess.resources\Info.plist" />
+    <EntityDeploy Include="dbModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>databaseModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>dbModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="Properties\DataSources\mangaDatabaseEntities.datasource" />
     <None Include="Resources\calendar-day.png" />
     <None Include="Resources\arrow-circle-double.png" />
     <None Include="Resources\navigation.png" />
     <None Include="Resources\navigation-180.png" />
+    <None Include="Files\LinqToSQL.dbml.layout">
+      <DependentUpon>LinqToSQL.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="Forms\AddMangaForm.resx">
       <DependentUpon>AddMangaForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -584,9 +710,6 @@
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="mds.dbml.layout">
-      <DependentUpon>mds.dbml</DependentUpon>
-    </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -618,11 +741,6 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="mds.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>mds.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -632,315 +750,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="xulrunner\chrome.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\chrome\en-US.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\chrome\pippki.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\chrome\toolkit.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\ConsoleAPI.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\contentAreaDropListener.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\contentSecurityPolicy.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\extensions.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\FeedProcessor.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\GPSDGeolocationProvider.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\interfaces.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\jsconsole-clhandler.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\messageWakeupService.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\NetworkGeolocationProvider.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsBadCertHandler.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsContentDispatchChooser.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsContentPrefService.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsDefaultCLH.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsDownloadManagerUI.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsHandlerService.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsHelperAppDlg.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsINIProcessor.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsPlacesAutoComplete.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsPrompter.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsProxyAutoConfig.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsTryToClose.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsUpdateService.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsUpdateTimerManager.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsURLClassifier.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsURLFormatter.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsWebHandlerApp.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\nsXULAppInstall.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\passwordmgr.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\pluginGlue.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\satchel.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\toolkitplaces.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\toolkitsearch.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\txEXSLTRegExFunctions.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\components\XULRunner.xpt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\crashreporter.ini">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\defaults\profile\localstore.rdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\defaults\profile\US\localstore.rdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\dependentlibs.list">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\dictionaries\en-US.aff">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\dictionaries\en-US.dic">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\freebl3.chk">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\LICENSE">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\Microsoft.VC80.CRT.manifest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\AddonLogging.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\AddonManager.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\AddonRepository.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\AddonUpdateChecker.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\CertUtils.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\CommonDialog.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\CrashSubmit.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\CSPUtils.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\ctypes.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\DownloadLastDir.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\DownloadPaths.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\DownloadTaskbarProgress.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\DownloadUtils.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\FileUtils.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\Geometry.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\InlineSpellChecker.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\ISO8601DateUtils.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\LightweightThemeConsumer.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\LightweightThemeManager.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\NetUtil.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\nsFormAutoCompleteResult.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\PerfMeasurement.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\PlacesDBUtils.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\PlacesUtils.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\PluginProvider.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\PluralForm.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\PopupNotifications.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\Services.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\WindowDraggingUtils.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\XPCOMUtils.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\modules\XPIProvider.jsm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\nssdbm3.chk">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\platform.ini">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\dtd\mathml.dtd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\dtd\xhtml11.dtd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\entityTables\html40Latin1.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\entityTables\html40Special.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\entityTables\html40Symbols.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\entityTables\htmlEntityVersions.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\entityTables\mathml20.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\entityTables\transliterate.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\fonts\mathfont.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\fonts\mathfontStandardSymbolsL.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\fonts\mathfontSTIXNonUnicode.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\fonts\mathfontSTIXSize1.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\fonts\mathfontSTIXSizeOneSym.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\fonts\mathfontSymbol.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\fonts\mathfontUnicode.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\langGroups.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\res\language.properties">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\softokn3.chk">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="xulrunner\update.locale">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\exclamation-red.png" />
-    <Content Include="mds.sdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skybound.Gecko.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Include="References\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="References\MyDownloader.App.dll" />
+    <Content Include="References\MyDownloader.Core.dll" />
+    <Content Include="References\MyDownloader.Extension.dll" />
+    <Content Include="References\MyDownloader.Spider.dll" />
+    <Content Include="References\TabStrip.dll" />
     <None Include="Icons\reload_48.png" />
     <None Include="Icons\calendar_48.png" />
     <None Include="Icons\globe_48.png" />
@@ -988,20 +806,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="SSCE">
-      <Guid>{CE4AACFA-3CFD-4028-B2D9-F272314F07C8}</Guid>
-      <VersionMajor>3</VersionMajor>
-      <VersionMinor>5</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\DataSources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

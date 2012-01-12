@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 using mraSharp.Classes;
+using WebKit;
+
+#if DOTNET4
+using WebKit.JSCore;
+#endif
 
 namespace mraSharp.Forms
 {
@@ -8,6 +13,7 @@ namespace mraSharp.Forms
 	{
 		private MessageFilter _mbfilter;
 		private readonly MainForm _form;
+	    private readonly WebKitBrowser _webKitBrowser;
 
 		public WebForm()
 		{
@@ -18,6 +24,11 @@ namespace mraSharp.Forms
 			Deactivate += WebFormDeactivate;
 			justReadButton.Enabled = false;
 			_form = null;
+            _webKitBrowser = new WebKitBrowser();
+            browserPanel.Controls.Add(_webKitBrowser);
+		    _webKitBrowser.Dock = DockStyle.Fill;
+            _webKitBrowser.Navigate("http://www.google.com");
+
 		}
 
 		public WebForm(MainForm form)
@@ -27,11 +38,27 @@ namespace mraSharp.Forms
 			HandleDestroyed += WebFormHandleDestroyed;
 			Activated += WebFormActivated;
 			Deactivate += WebFormDeactivate;
+ 
 			_form = form;
 			justReadButton.Enabled = true;
+            _webKitBrowser = new WebKitBrowser();
+            browserPanel.Controls.Add(_webKitBrowser);
+            _webKitBrowser.Dock = DockStyle.Fill;
+		    _webKitBrowser.Top = 10;
+            _webKitBrowser.Navigate("http://www.google.com");
+		    _webKitBrowser.AllowDownloads = false;
+		    _webKitBrowser.Visible = true;
+
+                _webKitBrowser.Navigated+=WebKitBrowserNavigated;
+            
 		}
 
-		public void SetTitle(string newTitle)
+	    private void WebKitBrowserNavigated(object sender, WebBrowserNavigatedEventArgs e)
+	    {
+	        statusLabel.Text = _webKitBrowser.Url.ToString();
+	    }
+
+	    public void SetTitle(string newTitle)
 		{
 			Text = newTitle;
 		}
@@ -60,18 +87,22 @@ namespace mraSharp.Forms
 
 		private void BackToolStripButtonClick(object sender, EventArgs e)
 		{
-			if (geckoReader.CanGoBack)
-				geckoReader.GoBack();
+            if (_webKitBrowser.CanGoBack)
+                _webKitBrowser.GoBack();
 		}
 
 		private void ForwardToolStripButtonClick(object sender, EventArgs e)
 		{
 			try
 			{
-				if (geckoReader.CanGoForward)
-					geckoReader.GoForward();
-				else
-					SendKeys.Send("{RIGHT}");
+			    if (_webKitBrowser.CanGoForward)
+			    {
+			        _webKitBrowser.GoForward();
+			    }
+			    else
+			    {
+                    SendKeys.Send("{RIGHT}");
+			    }
 			}
 			catch (Exception ex)
 			{
@@ -81,7 +112,7 @@ namespace mraSharp.Forms
 
 		private void ReloadToolStripButtonClick(object sender, EventArgs e)
 		{
-			geckoReader.Reload();
+            //geckoReader.Reload();
 		}
 
 		/// <summary>
@@ -90,12 +121,7 @@ namespace mraSharp.Forms
 		/// <param name="url">The URL.</param>
 		public void Navigate(string url)
 		{
-			geckoReader.Navigate(url);
-		}
-
-		private void GeckoReaderNavigated(object sender, Skybound.Gecko.GeckoNavigatedEventArgs e)
-		{
-			statusLabel.Text = geckoReader.Url.ToString();
+            _webKitBrowser.Navigate(url);
 		}
 
 		private void JustReadButtonClick(object sender, EventArgs e)
