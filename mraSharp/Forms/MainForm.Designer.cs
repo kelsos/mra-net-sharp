@@ -31,6 +31,7 @@ namespace mraSharp.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.mangaGridTabPage = new System.Windows.Forms.TabPage();
             this.mangaListDataGridView = new System.Windows.Forms.DataGridView();
@@ -124,15 +125,25 @@ namespace mraSharp.Forms
             // 
             this.mangaListDataGridView.AllowUserToAddRows = false;
             this.mangaListDataGridView.AllowUserToDeleteRows = false;
+            this.mangaListDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mangaListDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.mangaListDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.mangaListDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mangaListDataGridView.Location = new System.Drawing.Point(3, 3);
             this.mangaListDataGridView.MultiSelect = false;
             this.mangaListDataGridView.Name = "mangaListDataGridView";
             this.mangaListDataGridView.ReadOnly = true;
+            this.mangaListDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.mangaListDataGridView.Size = new System.Drawing.Size(700, 420);
             this.mangaListDataGridView.TabIndex = 0;
-            this.mangaListDataGridView.SelectionChanged += new System.EventHandler(this.MangaListDataGridViewSelectionChanged);
+            this.mangaListDataGridView.SelectionChanged += new System.EventHandler(this.HandleMangaListDataGridViewSelectionChanged);
             // 
             // wikipediaTabPage
             // 
@@ -145,7 +156,7 @@ namespace mraSharp.Forms
             this.wikipediaTabPage.TabIndex = 1;
             this.wikipediaTabPage.Text = "Wikipedia (en)";
             this.wikipediaTabPage.UseVisualStyleBackColor = true;
-            this.wikipediaTabPage.Enter += new System.EventHandler(this.WikipediaTabPageEnter);
+            this.wikipediaTabPage.Enter += new System.EventHandler(this.HandleWikipediaTabPageEnter);
             // 
             // wikiPanel
             // 
@@ -168,7 +179,7 @@ namespace mraSharp.Forms
             this.browserNavBar.Size = new System.Drawing.Size(700, 25);
             this.browserNavBar.TabIndex = 0;
             this.browserNavBar.Text = "Navigation Bar";
-            this.browserNavBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.BrowserNavBarItemClicked);
+            this.browserNavBar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.HandleBrowserNavBarItemClicked);
             // 
             // backToolStripButton
             // 
@@ -278,7 +289,7 @@ namespace mraSharp.Forms
             this.openToBrowserToolStripButton.Size = new System.Drawing.Size(52, 52);
             this.openToBrowserToolStripButton.Text = "Open to Browser";
             this.openToBrowserToolStripButton.ToolTipText = "Opens the manga url to the browser.";
-            this.openToBrowserToolStripButton.Click += new System.EventHandler(this.OpenToBrowserToolStripButtonClick);
+            this.openToBrowserToolStripButton.Click += new System.EventHandler(this.HandleOpenToBrowserToolStripButtonClick);
             // 
             // justReadToolStripButton
             // 
@@ -288,7 +299,7 @@ namespace mraSharp.Forms
             this.justReadToolStripButton.Name = "justReadToolStripButton";
             this.justReadToolStripButton.Size = new System.Drawing.Size(52, 52);
             this.justReadToolStripButton.Text = "I Just read a chapter!";
-            this.justReadToolStripButton.Click += new System.EventHandler(this.JustReadToolStripButtonClick);
+            this.justReadToolStripButton.Click += new System.EventHandler(this.HandleJustReadToolStripButtonClick);
             // 
             // reloadToolStripButton
             // 
@@ -298,7 +309,7 @@ namespace mraSharp.Forms
             this.reloadToolStripButton.Name = "reloadToolStripButton";
             this.reloadToolStripButton.Size = new System.Drawing.Size(52, 52);
             this.reloadToolStripButton.Text = "Reload The List!";
-            this.reloadToolStripButton.Click += new System.EventHandler(this.ReloadToolStripButtonClick);
+            this.reloadToolStripButton.Click += new System.EventHandler(this.HandleReloadToolStripButtonClick);
             // 
             // searchToolStripTextBox
             // 
@@ -308,7 +319,7 @@ namespace mraSharp.Forms
             this.searchToolStripTextBox.Margin = new System.Windows.Forms.Padding(1, 0, 15, 0);
             this.searchToolStripTextBox.Name = "searchToolStripTextBox";
             this.searchToolStripTextBox.Size = new System.Drawing.Size(100, 55);
-            this.searchToolStripTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.SearchToolStripTextBoxKeyUp);
+            this.searchToolStripTextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.HandleSearchToolStripTextBoxKeyUp);
             // 
             // mainMenuStrip
             // 
@@ -341,14 +352,14 @@ namespace mraSharp.Forms
             this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
             this.backupToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.backupToolStripMenuItem.Text = "Backup";
-            this.backupToolStripMenuItem.Click += new System.EventHandler(this.BackupToolStripMenuItemClick);
+            this.backupToolStripMenuItem.Click += new System.EventHandler(this.HandleBackupToolStripMenuItemClick);
             // 
             // restoreToolStripMenuItem
             // 
             this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
             this.restoreToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.restoreToolStripMenuItem.Text = "Restore";
-            this.restoreToolStripMenuItem.Click += new System.EventHandler(this.RestoreToolStripMenuItemClick);
+            this.restoreToolStripMenuItem.Click += new System.EventHandler(this.HandleRestoreToolStripMenuItemClick);
             // 
             // toolStripSeparator1
             // 
@@ -360,7 +371,7 @@ namespace mraSharp.Forms
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
             this.clearToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.clearToolStripMenuItem.Text = "Clear";
-            this.clearToolStripMenuItem.Click += new System.EventHandler(this.ClearToolStripMenuItemClick);
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.HandleClearToolStripMenuItemClick);
             // 
             // toolStripSeparator2
             // 
@@ -372,7 +383,7 @@ namespace mraSharp.Forms
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.quitToolStripMenuItem.Text = "Quit";
-            this.quitToolStripMenuItem.Click += new System.EventHandler(this.QuitToolStripMenuItemClick);
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.HandleQuitToolStripMenuItemClick);
             // 
             // optionsToolStripMenuItem
             // 
@@ -390,14 +401,14 @@ namespace mraSharp.Forms
             this.displayFinishedToolStripMenuItem.Name = "displayFinishedToolStripMenuItem";
             this.displayFinishedToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.displayFinishedToolStripMenuItem.Text = "Display Finished";
-            this.displayFinishedToolStripMenuItem.Click += new System.EventHandler(this.DisplayFinishedToolStripMenuItemClick);
+            this.displayFinishedToolStripMenuItem.Click += new System.EventHandler(this.HandleDisplayFinishedToolStripMenuItemClick);
             // 
             // rssSubscriptionsToolStripMenuItem
             // 
             this.rssSubscriptionsToolStripMenuItem.Name = "rssSubscriptionsToolStripMenuItem";
             this.rssSubscriptionsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.rssSubscriptionsToolStripMenuItem.Text = "Subscription Manager";
-            this.rssSubscriptionsToolStripMenuItem.Click += new System.EventHandler(this.RssSubscriptionsToolStripMenuItemClick);
+            this.rssSubscriptionsToolStripMenuItem.Click += new System.EventHandler(this.HandleNewsSubscriptionsToolStripMenuItemClick);
             // 
             // settingsToolStripMenuItem
             // 
@@ -419,14 +430,14 @@ namespace mraSharp.Forms
             this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
             this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.statisticsToolStripMenuItem.Text = "Statistics";
-            this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.StatisticsToolStripMenuItemClick);
+            this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.HandleStatisticsToolStripMenuItemClick);
             // 
             // addMangaToolStripMenuItem
             // 
             this.addMangaToolStripMenuItem.Name = "addMangaToolStripMenuItem";
             this.addMangaToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.addMangaToolStripMenuItem.Text = "Add Manga";
-            this.addMangaToolStripMenuItem.Click += new System.EventHandler(this.AddMangaToolStripMenuItemClick);
+            this.addMangaToolStripMenuItem.Click += new System.EventHandler(this.HandleAddMangaToolStripMenuItemClick);
             // 
             // aboutToolStripMenuItem
             // 
@@ -506,7 +517,7 @@ namespace mraSharp.Forms
             this.rssLinkLabel.Size = new System.Drawing.Size(367, 13);
             this.rssLinkLabel.TabIndex = 3;
             this.rssLinkLabel.Text = "RssLink";
-            this.rssLinkLabel.Click += new System.EventHandler(this.RssLinkLabelClick);
+            this.rssLinkLabel.Click += new System.EventHandler(this.HandleNewsTickerLinkLabelClick);
             this.rssLinkLabel.MouseEnter += new System.EventHandler(this.RssLinkLabelMouseEnter);
             this.rssLinkLabel.MouseLeave += new System.EventHandler(this.RssLinkLabelMouseLeave);
             // 
@@ -545,12 +556,12 @@ namespace mraSharp.Forms
             // rssTickTimer
             // 
             this.rssTickTimer.Interval = 8000;
-            this.rssTickTimer.Tick += new System.EventHandler(this.RssTickTimerTick);
+            this.rssTickTimer.Tick += new System.EventHandler(this.HandleNewsTickerTimerTick);
             // 
             // rssCheckTimer
             // 
             this.rssCheckTimer.Interval = 15000;
-            this.rssCheckTimer.Tick += new System.EventHandler(this.RssCheckTimerTick);
+            this.rssCheckTimer.Tick += new System.EventHandler(this.HandleNewsFeedCheckTimerTick);
             // 
             // MainForm
             // 
@@ -569,8 +580,8 @@ namespace mraSharp.Forms
             this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "MainForm";
             this.Text = "Manga Reading Assistant";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
-            this.Load += new System.EventHandler(this.MainFormLoad);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HandleMainFormFormClosing);
+            this.Load += new System.EventHandler(this.HandleMainFormLoad);
             this.mainTabControl.ResumeLayout(false);
             this.mangaGridTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mangaListDataGridView)).EndInit();

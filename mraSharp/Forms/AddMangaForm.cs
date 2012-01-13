@@ -7,8 +7,6 @@ namespace mraSharp.Forms
     public partial class AddMangaForm : Form
     {
         private bool _displayAddedManga;
-        private bool _setEntryInfo;
-        private MangaRead _interFormCommunicator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AddMangaForm"/> class.
@@ -17,7 +15,6 @@ namespace mraSharp.Forms
         {
             InitializeComponent();
             _displayAddedManga = false;
-            _setEntryInfo = false;
         }
 
         /// <summary>
@@ -57,55 +54,16 @@ namespace mraSharp.Forms
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void HandleAddToReadingListButtonClick(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    using (mdbEntities db = new mdbEntities())
-            //    {
-            //        if (mangaListComboBox.Text != null)
-            //        {
-            //            //var mID = (from current in db.MANGA_INFO
-            //            //           where current.mangaTitle == mangaListComboBox.Text
-            //            //           select current.MANGA_ID).SingleOrDefault();
-            //            var mId = DatabaseOperations.GetMANGA_ID(mangaListComboBox.Text);
-            //            if (_setEntryInfo == false)
-            //            {
-            //                READING_LIST maReadList = new READING_LIST
-            //                                              {
-            //                                                  MANGA_ID = mId,
-            //                                                  READ_NOTE = "",
-            //                                                  READ_LAST_TIME = DateTime.Now,
-            //                                                  READ_STARTING_CHAPTER = 1,
-            //                                                  READ_CURRENT_CHAPTER = 1,
-            //                                                  READ_IS_FINISHED = false,
-            //                                                  READ_ONLINE_URL = ""
-            //                                              };
-            //                db.READING_LIST.AddObject(maReadList);
-            //            }
-            //            else
-            //            {
-            //                var mRl = new READING_LIST
-            //                              {
-            //                                  MANGA_ID = mId,
-            //                                  READ_NOTE = _interFormCommunicator.PersonalNote,
-            //                                  READ_LAST_TIME = _interFormCommunicator.LastRead,
-            //                                  READ_STARTING_CHAPTER = (long?) _interFormCommunicator.StartingChapter,
-            //                                  READ_CURRENT_CHAPTER = (long?) _interFormCommunicator.CurrentChapter,
-            //                                  READ_IS_FINISHED = _interFormCommunicator.FinishedReading,
-            //                                  READ_ONLINE_URL = _interFormCommunicator.OnlineURL
-            //                              };
-            //                db.READING_LIST.AddObject(mRl);
-            //            }
-            //            db.SaveChanges();
-            //            _setEntryInfo = false;
-            //            PopulateMangaListComboBox();
-            //        }
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    ErrorMessageBox.Show(ex.Message, ex.ToString());
-            //    Logger.ErrorLogger("error.txt", ex.ToString());
-            //}
+            if (string.IsNullOrEmpty(mangaListComboBox.Text))
+                return;
+            if(Communicator.Instance.GetReadItem()==null)
+                DatabaseWrapper.InsertNewReadingItem(DatabaseWrapper.GetMangaId(mangaListComboBox.Text), 1, 0, "", false,
+                                                 DateTime.Now, "");
+            else
+            {
+                DatabaseWrapper.InsertNewReadingItem(Communicator.Instance.GetReadItem());
+                Communicator.Instance.ClearReadItem();
+            }
         }
 
         /// <summary>
@@ -126,14 +84,18 @@ namespace mraSharp.Forms
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void SpecifyNewEntryInfoButtonClick(object sender, EventArgs e)
         {
-            _interFormCommunicator = new MangaRead();
-            using (var sne = new SpecifyNewEntryInfoForm(ref _interFormCommunicator))
+            using (SpecifyNewEntryInfoForm entryInfoForm = new SpecifyNewEntryInfoForm())
             {
-                if (sne.ShowDialog() == DialogResult.OK)
+                if (entryInfoForm.ShowDialog() == DialogResult.OK)
                 {
-                    _setEntryInfo = true;
+
                 }
             }
+        }
+
+        private void HandleFormClosing(object sender, FormClosingEventArgs e)
+        {
+            Communicator.Instance.ClearReadItem();
         }
     }
 }

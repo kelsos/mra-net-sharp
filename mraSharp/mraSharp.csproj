@@ -110,6 +110,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Communicator.cs" />
     <Compile Include="Classes\DatabaseWrapper.cs" />
     <Compile Include="Forms\AddMangaForm.cs">
       <SubType>Form</SubType>
@@ -127,7 +128,7 @@
     <Compile Include="Classes\FeedManager.cs" />
     <Compile Include="Classes\IoWrapper.cs" />
     <Compile Include="Classes\Logger.cs" />
-    <Compile Include="Classes\MangaRead.cs" />
+    <Compile Include="Classes\ReadItem.cs" />
     <Compile Include="Classes\MessageFilter.cs" />
     <Compile Include="Classes\NetworkOperations.cs" />
     <Compile Include="Classes\RegularExpressions.cs" />

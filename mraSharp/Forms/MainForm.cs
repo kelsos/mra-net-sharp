@@ -34,14 +34,12 @@ namespace mraSharp.Forms
                                                               ? CheckState.Checked
                                                               : CheckState.Unchecked;
             //checks if network is up
-            System.Net.NetworkInformation.NetworkChange.NetworkAddressChanged += NetworkAddressChangedHandler;
+            System.Net.NetworkInformation.NetworkChange.NetworkAddressChanged += HandleNetworkAddressChangedHandler;
             _wikiWebKitBrowser = new WebKitBrowser {Visible = true};
             wikiPanel.Controls.Add(_wikiWebKitBrowser);
             _wikiWebKitBrowser.Dock = DockStyle.Fill;
             _wikiWebKitBrowser.AllowDownloads = false;
         }
-
-        #region Rss and Network functions and Event Handlers
 
         private void RssStatusChecker()
         {
@@ -50,8 +48,6 @@ namespace mraSharp.Forms
             {
                 if (DatabaseWrapper.FeedDataExistInTheDatabase())
                 {
-                    //TODO: Here goes the news list fetch
-
                     rssTickTimer.Enabled = true;
                     rssCheckTimer.Enabled = false;
                     statusLabel.Text = Resources.MainForm_RssStatusChecker_No_Internet_Connection_Available;
@@ -76,8 +72,7 @@ namespace mraSharp.Forms
                 rssDescriptionTextBox.Text = "";
                 rssLinkLabel.Text = "";
                 rssCheckTimer.Enabled = true;
-                //Start Fetcher.
-                //rssFetchingThread.RunWorkerAsync();
+                rssFetchingThread.RunWorkerAsync();
             }
         }
 
@@ -86,7 +81,6 @@ namespace mraSharp.Forms
         //TODO: Work on the RSS Ticker. Lack of Internet connection plus Rss Already in the database.
         private void RssTicker()
         {
-            DatabaseWrapper.NewsItemsRetriever();
             _newsList = DatabaseWrapper.GetNewsItemList();
             try
             {
@@ -118,16 +112,16 @@ namespace mraSharp.Forms
         }
 
 
-        private void RssSubscriptionsToolStripMenuItemClick(object sender, EventArgs e)
+        private void HandleNewsSubscriptionsToolStripMenuItemClick(object sender, EventArgs e)
         {
-            using (var manager = new SubscriptionManagerForm())
+            using (SubscriptionManagerForm manager = new SubscriptionManagerForm())
             {
                 manager.ShowDialog();
                 RssStatusChecker();
             }
         }
 
-        private void RssCheckTimerTick(object sender, EventArgs e)
+        private void HandleNewsFeedCheckTimerTick(object sender, EventArgs e)
         {
             if (_internetIsUp && !rssFetchingThread.IsBusy)
             {
@@ -140,12 +134,12 @@ namespace mraSharp.Forms
             }
         }
 
-        private void RssTickTimerTick(object sender, EventArgs e)
+        private void HandleNewsTickerTimerTick(object sender, EventArgs e)
         {
             RssTicker();
         }
 
-        private void RssLinkLabelClick(object sender, EventArgs e)
+        private void HandleNewsTickerLinkLabelClick(object sender, EventArgs e)
         {
             var web = new WebForm();
             web.Show();
@@ -164,8 +158,8 @@ namespace mraSharp.Forms
 
         private void RssFetchingThreadDoWork(object sender, DoWorkEventArgs e)
         {
-            ////RssFetcher();
-            //DatabaseWrapper.OldRssRemover(Settings.Default.keepInDatabaseFor);
+            DatabaseWrapper.NewsItemsRetriever();
+            DatabaseWrapper.CleanNewsOlderThan(Settings.Default.keepInDatabaseFor);
         }
 
         private void RssFetchingThreadRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -173,15 +167,11 @@ namespace mraSharp.Forms
             rssTickTimer.Enabled = true;
         }
 
-        #endregion Rss and Network functions and Event Handlers
-
-        #region application functions
-
         /// <summary>
         /// This method represents the action of reading a chapter. It sets the date last read of the selected manga to the current Date
         /// (when the method was called) and increases the last chapter by one.
         /// </summary>
-        public void JustReadAChapter()
+        public void ChapterFinished()
         {
             try
             {
@@ -193,10 +183,10 @@ namespace mraSharp.Forms
                 if (mangaListDataGridView.CurrentRow == null)
                     return;
 
-                mangaListDataGridView.CurrentRow.Cells["lastReadDataGridViewTextBoxColumn"].Value = DateTime.Now;
-                mangaListDataGridView.CurrentRow.Cells["currentChapterDataGridViewTextBoxColumn"].Value =
+                mangaListDataGridView.CurrentRow.Cells["Last Time Read"].Value = DateTime.Now;
+                mangaListDataGridView.CurrentRow.Cells["Current\nChapter"].Value =
                     Convert.ToDouble(
-                        mangaListDataGridView.CurrentRow.Cells["currentChapterDataGridViewTextBoxColumn"].Value) + 1;
+                        mangaListDataGridView.CurrentRow.Cells["Current\nChapter"].Value) + 1;
                 if (_isWebFormOpen)
                 {
                     var currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
@@ -233,10 +223,6 @@ namespace mraSharp.Forms
             _isWebFormOpen = false;
         }
 
-        #endregion application functions
-
-        #region Data Loading Functions
-
         private delegate void LoadDataGridDelegate();
 
         public void LoadDatagrid()
@@ -265,21 +251,17 @@ namespace mraSharp.Forms
                 return;
 
             mangaDescriptionTextBox.Text = DatabaseWrapper.GetMangaDescriptions(
-                    (string) mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
+                (string) mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
         }
 
-        #endregion Data Loading Functions
-
-        #region Event Handlers
-
-        private void MainFormLoad(object sender, EventArgs e)
+        private void HandleMainFormLoad(object sender, EventArgs e)
         {
             LoadDatagrid();
             mangaListDataGridView.AutoGenerateColumns = false;
             RssStatusChecker();
         }
 
-        private void MainFormFormClosing(object sender, FormClosingEventArgs e)
+        private void HandleMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
             Settings.Default.Save();
             if (
@@ -291,25 +273,20 @@ namespace mraSharp.Forms
             }
         }
 
-        private void RestoreToolStripMenuItemClick(object sender, EventArgs e)
+        private void HandleRestoreToolStripMenuItemClick(object sender, EventArgs e)
         {
-            if (
-                MessageBox.Show(
-                    Resources.MainForm_RestoreToolStripMenuItemClick_Are_you_sure_you_want_to_clear_the_reading_List_,
-                    Resources.MainForm_ClearToolStripMenuItemClick_Question, MessageBoxButtons.YesNo) ==
-                DialogResult.Yes)
-            {
-                DatabaseWrapper.ClearTheReadingList();
-                if (restoreOpenFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    var readFromXml = new Thread(IoWrapper.ReadingListFromXml);
-                    readFromXml.Start(new DataPasser(this, restoreOpenFileDialog.FileName));
-                    //loadDatagrid();
-                }
-            }
+            if (MessageBox.Show(
+                Resources.MainForm_RestoreToolStripMenuItemClick_Are_you_sure_you_want_to_clear_the_reading_List_,
+                Resources.MainForm_ClearToolStripMenuItemClick_Question, MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+            DatabaseWrapper.ClearTheReadingList();
+            if (restoreOpenFileDialog.ShowDialog() != DialogResult.OK) return;
+            Thread readFromXml = new Thread(IoWrapper.ReadingListFromXml);
+            readFromXml.Start(new DataPasser(this, restoreOpenFileDialog.FileName));
+            LoadDatagrid();
         }
 
-        private void DisplayFinishedToolStripMenuItemClick(object sender, EventArgs e)
+        private void HandleDisplayFinishedToolStripMenuItemClick(object sender, EventArgs e)
         {
             Settings.Default.displayFinished = !Settings.Default.displayFinished;
             var dataGridViewColumn = mangaListDataGridView.Columns["finishedReadingDataGridViewTextBoxColumn"];
@@ -318,7 +295,7 @@ namespace mraSharp.Forms
             LoadDatagrid();
         }
 
-        private void AddMangaToolStripMenuItemClick(object sender, EventArgs e)
+        private void HandleAddMangaToolStripMenuItemClick(object sender, EventArgs e)
         {
             using (var amf = new AddMangaForm())
             {
@@ -327,7 +304,7 @@ namespace mraSharp.Forms
             }
         }
 
-        private void StatisticsToolStripMenuItemClick(object sender, EventArgs e)
+        private void HandleStatisticsToolStripMenuItemClick(object sender, EventArgs e)
         {
             using (var stats = new StatisticsForm())
             {
@@ -335,12 +312,12 @@ namespace mraSharp.Forms
             }
         }
 
-        private void NetworkAddressChangedHandler(object sender, EventArgs e)
+        private void HandleNetworkAddressChangedHandler(object sender, EventArgs e)
         {
             RssStatusChecker();
         }
 
-        private void BackupToolStripMenuItemClick(object sender, EventArgs e)
+        private void HandleBackupToolStripMenuItemClick(object sender, EventArgs e)
         {
             if (backupSaveFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -348,12 +325,12 @@ namespace mraSharp.Forms
             }
         }
 
-        private void QuitToolStripMenuItemClick(object sender, EventArgs e)
+        private void HandleQuitToolStripMenuItemClick(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void ClearToolStripMenuItemClick(object sender, EventArgs e)
+        private void HandleClearToolStripMenuItemClick(object sender, EventArgs e)
         {
             if (
                 MessageBox.Show(Resources.MainForm_ClearToolStripMenuItemClick_Are_you_sure_to_clear_the_database_,
@@ -364,23 +341,23 @@ namespace mraSharp.Forms
             }
         }
 
-        private void MangaListDataGridViewSelectionChanged(object sender, EventArgs e)
+        private void HandleMangaListDataGridViewSelectionChanged(object sender, EventArgs e)
         {
             LoadCurrentImage();
             LoadCurrentDescription();
         }
 
-        private void JustReadToolStripButtonClick(object sender, EventArgs e)
+        private void HandleJustReadToolStripButtonClick(object sender, EventArgs e)
         {
-            JustReadAChapter();
+            ChapterFinished();
         }
 
-        private void SearchToolStripTextBoxKeyUp(object sender, KeyEventArgs e)
+        private void HandleSearchToolStripTextBoxKeyUp(object sender, KeyEventArgs e)
         {
             mangaListDataGridView.DataSource = DatabaseWrapper.GetMatchingManga(searchToolStripTextBox.Text);
         }
 
-        private void BrowserNavBarItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void HandleBrowserNavBarItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             if (e.ClickedItem == backToolStripButton)
             {
@@ -401,7 +378,7 @@ namespace mraSharp.Forms
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void WikipediaTabPageEnter(object sender, EventArgs e)
+        private void HandleWikipediaTabPageEnter(object sender, EventArgs e)
         {
             if (mangaListDataGridView.Rows.Count == 0) return;
             if (mangaListDataGridView.CurrentRow == null) return;
@@ -420,7 +397,7 @@ namespace mraSharp.Forms
             }
         }
 
-        private void OpenToBrowserToolStripButtonClick(object sender, EventArgs e)
+        private void HandleOpenToBrowserToolStripButtonClick(object sender, EventArgs e)
         {
             try
             {
@@ -435,7 +412,7 @@ namespace mraSharp.Forms
                     if (mangaListDataGridView.CurrentRow != null)
                     {
                         var currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-                        var mangaUrl = mangaListDataGridView[4, currentSelectedRow].Value.ToString();
+                        var mangaUrl = mangaListDataGridView[3, currentSelectedRow].Value.ToString();
                         if (!String.IsNullOrEmpty(mangaUrl))
                         {
                             _web.Navigate(mangaUrl);
@@ -454,11 +431,9 @@ namespace mraSharp.Forms
             }
         }
 
-        private void ReloadToolStripButtonClick(object sender, EventArgs e)
+        private void HandleReloadToolStripButtonClick(object sender, EventArgs e)
         {
             LoadDatagrid();
         }
-
-        #endregion Event Handlers
     }
 }

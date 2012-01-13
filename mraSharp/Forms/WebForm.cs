@@ -27,7 +27,8 @@ namespace mraSharp.Forms
             _webKitBrowser = new WebKitBrowser();
             browserPanel.Controls.Add(_webKitBrowser);
             _webKitBrowser.Dock = DockStyle.Fill;
-            _webKitBrowser.Navigate("http://www.google.com");
+            _webKitBrowser.Navigated += WebKitBrowserNavigated;
+            _webKitBrowser.Top = 10;
         }
 
         public WebForm(MainForm form)
@@ -44,9 +45,7 @@ namespace mraSharp.Forms
             browserPanel.Controls.Add(_webKitBrowser);
             _webKitBrowser.Dock = DockStyle.Fill;
             _webKitBrowser.Top = 10;
-            _webKitBrowser.Navigate("http://www.google.com");
-            _webKitBrowser.AllowDownloads = false;
-            _webKitBrowser.Visible = true;
+
 
             _webKitBrowser.Navigated += WebKitBrowserNavigated;
         }
@@ -110,7 +109,7 @@ namespace mraSharp.Forms
 
         private void ReloadToolStripButtonClick(object sender, EventArgs e)
         {
-            //geckoReader.Reload();
+            _webKitBrowser.Reload();
         }
 
         /// <summary>
@@ -124,7 +123,7 @@ namespace mraSharp.Forms
 
         private void JustReadButtonClick(object sender, EventArgs e)
         {
-            _form.JustReadAChapter();
+            _form.ChapterFinished();
         }
 
         private void WebFormFormClosing(object sender, FormClosingEventArgs e)

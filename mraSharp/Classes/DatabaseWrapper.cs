@@ -28,7 +28,6 @@ namespace mraSharp.Classes
                 {
                     sqLiteConnection.Open();
 
-
                     SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
 
                     if (displayFinished)
@@ -49,6 +48,13 @@ namespace mraSharp.Classes
                     returnData.Load(reader);
                     reader.Close();
                     sqLiteConnection.Close();
+                    returnData.Columns[0].ColumnName = "Manga\nTitle";
+                    returnData.Columns[1].ColumnName = "Starting\nChapter";
+                    returnData.Columns[2].ColumnName = "Current\nChapter";
+                    returnData.Columns[3].ColumnName = "Online Url";
+                    returnData.Columns[4].ColumnName = "Last Time Read";
+                    if (Settings.Default.displayFinished)
+                        returnData.Columns[5].ColumnName = "Finished?";
                 }
             }
             catch (Exception ex)
@@ -128,6 +134,13 @@ namespace mraSharp.Classes
                     returnData.Load(reader);
                     reader.Close();
                     sqLiteConnection.Close();
+                    returnData.Columns[0].ColumnName = "Manga\nTitle";
+                    returnData.Columns[1].ColumnName = "Starting\nChapter";
+                    returnData.Columns[2].ColumnName = "Current\nChapter";
+                    returnData.Columns[3].ColumnName = "Online Url";
+                    returnData.Columns[4].ColumnName = "Last Time Read";
+                    if(Settings.Default.displayFinished)
+                        returnData.Columns[5].ColumnName = "Finished?";
                 }
             }
             catch (Exception ex)
@@ -186,8 +199,6 @@ namespace mraSharp.Classes
                 using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
                 {
                     sqLiteConnection.Open();
-
-
                     SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
                                                       {
                                                           CommandText = "SELECT MANGA_DESCRIPTION " +
@@ -499,6 +510,38 @@ namespace mraSharp.Classes
             }
         }
 
+        public static void InsertNewReadingItem(ReadItem item)
+        {
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+                    using (SQLiteCommand insertCommand = new SQLiteCommand(sqLiteConnection))
+                    {
+                        insertCommand.CommandText =
+                            "INSERT INTO READING_LIST (MANGA_ID, READ_STARTING_CHAPTER, READ_CURRENT_CHAPTER, READ_ONLINE_URL, " +
+                            "READ_IS_FINISHED, READ_LAST_TIME, READ_NOTE) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                        insertCommand.Parameters.AddWithValue(null, GetMangaId(item.Title));
+                        insertCommand.Parameters.AddWithValue(null, item.StartingChapter);
+                        insertCommand.Parameters.AddWithValue(null, item.CurrentChapter);
+                        insertCommand.Parameters.AddWithValue(null, item.OnlineUrl);
+                        insertCommand.Parameters.AddWithValue(null, item.FinishedReading);
+                        insertCommand.Parameters.AddWithValue(null, item.LastRead);
+                        insertCommand.Parameters.AddWithValue(null, item.PersonalNote);
+                        insertCommand.ExecuteNonQuery();
+                    }
+                    sqLiteConnection.Close();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+        }
+
         public static void NewsItemsRetriever()
         {
             try
@@ -622,7 +665,7 @@ namespace mraSharp.Classes
         /// Removes the old entries (entries that have been in the database more than the specified time) from the database.
         /// </summary>
         /// <param name="olderThan">The number of days in the database after which the entry is considered old...</param>
-        public static void OldRssRemover(int olderThan)
+        public static void CleanNewsOlderThan(int olderThan)
         {
             try
             {
