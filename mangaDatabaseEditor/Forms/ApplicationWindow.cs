@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Windows.Forms;
 using mangaDbEditor.Classes;
 using mangaDbEditor.Classes.Data;
+using mangaDbEditor.Classes.Utilities;
 using mangaDbEditor.Properties;
 
 namespace mangaDbEditor.Forms
@@ -12,24 +13,44 @@ namespace mangaDbEditor.Forms
 	{
 	    private string _activeTab;
 	    private MangaInfo _mangaInfo;
+	    private AuthorInfo _authorInfo;
+	    private PublisherInfo _publisherInfo;
 		public MainForm()
 		{
 			InitializeComponent();
 		}
 
-	    private void GetMangaDataForSpecificManga()
+	    private void GetMangaDataForSpecificManga(int mangaId)
 	    {
-	        _mangaInfo = DatabaseWrapper.Instance.GetMangaInfoElement(int.Parse(MangaInfoNavigatorCurrent.Text));
+            _mangaInfo = DatabaseWrapper.Instance.GetMangaInfoElement(mangaId);
 	        mangaTitleTextBox.Text = _mangaInfo.Title;
 
             if (_mangaInfo.PublicationDate != null)
                 dateOfPublishDateTimePicker.Value = (DateTime) _mangaInfo.PublicationDate;
 	        mangaStatusComboBox.Text = _mangaInfo.PublicationStatus;
 	        mangaDescriptionTextBox.Text = _mangaInfo.Description;
-            mangaCoverPictureBox.Image = DatabaseWrapper.Instance.GetMangaCover(int.Parse(MangaInfoNavigatorCurrent.Text));
-            authorsNameListBox.DataSource = DatabaseWrapper.Instance.GetAuthorsList(int.Parse(MangaInfoNavigatorCurrent.Text));
-            genreNameListBox.DataSource = DatabaseWrapper.Instance.GetGenresList(int.Parse(MangaInfoNavigatorCurrent.Text));
-            mangaPublisherNameTextBox.Text = DatabaseWrapper.Instance.GetPublisherName(int.Parse(MangaInfoNavigatorCurrent.Text));
+            mangaCoverPictureBox.Image = DatabaseWrapper.Instance.GetMangaCover(mangaId);
+            authorsNameListBox.DataSource = DatabaseWrapper.Instance.GetAuthorsList(mangaId);
+            genreNameListBox.DataSource = DatabaseWrapper.Instance.GetGenresList(mangaId);
+            mangaPublisherNameTextBox.Text = DatabaseWrapper.Instance.GetPublisherName(mangaId);
+        }
+
+        private void GetAuthorDataForSpecificAuthor(int authorId)
+        {
+            _authorInfo = DatabaseWrapper.Instance.GetAuthorInfoElement(authorId);
+            authorFullNameTextBox.Text = _authorInfo.Name;
+            authorCountryOfOriginTextBox.Text = _authorInfo.Country;
+            authorWebsiteTextBox.Text = _authorInfo.Website;
+            if (_authorInfo.Birthday != null) authorDateOfBirthDateTimePicker.Value = (DateTime) _authorInfo.Birthday;
+        }
+
+        private void GetPublisherDataForSpecificPublisher(int publisherId)
+        {
+            _publisherInfo = DatabaseWrapper.Instance.GetPublisherInfoElement(publisherId);
+            publisherNameTextBox.Text = _publisherInfo.Name;
+            publisherCountryTextBox.Text = _publisherInfo.Country;
+            publisherNoteTextBox.Text = _publisherInfo.Note;
+            publisherWebsiteTextBox.Text = _publisherInfo.Website;
         }
 
 		private void HandleNewEntry()
@@ -56,7 +77,7 @@ namespace mangaDbEditor.Forms
 		    _activeTab = "manga";
             MangaInfoNavigatorTotal.Text = Resources.MainForm_RefreshMangaData_of_ + DatabaseWrapper.Instance.GetMangaInfoNumberOfElements();
             MangaInfoNavigatorCurrent.Text = "1";
-		    GetMangaDataForSpecificManga();
+		    GetMangaDataForSpecificManga(int.Parse(MangaInfoNavigatorCurrent.Text));
 			HandleNewEntry();
 		}
 
@@ -80,7 +101,7 @@ namespace mangaDbEditor.Forms
 		{
 		    if (openImageFileDialog.ShowDialog() != DialogResult.OK) return;
 		    mangaCoverPictureBox.Image = Image.FromFile(openImageFileDialog.FileName);
-		    //ImageToDatabaseLoader(ImageToByteArray(ImageSizeToStandard(mangaCoverPictureBox.Image)));
+            DatabaseWrapper.Instance.SetMangaCover(int.Parse(MangaInfoNavigatorCurrent.Text), ImageUtil.Resize(mangaCoverPictureBox.Image));
 		}
 
 		private void AddGenreButtonClick(object sender, EventArgs e)
@@ -113,12 +134,17 @@ namespace mangaDbEditor.Forms
 		    switch (_activeTab)
 		    {
                 case "manga":
-                    GetMangaDataForSpecificManga();
+                    MangaInfoNavigatorTotal.Text = Resources.MainForm_RefreshMangaData_of_ + DatabaseWrapper.Instance.GetMangaInfoNumberOfElements();
+                    GetMangaDataForSpecificManga(int.Parse(MangaInfoNavigatorCurrent.Text));
                     break;
                 case "author":
-		            break;
+                    MangaInfoNavigatorTotal.Text = Resources.MainForm_RefreshMangaData_of_ + DatabaseWrapper.Instance.GetAuthorInfoNumberOfElements();
+		            GetAuthorDataForSpecificAuthor(int.Parse(MangaInfoNavigatorCurrent.Text));
+                    break;
                 case "publisher":
-		            break;
+                    MangaInfoNavigatorTotal.Text = Resources.MainForm_RefreshMangaData_of_ + DatabaseWrapper.Instance.GetPublisherInfoNumberOfElements();
+		            GetPublisherDataForSpecificPublisher(int.Parse(MangaInfoNavigatorCurrent.Text));
+                    break;
 		    }
 		    
 		}
@@ -179,14 +205,23 @@ namespace mangaDbEditor.Forms
             if (tabControl.SelectedTab == tabManga)
             {
                 _activeTab = "manga";
+                MangaInfoNavigatorTotal.Text = Resources.MainForm_RefreshMangaData_of_ + DatabaseWrapper.Instance.GetMangaInfoNumberOfElements();
+                MangaInfoNavigatorCurrent.Text = DatabaseWrapper.Instance.GetMangaInfoNumberOfElements()> 0 ? "1" : Resources.MainForm_CheckIfEntryExists__0;
+                GetMangaDataForSpecificManga(int.Parse(MangaInfoNavigatorCurrent.Text));
             }
             else if (tabControl.SelectedTab == tabAuthor)
             {
                 _activeTab = "author";
+                MangaInfoNavigatorTotal.Text = Resources.MainForm_RefreshMangaData_of_ + DatabaseWrapper.Instance.GetAuthorInfoNumberOfElements();
+                MangaInfoNavigatorCurrent.Text = DatabaseWrapper.Instance.GetAuthorInfoNumberOfElements()>0 ? "1" : Resources.MainForm_CheckIfEntryExists__0;
+                GetAuthorDataForSpecificAuthor(int.Parse(MangaInfoNavigatorCurrent.Text));
             }
             else if (tabControl.SelectedTab == tabPublisher)
             {
                 _activeTab = "publisher";
+                MangaInfoNavigatorTotal.Text = Resources.MainForm_RefreshMangaData_of_ + DatabaseWrapper.Instance.GetPublisherInfoNumberOfElements();
+                MangaInfoNavigatorCurrent.Text = DatabaseWrapper.Instance.GetPublisherInfoNumberOfElements() > 0 ? "1" : Resources.MainForm_CheckIfEntryExists__0;
+                GetPublisherDataForSpecificPublisher(int.Parse(MangaInfoNavigatorCurrent.Text));
             }
         }
 	}

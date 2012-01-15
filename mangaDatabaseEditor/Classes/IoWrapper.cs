@@ -1,7 +1,14 @@
 ﻿namespace mangaDbEditor.Classes
 {
-    class IoWrapper
+    public sealed class IoWrapper
     {
+        private static readonly IoWrapper ClassInstance = new IoWrapper();
+
+        IoWrapper(){}
+        static IoWrapper(){}
+
+        public static IoWrapper Instance { get { return ClassInstance; } }
+
         		private void DatabaseInfoExporter(string fileName)
 		{
          //   var publisherData = from publishers in db.M_publisherInfo
