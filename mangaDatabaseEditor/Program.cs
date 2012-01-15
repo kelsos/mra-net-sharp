@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using mangaDatabaseEditor.Forms;
+using mangaDbEditor.Forms;
 
-namespace mangaDatabaseEditor
+namespace mangaDbEditor
 {
 	internal static class Program
 	{

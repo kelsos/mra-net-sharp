@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using mraSharp.Forms;
+using mraNet.Forms;
 
-namespace mraSharp
+namespace mraNet
 {
 	internal static class Program
 	{
@@ -14,7 +14,7 @@ namespace mraSharp
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
+			Application.Run(new ApplicationWindow());
 		}
 	}
 }

@@ -118,8 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="calendar-day" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\calendar-day.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="calendar_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\calendar_day.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="globe_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\globe_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -128,7 +128,7 @@
     <value>..\Resources\navigation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="exclamation_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\exclamation-red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\exclamation_red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="calendar_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\calendar_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -136,43 +136,43 @@
   <data name="reload_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Icons\reload_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="arrow-circle-double" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\arrow-circle-double.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="arrow_circle_double" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow_circle_double.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="navigation-180" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\navigation-180.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="navigation_180" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\navigation_180.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MainForm_RssStatusChecker_No_Internet_Connection_Available">
-    <value xml:space="preserve">No Internet Connection Available</value>
+  <data name="MainForm_RssStatusChecker_No_Internet_Connection_Available" xml:space="preserve">
+    <value>No Internet Connection Available</value>
   </data>
-  <data name="MainForm_RssCheckTimerTick_Internet_Connection__N_A___Cannot_Fetch_RSS_feeds_">
-    <value xml:space="preserve">Internet Connection [N/A]: Cannot Fetch RSS feeds.</value>
+  <data name="MainForm_RssCheckTimerTick_Internet_Connection__N_A___Cannot_Fetch_RSS_feeds_" xml:space="preserve">
+    <value>Internet Connection [N/A]: Cannot Fetch RSS feeds.</value>
   </data>
-  <data name="MainForm_MainFormFormClosing_Are_you_sure_you_want_to_close_the_application_">
-    <value xml:space="preserve">Are you sure you want to close the application?</value>
+  <data name="MainForm_MainFormFormClosing_Are_you_sure_you_want_to_close_the_application_" xml:space="preserve">
+    <value>Are you sure you want to close the application?</value>
   </data>
-  <data name="MainForm_RestoreToolStripMenuItemClick_Are_you_sure_you_want_to_clear_the_reading_List_">
-    <value xml:space="preserve">Are you sure you want to clear the reading List?</value>
+  <data name="MainForm_RestoreToolStripMenuItemClick_Are_you_sure_you_want_to_clear_the_reading_List_" xml:space="preserve">
+    <value>Are you sure you want to clear the reading List?</value>
   </data>
-  <data name="MainForm_ClearToolStripMenuItemClick_Are_you_sure_to_clear_the_database_">
-    <value xml:space="preserve">Are you sure to clear the database?</value>
+  <data name="MainForm_ClearToolStripMenuItemClick_Are_you_sure_to_clear_the_database_" xml:space="preserve">
+    <value>Are you sure to clear the database?</value>
   </data>
-  <data name="MainForm_ClearToolStripMenuItemClick_Question">
-    <value xml:space="preserve">Question</value>
+  <data name="MainForm_ClearToolStripMenuItemClick_Question" xml:space="preserve">
+    <value>Question</value>
   </data>
-  <data name="MainForm_MainFormFormClosing_Confirmation">
-    <value xml:space="preserve">Confirmation</value>
+  <data name="MainForm_MainFormFormClosing_Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
   </data>
-  <data name="AddMangaForm_GetPublisherName__N_A_">
-    <value xml:space="preserve">[N/A]</value>
+  <data name="AddMangaForm_GetPublisherName__N_A_" xml:space="preserve">
+    <value>[N/A]</value>
   </data>
-  <data name="SubscriptionManagerForm_AddSubButtonClick_Couldn_t_get_Channel_Info">
-    <value xml:space="preserve">Couldn't get Channel Info</value>
+  <data name="SubscriptionManagerForm_AddSubButtonClick_Couldn_t_get_Channel_Info" xml:space="preserve">
+    <value>Couldn't get Channel Info</value>
   </data>
-  <data name="SubscriptionManagerForm_AddSubButtonClick_Cannot_insert_empty_field_">
-    <value xml:space="preserve">Cannot insert empty field!</value>
+  <data name="SubscriptionManagerForm_AddSubButtonClick_Cannot_insert_empty_field_" xml:space="preserve">
+    <value>Cannot insert empty field!</value>
   </data>
-  <data name="SubscriptionManagerForm_AddSubButtonClick_Information">
-    <value xml:space="preserve">Information</value>
+  <data name="SubscriptionManagerForm_AddSubButtonClick_Information" xml:space="preserve">
+    <value>Information</value>
   </data>
 </root>

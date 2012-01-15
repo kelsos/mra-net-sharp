@@ -4,9 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using mraSharp.Forms;
+using mraNet.Classes.Events;
+using mraNet.Classes.Utilities;
 
-namespace mraSharp.Classes
+namespace mraNet.Classes
 {
     public static class IoWrapper
     {

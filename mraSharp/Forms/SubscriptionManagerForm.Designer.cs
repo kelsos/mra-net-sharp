@@ -1,4 +1,4 @@
-﻿namespace mraSharp.Forms
+﻿namespace mraNet.Forms
 {
 	partial class SubscriptionManagerForm
 	{

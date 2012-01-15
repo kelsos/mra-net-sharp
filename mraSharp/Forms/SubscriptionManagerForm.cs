@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
-using System.Net;
-using System.Xml;
-using mraSharp.Classes;
-using mraSharp.Properties;
+using mraNet.Classes;
+using mraNet.Classes.Utilities;
+using mraNet.Properties;
 
-namespace mraSharp.Forms
+namespace mraNet.Forms
 {
     public partial class SubscriptionManagerForm : Form
     {

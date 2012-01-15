@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace mraSharp.Forms
+namespace mraNet.Forms
 {
     public partial class ErrorMessageBox : Form
     {

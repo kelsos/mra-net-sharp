@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace mraSharp.Classes
+namespace mraNet.Classes
 {
     public static class NetworkOperations
     {

@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Windows.Forms;
-using mraSharp.Forms;
 
-namespace mraSharp.Classes
+namespace mraNet.Classes
 {
     /// <summary>
     /// A Message Filter
     /// </summary>
     public class MessageFilter : IMessageFilter
     {
-        private const int WM_XBUTTONDOWN = 0x020B;
-        private const int MK_XBUTTON1 = 65568;
-        private const int MK_XBUTTON2 = 131136;
+        private const int WmXbuttondown = 0x020B;
+        private const int MkXbutton1 = 65568;
+        private const int MkXbutton2 = 131136;
 
         private readonly Form _form;
         private readonly EventHandler _backevent;
@@ -42,16 +41,16 @@ namespace mraSharp.Classes
         {
             var bHandled = false;
 
-            if (m.Msg == WM_XBUTTONDOWN)
+            if (m.Msg == WmXbuttondown)
             {
                 var w = m.WParam.ToInt32();
                 switch (w)
                 {
-                    case MK_XBUTTON1:
+                    case MkXbutton1:
                         _backevent.Invoke(_form, EventArgs.Empty);
                         bHandled = true;
                         break;
-                    case MK_XBUTTON2:
+                    case MkXbutton2:
                         _forwardevent.Invoke(_form, EventArgs.Empty);
                         bHandled = true;
                         break;

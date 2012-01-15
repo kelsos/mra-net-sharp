@@ -5,10 +5,12 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using mraSharp.Forms;
-using mraSharp.Properties;
+using mraNet.Classes.Data;
+using mraNet.Classes.Utilities;
+using mraNet.Forms;
+using mraNet.Properties;
 
-namespace mraSharp.Classes
+namespace mraNet.Classes
 {
     internal class DatabaseWrapper
     {
@@ -75,11 +77,12 @@ namespace mraSharp.Classes
                     sqLiteConnection.Open();
 
 
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                                                      {
+                                                          CommandText = "SELECT * " +
+                                                                        "FROM READING_LIST "
+                                                      };
 
-                    sqLiteCommand.CommandText =
-                        "SELECT * " +
-                        "FROM READING_LIST ";
 
                     SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
                     returnData.Load(reader);
@@ -165,11 +168,13 @@ namespace mraSharp.Classes
                 using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
                 {
                     sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                                                      {
+                                                          CommandText = "SELECT MANGA_COVER " +
+                                                                        "FROM MANGA_INFO " +
+                                                                        "WHERE MANGA_TITLE = ?"
+                                                      };
 
-                    sqLiteCommand.CommandText = "SELECT MANGA_COVER " +
-                                                "FROM MANGA_INFO " +
-                                                "WHERE MANGA_TITLE = ?";
                     sqLiteCommand.Parameters.AddWithValue(null, mangaTitle);
                     SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
                     byte[] imageArray = new byte[6000];
@@ -236,11 +241,13 @@ namespace mraSharp.Classes
                 using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
                 {
                     sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                                                      {
+                                                          CommandText = "SELECT MANGA_PUBLICATION_DATE " +
+                                                                        "FROM MANGA_INFO " +
+                                                                        "WHERE MANGA_TITLE = ?"
+                                                      };
 
-                    sqLiteCommand.CommandText = "SELECT MANGA_PUBLICATION_DATE " +
-                                                "FROM MANGA_INFO " +
-                                                "WHERE MANGA_TITLE = ?";
                     sqLiteCommand.Parameters.AddWithValue(null, mangaTitle);
                     SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
 
@@ -443,10 +450,12 @@ namespace mraSharp.Classes
                 using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
                 {
                     sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                                                      {
+                                                          CommandText = "SELECT * " +
+                                                                        "FROM NEWS_STORAGE "
+                                                      };
 
-                    sqLiteCommand.CommandText = "SELECT * " +
-                                                "FROM NEWS_STORAGE ";
 
                     SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
                     DataTable dataTable = new DataTable();
@@ -549,10 +558,12 @@ namespace mraSharp.Classes
                 using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
                 {
                     sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                                                      {
+                                                          CommandText = "SELECT SUBSCRIPTION_URL " +
+                                                                        "FROM NEWS_SUBSCRIPTIONS "
+                                                      };
 
-                    sqLiteCommand.CommandText = "SELECT SUBSCRIPTION_URL " +
-                                                "FROM NEWS_SUBSCRIPTIONS ";
 
                     SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
 
@@ -804,12 +815,14 @@ namespace mraSharp.Classes
                 using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
                 {
                     sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                                                      {
+                                                          CommandText = "SELECT AI.AUTHOR_NAME " +
+                                                                        "FROM AUTHOR_INFO AI, MANGA_AUTHORS MA, MANGA_INFO MI " +
+                                                                        "WHERE AI.AUTHOR_ID = MA.AUTHOR_ID AND MA.MANGA_ID = MI.MANGA_ID AND " +
+                                                                        "MI.MANGA_TITLE = ?"
+                                                      };
 
-                    sqLiteCommand.CommandText = "SELECT AI.AUTHOR_NAME " +
-                                                "FROM AUTHOR_INFO AI, MANGA_AUTHORS MA, MANGA_INFO MI " +
-                                                "WHERE AI.AUTHOR_ID = MA.AUTHOR_ID AND MA.MANGA_ID = MI.MANGA_ID AND " +
-                                                "MI.MANGA_TITLE = ?";
                     sqLiteCommand.Parameters.AddWithValue(null, mangaTitle);
 
                     SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
@@ -838,12 +851,14 @@ namespace mraSharp.Classes
                 using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
                 {
                     sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                                                      {
+                                                          CommandText = "SELECT GI.GENRE_NAME " +
+                                                                        "FROM GENRE_INFO GI, MANGA_GENRES MG, MANGA_INFO MI " +
+                                                                        "WHERE GI.GENRE_ID = MG.GENRE_ID AND MG.MANGA_ID = MI.MANGA_ID AND " +
+                                                                        "MI.MANGA_TITLE = ?"
+                                                      };
 
-                        sqLiteCommand.CommandText = "SELECT GI.GENRE_NAME " +
-                                                    "FROM GENRE_INFO GI, MANGA_GENRES MG, MANGA_INFO MI " +
-                                                    "WHERE GI.GENRE_ID = MG.GENRE_ID AND MG.MANGA_ID = MI.MANGA_ID AND " +
-                                                    "MI.MANGA_TITLE = ?";
                     sqLiteCommand.Parameters.AddWithValue(null, mangaTitle);
                     
                     SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
