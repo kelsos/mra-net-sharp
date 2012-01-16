@@ -33,23 +33,22 @@ namespace mangaDbEditor.Classes
             int returnData = 0;
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
-                                                      {
-                                                          CommandText = "SELECT COUNT(*) " +
-                                                                        "FROM MANGA_INFO "
-                                                      };
-
-
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-                    while (reader.Read())
+                    connection.Open();
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
                     {
-                        returnData = reader.GetInt16(0);
+                        selectCommand.CommandText = "SELECT COUNT(*) " +
+                                                    "FROM MANGA_INFO ";
+
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            returnData = reader.GetInt16(0);
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
-                    sqLiteConnection.Close();
+                    connection.Close();
                 }
             }
             catch (Exception ex)
@@ -64,29 +63,27 @@ namespace mangaDbEditor.Classes
             int returnData = 0;
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
-                                                      {
-                                                          CommandText = "SELECT COUNT(*) " +
-                                                                        "FROM AUTHOR_INFO "
-                                                      };
-
-
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-                    while (reader.Read())
+                    connection.Open();
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
                     {
-                        returnData = reader.GetInt16(0);
+                        selectCommand.CommandText = "SELECT COUNT(*) " +
+                                                    "FROM AUTHOR_INFO ";
+
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            returnData = reader.GetInt16(0);
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
-                    sqLiteConnection.Close();
+                    connection.Close();
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.LogError(ex);
-                //Logger.ErrorLogger("error.txt", ex.ToString());
             }
             return returnData;
         }
@@ -96,29 +93,27 @@ namespace mangaDbEditor.Classes
             int returnData = 0;
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
-                                                      {
-                                                          CommandText = "SELECT COUNT(*) " +
-                                                                        "FROM PUBLISHER_INFO "
-                                                      };
-
-
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-                    while (reader.Read())
+                    connection.Open();
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
                     {
-                        returnData = reader.GetInt16(0);
+                        selectCommand.CommandText = "SELECT COUNT(*) " +
+                                                    "FROM PUBLISHER_INFO ";
+
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            returnData = reader.GetInt16(0);
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
-                    sqLiteConnection.Close();
+                    connection.Close();
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.LogError(ex);
-                //Logger.ErrorLogger("error.txt", ex.ToString());
             }
             return returnData;
         }
@@ -132,33 +127,33 @@ namespace mangaDbEditor.Classes
             }
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
-                                                      {
-                                                          CommandText =
-                                                              "SELECT MANGA_TITLE, MANGA_DESCRIPTION, MANGA_PUBLICATION_DATE, MANGA_PUBLICATION_STATUS " +
-                                                              "FROM MANGA_INFO " +
-                                                              "WHERE MANGA_ID = ?"
-                                                      };
+                    connection.Open();
 
-                    sqLiteCommand.Parameters.AddWithValue(null, mangaId);
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-                    DataTable dataTable = new DataTable();
-                    dataTable.Load(reader);
-                    returnData.Title = dataTable.Rows[0][0].ToString();
-                    returnData.Description = dataTable.Rows[0][1].ToString();
-                    returnData.PublicationDate = DateTime.Parse(dataTable.Rows[0][2].ToString());
-                    returnData.PublicationStatus = dataTable.Rows[0][3].ToString();
-                    reader.Close();
-                    sqLiteConnection.Close();
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
+                    {
+                        selectCommand.CommandText =
+                            "SELECT MANGA_TITLE, MANGA_DESCRIPTION, MANGA_PUBLICATION_DATE, MANGA_PUBLICATION_STATUS " +
+                            "FROM MANGA_INFO " +
+                            "WHERE MANGA_ID = ?";
+
+                        selectCommand.Parameters.AddWithValue(null, mangaId);
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        returnData.Title = dataTable.Rows[0][0].ToString();
+                        returnData.Description = dataTable.Rows[0][1].ToString();
+                        returnData.PublicationDate = DateTime.Parse(dataTable.Rows[0][2].ToString());
+                        returnData.PublicationStatus = dataTable.Rows[0][3].ToString();
+                        reader.Close();
+                    }
+                    connection.Close();
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.LogError(ex);
-                //Logger.ErrorLogger("error.txt", ex.ToString());
             }
             return returnData;
         }
@@ -172,33 +167,33 @@ namespace mangaDbEditor.Classes
             }
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
-                                                      {
-                                                          CommandText =
-                                                              "SELECT AUTHOR_NAME, AUTHOR_NATIONALITY, AUTHOR_BIRTHDAY, AUTHOR_WEBSITE " +
-                                                              "FROM AUTHOR_INFO " +
-                                                              "WHERE AUTHOR_ID = ?"
-                                                      };
+                    connection.Open();
 
-                    sqLiteCommand.Parameters.AddWithValue(null, authorId);
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-                    DataTable dataTable = new DataTable();
-                    dataTable.Load(reader);
-                    returnData.Name = dataTable.Rows[0][0].ToString();
-                    returnData.Country = dataTable.Rows[0][1].ToString();
-                    returnData.Birthday = DateTime.Parse(dataTable.Rows[0][2].ToString());
-                    returnData.Website = dataTable.Rows[0][3].ToString();
-                    reader.Close();
-                    sqLiteConnection.Close();
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
+                    {
+                        selectCommand.CommandText =
+                            "SELECT AUTHOR_NAME, AUTHOR_NATIONALITY, AUTHOR_BIRTHDAY, AUTHOR_WEBSITE " +
+                            "FROM AUTHOR_INFO " +
+                            "WHERE AUTHOR_ID = ?";
+
+                        selectCommand.Parameters.AddWithValue(null, authorId);
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        returnData.Name = dataTable.Rows[0][0].ToString();
+                        returnData.Country = dataTable.Rows[0][1].ToString();
+                        returnData.Birthday = DateTime.Parse(dataTable.Rows[0][2].ToString());
+                        returnData.Website = dataTable.Rows[0][3].ToString();
+                        reader.Close();
+                    }
+                    connection.Close();
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.LogError(ex);
-                //Logger.ErrorLogger("error.txt", ex.ToString());
             }
             return returnData;
         }
@@ -212,33 +207,32 @@ namespace mangaDbEditor.Classes
             }
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
-                                                      {
-                                                          CommandText =
-                                                              "SELECT PUBLISHER_NAME, PUBLISHER_COUNTRY, PUBLISHER_WEBSITE, PUBLISHER_NOTE " +
-                                                              "FROM PUBLISHER_INFO " +
-                                                              "WHERE PUBLISHER_ID = ?"
-                                                      };
+                    connection.Open();
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
+                    {
+                        selectCommand.CommandText =
+                            "SELECT PUBLISHER_NAME, PUBLISHER_COUNTRY, PUBLISHER_WEBSITE, PUBLISHER_NOTE " +
+                            "FROM PUBLISHER_INFO " +
+                            "WHERE PUBLISHER_ID = ?";
 
-                    sqLiteCommand.Parameters.AddWithValue(null, publisherId);
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-                    DataTable dataTable = new DataTable();
-                    dataTable.Load(reader);
-                    returnData.Name = dataTable.Rows[0][0].ToString();
-                    returnData.Country = dataTable.Rows[0][1].ToString();
-                    returnData.Website = dataTable.Rows[0][2].ToString();
-                    returnData.Note = dataTable.Rows[0][3].ToString();
-                    reader.Close();
-                    sqLiteConnection.Close();
+                        selectCommand.Parameters.AddWithValue(null, publisherId);
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        returnData.Name = dataTable.Rows[0][0].ToString();
+                        returnData.Country = dataTable.Rows[0][1].ToString();
+                        returnData.Website = dataTable.Rows[0][2].ToString();
+                        returnData.Note = dataTable.Rows[0][3].ToString();
+                        reader.Close();
+                    }
+                    connection.Close();
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.LogError(ex);
-                //Logger.ErrorLogger("error.txt", ex.ToString());
             }
             return returnData;
         }
@@ -253,33 +247,32 @@ namespace mangaDbEditor.Classes
                 return null;
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
-                                                      {
-                                                          CommandText = "SELECT MANGA_COVER " +
-                                                                        "FROM MANGA_INFO " +
-                                                                        "WHERE MANGA_ID = ?"
-                                                      };
-
-                    sqLiteCommand.Parameters.AddWithValue(null, mangaId);
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
+                    connection.Open();
                     byte[] imageArray = new byte[6000];
-                    while (reader.Read())
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
                     {
-                        imageArray = GetBytes(reader);
-                    }
-                    reader.Close();
-                    sqLiteConnection.Close();
+                        selectCommand.CommandText = "SELECT MANGA_COVER " +
+                                                    "FROM MANGA_INFO " +
+                                                    "WHERE MANGA_ID = ?";
 
+                        selectCommand.Parameters.AddWithValue(null, mangaId);
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            imageArray = GetBytes(reader);
+                        }
+                        reader.Close();
+                    }
+                    connection.Close();
                     return Image.FromStream(new MemoryStream(imageArray));
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.LogError(ex);
-                //Logger.ErrorLogger("error.txt", ex.ToString());
             }
             return null;
         }
@@ -309,33 +302,33 @@ namespace mangaDbEditor.Classes
             List<string> returnData = new List<string>();
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
-                                                      {
-                                                          CommandText = "SELECT AI.AUTHOR_NAME " +
-                                                                        "FROM AUTHOR_INFO AI, MANGA_AUTHORS MA, MANGA_INFO MI " +
-                                                                        "WHERE AI.AUTHOR_ID = MA.AUTHOR_ID AND MA.MANGA_ID = MI.MANGA_ID AND " +
-                                                                        "MI.MANGA_ID = ?"
-                                                      };
+                    connection.Open();
 
-                    sqLiteCommand.Parameters.AddWithValue(null, mangaId);
-
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
                     {
-                        returnData.Add(reader.GetString(0));
+                        selectCommand.CommandText = "SELECT AI.AUTHOR_NAME " +
+                                                    "FROM AUTHOR_INFO AI, MANGA_AUTHORS MA, MANGA_INFO MI " +
+                                                    "WHERE AI.AUTHOR_ID = MA.AUTHOR_ID AND MA.MANGA_ID = MI.MANGA_ID AND " +
+                                                    "MI.MANGA_ID = ?";
+
+                        selectCommand.Parameters.AddWithValue(null, mangaId);
+
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            returnData.Add(reader.GetString(0));
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
-                    sqLiteConnection.Close();
+                    connection.Close();
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.LogError(ex);
-                //Logger.ErrorLogger("error.txt", ex.ToString());
             }
             return returnData;
         }
@@ -345,33 +338,32 @@ namespace mangaDbEditor.Classes
             List<string> returnData = new List<string>();
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
-                                                      {
-                                                          CommandText = "SELECT GI.GENRE_NAME " +
-                                                                        "FROM GENRE_INFO GI, MANGA_GENRES MG, MANGA_INFO MI " +
-                                                                        "WHERE GI.GENRE_ID = MG.GENRE_ID AND MG.MANGA_ID = MI.MANGA_ID AND " +
-                                                                        "MI.MANGA_ID = ?"
-                                                      };
-
-                    sqLiteCommand.Parameters.AddWithValue(null, mangaId);
-
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-
-                    while (reader.Read())
+                    connection.Open();
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
                     {
-                        returnData.Add(reader.GetString(0));
+                        selectCommand.CommandText = "SELECT GI.GENRE_NAME " +
+                                                    "FROM GENRE_INFO GI, MANGA_GENRES MG, MANGA_INFO MI " +
+                                                    "WHERE GI.GENRE_ID = MG.GENRE_ID AND MG.MANGA_ID = MI.MANGA_ID AND " +
+                                                    "MI.MANGA_ID = ?";
+
+                        selectCommand.Parameters.AddWithValue(null, mangaId);
+
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            returnData.Add(reader.GetString(0));
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
-                    sqLiteConnection.Close();
+                    connection.Close();
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.LogError(ex);
-                //Logger.ErrorLogger("error.txt", ex.ToString());
             }
             return returnData;
         }
@@ -381,33 +373,32 @@ namespace mangaDbEditor.Classes
             string returnData = null;
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
+                    connection.Open();
 
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
-                                                      {
-                                                          CommandText = "SELECT PI.PUBLISHER_NAME " +
-                                                                        "FROM PUBLISHER_INFO PI, MANGA_INFO MI " +
-                                                                        "WHERE PI.PUBLISHER_ID = MI.MANGA_PUBLISHER_ID AND MI.MANGA_ID = ?"
-                                                      };
-
-                    sqLiteCommand.Parameters.AddWithValue(null, mangaId);
-
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-                    while (reader.Read())
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
                     {
-                        returnData = reader.GetString(0);
-                    }
+                        selectCommand.CommandText = "SELECT PI.PUBLISHER_NAME " +
+                                                    "FROM PUBLISHER_INFO PI, MANGA_INFO MI " +
+                                                    "WHERE PI.PUBLISHER_ID = MI.MANGA_PUBLISHER_ID AND MI.MANGA_ID = ?";
 
-                    reader.Close();
-                    sqLiteConnection.Close();
+                        selectCommand.Parameters.AddWithValue(null, mangaId);
+
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            returnData = reader.GetString(0);
+                        }
+
+                        reader.Close();
+                    }
+                    connection.Close();
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.LogError(ex);
-                //Logger.ErrorLogger("error.txt", ex.ToString());
             }
             return returnData;
         }
@@ -417,19 +408,19 @@ namespace mangaDbEditor.Classes
             if (mangaId <= 0)
                 return;
 
-            using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                sqLiteConnection.Open();
-                SQLiteCommand insertCommand = new SQLiteCommand(sqLiteConnection)
-                                                  {
-                                                      CommandText = "UPDATE MANGA_INFO " +
-                                                                    "SET MANGA_COVER = ? " +
-                                                                    "WHERE MANGA_ID = ?"
-                                                  };
-                insertCommand.Parameters.AddWithValue(null, mangaCover);
-                insertCommand.Parameters.AddWithValue(null, mangaId);
-                insertCommand.ExecuteNonQuery();
-                sqLiteConnection.Close();
+                connection.Open();
+                using (SQLiteCommand insertCommand = new SQLiteCommand(connection))
+                {
+                    insertCommand.CommandText = "UPDATE MANGA_INFO " +
+                                                "SET MANGA_COVER = ? " +
+                                                "WHERE MANGA_ID = ?";
+                    insertCommand.Parameters.AddWithValue(null, mangaCover);
+                    insertCommand.Parameters.AddWithValue(null, mangaId);
+                    insertCommand.ExecuteNonQuery();
+                }
+                connection.Close();
             }
         }
 
@@ -438,36 +429,35 @@ namespace mangaDbEditor.Classes
             List<string> returnData = new List<string> {""};
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
-                                                      {
-                                                          CommandText = "SELECT AUTHOR_NAME " +
-                                                                        "FROM AUTHOR_INFO " +
-                                                                        "WHERE AUTHOR_NAME NOT IN " +
-                                                                        "(SELECT AI.AUTHOR_NAME " +
-                                                                        "FROM AUTHOR_INFO AI, MANGA_AUTHORS MA, MANGA_INFO MI " +
-                                                                        "WHERE AI.AUTHOR_ID = MA.AUTHOR_ID AND MA.MANGA_ID = MI.MANGA_ID AND " +
-                                                                        "MI.MANGA_ID = ? )"
-                                                      };
-
-                    sqLiteCommand.Parameters.AddWithValue(null, mangaId);
-
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-
-                    while (reader.Read())
+                    connection.Open();
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
                     {
-                        returnData.Add(reader.GetString(0));
+                        selectCommand.CommandText = "SELECT AUTHOR_NAME " +
+                                                    "FROM AUTHOR_INFO " +
+                                                    "WHERE AUTHOR_NAME NOT IN " +
+                                                    "(SELECT AI.AUTHOR_NAME " +
+                                                    "FROM AUTHOR_INFO AI, MANGA_AUTHORS MA, MANGA_INFO MI " +
+                                                    "WHERE AI.AUTHOR_ID = MA.AUTHOR_ID AND MA.MANGA_ID = MI.MANGA_ID AND " +
+                                                    "MI.MANGA_ID = ? )";
+
+                        selectCommand.Parameters.AddWithValue(null, mangaId);
+
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            returnData.Add(reader.GetString(0));
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
-                    sqLiteConnection.Close();
+                    connection.Close();
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.LogError(ex);
-                //Logger.ErrorLogger("error.txt", ex.ToString());
             }
             return returnData;
         }
@@ -477,37 +467,124 @@ namespace mangaDbEditor.Classes
             List<string> returnData = new List<string> {""};
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
-                                                      {
-                                                          CommandText = "SELECT GENRE_NAME " +
-                                                                        "FROM GENRE_INFO " +
-                                                                        "WHERE GENRE_NAME NOT IN " +
-                                                                        "(SELECT GI.GENRE_NAME " +
-                                                                        "FROM GENRE_INFO GI, MANGA_GENRES MG, MANGA_INFO MI " +
-                                                                        "WHERE GI.GENRE_ID = MG.GENRE_ID AND MG.MANGA_ID = MI.MANGA_ID AND " +
-                                                                        "MI.MANGA_ID = ? )"
-                                                      };
-
-                    sqLiteCommand.Parameters.AddWithValue(null, mangaId);
-
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-
-                    while (reader.Read())
+                    connection.Open();
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
                     {
-                        returnData.Add(reader.GetString(0));
+                        selectCommand.CommandText = "SELECT GENRE_NAME " +
+                                                    "FROM GENRE_INFO " +
+                                                    "WHERE GENRE_NAME NOT IN " +
+                                                    "(SELECT GI.GENRE_NAME " +
+                                                    "FROM GENRE_INFO GI, MANGA_GENRES MG, MANGA_INFO MI " +
+                                                    "WHERE GI.GENRE_ID = MG.GENRE_ID AND MG.MANGA_ID = MI.MANGA_ID AND " +
+                                                    "MI.MANGA_ID = ? )";
+
+                        selectCommand.Parameters.AddWithValue(null, mangaId);
+
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            returnData.Add(reader.GetString(0));
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
-                    sqLiteConnection.Close();
+                    connection.Close();
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.LogError(ex);
-                //Logger.ErrorLogger("error.txt", ex.ToString());
             }
+            return returnData;
+        }
+
+        public List<MangaInfo> GetAllMangaInfoElements()
+        {
+            List<MangaInfo> returnData = new List<MangaInfo>();
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
+                {
+                    selectCommand.CommandText = "SELECT * " +
+                                                "FROM MANGA_INFO";
+                    SQLiteDataReader reader = selectCommand.ExecuteReader();
+                    using (DataTable mDataTable = new DataTable())
+                    {
+                        mDataTable.Load(reader);
+                        foreach (DataRow row in mDataTable.Rows)
+                        {
+                            MangaInfo info = new MangaInfo();
+                            info.Id = uint.Parse(row[0].ToString());
+                            info.Title = row[1].ToString();
+                            info.Description = row[2].ToString();
+                            info.PublicationDate = !string.IsNullOrEmpty(row[3].ToString())
+                                                       ? DateTime.Parse(row[3].ToString())
+                                                       : (DateTime?) null;
+                            info.PublicationStatus = row[4].ToString();
+                            info.PublisherId = !string.IsNullOrEmpty(row[5].ToString())
+                                                   ? uint.Parse(row[5].ToString())
+                                                   : 0;
+                            info.Image = Convert.ToBase64String((byte[]) row[6]);
+                            returnData.Add(info);
+                        }
+                    }
+                    reader.Close();
+                }
+                connection.Close();
+            }
+
+            return returnData;
+        }
+
+        public List<AuthorInfo> GetAllAuthorInfoElements()
+        {
+            List<AuthorInfo> returnData = new List<AuthorInfo>();
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
+                {
+                    selectCommand.CommandText = "SELECT * " +
+                        "FROM AUTHOR_INFO";
+                    SQLiteDataReader reader = selectCommand.ExecuteReader();
+                    using (DataTable mDataTable = new DataTable())
+                    {
+                        mDataTable.Load(reader);
+                        foreach (DataRow row in mDataTable.Rows)
+                        {
+                            AuthorInfo info = new AuthorInfo();
+                            
+                        }
+                    }
+                }
+            }
+            return returnData;
+        }
+
+        public List<PublisherInfo> GetAllPublisherInfoElements()
+        {
+            List<PublisherInfo> returnData = new List<PublisherInfo>();
+            return returnData;
+        }
+
+        public List<GenreInfo> GetAllGenreInfoElements()
+        {
+            List<GenreInfo> returnData = new List<GenreInfo>();
+            return returnData;
+        }
+
+        public List<MangaGenre> GetAllMangaGenreElements()
+        {
+            List<MangaGenre> returnData = new List<MangaGenre>();
+            return returnData;
+        }
+
+        public List<MangaAuthor> GetAllMangaAuthorElements()
+        {
+            List<MangaAuthor> returnData = new List<MangaAuthor>();
             return returnData;
         }
     }

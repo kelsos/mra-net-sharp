@@ -67,10 +67,14 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DatabaseWrapper.cs" />
     <Compile Include="Classes\Data\AuthorInfo.cs" />
+    <Compile Include="Classes\Data\GenreInfo.cs" />
+    <Compile Include="Classes\Data\MangaAuthor.cs" />
+    <Compile Include="Classes\Data\MangaGenre.cs" />
     <Compile Include="Classes\Data\MangaInfo.cs" />
     <Compile Include="Classes\Data\PublisherInfo.cs" />
     <Compile Include="Classes\IoWrapper.cs" />

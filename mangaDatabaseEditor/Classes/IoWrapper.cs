@@ -1,4 +1,9 @@
-﻿namespace mangaDbEditor.Classes
+﻿using System.Collections.Generic;
+using System.Linq;
+using mangaDbEditor.Classes.Data;
+using System.Xml.Linq;
+
+namespace mangaDbEditor.Classes
 {
     public sealed class IoWrapper
     {
@@ -17,7 +22,7 @@
             get { return ClassInstance; }
         }
 
-        private void SaveToXmlFile(string fileName)
+        public void SaveToXmlFile(string fileName)
         {
             //   var publisherData = from publishers in db.M_publisherInfo
             //                             select publishers;
@@ -25,16 +30,18 @@
             //                        select genres;
             //   var authorData = from authors in db.M_authorInfo
             //                         select authors;
-            //   var mangaData = from mangas in db.M_mangaInfo
+            //
+
+            List<MangaInfo> mangaData = DatabaseWrapper.Instance.GetAllMangaInfoElements();
             //                        select mangas;
             //   var mangaGenreData = from mangaGenresInfo in db.Mm_mangaGenres
             //                               select mangaGenresInfo;
             //   var mangaAuthorData = from mangaAuthorsInfo in db.Mm_mangaAuthors
             //                                select mangaAuthorsInfo;
-
-            //   var xDoc = new XDocument();
-            //   var xDeclaration = new XDeclaration("1.0", "utf-8", "yes");
-            //   var xComment = new XComment("Manga Reading Assistant Database Exporter");
+            
+            XDocument xDoc = new XDocument();
+            XDeclaration xDeclaration = new XDeclaration("1.0", "utf-8", "yes");
+            XComment xComment = new XComment("Manga Reading Assistant Database Exporter");
 
             //   var publisherXElement = new XElement("Publishers",
             //               from entry in publisherData
@@ -62,17 +69,17 @@
             //                   new XElement("AuthorWebsite", entry.AuthorWebsite))
             //           );
 
-            //   var mangaXElement = new XElement("Mangas",
-            //               from entry in mangaData
-            //               select new XElement("Manga",
-            //                   new XElement("MangaID", entry.MangaID),
-            //                   new XElement("MangaTitle", entry.MangaTitle),
-            //                   new XElement("MangaYearOfPublish", entry.MangaYearOfPublisher),
-            //                   new XElement("MangaStatus", entry.MangaStatus),
-            //                   new XElement("MangaPublisherID", entry.MangaPublisherID),
-            //                   new XElement("MangaDescription", entry.MangaDescription),
-            //                   new XElement("MangaCover", Convert.ToBase64String(entry.MangaCover.ToArray())))
-            //           );
+            var mangaXElement = new XElement("Mangas",
+                                             from entry in mangaData
+                                             select new XElement("Manga",
+                                                                 new XElement("MangaID", entry.Id),
+                                                                 new XElement("MangaTitle", entry.Title),
+                                                                 new XElement("MangaYearOfPublish",
+                                                                              entry.PublicationDate),
+                                                                 new XElement("MangaStatus", entry.PublicationStatus),
+                                                                 new XElement("MangaPublisherID", entry.PublisherId),
+                                                                 new XElement("MangaDescription", entry.Description),
+                                                                 new XElement("MangaCover", entry.Image)));
 
             //   var mangaGenreXElement = new XElement("MangaGenres",
             //               from entry in mangaGenreData
@@ -87,22 +94,22 @@
             //           new XElement("MangaID", entry.Ma_mangaID),
             //           new XElement("AuthorID", entry.Ma_authorID))
             //);
-            //   xDoc.Declaration = xDeclaration;
-            //   xDoc.Add(xComment);
-            //   xDoc.Add(new XElement("MangaDatabase"));
-            //   if (xDoc.Root != null)
-            //   {
+               xDoc.Declaration = xDeclaration;
+               xDoc.Add(xComment);
+               xDoc.Add(new XElement("MangaDatabase"));
+               if (xDoc.Root != null)
+               {
             //       xDoc.Root.Add(publisherXElement);
             //       xDoc.Root.Add(genresXElement);
             //       xDoc.Root.Add(authorXElement);
-            //       xDoc.Root.Add(mangaXElement);
+                  xDoc.Root.Add(mangaXElement);
             //       xDoc.Root.Add(mangaGenreXElement);
             //       xDoc.Root.Add(mangaAuthorsXElement);
-            //   }
-            //   xDoc.Save(fileName);
+               }
+               xDoc.Save(fileName);
         }
 
-        private void LoadFromXmlFile(string fileName)
+        public void LoadFromXmlFile(string fileName)
         {
             //using (Mds mds = new Mds(Properties.Settings.Default.DbConnection))
             //{

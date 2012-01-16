@@ -154,7 +154,7 @@ namespace mangaDbEditor.Forms
             //TODO: Not null & more checks.
             if (ExportDatabaseSaveFileDialog.ShowDialog() == DialogResult.OK)
             {
-               // DatabaseInfoExporter(ExportDatabaseSaveFileDialog.FileName);
+               IoWrapper.Instance.SaveToXmlFile(ExportDatabaseSaveFileDialog.FileName);
             }
 		}
 
