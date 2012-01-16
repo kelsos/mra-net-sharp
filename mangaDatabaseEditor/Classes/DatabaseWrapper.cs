@@ -548,7 +548,7 @@ namespace mangaDbEditor.Classes
                 using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
                 {
                     selectCommand.CommandText = "SELECT * " +
-                        "FROM AUTHOR_INFO";
+                                                "FROM AUTHOR_INFO";
                     SQLiteDataReader reader = selectCommand.ExecuteReader();
                     using (DataTable mDataTable = new DataTable())
                     {
@@ -556,10 +556,19 @@ namespace mangaDbEditor.Classes
                         foreach (DataRow row in mDataTable.Rows)
                         {
                             AuthorInfo info = new AuthorInfo();
-                            
+                            info.Id = uint.Parse(row[0].ToString());
+                            info.Name = row[1].ToString();
+                            info.Country = row[2].ToString();
+                            info.Birthday = !string.IsNullOrEmpty(row[3].ToString())
+                                                ? DateTime.Parse(row[3].ToString())
+                                                : (DateTime?) null;
+                            info.Website = row[4].ToString();
+                            returnData.Add(info);
                         }
                     }
+                    reader.Close();
                 }
+                connection.Close();
             }
             return returnData;
         }
@@ -567,24 +576,120 @@ namespace mangaDbEditor.Classes
         public List<PublisherInfo> GetAllPublisherInfoElements()
         {
             List<PublisherInfo> returnData = new List<PublisherInfo>();
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
+                {
+                    selectCommand.CommandText = "SELECT * " +
+                                                "FROM PUBLISHER_INFO";
+                    SQLiteDataReader reader = selectCommand.ExecuteReader();
+                    using (DataTable mDataTable = new DataTable())
+                    {
+                        mDataTable.Load(reader);
+                        foreach (DataRow row in mDataTable.Rows)
+                        {
+                            PublisherInfo info = new PublisherInfo();
+                            info.Id = uint.Parse(row[0].ToString());
+                            info.Name = row[1].ToString();
+                            info.Country = row[2].ToString();
+                            info.Website = row[3].ToString();
+                            info.Note = row[4].ToString();
+
+                            returnData.Add(info);
+                        }
+                        reader.Close();
+                    }
+                    connection.Close();
+                }
+            }
             return returnData;
         }
 
         public List<GenreInfo> GetAllGenreInfoElements()
         {
             List<GenreInfo> returnData = new List<GenreInfo>();
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
+                {
+                    selectCommand.CommandText = "SELECT * " +
+                                                "FROM GENRE_INFO";
+                    SQLiteDataReader reader = selectCommand.ExecuteReader();
+                    using (DataTable mDataTable = new DataTable())
+                    {
+                        mDataTable.Load(reader);
+                        foreach (DataRow row in mDataTable.Rows)
+                        {
+                            GenreInfo info = new GenreInfo();
+                            info.Id = uint.Parse(row[0].ToString());
+                            info.Name = row[1].ToString();
+                            returnData.Add(info);
+                        }
+                        reader.Close();
+                    }
+                    connection.Close();
+                }
+            }
             return returnData;
         }
 
         public List<MangaGenre> GetAllMangaGenreElements()
         {
             List<MangaGenre> returnData = new List<MangaGenre>();
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
+                {
+                    selectCommand.CommandText = "SELECT * " +
+                                                "FROM MANGA_GENRES";
+                    SQLiteDataReader reader = selectCommand.ExecuteReader();
+                    using (DataTable mDataTable = new DataTable())
+                    {
+                        mDataTable.Load(reader);
+                        foreach (DataRow row in mDataTable.Rows)
+                        {
+                            MangaGenre info = new MangaGenre();
+                            info.MangaId = uint.Parse(row[0].ToString());
+                            info.GenreId = uint.Parse(row[1].ToString());
+                            returnData.Add(info);
+                        }
+                        reader.Close();
+                    }
+                    connection.Close();
+                }
+            }
             return returnData;
         }
 
         public List<MangaAuthor> GetAllMangaAuthorElements()
         {
             List<MangaAuthor> returnData = new List<MangaAuthor>();
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
+                {
+                    selectCommand.CommandText = "SELECT * " +
+                                                "FROM MANGA_AUTHORS";
+                    SQLiteDataReader reader = selectCommand.ExecuteReader();
+                    using (DataTable mDataTable = new DataTable())
+                    {
+                        mDataTable.Load(reader);
+                        foreach (DataRow row in mDataTable.Rows)
+                        {
+                            MangaAuthor info = new MangaAuthor();
+                            info.MangaId = uint.Parse(row[0].ToString());
+                            info.AuthorId = uint.Parse(row[1].ToString());
+                            returnData.Add(info);
+                        }
+                        reader.Close();
+                    }
+                    connection.Close();
+                }
+            }
             return returnData;
         }
     }
