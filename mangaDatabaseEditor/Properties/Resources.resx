@@ -154,4 +154,7 @@
   <data name="MainForm_RefreshMangaData_of_">
     <value xml:space="preserve">of </value>
   </data>
+  <data name="Decimal_One_String">
+    <value xml:space="preserve">1</value>
+  </data>
 </root>

@@ -33,7 +33,9 @@ namespace mangaDbEditor.Forms
             authorsNameListBox.DataSource = DatabaseWrapper.Instance.GetAuthorsList(mangaId);
             genreNameListBox.DataSource = DatabaseWrapper.Instance.GetGenresList(mangaId);
             mangaPublisherNameTextBox.Text = DatabaseWrapper.Instance.GetPublisherName(mangaId);
-        }
+	        authorsComboBox.DataSource = DatabaseWrapper.Instance.GetNonSelectedAuthors(mangaId);
+	        genreNameComboBox.DataSource = DatabaseWrapper.Instance.GetNonSelectedGenresList(mangaId);
+	    }
 
         private void GetAuthorDataForSpecificAuthor(int authorId)
         {
@@ -71,12 +73,11 @@ namespace mangaDbEditor.Forms
 			}
 		}
 
-
 		private void MainFormLoad(object sender, EventArgs e)
 		{
 		    _activeTab = "manga";
             MangaInfoNavigatorTotal.Text = Resources.MainForm_RefreshMangaData_of_ + DatabaseWrapper.Instance.GetMangaInfoNumberOfElements();
-            MangaInfoNavigatorCurrent.Text = "1";
+            MangaInfoNavigatorCurrent.Text = Resources.Decimal_One_String;
 		    GetMangaDataForSpecificManga(int.Parse(MangaInfoNavigatorCurrent.Text));
 			HandleNewEntry();
 		}
@@ -107,7 +108,6 @@ namespace mangaDbEditor.Forms
 		private void AddGenreButtonClick(object sender, EventArgs e)
 		{
 		}
-
 
 		private void RemoveGenreButtonClick(object sender, EventArgs e)
 		{
@@ -170,7 +170,7 @@ namespace mangaDbEditor.Forms
         {
             if(int.Parse(MangaInfoNavigatorCurrent.Text)<int.Parse(MangaInfoNavigatorTotal.Text.Replace(Resources.MainForm_RefreshMangaData_of_,"")))
             {
-                MangaInfoNavigatorCurrent.Text = (int.Parse(MangaInfoNavigatorCurrent.Text) + 1).ToString();
+                MangaInfoNavigatorCurrent.Text = (int.Parse(MangaInfoNavigatorCurrent.Text) + 1).ToString(CultureInfo.InvariantCulture);
             }      
         }
 
@@ -185,13 +185,13 @@ namespace mangaDbEditor.Forms
         {
             if (int.Parse(MangaInfoNavigatorCurrent.Text) > 1)
             {
-                MangaInfoNavigatorCurrent.Text = (int.Parse(MangaInfoNavigatorCurrent.Text) - 1).ToString();
+                MangaInfoNavigatorCurrent.Text = (int.Parse(MangaInfoNavigatorCurrent.Text) - 1).ToString(CultureInfo.InvariantCulture);
             }    
         }
 
         private void HandleMangaInfoNavigatorFirstClick(object sender, EventArgs e)
         {
-            MangaInfoNavigatorCurrent.Text = "1";
+            MangaInfoNavigatorCurrent.Text = Resources.Decimal_One_String;
         }
 
         private void HandleMangaInfoNavigatorLastClick(object sender, EventArgs e)
@@ -200,7 +200,7 @@ namespace mangaDbEditor.Forms
                 int.Parse(MangaInfoNavigatorTotal.Text.Replace(Resources.MainForm_RefreshMangaData_of_, "")).ToString(CultureInfo.InvariantCulture);
         }
 
-        private void TabControlSelectedIndexChanged(object sender, EventArgs e)
+        private void HandleTabControlSelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl.SelectedTab == tabManga)
             {
@@ -224,6 +224,7 @@ namespace mangaDbEditor.Forms
                 GetPublisherDataForSpecificPublisher(int.Parse(MangaInfoNavigatorCurrent.Text));
             }
         }
+
 	}
 }
 

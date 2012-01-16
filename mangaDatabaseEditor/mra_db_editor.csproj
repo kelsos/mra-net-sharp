@@ -74,6 +74,7 @@
     <Compile Include="Classes\Data\MangaInfo.cs" />
     <Compile Include="Classes\Data\PublisherInfo.cs" />
     <Compile Include="Classes\IoWrapper.cs" />
+    <Compile Include="Classes\Utilities\ErrorHandler.cs" />
     <Compile Include="Classes\Utilities\ImageUtil.cs" />
     <Compile Include="Forms\AboutWindow.cs">
       <SubType>Form</SubType>

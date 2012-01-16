@@ -95,6 +95,15 @@ namespace mangaDbEditor.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to 1.
+        /// </summary>
+        internal static string Decimal_One_String {
+            get {
+                return ResourceManager.GetString("Decimal_One_String", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap diskPencil {
             get {
                 object obj = ResourceManager.GetObject("diskPencil", resourceCulture);

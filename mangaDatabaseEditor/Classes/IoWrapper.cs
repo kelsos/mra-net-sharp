@@ -4,98 +4,106 @@
     {
         private static readonly IoWrapper ClassInstance = new IoWrapper();
 
-        IoWrapper(){}
-        static IoWrapper(){}
+        private IoWrapper()
+        {
+        }
 
-        public static IoWrapper Instance { get { return ClassInstance; } }
+        static IoWrapper()
+        {
+        }
 
-        		private void DatabaseInfoExporter(string fileName)
-		{
-         //   var publisherData = from publishers in db.M_publisherInfo
-         //                             select publishers;
-         //   var genreData = from genres in db.M_genreInfo
-         //                        select genres;
-         //   var authorData = from authors in db.M_authorInfo
-         //                         select authors;
-         //   var mangaData = from mangas in db.M_mangaInfo
-         //                        select mangas;
-         //   var mangaGenreData = from mangaGenresInfo in db.Mm_mangaGenres
-         //                               select mangaGenresInfo;
-         //   var mangaAuthorData = from mangaAuthorsInfo in db.Mm_mangaAuthors
-         //                                select mangaAuthorsInfo;
+        public static IoWrapper Instance
+        {
+            get { return ClassInstance; }
+        }
 
-         //   var xDoc = new XDocument();
-         //   var xDeclaration = new XDeclaration("1.0", "utf-8", "yes");
-         //   var xComment = new XComment("Manga Reading Assistant Database Exporter");
+        private void SaveToXmlFile(string fileName)
+        {
+            //   var publisherData = from publishers in db.M_publisherInfo
+            //                             select publishers;
+            //   var genreData = from genres in db.M_genreInfo
+            //                        select genres;
+            //   var authorData = from authors in db.M_authorInfo
+            //                         select authors;
+            //   var mangaData = from mangas in db.M_mangaInfo
+            //                        select mangas;
+            //   var mangaGenreData = from mangaGenresInfo in db.Mm_mangaGenres
+            //                               select mangaGenresInfo;
+            //   var mangaAuthorData = from mangaAuthorsInfo in db.Mm_mangaAuthors
+            //                                select mangaAuthorsInfo;
 
-         //   var publisherXElement = new XElement("Publishers",
-         //               from entry in publisherData
-         //               select new XElement("Publisher",
-         //                   new XElement("PublisherID", entry.PublisherID),
-         //                   new XElement("PublisherName", entry.PublisherName),
-         //                   new XElement("PublisherCountry", entry.PublisherCountry),
-         //                   new XElement("PublisherWebsite", entry.PublisherWebsite),
-         //                   new XElement("PublisherNote", entry.PublisherNote))
-         //           );
-         //   var genresXElement = new XElement("Genres",
-         //               from entry in genreData
-         //               select new XElement("Genre",
-         //                   new XElement("GenreID", entry.GenreID),
-         //                   new XElement("GenreName", entry.GenreName))
-         //           );
+            //   var xDoc = new XDocument();
+            //   var xDeclaration = new XDeclaration("1.0", "utf-8", "yes");
+            //   var xComment = new XComment("Manga Reading Assistant Database Exporter");
 
-         //   var authorXElement = new XElement("Authors",
-         //               from entry in authorData
-         //               select new XElement("Author",
-         //                   new XElement("AuthorID", entry.AuthorID),
-         //                   new XElement("AuthorName", entry.AuthorFullName),
-         //                   new XElement("AuthorCountry", entry.AuthorCountryOfOrigin),
-         //                   new XElement("AuthorBirth", entry.AuthorDateOfBirth),
-         //                   new XElement("AuthorWebsite", entry.AuthorWebsite))
-         //           );
+            //   var publisherXElement = new XElement("Publishers",
+            //               from entry in publisherData
+            //               select new XElement("Publisher",
+            //                   new XElement("PublisherID", entry.PublisherID),
+            //                   new XElement("PublisherName", entry.PublisherName),
+            //                   new XElement("PublisherCountry", entry.PublisherCountry),
+            //                   new XElement("PublisherWebsite", entry.PublisherWebsite),
+            //                   new XElement("PublisherNote", entry.PublisherNote))
+            //           );
+            //   var genresXElement = new XElement("Genres",
+            //               from entry in genreData
+            //               select new XElement("Genre",
+            //                   new XElement("GenreID", entry.GenreID),
+            //                   new XElement("GenreName", entry.GenreName))
+            //           );
 
-         //   var mangaXElement = new XElement("Mangas",
-         //               from entry in mangaData
-         //               select new XElement("Manga",
-         //                   new XElement("MangaID", entry.MangaID),
-         //                   new XElement("MangaTitle", entry.MangaTitle),
-         //                   new XElement("MangaYearOfPublish", entry.MangaYearOfPublisher),
-         //                   new XElement("MangaStatus", entry.MangaStatus),
-         //                   new XElement("MangaPublisherID", entry.MangaPublisherID),
-         //                   new XElement("MangaDescription", entry.MangaDescription),
-         //                   new XElement("MangaCover", Convert.ToBase64String(entry.MangaCover.ToArray())))
-         //           );
+            //   var authorXElement = new XElement("Authors",
+            //               from entry in authorData
+            //               select new XElement("Author",
+            //                   new XElement("AuthorID", entry.AuthorID),
+            //                   new XElement("AuthorName", entry.AuthorFullName),
+            //                   new XElement("AuthorCountry", entry.AuthorCountryOfOrigin),
+            //                   new XElement("AuthorBirth", entry.AuthorDateOfBirth),
+            //                   new XElement("AuthorWebsite", entry.AuthorWebsite))
+            //           );
 
-         //   var mangaGenreXElement = new XElement("MangaGenres",
-         //               from entry in mangaGenreData
-         //               select new XElement("MangaGenre",
-         //                   new XElement("MangaID", entry.Mm_mangaID),
-         //                   new XElement("GenreID", entry.Mm_genreID))
-         //           );
+            //   var mangaXElement = new XElement("Mangas",
+            //               from entry in mangaData
+            //               select new XElement("Manga",
+            //                   new XElement("MangaID", entry.MangaID),
+            //                   new XElement("MangaTitle", entry.MangaTitle),
+            //                   new XElement("MangaYearOfPublish", entry.MangaYearOfPublisher),
+            //                   new XElement("MangaStatus", entry.MangaStatus),
+            //                   new XElement("MangaPublisherID", entry.MangaPublisherID),
+            //                   new XElement("MangaDescription", entry.MangaDescription),
+            //                   new XElement("MangaCover", Convert.ToBase64String(entry.MangaCover.ToArray())))
+            //           );
 
-         //   var mangaAuthorsXElement = new XElement("MangaAuthors",
-         //       from entry in mangaAuthorData
-         //       select new XElement("MangaAuthor",
-         //           new XElement("MangaID", entry.Ma_mangaID),
-         //           new XElement("AuthorID", entry.Ma_authorID))
-         //);
-         //   xDoc.Declaration = xDeclaration;
-         //   xDoc.Add(xComment);
-         //   xDoc.Add(new XElement("MangaDatabase"));
-         //   if (xDoc.Root != null)
-         //   {
-         //       xDoc.Root.Add(publisherXElement);
-         //       xDoc.Root.Add(genresXElement);
-         //       xDoc.Root.Add(authorXElement);
-         //       xDoc.Root.Add(mangaXElement);
-         //       xDoc.Root.Add(mangaGenreXElement);
-         //       xDoc.Root.Add(mangaAuthorsXElement);
-         //   }
-         //   xDoc.Save(fileName);
-		}
+            //   var mangaGenreXElement = new XElement("MangaGenres",
+            //               from entry in mangaGenreData
+            //               select new XElement("MangaGenre",
+            //                   new XElement("MangaID", entry.Mm_mangaID),
+            //                   new XElement("GenreID", entry.Mm_genreID))
+            //           );
 
-		private void DatabaseInfoImporter(string fileName)
-		{
+            //   var mangaAuthorsXElement = new XElement("MangaAuthors",
+            //       from entry in mangaAuthorData
+            //       select new XElement("MangaAuthor",
+            //           new XElement("MangaID", entry.Ma_mangaID),
+            //           new XElement("AuthorID", entry.Ma_authorID))
+            //);
+            //   xDoc.Declaration = xDeclaration;
+            //   xDoc.Add(xComment);
+            //   xDoc.Add(new XElement("MangaDatabase"));
+            //   if (xDoc.Root != null)
+            //   {
+            //       xDoc.Root.Add(publisherXElement);
+            //       xDoc.Root.Add(genresXElement);
+            //       xDoc.Root.Add(authorXElement);
+            //       xDoc.Root.Add(mangaXElement);
+            //       xDoc.Root.Add(mangaGenreXElement);
+            //       xDoc.Root.Add(mangaAuthorsXElement);
+            //   }
+            //   xDoc.Save(fileName);
+        }
+
+        private void LoadFromXmlFile(string fileName)
+        {
             //using (Mds mds = new Mds(Properties.Settings.Default.DbConnection))
             //{
             //    //TODO: Fix the Import - Export Progress Report
@@ -283,6 +291,6 @@
             //    HandleNewEntry();
             //    LoadPublisherData();
             //}
-            }
+        }
     }
 }

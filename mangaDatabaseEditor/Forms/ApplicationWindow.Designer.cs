@@ -188,7 +188,7 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(484, 640);
             this.tabControl.TabIndex = 0;
-            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.TabControlSelectedIndexChanged);
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.HandleTabControlSelectedIndexChanged);
             // 
             // tabManga
             // 
@@ -249,7 +249,7 @@
             this.dateOfPublishDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateOfPublishDateTimePicker.Location = new System.Drawing.Point(6, 21);
             this.dateOfPublishDateTimePicker.Name = "dateOfPublishDateTimePicker";
-            this.dateOfPublishDateTimePicker.Size = new System.Drawing.Size(270, 22);
+            this.dateOfPublishDateTimePicker.Size = new System.Drawing.Size(282, 22);
             this.dateOfPublishDateTimePicker.TabIndex = 18;
             // 
             // descriptionGroupBox
@@ -287,7 +287,7 @@
             // 
             this.mangaTitleTextBox.Location = new System.Drawing.Point(6, 34);
             this.mangaTitleTextBox.Name = "mangaTitleTextBox";
-            this.mangaTitleTextBox.Size = new System.Drawing.Size(268, 22);
+            this.mangaTitleTextBox.Size = new System.Drawing.Size(282, 22);
             this.mangaTitleTextBox.TabIndex = 4;
             // 
             // publisherGroupBox
@@ -308,7 +308,7 @@
             // 
             this.removePublisherButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.removePublisherButton.Image = global::mangaDbEditor.Properties.Resources.minus;
-            this.removePublisherButton.Location = new System.Drawing.Point(253, 49);
+            this.removePublisherButton.Location = new System.Drawing.Point(267, 49);
             this.removePublisherButton.Name = "removePublisherButton";
             this.removePublisherButton.Size = new System.Drawing.Size(21, 21);
             this.removePublisherButton.TabIndex = 30;
@@ -319,7 +319,7 @@
             // 
             this.addPublisherButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.addPublisherButton.Image = global::mangaDbEditor.Properties.Resources.plus;
-            this.addPublisherButton.Location = new System.Drawing.Point(226, 49);
+            this.addPublisherButton.Location = new System.Drawing.Point(240, 49);
             this.addPublisherButton.Name = "addPublisherButton";
             this.addPublisherButton.Size = new System.Drawing.Size(21, 21);
             this.addPublisherButton.TabIndex = 30;
@@ -328,17 +328,18 @@
             // 
             // publisherComboBox
             // 
+            this.publisherComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.publisherComboBox.FormattingEnabled = true;
             this.publisherComboBox.Location = new System.Drawing.Point(6, 49);
             this.publisherComboBox.Name = "publisherComboBox";
-            this.publisherComboBox.Size = new System.Drawing.Size(214, 21);
+            this.publisherComboBox.Size = new System.Drawing.Size(228, 21);
             this.publisherComboBox.TabIndex = 31;
             // 
             // mangaPublisherNameTextBox
             // 
             this.mangaPublisherNameTextBox.Location = new System.Drawing.Point(6, 21);
             this.mangaPublisherNameTextBox.Name = "mangaPublisherNameTextBox";
-            this.mangaPublisherNameTextBox.Size = new System.Drawing.Size(268, 22);
+            this.mangaPublisherNameTextBox.Size = new System.Drawing.Size(282, 22);
             this.mangaPublisherNameTextBox.TabIndex = 24;
             // 
             // mangaAuthorGroupBox
@@ -359,7 +360,7 @@
             // 
             this.removeAuthorButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.removeAuthorButton.Image = global::mangaDbEditor.Properties.Resources.minus;
-            this.removeAuthorButton.Location = new System.Drawing.Point(253, 124);
+            this.removeAuthorButton.Location = new System.Drawing.Point(267, 124);
             this.removeAuthorButton.Name = "removeAuthorButton";
             this.removeAuthorButton.Size = new System.Drawing.Size(21, 21);
             this.removeAuthorButton.TabIndex = 30;
@@ -370,7 +371,7 @@
             // 
             this.addAuthorButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.addAuthorButton.Image = global::mangaDbEditor.Properties.Resources.plus;
-            this.addAuthorButton.Location = new System.Drawing.Point(226, 124);
+            this.addAuthorButton.Location = new System.Drawing.Point(240, 124);
             this.addAuthorButton.Name = "addAuthorButton";
             this.addAuthorButton.Size = new System.Drawing.Size(21, 21);
             this.addAuthorButton.TabIndex = 30;
@@ -379,10 +380,11 @@
             // 
             // authorsComboBox
             // 
+            this.authorsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.authorsComboBox.FormattingEnabled = true;
             this.authorsComboBox.Location = new System.Drawing.Point(6, 124);
             this.authorsComboBox.Name = "authorsComboBox";
-            this.authorsComboBox.Size = new System.Drawing.Size(214, 21);
+            this.authorsComboBox.Size = new System.Drawing.Size(228, 21);
             this.authorsComboBox.TabIndex = 24;
             // 
             // authorsNameListBox
@@ -390,7 +392,7 @@
             this.authorsNameListBox.FormattingEnabled = true;
             this.authorsNameListBox.Location = new System.Drawing.Point(6, 21);
             this.authorsNameListBox.Name = "authorsNameListBox";
-            this.authorsNameListBox.Size = new System.Drawing.Size(268, 95);
+            this.authorsNameListBox.Size = new System.Drawing.Size(282, 95);
             this.authorsNameListBox.TabIndex = 23;
             // 
             // mangaGenresGroupBox
@@ -439,6 +441,7 @@
             // 
             // genreNameComboBox
             // 
+            this.genreNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.genreNameComboBox.FormattingEnabled = true;
             this.genreNameComboBox.Location = new System.Drawing.Point(6, 122);
             this.genreNameComboBox.Name = "genreNameComboBox";
@@ -458,6 +461,7 @@
             // mangaStatusComboBox
             // 
             this.mangaStatusComboBox.BackColor = System.Drawing.SystemColors.Window;
+            this.mangaStatusComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mangaStatusComboBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.mangaStatusComboBox.FormattingEnabled = true;
             this.mangaStatusComboBox.Items.AddRange(new object[] {
@@ -832,7 +836,7 @@
             // 
             // MangaInfoNavigatorCurrent
             // 
-            this.MangaInfoNavigatorCurrent.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MangaInfoNavigatorCurrent.BackColor = System.Drawing.SystemColors.Window;
             this.MangaInfoNavigatorCurrent.Name = "MangaInfoNavigatorCurrent";
             this.MangaInfoNavigatorCurrent.Size = new System.Drawing.Size(50, 25);
             this.MangaInfoNavigatorCurrent.TextChanged += new System.EventHandler(this.MangaInfoNavigatorCurrentTextChanged);

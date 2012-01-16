@@ -7,19 +7,6 @@ namespace mangaDbEditor.Classes.Utilities
 {
     internal class ImageUtil
     {
-        /// <summary>
-        /// Image to byte array convertion. The function gets an Image and converts it to a byte array which it returns.
-        /// </summary>
-        /// <param name="myImage">My image.</param>
-        /// <returns></returns>
-        private static byte[] ToByteArray(Image myImage)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                myImage.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                return ms.ToArray();
-            }
-        }
 
         ///// <summary>
         ///// Get an Image in whatever Resolution and converts it to the closest to 160w*230h.
