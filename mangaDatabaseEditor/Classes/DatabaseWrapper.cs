@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using mangaDbEditor.Classes.Data;
 using mangaDbEditor.Classes.Utilities;
@@ -411,14 +412,14 @@ namespace mangaDbEditor.Classes
             using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
                 connection.Open();
-                using (SQLiteCommand insertCommand = new SQLiteCommand(connection))
+                using (SQLiteCommand updateCommand = new SQLiteCommand(connection))
                 {
-                    insertCommand.CommandText = "UPDATE MANGA_INFO " +
+                    updateCommand.CommandText = "UPDATE MANGA_INFO " +
                                                 "SET MANGA_COVER = ? " +
                                                 "WHERE MANGA_ID = ?";
-                    insertCommand.Parameters.AddWithValue(null, mangaCover);
-                    insertCommand.Parameters.AddWithValue(null, mangaId);
-                    insertCommand.ExecuteNonQuery();
+                    updateCommand.Parameters.AddWithValue(null, mangaCover);
+                    updateCommand.Parameters.AddWithValue(null, mangaId);
+                    updateCommand.ExecuteNonQuery();
                 }
                 connection.Close();
             }
@@ -514,22 +515,23 @@ namespace mangaDbEditor.Classes
                     using (DataTable mDataTable = new DataTable())
                     {
                         mDataTable.Load(reader);
-                        foreach (DataRow row in mDataTable.Rows)
-                        {
-                            MangaInfo info = new MangaInfo();
-                            info.Id = uint.Parse(row[0].ToString());
-                            info.Title = row[1].ToString();
-                            info.Description = row[2].ToString();
-                            info.PublicationDate = !string.IsNullOrEmpty(row[3].ToString())
-                                                       ? DateTime.Parse(row[3].ToString())
-                                                       : (DateTime?) null;
-                            info.PublicationStatus = row[4].ToString();
-                            info.PublisherId = !string.IsNullOrEmpty(row[5].ToString())
-                                                   ? uint.Parse(row[5].ToString())
-                                                   : 0;
-                            info.Image = Convert.ToBase64String((byte[]) row[6]);
-                            returnData.Add(info);
-                        }
+                        returnData.AddRange(from DataRow row in mDataTable.Rows
+                                            select new MangaInfo
+                                                       {
+                                                           Id = uint.Parse(row[0].ToString()),
+                                                           Title = row[1].ToString(),
+                                                           Description = row[2].ToString(),
+                                                           PublicationDate =
+                                                               !string.IsNullOrEmpty(row[3].ToString())
+                                                                   ? DateTime.Parse(row[3].ToString())
+                                                                   : (DateTime?) null,
+                                                           PublicationStatus = row[4].ToString(),
+                                                           PublisherId =
+                                                               !string.IsNullOrEmpty(row[5].ToString())
+                                                                   ? uint.Parse(row[5].ToString())
+                                                                   : 0,
+                                                           Image = Convert.ToBase64String((byte[]) row[6])
+                                                       });
                     }
                     reader.Close();
                 }
@@ -553,18 +555,18 @@ namespace mangaDbEditor.Classes
                     using (DataTable mDataTable = new DataTable())
                     {
                         mDataTable.Load(reader);
-                        foreach (DataRow row in mDataTable.Rows)
-                        {
-                            AuthorInfo info = new AuthorInfo();
-                            info.Id = uint.Parse(row[0].ToString());
-                            info.Name = row[1].ToString();
-                            info.Country = row[2].ToString();
-                            info.Birthday = !string.IsNullOrEmpty(row[3].ToString())
-                                                ? DateTime.Parse(row[3].ToString())
-                                                : (DateTime?) null;
-                            info.Website = row[4].ToString();
-                            returnData.Add(info);
-                        }
+                        returnData.AddRange(from DataRow row in mDataTable.Rows
+                                            select new AuthorInfo
+                                                       {
+                                                           Id = uint.Parse(row[0].ToString()),
+                                                           Name = row[1].ToString(),
+                                                           Country = row[2].ToString(),
+                                                           Birthday =
+                                                               !string.IsNullOrEmpty(row[3].ToString())
+                                                                   ? DateTime.Parse(row[3].ToString())
+                                                                   : (DateTime?) null,
+                                                           Website = row[4].ToString()
+                                                       });
                     }
                     reader.Close();
                 }
@@ -587,17 +589,15 @@ namespace mangaDbEditor.Classes
                     using (DataTable mDataTable = new DataTable())
                     {
                         mDataTable.Load(reader);
-                        foreach (DataRow row in mDataTable.Rows)
-                        {
-                            PublisherInfo info = new PublisherInfo();
-                            info.Id = uint.Parse(row[0].ToString());
-                            info.Name = row[1].ToString();
-                            info.Country = row[2].ToString();
-                            info.Website = row[3].ToString();
-                            info.Note = row[4].ToString();
-
-                            returnData.Add(info);
-                        }
+                        returnData.AddRange(from DataRow row in mDataTable.Rows
+                                            select new PublisherInfo
+                                                       {
+                                                           Id = uint.Parse(row[0].ToString()),
+                                                           Name = row[1].ToString(),
+                                                           Country = row[2].ToString(),
+                                                           Website = row[3].ToString(),
+                                                           Note = row[4].ToString()
+                                                       });
                         reader.Close();
                     }
                     connection.Close();
@@ -620,13 +620,10 @@ namespace mangaDbEditor.Classes
                     using (DataTable mDataTable = new DataTable())
                     {
                         mDataTable.Load(reader);
-                        foreach (DataRow row in mDataTable.Rows)
-                        {
-                            GenreInfo info = new GenreInfo();
-                            info.Id = uint.Parse(row[0].ToString());
-                            info.Name = row[1].ToString();
-                            returnData.Add(info);
-                        }
+                        returnData.AddRange(from DataRow row in mDataTable.Rows
+                                            select
+                                                new GenreInfo
+                                                    {Id = uint.Parse(row[0].ToString()), Name = row[1].ToString()});
                         reader.Close();
                     }
                     connection.Close();
@@ -649,13 +646,12 @@ namespace mangaDbEditor.Classes
                     using (DataTable mDataTable = new DataTable())
                     {
                         mDataTable.Load(reader);
-                        foreach (DataRow row in mDataTable.Rows)
-                        {
-                            MangaGenre info = new MangaGenre();
-                            info.MangaId = uint.Parse(row[0].ToString());
-                            info.GenreId = uint.Parse(row[1].ToString());
-                            returnData.Add(info);
-                        }
+                        returnData.AddRange(from DataRow row in mDataTable.Rows
+                                            select new MangaGenre
+                                                       {
+                                                           MangaId = uint.Parse(row[0].ToString()),
+                                                           GenreId = uint.Parse(row[1].ToString())
+                                                       });
                         reader.Close();
                     }
                     connection.Close();
@@ -678,19 +674,147 @@ namespace mangaDbEditor.Classes
                     using (DataTable mDataTable = new DataTable())
                     {
                         mDataTable.Load(reader);
-                        foreach (DataRow row in mDataTable.Rows)
-                        {
-                            MangaAuthor info = new MangaAuthor();
-                            info.MangaId = uint.Parse(row[0].ToString());
-                            info.AuthorId = uint.Parse(row[1].ToString());
-                            returnData.Add(info);
-                        }
+                        returnData.AddRange(from DataRow row in mDataTable.Rows
+                                            select new MangaAuthor
+                                                       {
+                                                           MangaId = uint.Parse(row[0].ToString()),
+                                                           AuthorId = uint.Parse(row[1].ToString())
+                                                       });
                         reader.Close();
                     }
                     connection.Close();
                 }
             }
             return returnData;
+        }
+
+        public void SetMangaInfoElement(MangaInfo info)
+        {
+            if (info == null)
+                return;
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand insertCommand = new SQLiteCommand(connection))
+                {
+                    insertCommand.CommandText = "INSERT INTO MANGA_INFO " +
+                                                "(MANGA_ID, MANGA_TITLE, MANGA_DESCRIPTION, MANGA_PUBLICATION_DATE, MANGA_PUBLICATION_STATUS, " +
+                                                "MANGA_PUBLISHER_ID, MANGA_COVER) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    insertCommand.Parameters.AddWithValue(null, info.Id);
+                    insertCommand.Parameters.AddWithValue(null, info.Title);
+                    insertCommand.Parameters.AddWithValue(null, info.Description);
+                    insertCommand.Parameters.AddWithValue(null, info.PublicationDate);
+                    insertCommand.Parameters.AddWithValue(null, info.PublicationStatus);
+                    insertCommand.Parameters.AddWithValue(null, info.PublisherId);
+                    insertCommand.Parameters.AddWithValue(null, Convert.FromBase64String(info.Image));
+                    insertCommand.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+
+        public void SetAuthorInfoElement(AuthorInfo info)
+        {
+            if (info == null)
+                return;
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand insertCommand = new SQLiteCommand(connection))
+                {
+                    insertCommand.CommandText =
+                        "INSERT INTO AUTHOR_INFO (AUTHOR_ID, AUTHOR_NAME, AUTHOR_NATIONALITY, " +
+                        "AUTHOR_BIRTHDAY, AUTHOR_WEBSITE ) VALUES (?, ?, ?, ?, ?)";
+                    insertCommand.Parameters.AddWithValue(null, info.Id);
+                    insertCommand.Parameters.AddWithValue(null, info.Name);
+                    insertCommand.Parameters.AddWithValue(null, info.Country);
+                    insertCommand.Parameters.AddWithValue(null, info.Birthday);
+                    insertCommand.Parameters.AddWithValue(null, info.Website);
+                    insertCommand.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+
+        public void SetPublisherInfoElement(PublisherInfo info)
+        {
+            if (info == null)
+                return;
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand insertCommand = new SQLiteCommand(connection))
+                {
+                    insertCommand.CommandText =
+                        "INSERT INTO PUBLISHER_INFO (PUBLISHER_ID, PUBLISHER_NAME, " +
+                        "PUBLISHER_COUNTRY, PUBLISHER_WEBSITE, PUBLISHER_NOTE) values (?, ?, ?, ?, ?)";
+                    insertCommand.Parameters.AddWithValue(null, info.Id);
+                    insertCommand.Parameters.AddWithValue(null, info.Name);
+                    insertCommand.Parameters.AddWithValue(null, info.Country);
+                    insertCommand.Parameters.AddWithValue(null, info.Website);
+                    insertCommand.Parameters.AddWithValue(null, info.Note);
+                    insertCommand.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+
+        public void SetGenreInfoElement(GenreInfo info)
+        {
+            if (info == null)
+                return;
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand insertCommand = new SQLiteCommand(connection))
+                {
+                    insertCommand.CommandText =
+                        "INSERT INTO GENRE_INFO (GENRE_ID, GENRE_NAME) VALUES (?, ?)";
+                    insertCommand.Parameters.AddWithValue(null, info.Id);
+                    insertCommand.Parameters.AddWithValue(null, info.Name);
+
+                    insertCommand.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+
+        public void SetMangaGenreElement(MangaGenre info)
+        {
+            if (info == null)
+                return;
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand insertCommand = new SQLiteCommand(connection))
+                {
+                    insertCommand.CommandText =
+                        "INSERT INTO MANGA_GENRES (MANGA_ID, GENRE_ID) VALUES (?, ?)";
+                    insertCommand.Parameters.AddWithValue(null, info.MangaId);
+                    insertCommand.Parameters.AddWithValue(null, info.GenreId);
+                    insertCommand.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+
+        public void SetMangaAuthorElement(MangaAuthor info)
+        {
+            if (info == null)
+                return;
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+            {
+                connection.Open();
+                using (SQLiteCommand insertCommand = new SQLiteCommand(connection))
+                {
+                    insertCommand.CommandText =
+                        "INSERT INTO MANGA_AUTHORS (MANGA_ID, AUTHOR_ID) VALUES (?, ?)";
+                    insertCommand.Parameters.AddWithValue(null, info.MangaId);
+                    insertCommand.Parameters.AddWithValue(null, info.AuthorId);
+                    insertCommand.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
         }
     }
 }

@@ -151,7 +151,6 @@ namespace mangaDbEditor.Forms
 
 		private void ExportDatabaseToolStripMenuItemClick(object sender, EventArgs e)
 		{
-            //TODO: Not null & more checks.
             if (ExportDatabaseSaveFileDialog.ShowDialog() == DialogResult.OK)
             {
                IoWrapper.Instance.SaveToXmlFile(ExportDatabaseSaveFileDialog.FileName);
@@ -162,7 +161,7 @@ namespace mangaDbEditor.Forms
 		{
             if (importDatabaseOpenFileDialog.ShowDialog() == DialogResult.OK)
             {
-              //  DatabaseInfoImporter(importDatabaseOpenFileDialog.FileName);
+                IoWrapper.Instance.LoadFromXmlFile(importDatabaseOpenFileDialog.FileName);
             }
 		}
 
