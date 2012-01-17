@@ -24,13 +24,15 @@ namespace mraNet.Classes
                 Debug.WriteLine(readData.Rows[i][1].ToString());
                 XElement readElement = new XElement("manga",
                                                     new XElement("Title",
-                                                                 DatabaseWrapper.GetMangaTitle(int.Parse(readData.Rows[i][1].ToString()))),
-                                                    new XElement("startingChapter", readData.Rows[i][2]),
-                                                    new XElement("currentChapter", readData.Rows[i][3]),
-                                                    new XElement("onlineURL", readData.Rows[i][4]),
-                                                    new XElement("finishedReading", readData.Rows[i][5]),
-                                                    new XElement("dateRead", readData.Rows[i][6]),
-                                                    new XElement("mangaNote", readData.Rows[i][7])
+                                                                 DatabaseWrapper.GetMangaTitle(
+                                                                     int.Parse(readData.Rows[i][1].ToString()))),
+                                                    new XElement("startingChapter", readData.Rows[i][2].ToString()),
+                                                    new XElement("currentChapter", readData.Rows[i][3].ToString()),
+                                                    new XElement("onlineURL", readData.Rows[i][4].ToString()),
+                                                    new XElement("finishedReading",
+                                                                 bool.Parse(readData.Rows[i][5].ToString())),
+                                                    new XElement("dateRead", readData.Rows[i][6].ToString()),
+                                                    new XElement("mangaNote", readData.Rows[i][7].ToString())
                     );
                 rootElement.Add(readElement);
             }
@@ -43,39 +45,41 @@ namespace mraNet.Classes
             string fileName = information.FilePath;
 
             var xDoc = XDocument.Load(fileName);
-                var xData = from data in xDoc.Descendants("manga")
-                            select new
-                                       {
-                                           MangaTitle = (string) data.Element("Title"),
-                                           StartingChapter =
-                                String.IsNullOrEmpty((string) data.Element("startingChapter"))
-                                    ? (double?) null
-                                    : (double) data.Element("startingChapter"),
-                                           CurrentChapter =
-                                String.IsNullOrEmpty((string) data.Element("currentChapter"))
-                                    ? (double?) null
-                                    : (double) data.Element("currentChapter"),
-                                           DateLastRead =
-                                String.IsNullOrEmpty((string) data.Element("dateRead"))
-                                    ? (DateTime?) null
-                                    : (DateTime) data.Element("dateRead"),
-                                           OnLineURL = (string) data.Element("onlineURL") ?? "",
-                                           Finished =
-                                !String.IsNullOrEmpty((string) data.Element("finishedReading")) &&
-                                (bool) data.Element("finishedReading"),
-                                           Note = (string) data.Element("mangaNote") ?? ""
-                                       };
+            var xData = from data in xDoc.Descendants("manga")
+                        select new
+                                   {
+                                       MangaTitle = (string) data.Element("Title"),
+                                       StartingChapter =
+                            String.IsNullOrEmpty((string) data.Element("startingChapter"))
+                                ? (double?) null
+                                : (double) data.Element("startingChapter"),
+                                       CurrentChapter =
+                            String.IsNullOrEmpty((string) data.Element("currentChapter"))
+                                ? (double?) null
+                                : (double) data.Element("currentChapter"),
+                                       DateLastRead =
+                            String.IsNullOrEmpty((string) data.Element("dateRead"))
+                                ? (DateTime?) null
+                                : (DateTime) data.Element("dateRead"),
+                                       OnLineURL = (string) data.Element("onlineURL") ?? "",
+                                       Finished =
+                            !String.IsNullOrEmpty((string) data.Element("finishedReading")) &&
+                            (bool) data.Element("finishedReading"),
+                                       Note = (string) data.Element("mangaNote") ?? ""
+                                   };
 
             foreach (var entry in xData)
             {
-                DatabaseWrapper.InsertNewReadingItem(DatabaseWrapper.GetMangaId(entry.MangaTitle), entry.StartingChapter, entry.CurrentChapter, entry.OnLineURL, entry.Finished, entry.DateLastRead, entry.Note);
+                DatabaseWrapper.InsertNewReadingItem(DatabaseWrapper.GetMangaId(entry.MangaTitle), entry.StartingChapter,
+                                                     entry.CurrentChapter, entry.OnLineURL, entry.Finished,
+                                                     entry.DateLastRead, entry.Note);
             }
         }
 
         /// <summary>
-        /// Saves the stored in database news subscription urls to the specified file.
+        ///   Saves the stored in database news subscription urls to the specified file.
         /// </summary>
-        /// <param name="fileName">The filename.</param>
+        /// <param name="fileName"> The filename. </param>
         public static void NewsSubscriptionToTextFile(string fileName)
         {
             try
@@ -97,9 +101,9 @@ namespace mraNet.Classes
         }
 
         /// <summary>
-        /// RSS subscription importer.
+        ///   RSS subscription importer.
         /// </summary>
-        /// <param name="fileName">The file path.</param>
+        /// <param name="fileName"> The file path. </param>
         public static void RssSubscriptionImporter(string fileName)
         {
             try

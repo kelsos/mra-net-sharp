@@ -68,8 +68,8 @@ namespace mraNet.Forms
 
         private void WebFormHandleDestroyed(object sender, EventArgs e)
         {
-            _mbfilter = null;
             Communicator.Instance.WebDataAvailable -= HandleWebDataEvent;
+            _mbfilter = null;
         }
 
         private void WebFormActivated(object sender, EventArgs e)
@@ -128,7 +128,7 @@ namespace mraNet.Forms
 
         private void WebFormFormClosing(object sender, FormClosingEventArgs e)
         {
-
+            
         }
 
         private void HandleStatusLabelMouseDown(object sender, MouseEventArgs e)
@@ -137,6 +137,11 @@ namespace mraNet.Forms
             {
                 Clipboard.SetText(statusLabel.Text);
             }
+        }
+
+        private void BrowserWindowLoad(object sender, EventArgs e)
+        {
+
         }
 
     }

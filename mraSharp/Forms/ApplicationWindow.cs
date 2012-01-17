@@ -293,7 +293,7 @@ namespace mraNet.Forms
                 Resources.MainForm_RestoreToolStripMenuItemClick_Are_you_sure_you_want_to_clear_the_reading_List_,
                 Resources.MainForm_ClearToolStripMenuItemClick_Question, MessageBoxButtons.YesNo) != DialogResult.Yes)
                 return;
-            DatabaseWrapper.ClearTheReadingList();
+            DatabaseWrapper.ClearReadingList();
             if (restoreOpenFileDialog.ShowDialog() != DialogResult.OK) return;
             Thread readFromXml = new Thread(IoWrapper.ReadingListFromXml);
             readFromXml.Start(new DataPasser(this, restoreOpenFileDialog.FileName));
@@ -351,7 +351,7 @@ namespace mraNet.Forms
                                 Resources.MainForm_ClearToolStripMenuItemClick_Question, MessageBoxButtons.YesNo) ==
                 DialogResult.Yes)
             {
-                DatabaseWrapper.ClearTheReadingList();
+                DatabaseWrapper.ClearReadingList();
             }
         }
 

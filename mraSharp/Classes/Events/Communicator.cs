@@ -11,8 +11,7 @@ namespace mraNet.Classes.Events
 
         public void OnWebDataAvailable(Object sender, WebDataArgs e)
         {
-            EventHandler<WebDataArgs> handler = WebDataAvailable;
-            if (handler != null) handler(this, e);
+            if (WebDataAvailable != null) WebDataAvailable(sender, e);
         }
 
         static Communicator()

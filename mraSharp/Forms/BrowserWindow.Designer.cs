@@ -118,7 +118,7 @@
             this.browserPanel.Size = new System.Drawing.Size(766, 429);
             this.browserPanel.TabIndex = 3;
             // 
-            // WebForm
+            // BrowserWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -127,10 +127,11 @@
             this.Controls.Add(this.webStatus);
             this.Controls.Add(this.webNavigation);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            this.Name = "WebForm";
+            this.Name = "BrowserWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "WebForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WebFormFormClosing);
+            this.Load += new System.EventHandler(this.BrowserWindowLoad);
             this.webNavigation.ResumeLayout(false);
             this.webNavigation.PerformLayout();
             this.webStatus.ResumeLayout(false);
