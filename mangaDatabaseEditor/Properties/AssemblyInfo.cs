@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Manga Database Editor")]
+[assembly: AssemblyTitle("Manga & Comic Reading Assistant - DB Editor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Kelsos")]
-[assembly: AssemblyProduct("Manga Database Editor")]
-[assembly: AssemblyCopyright("Copyright © Kelsos 2011")]
+[assembly: AssemblyCompany("Konstantinos Paparas")]
+[assembly: AssemblyProduct("Manga & Comic Reading Assistant - DB Editor")]
+[assembly: AssemblyCopyright("Copyright © Konstantinos Paparas 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.0.2.427")]
-[assembly: AssemblyFileVersion("0.0.2.427")]
+[assembly: AssemblyVersion("0.3.437.0")]
+[assembly: AssemblyFileVersion("0.3.437.0")]

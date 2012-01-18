@@ -561,7 +561,7 @@
             this.rssCheckTimer.Interval = 15000;
             this.rssCheckTimer.Tick += new System.EventHandler(this.HandleNewsFeedCheckTimerTick);
             // 
-            // MainForm
+            // ApplicationWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -576,7 +576,7 @@
             this.Controls.Add(this.mainTabControl);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
             this.MainMenuStrip = this.mainMenuStrip;
-            this.Name = "MainForm";
+            this.Name = "ApplicationWindow";
             this.Text = "Manga Reading Assistant";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HandleMainFormFormClosing);
             this.Load += new System.EventHandler(this.HandleMainFormLoad);

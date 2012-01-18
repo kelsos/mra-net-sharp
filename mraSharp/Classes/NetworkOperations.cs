@@ -10,7 +10,7 @@ namespace mraNet.Classes
         /// <returns>
         ///   <c>true</c> if [internet is up]; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsInternetUp()
+        public static bool IsConnectivityAvailable()
         {
             try
             {

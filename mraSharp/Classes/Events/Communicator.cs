@@ -14,14 +14,19 @@ namespace mraNet.Classes.Events
             if (WebDataAvailable != null) WebDataAvailable(sender, e);
         }
 
+        public event EventHandler ChapterFinished;
+
+        public void OnChapterFinished(Object sender, EventArgs e)
+        {
+            if (ChapterFinished != null) ChapterFinished(sender, e);
+        }
+
         static Communicator()
         {
-
         }
 
         private Communicator()
         {
-
         }
 
         public static Communicator Instance
@@ -45,4 +50,3 @@ namespace mraNet.Classes.Events
         }
     }
 }
-

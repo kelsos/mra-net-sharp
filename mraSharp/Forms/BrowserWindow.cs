@@ -64,6 +64,10 @@ namespace mraNet.Forms
             SetTitle(e.Message);
             if (e.NavigateUrl!=null)
                 Navigate(e.NavigateUrl);
+            if (e.Source == "News")
+                justReadButton.Enabled = false;
+            else if (e.Source == "Web")
+                justReadButton.Enabled = true;
         }
 
         private void WebFormHandleDestroyed(object sender, EventArgs e)
@@ -123,7 +127,7 @@ namespace mraNet.Forms
 
         private void HandleChapterFinishedButtonClick(object sender, EventArgs e)
         {
-
+            Communicator.Instance.OnChapterFinished(sender,e);
         }
 
         private void WebFormFormClosing(object sender, FormClosingEventArgs e)

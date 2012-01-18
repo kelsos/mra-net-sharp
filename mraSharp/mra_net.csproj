@@ -658,7 +658,6 @@
     <None Include="Core\WebKit.resources\zh_CN.lproj\Localizable.strings" />
     <None Include="Core\WebKit.resources\zh_TW.lproj\Localizable.strings" />
     <None Include="Core\WebKit2WebProcess.resources\Info.plist" />
-    <None Include="Properties\DataSources\mdbEntities.datasource" />
     <None Include="Resources\calendar_day.png" />
     <None Include="Resources\arrow_circle_double.png" />
     <None Include="Resources\navigation.png" />
@@ -767,7 +766,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.None.Increment" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

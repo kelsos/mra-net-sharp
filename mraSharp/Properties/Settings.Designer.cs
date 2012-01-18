@@ -46,15 +46,5 @@ namespace mraNet.Properties {
                 this["keepInDatabaseFor"] = value;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("data source=K:\\workspaces\\manga_net\\main\\mraNet\\mdb.db3")]
-        public string mdbConnectionString {
-            get {
-                return ((string)(this["mdbConnectionString"]));
-            }
-        }
     }
 }

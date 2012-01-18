@@ -253,7 +253,11 @@ namespace mraNet.Classes
 
                     while (reader.Read())
                     {
-                        returnData = reader.GetDateTime(0);
+                        DateTime parsedDate;
+                        if (DateTime.TryParse(reader.GetValue(0).ToString(), out parsedDate))
+                        {
+                            returnData = parsedDate;
+                        }
                     }
 
                     reader.Close();

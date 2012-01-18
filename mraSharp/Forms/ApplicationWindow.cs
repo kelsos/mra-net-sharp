@@ -40,11 +40,17 @@ namespace mraNet.Forms
             wikiPanel.Controls.Add(_wikiWebKitBrowser);
             _wikiWebKitBrowser.Dock = DockStyle.Fill;
             _wikiWebKitBrowser.AllowDownloads = false;
+            Communicator.Instance.ChapterFinished += InstanceOnChapterFinished;
+        }
+
+        private void InstanceOnChapterFinished(object sender, EventArgs eventArgs)
+        {
+           ChapterFinished();
         }
 
         private void RssStatusChecker()
         {
-            _internetIsUp = NetworkOperations.IsInternetUp();
+            _internetIsUp = NetworkOperations.IsConnectivityAvailable();
             if (!_internetIsUp)
             {
                 if (DatabaseWrapper.FeedDataExistInTheDatabase())
@@ -147,7 +153,7 @@ namespace mraNet.Forms
                 _web = new BrowserWindow();
                 _web.Show();
             }
-            Communicator.Instance.OnWebDataAvailable(this,new WebDataArgs(rssTitleLabel.Text +": " +rssLinkLabel.Text,rssLinkLabel.Text));
+            Communicator.Instance.OnWebDataAvailable(this,new WebDataArgs(rssTitleLabel.Text +": " +rssLinkLabel.Text,rssLinkLabel.Text, "News"));
         }
 
         private void RssLinkLabelMouseEnter(object sender, EventArgs e)
@@ -194,10 +200,10 @@ namespace mraNet.Forms
                 if (CheckIfOpen(_web))
                 {
                     int currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-                    Communicator.Instance.OnWebDataAvailable(string.Format("Manga: {0} - Current Chapter: {1} - Last Read: {2}",
-                                                mangaListDataGridView[0, currentSelectedRow].Value,
-                                                mangaListDataGridView[2, currentSelectedRow].Value,
-                                                mangaListDataGridView[3, currentSelectedRow].Value),null);
+                    Communicator.Instance.OnWebDataAvailable(this, new WebDataArgs(string.Format("Manga: {0} - Current Chapter: {1} - Last Read: {2}",
+                                                                                                 mangaListDataGridView[0, currentSelectedRow].Value,
+                                                                                                 mangaListDataGridView[2, currentSelectedRow].Value,
+                                                                                                 mangaListDataGridView[3, currentSelectedRow].Value), null, "Web"));
                 }
             }
             catch (Exception ex)
@@ -429,9 +435,9 @@ namespace mraNet.Forms
                         if (!String.IsNullOrEmpty(mangaUrl))
                         {
                             Communicator.Instance.OnWebDataAvailable(this, new WebDataArgs(string.Format("Manga: {0} - Current Chapter: {1} - Last Read: {2}",
-                                                        mangaListDataGridView[0, currentSelectedRow].Value,
-                                                        mangaListDataGridView[2, currentSelectedRow].Value,
-                                                        mangaListDataGridView[3, currentSelectedRow].Value), mangaUrl));
+                                                                                                         mangaListDataGridView[0, currentSelectedRow].Value,
+                                                                                                         mangaListDataGridView[2, currentSelectedRow].Value,
+                                                                                                         mangaListDataGridView[3, currentSelectedRow].Value), mangaUrl, "Web"));
                         }
                     }
                 }
@@ -445,16 +451,7 @@ namespace mraNet.Forms
 
         private bool CheckIfOpen(Form form)
         {
-            if(form==null)
-            {
-                return false;
-            }
-            foreach (Form f in Application.OpenForms)
-            {
-                if (form == f)
-                    return true;
-            }
-            return false;
+            return form != null && Application.OpenForms.Cast<Form>().Any(f => form == f);
         }
 
         private void HandleReloadToolStripButtonClick(object sender, EventArgs e)

@@ -41,7 +41,7 @@ namespace mraNet.Forms
             mangaTitleTextBox.Text = mangaListComboBox.Text;
             descriptionTextBox.Text =
                 DatabaseWrapper.GetMangaDescriptions(mangaListComboBox.Text);
-            yearTextBox.Text = DatabaseWrapper.GetMangaYearOfPublish(mangaListComboBox.Text).ToString();
+            yearTextBox.Text = DatabaseWrapper.GetMangaYearOfPublish(mangaListComboBox.Text)!=null?((DateTime)DatabaseWrapper.GetMangaYearOfPublish(mangaListComboBox.Text)).ToString("yyyy"): "" ;
             statusTextBox.Text = DatabaseWrapper.GetMangaStatus(mangaListComboBox.Text);
             publisherTextBox.Text = DatabaseWrapper.GetPublisherName(mangaListComboBox.Text);
             authorsListBox.DataSource = DatabaseWrapper.GetAuthorsList(mangaListComboBox.Text);
