@@ -72,6 +72,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Classes\DatabaseWrapper.cs" />
+    <Compile Include="Classes\Data\DisplayReadItem.cs" />
     <Compile Include="Classes\Data\NewsItem.cs" />
     <Compile Include="Classes\Data\ReadItem.cs" />
     <Compile Include="Classes\Events\Communicator.cs" />

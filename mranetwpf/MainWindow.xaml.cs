@@ -136,7 +136,8 @@ namespace mranetwpf
 
         private void LoadReadingListToDataGrid()
         {
-            listDataGrid.ItemsSource = DatabaseWrapper.GetReadingData(Settings.Default.DisplayFinished).DefaultView;
+            listDataGrid.ItemsSource = DatabaseWrapper.GetReadingData(Settings.Default.DisplayFinished);
+
             if(listDataGrid.Columns.Count<5)
                 return;
             

@@ -13,50 +13,58 @@ namespace mranetwpf.Classes
 {
     internal class DatabaseWrapper
     {
-        private static readonly string ConnectionString = "Data Source=" + AppDomain.CurrentDomain.BaseDirectory + "\\mdb.db3";
+        private static readonly string ConnectionString = "Data Source=" + AppDomain.CurrentDomain.BaseDirectory +
+                                                          "\\mdb.db3";
 
         /// <summary>
         ///   Queries the database and returns the reading list for the user. If the displayFinished setting is selected, then all the reading list is returned, if not then only the unfinished entries are returned;
         /// </summary>
         /// <returns> Reading List Datatable </returns>
-        public static DataTable GetReadingData(bool displayFinished)
+        public static List<DisplayReadItem> GetReadingData(bool displayFinished)
         {
-            DataTable returnData = new DataTable();
+            List<DisplayReadItem> returnData = new List<DisplayReadItem>();
             try
             {
-                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
                 {
-                    sqLiteConnection.Open();
+                    connection.Open();
 
-                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
-
-                    if (displayFinished)
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
                     {
-                        sqLiteCommand.CommandText =
-                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME, RL.READ_IS_FINISHED " +
-                            "FROM MANGA_INFO MI, READING_LIST RL " +
-                            "WHERE MI.MANGA_ID = RL.MANGA_ID";
+                        if (displayFinished)
+                        {
+                            selectCommand.CommandText =
+                                "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME, RL.READ_IS_FINISHED " +
+                                "FROM MANGA_INFO MI, READING_LIST RL " +
+                                "WHERE MI.MANGA_ID = RL.MANGA_ID";
+                        }
+                        else
+                        {
+                            selectCommand.CommandText =
+                                "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME " +
+                                "FROM MANGA_INFO MI, READING_LIST RL " +
+                                "WHERE MI.MANGA_ID = RL.MANGA_ID AND RL.READ_IS_FINISHED = 'false'";
+                        }
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        reader.Close();
+                        for (int i = 0; i < dataTable.Rows.Count; i++)
+                        {
+                            DisplayReadItem item = new DisplayReadItem();
+                            item.Title = dataTable.Rows[i][0] as string;
+                            item.StartingChapter = (int?) uint.Parse(dataTable.Rows[i][1].ToString());
+                            item.CurrentChapter = (int?)uint.Parse(dataTable.Rows[i][2].ToString());
+                            item.OnlineUrl = dataTable.Rows[i][3] as string;
+                            item.LastRead = DateTime.Parse(dataTable.Rows[i][4].ToString());
+                            if(displayFinished)
+                            {
+                                item.FinishedReading = bool.Parse(dataTable.Rows[i][5].ToString());
+                            }
+                            returnData.Add(item);
+                            }
                     }
-                    else
-                    {
-                        sqLiteCommand.CommandText =
-                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME " +
-                            "FROM MANGA_INFO MI, READING_LIST RL " +
-                            "WHERE MI.MANGA_ID = RL.MANGA_ID AND RL.READ_IS_FINISHED = 'false'";
-                    }
-                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-                    returnData.Load(reader);
-                    reader.Close();
-                    sqLiteConnection.Close();
-                    returnData.Columns[0].ColumnName = "Manga\nTitle";
-                    returnData.Columns[1].ColumnName = "Starting\nChapter";
-                    returnData.Columns[2].ColumnName = "Current\nChapter";
-                    returnData.Columns[3].ColumnName = "Online Url";
-                    returnData.Columns[4].ColumnName = "Last Time Read";
-                    if (Settings.Default.DisplayFinished){
-                        returnData.Columns[5].ColumnName = "Finished?";
-                        
-                    }
+                    connection.Close();
                 }
             }
             catch (Exception ex)
@@ -128,7 +136,7 @@ namespace mranetwpf.Classes
                     }
                     selectCommand.Parameters.AddWithValue(null, keyword);
                     SQLiteDataReader reader = selectCommand.ExecuteReader();
-                    
+
                     returnData.Load(reader);
                     reader.Close();
                     connection.Close();
@@ -180,8 +188,10 @@ namespace mranetwpf.Classes
                     }
                     reader.Close();
                     sqLiteConnection.Close();
-                   
-                    return new BmpBitmapDecoder(new MemoryStream(imageArray), BitmapCreateOptions.None, BitmapCacheOption.Default).Frames[0];
+
+                    return
+                        new BmpBitmapDecoder(new MemoryStream(imageArray), BitmapCreateOptions.None,
+                                             BitmapCacheOption.Default).Frames[0];
                 }
             }
             catch (Exception ex)
@@ -495,7 +505,7 @@ namespace mranetwpf.Classes
                         insertCommand.Parameters.AddWithValue(null, startingChapter);
                         insertCommand.Parameters.AddWithValue(null, currentChapter);
                         insertCommand.Parameters.AddWithValue(null, onlineUrl);
-                        insertCommand.Parameters.AddWithValue(null, isFinished? "true":"false");
+                        insertCommand.Parameters.AddWithValue(null, isFinished ? "true" : "false");
                         insertCommand.Parameters.AddWithValue(null, readLastTime);
                         insertCommand.Parameters.AddWithValue(null, note);
                         insertCommand.ExecuteNonQuery();
