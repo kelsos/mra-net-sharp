@@ -84,15 +84,17 @@ namespace mraNet.Forms
         }
 
 
-        private List<NewsItem> _newsList = new List<NewsItem>();
-        //TODO: Work on the RSS Ticker. Lack of Internet connection plus Rss Already in the database.
-        private void RssTicker()
+        private List<NewsItem> _newsList;
+        private void NewsTicker(string action)
         {
-            _newsList = DatabaseWrapper.GetNewsItemList();
+            if(_newsList==null)
+                _newsList = DatabaseWrapper.GetNewsItemList();
             try
             {
-                var newsItemsCount = _newsList.Count();
-                if (newsItemsCount > 0)
+                int newsItemsCount = _newsList.Count();
+                if (newsItemsCount <= 0)
+                    return;
+                if (string.IsNullOrEmpty(action))
                 {
                     if (newsItemsCount > _myCounter)
                     {
@@ -108,6 +110,24 @@ namespace mraNet.Forms
                         rssLinkLabel.Text = _newsList[_myCounter].Link;
                         rssDescriptionTextBox.Text = _newsList[_myCounter].Description;
                         _myCounter += 1;
+                    }
+                }
+                else
+                {
+                    if (_myCounter>0)
+                    {
+                        rssTitleLabel.Text = _newsList[_myCounter].Title;
+                        rssLinkLabel.Text = _newsList[_myCounter].Link;
+                        rssDescriptionTextBox.Text = _newsList[_myCounter].Description;
+                        _myCounter -= 1;
+                    }
+                    else
+                    {
+                        _myCounter = newsItemsCount-1;
+                        rssTitleLabel.Text = _newsList[_myCounter].Title;
+                        rssLinkLabel.Text = _newsList[_myCounter].Link;
+                        rssDescriptionTextBox.Text = _newsList[_myCounter].Description;
+                        _myCounter -= 1;
                     }
                 }
             }
@@ -143,7 +163,7 @@ namespace mraNet.Forms
 
         private void HandleNewsTickerTimerTick(object sender, EventArgs e)
         {
-            RssTicker();
+            NewsTicker(null);
         }
 
         private void HandleNewsTickerLinkLabelClick(object sender, EventArgs e)
@@ -449,7 +469,7 @@ namespace mraNet.Forms
             }
         }
 
-        private bool CheckIfOpen(Form form)
+        private static bool CheckIfOpen(Form form)
         {
             return form != null && Application.OpenForms.Cast<Form>().Any(f => form == f);
         }
@@ -457,6 +477,16 @@ namespace mraNet.Forms
         private void HandleReloadToolStripButtonClick(object sender, EventArgs e)
         {
             LoadDatagrid();
+        }
+
+        private void HandleGoToPreviousNewsItemButtonClick(object sender, EventArgs e)
+        {
+            NewsTicker("NonNullorEmpty");
+        }
+
+        private void HandleGoToNextNewsItemButtonClick(object sender, EventArgs e)
+        {
+            NewsTicker(null);
         }
     }
 }

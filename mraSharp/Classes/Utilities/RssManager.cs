@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 using System.Net;
 using System.Xml;
 using mraNet.Classes.Data;
@@ -22,14 +23,14 @@ namespace mraNet.Classes.Utilities
             ArrayList returnList = new ArrayList();
             try
             {
-                var myRequest = WebRequest.Create(subscriptionUrl);
-                var myResponse = myRequest.GetResponse();
-                var rssStream = myResponse.GetResponseStream();
-                var rssDoc = new XmlDocument();
+                WebRequest myRequest = WebRequest.Create(subscriptionUrl);
+                WebResponse myResponse = myRequest.GetResponse();
+                Stream rssStream = myResponse.GetResponseStream();
+                XmlDocument rssDoc = new XmlDocument();
 
                 if (rssStream != null) rssDoc.Load(rssStream);
 
-                var rssItems = rssDoc.SelectNodes("rss/channel/item");
+                XmlNodeList rssItems = rssDoc.SelectNodes("rss/channel/item");
 
                 if (rssItems != null)
                     foreach (XmlNode currentRssItem in rssItems)
@@ -37,7 +38,7 @@ namespace mraNet.Classes.Utilities
                         var tempNewsItem = new NewsItem();
 
                         //Gets the title of the current RSS node.
-                        var rssDetail = currentRssItem.SelectSingleNode("title");
+                        XmlNode rssDetail = currentRssItem.SelectSingleNode("title");
                         tempNewsItem.Title = rssDetail != null ? rssDetail.InnerText : "";
 
                         //Gets the links of the current RSS node.
@@ -63,12 +64,12 @@ namespace mraNet.Classes.Utilities
         {
             try
             {
-                var myRequest = WebRequest.Create(subscriptionUrl);
-                var myResponse = myRequest.GetResponse();
-                var rssStream = myResponse.GetResponseStream();
-                var rssChannel = new XmlDocument();
+                WebRequest myRequest = WebRequest.Create(subscriptionUrl);
+                WebResponse myResponse = myRequest.GetResponse();
+                Stream rssStream = myResponse.GetResponseStream();
+                XmlDocument rssChannel = new XmlDocument();
                 if (rssStream != null) rssChannel.Load(rssStream);
-                var channelName = rssChannel.SelectSingleNode("rss/channel/title");
+                XmlNode channelName = rssChannel.SelectSingleNode("rss/channel/title");
                 if (channelName != null) return channelName.InnerText;
             }
             catch (Exception ex)

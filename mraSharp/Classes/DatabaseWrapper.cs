@@ -601,7 +601,7 @@ namespace mraNet.Classes
                         foreach (NewsItem newsItem in RssManager.ProcessNewsFeed(reader.GetString(0)))
                         {
                             string title = newsItem.Title;
-                            title = title.Replace("'", "").Trim();
+                            title = title.Replace("'", "''").Trim();
                             using (SQLiteCommand filterCommand = new SQLiteCommand(sqLiteConnection))
                             {
                                 filterCommand.CommandText = "SELECT * " +
@@ -681,23 +681,6 @@ namespace mraNet.Classes
                     fieldOffset += bytesRead;
                 }
                 return stream.ToArray();
-            }
-        }
-
-        /// <summary>
-        ///   Clears the database.
-        /// </summary>
-        public static void ClearTheReadingList()
-        {
-            try
-            {
-                //db.Mr_readingList.DeleteAllOnSubmit(db.Mr_readingList);
-                //db.SubmitChanges();
-            }
-            catch (Exception ex)
-            {
-                ErrorMessageBox.Show(ex.Message, ex.ToString());
-                Logger.ErrorLogger("error.txt", ex.ToString());
             }
         }
 

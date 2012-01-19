@@ -73,6 +73,8 @@
             this.statusProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.rssTickerGroupBox = new System.Windows.Forms.GroupBox();
+            this.GoToPreviousNewsItemButton = new System.Windows.Forms.Button();
+            this.GoToNextNewsItemButton = new System.Windows.Forms.Button();
             this.rssLinkLabel = new System.Windows.Forms.Label();
             this.rssDescriptionTextBox = new System.Windows.Forms.TextBox();
             this.rssTitleLabel = new System.Windows.Forms.Label();
@@ -266,6 +268,7 @@
             // mainToolStrip
             // 
             this.mainToolStrip.AutoSize = false;
+            this.mainToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.mainToolStrip.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToBrowserToolStripButton,
@@ -496,6 +499,8 @@
             // rssTickerGroupBox
             // 
             this.rssTickerGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.rssTickerGroupBox.Controls.Add(this.GoToPreviousNewsItemButton);
+            this.rssTickerGroupBox.Controls.Add(this.GoToNextNewsItemButton);
             this.rssTickerGroupBox.Controls.Add(this.rssLinkLabel);
             this.rssTickerGroupBox.Controls.Add(this.rssDescriptionTextBox);
             this.rssTickerGroupBox.Controls.Add(this.rssTitleLabel);
@@ -505,6 +510,30 @@
             this.rssTickerGroupBox.TabIndex = 9;
             this.rssTickerGroupBox.TabStop = false;
             this.rssTickerGroupBox.Text = "RSS Ticker";
+            // 
+            // GoToPreviousNewsItemButton
+            // 
+            this.GoToPreviousNewsItemButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.AppWorkspace;
+            this.GoToPreviousNewsItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GoToPreviousNewsItemButton.Location = new System.Drawing.Point(320, 16);
+            this.GoToPreviousNewsItemButton.Name = "GoToPreviousNewsItemButton";
+            this.GoToPreviousNewsItemButton.Size = new System.Drawing.Size(24, 23);
+            this.GoToPreviousNewsItemButton.TabIndex = 6;
+            this.GoToPreviousNewsItemButton.Text = "<";
+            this.GoToPreviousNewsItemButton.UseVisualStyleBackColor = true;
+            this.GoToPreviousNewsItemButton.Click += new System.EventHandler(this.HandleGoToPreviousNewsItemButtonClick);
+            // 
+            // GoToNextNewsItemButton
+            // 
+            this.GoToNextNewsItemButton.FlatAppearance.BorderColor = System.Drawing.SystemColors.AppWorkspace;
+            this.GoToNextNewsItemButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GoToNextNewsItemButton.Location = new System.Drawing.Point(344, 16);
+            this.GoToNextNewsItemButton.Name = "GoToNextNewsItemButton";
+            this.GoToNextNewsItemButton.Size = new System.Drawing.Size(24, 23);
+            this.GoToNextNewsItemButton.TabIndex = 5;
+            this.GoToNextNewsItemButton.Text = ">";
+            this.GoToNextNewsItemButton.UseVisualStyleBackColor = true;
+            this.GoToNextNewsItemButton.Click += new System.EventHandler(this.HandleGoToNextNewsItemButtonClick);
             // 
             // rssLinkLabel
             // 
@@ -521,19 +550,19 @@
             // 
             // rssDescriptionTextBox
             // 
-            this.rssDescriptionTextBox.Location = new System.Drawing.Point(9, 33);
+            this.rssDescriptionTextBox.Location = new System.Drawing.Point(9, 40);
             this.rssDescriptionTextBox.Multiline = true;
             this.rssDescriptionTextBox.Name = "rssDescriptionTextBox";
             this.rssDescriptionTextBox.ReadOnly = true;
             this.rssDescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.rssDescriptionTextBox.Size = new System.Drawing.Size(364, 85);
+            this.rssDescriptionTextBox.Size = new System.Drawing.Size(359, 78);
             this.rssDescriptionTextBox.TabIndex = 2;
             // 
             // rssTitleLabel
             // 
-            this.rssTitleLabel.Location = new System.Drawing.Point(6, 16);
+            this.rssTitleLabel.Location = new System.Drawing.Point(8, 24);
             this.rssTitleLabel.Name = "rssTitleLabel";
-            this.rssTitleLabel.Size = new System.Drawing.Size(367, 14);
+            this.rssTitleLabel.Size = new System.Drawing.Size(312, 14);
             this.rssTitleLabel.TabIndex = 1;
             this.rssTitleLabel.Text = "RssTitle";
             // 
@@ -659,6 +688,8 @@
 		  private System.Windows.Forms.ToolStripMenuItem displayFinishedToolStripMenuItem;
 		  private System.Windows.Forms.ToolStripMenuItem rssSubscriptionsToolStripMenuItem;
           private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+          private System.Windows.Forms.Button GoToPreviousNewsItemButton;
+          private System.Windows.Forms.Button GoToNextNewsItemButton;
 
     }
 }

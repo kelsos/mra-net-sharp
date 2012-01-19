@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mra_db_editor", "mangaDatab
 		{2764F696-7774-4731-9AD4-9A3D445DF8A3} = {2764F696-7774-4731-9AD4-9A3D445DF8A3}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mranetwpf", "mranetwpf\mranetwpf.csproj", "{5CC51CF1-4DA0-4045-A651-D94B823A63F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -32,13 +34,19 @@ Global
 		{99CA0B56-D63B-482D-9731-C55B3F0E3A97}.Release|x64.Build.0 = Release|x64
 		{99CA0B56-D63B-482D-9731-C55B3F0E3A97}.Release|x86.ActiveCfg = Release|x86
 		{99CA0B56-D63B-482D-9731-C55B3F0E3A97}.Release|x86.Build.0 = Release|x86
+		{5CC51CF1-4DA0-4045-A651-D94B823A63F8}.Debug|x64.ActiveCfg = Debug|x86
+		{5CC51CF1-4DA0-4045-A651-D94B823A63F8}.Debug|x86.ActiveCfg = Debug|x86
+		{5CC51CF1-4DA0-4045-A651-D94B823A63F8}.Debug|x86.Build.0 = Debug|x86
+		{5CC51CF1-4DA0-4045-A651-D94B823A63F8}.Release|x64.ActiveCfg = Release|x86
+		{5CC51CF1-4DA0-4045-A651-D94B823A63F8}.Release|x86.ActiveCfg = Release|x86
+		{5CC51CF1-4DA0-4045-A651-D94B823A63F8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_UseGlobalSettings = False
 		BuildVersion_AssemblyInfoFilename = mraSharp\Properties\AssemblyInfo.cs
+		BuildVersion_UseGlobalSettings = False
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
