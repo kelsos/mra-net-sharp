@@ -36,8 +36,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OpenWebKitSharp">
+      <HintPath>..\..\..\..\Libraries\openwebkitsharp_r113\Binary\OpenWebKitSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.76.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,6 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ErrorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -62,6 +70,19 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\DatabaseWrapper.cs" />
+    <Compile Include="Classes\Data\NewsItem.cs" />
+    <Compile Include="Classes\Data\ReadItem.cs" />
+    <Compile Include="Classes\Events\Communicator.cs" />
+    <Compile Include="Classes\Events\WebDataArgs.cs" />
+    <Compile Include="Classes\IoWrapper.cs" />
+    <Compile Include="Classes\NetworkOperations.cs" />
+    <Compile Include="Classes\Utilities\ErrorHandler.cs" />
+    <Compile Include="Classes\Utilities\RegularExpressions.cs" />
+    <Compile Include="Classes\Utilities\NewsSubscriptionManager.cs" />
+    <Compile Include="ErrorWindow.xaml.cs">
+      <DependentUpon>ErrorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -86,6 +107,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -101,10 +123,25 @@
   <ItemGroup>
     <Resource Include="Icons\reload_48.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\arrow_circle_double.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\navigation_180.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\calendar_day.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\exclamation_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\navigation.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.None" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.None" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
