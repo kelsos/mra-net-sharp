@@ -34,14 +34,14 @@ namespace mranetwpf.Classes
                     if (displayFinished)
                     {
                         sqLiteCommand.CommandText =
-                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME, RL.READ_IS_FINISHED " +
+                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_LAST_TIME, RL.READ_ONLINE_URL, RL.READ_IS_FINISHED " +
                             "FROM MANGA_INFO MI, READING_LIST RL " +
                             "WHERE MI.MANGA_ID = RL.MANGA_ID";
                     }
                     else
                     {
                         sqLiteCommand.CommandText =
-                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME " +
+                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_LAST_TIME, RL.READ_ONLINE_URL " +
                             "FROM MANGA_INFO MI, READING_LIST RL " +
                             "WHERE MI.MANGA_ID = RL.MANGA_ID AND RL.READ_IS_FINISHED = 'false'";
                     }
@@ -117,14 +117,14 @@ namespace mranetwpf.Classes
                     if (Settings.Default.DisplayFinished)
                     {
                         selectCommand.CommandText =
-                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME, RL.READ_IS_FINISHED " +
+                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_LAST_TIME, RL.READ_ONLINE_URL, RL.READ_IS_FINISHED " +
                             "FROM MANGA_INFO MI, READING_LIST RL " +
                             "WHERE MI.MANGA_ID = RL.MANGA_ID AND MI.MANGA_TITLE LIKE '%?%'";
                     }
                     else
                     {
                         selectCommand.CommandText =
-                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME " +
+                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_LAST_TIME, RL.READ_ONLINE_URL " +
                             "FROM MANGA_INFO MI, READING_LIST RL " +
                             "WHERE MI.MANGA_ID = RL.MANGA_ID AND RL.READ_IS_FINISHED = 'false' AND MI.MANGA_TITLE LIKE '%?%'";
                     }
