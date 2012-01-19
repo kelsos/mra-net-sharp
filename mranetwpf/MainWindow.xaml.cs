@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using mranetwpf.Classes;
 using mranetwpf.Classes.Data;
 using mranetwpf.Classes.Events;
@@ -136,7 +128,7 @@ namespace mranetwpf
 
         private void LoadReadingListToDataGrid()
         {
-            listDataGrid.ItemsSource = DatabaseWrapper.GetReadingData(Settings.Default.DisplayFinished);
+            listDataGrid.ItemsSource = DatabaseWrapper.GetReadingData(Settings.Default.DisplayFinished).DefaultView;
 
             if(listDataGrid.Columns.Count<5)
                 return;
@@ -160,6 +152,23 @@ namespace mranetwpf
         private void HandleReloadButtonClick(object sender, RoutedEventArgs e)
         {
             LoadReadingListToDataGrid();
+        }
+
+        private void LoadInfoForSelectedManga()
+        {
+            DataRowView dataRowView = listDataGrid.SelectedItem as DataRowView;
+            if (dataRowView != null)
+            {
+                DataRow dataRow = dataRowView.Row;
+                coverDisplay.Source = DatabaseWrapper.GetMangaCover(dataRow[0].ToString());
+                mangaDescriptionTextBlock.Text = DatabaseWrapper.GetMangaDescriptions(dataRow[0].ToString());
+            }
+            
+        }
+
+        private void HandleListDataGridSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LoadInfoForSelectedManga();
         }
     }
 }

@@ -20,56 +20,50 @@ namespace mranetwpf.Classes
         ///   Queries the database and returns the reading list for the user. If the displayFinished setting is selected, then all the reading list is returned, if not then only the unfinished entries are returned;
         /// </summary>
         /// <returns> Reading List Datatable </returns>
-        public static List<DisplayReadItem> GetReadingData(bool displayFinished)
+        public static DataTable GetReadingData(bool displayFinished)
         {
-            List<DisplayReadItem> returnData = new List<DisplayReadItem>();
+            DataTable returnData = new DataTable();
             try
             {
-                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
                 {
-                    connection.Open();
+                    sqLiteConnection.Open();
 
-                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
+
+                    if (displayFinished)
                     {
-                        if (displayFinished)
-                        {
-                            selectCommand.CommandText =
-                                "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME, RL.READ_IS_FINISHED " +
-                                "FROM MANGA_INFO MI, READING_LIST RL " +
-                                "WHERE MI.MANGA_ID = RL.MANGA_ID";
-                        }
-                        else
-                        {
-                            selectCommand.CommandText =
-                                "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME " +
-                                "FROM MANGA_INFO MI, READING_LIST RL " +
-                                "WHERE MI.MANGA_ID = RL.MANGA_ID AND RL.READ_IS_FINISHED = 'false'";
-                        }
-                        SQLiteDataReader reader = selectCommand.ExecuteReader();
-                        DataTable dataTable = new DataTable();
-                        dataTable.Load(reader);
-                        reader.Close();
-                        for (int i = 0; i < dataTable.Rows.Count; i++)
-                        {
-                            DisplayReadItem item = new DisplayReadItem();
-                            item.Title = dataTable.Rows[i][0] as string;
-                            item.StartingChapter = (int?) uint.Parse(dataTable.Rows[i][1].ToString());
-                            item.CurrentChapter = (int?)uint.Parse(dataTable.Rows[i][2].ToString());
-                            item.OnlineUrl = dataTable.Rows[i][3] as string;
-                            item.LastRead = DateTime.Parse(dataTable.Rows[i][4].ToString());
-                            if(displayFinished)
-                            {
-                                item.FinishedReading = bool.Parse(dataTable.Rows[i][5].ToString());
-                            }
-                            returnData.Add(item);
-                            }
+                        sqLiteCommand.CommandText =
+                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME, RL.READ_IS_FINISHED " +
+                            "FROM MANGA_INFO MI, READING_LIST RL " +
+                            "WHERE MI.MANGA_ID = RL.MANGA_ID";
                     }
-                    connection.Close();
+                    else
+                    {
+                        sqLiteCommand.CommandText =
+                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME " +
+                            "FROM MANGA_INFO MI, READING_LIST RL " +
+                            "WHERE MI.MANGA_ID = RL.MANGA_ID AND RL.READ_IS_FINISHED = 'false'";
+                    }
+                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
+                    returnData.Load(reader);
+                    reader.Close();
+                    sqLiteConnection.Close();
+                    returnData.Columns[0].ColumnName = "Manga\nTitle";
+                    returnData.Columns[1].ColumnName = "Starting\nChapter";
+                    returnData.Columns[2].ColumnName = "Current\nChapter";
+                    returnData.Columns[3].ColumnName = "Online Url";
+                    returnData.Columns[4].ColumnName = "Last Time Read";
+                    if (displayFinished)
+                    {
+                        returnData.Columns[5].ColumnName = "Finished?";
+
+                    }
                 }
             }
             catch (Exception ex)
             {
-                ErrorHandler.HandleException(ex);
+                  ErrorHandler.HandleException(ex);
             }
             return returnData;
         }
@@ -163,7 +157,7 @@ namespace mranetwpf.Classes
         /// </summary>
         /// <param name="mangaTitle"> </param>
         /// <returns> Image of the cover </returns>
-        public static ImageSource GetMangaCover(string mangaTitle)
+        public static BitmapImage GetMangaCover(string mangaTitle)
         {
             if (string.IsNullOrEmpty(mangaTitle))
                 return null;
@@ -188,10 +182,12 @@ namespace mranetwpf.Classes
                     }
                     reader.Close();
                     sqLiteConnection.Close();
+                    BitmapImage bmp = new BitmapImage();
+                    bmp.BeginInit();
+                    bmp.StreamSource=new MemoryStream(imageArray);
+                    bmp.EndInit();
+                    return bmp;
 
-                    return
-                        new BmpBitmapDecoder(new MemoryStream(imageArray), BitmapCreateOptions.None,
-                                             BitmapCacheOption.Default).Frames[0];
                 }
             }
             catch (Exception ex)
