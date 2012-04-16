@@ -35,6 +35,7 @@
             this.mangaListDataGridView = new System.Windows.Forms.DataGridView();
             this.wikipediaTabPage = new System.Windows.Forms.TabPage();
             this.wikiPanel = new System.Windows.Forms.Panel();
+            this.Wiki = new System.Windows.Forms.WebBrowser();
             this.browserNavBar = new System.Windows.Forms.ToolStrip();
             this.backToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.forwardToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -83,10 +84,13 @@
             this.rssFetchingThread = new System.ComponentModel.BackgroundWorker();
             this.newsFeedTickTimer = new System.Windows.Forms.Timer(this.components);
             this.rssCheckTimer = new System.Windows.Forms.Timer(this.components);
+            this.DataGridContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openUrlEditorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTabControl.SuspendLayout();
             this.mangaGridTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mangaListDataGridView)).BeginInit();
             this.wikipediaTabPage.SuspendLayout();
+            this.wikiPanel.SuspendLayout();
             this.browserNavBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mangaCoverPictureBox)).BeginInit();
             this.mangaNoteGroupBox.SuspendLayout();
@@ -95,13 +99,14 @@
             this.mainMenuStrip.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
             this.rssTickerGroupBox.SuspendLayout();
+            this.DataGridContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTabControl
             // 
-            this.mainTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.mainTabControl.Controls.Add(this.mangaGridTabPage);
             this.mainTabControl.Controls.Add(this.wikipediaTabPage);
             this.mainTabControl.Location = new System.Drawing.Point(178, 80);
@@ -135,6 +140,7 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.mangaListDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.mangaListDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mangaListDataGridView.ContextMenuStrip = this.DataGridContextMenu;
             this.mangaListDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mangaListDataGridView.Location = new System.Drawing.Point(3, 3);
             this.mangaListDataGridView.MultiSelect = false;
@@ -160,11 +166,21 @@
             // 
             // wikiPanel
             // 
+            this.wikiPanel.Controls.Add(this.Wiki);
             this.wikiPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wikiPanel.Location = new System.Drawing.Point(3, 28);
             this.wikiPanel.Name = "wikiPanel";
             this.wikiPanel.Size = new System.Drawing.Size(700, 395);
             this.wikiPanel.TabIndex = 1;
+            // 
+            // Wiki
+            // 
+            this.Wiki.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Wiki.Location = new System.Drawing.Point(0, 0);
+            this.Wiki.MinimumSize = new System.Drawing.Size(20, 20);
+            this.Wiki.Name = "Wiki";
+            this.Wiki.Size = new System.Drawing.Size(700, 395);
+            this.Wiki.TabIndex = 0;
             // 
             // browserNavBar
             // 
@@ -219,8 +235,8 @@
             // 
             // mangaNoteGroupBox
             // 
-            this.mangaNoteGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.mangaNoteGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.mangaNoteGroupBox.Controls.Add(this.mangaNoteTextBox);
             this.mangaNoteGroupBox.Location = new System.Drawing.Point(12, 336);
             this.mangaNoteGroupBox.Name = "mangaNoteGroupBox";
@@ -233,18 +249,18 @@
             // 
             this.mangaNoteTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.mangaNoteTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mangaNoteTextBox.Location = new System.Drawing.Point(3, 18);
+            this.mangaNoteTextBox.Location = new System.Drawing.Point(3, 16);
             this.mangaNoteTextBox.Multiline = true;
             this.mangaNoteTextBox.Name = "mangaNoteTextBox";
             this.mangaNoteTextBox.ReadOnly = true;
             this.mangaNoteTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.mangaNoteTextBox.Size = new System.Drawing.Size(154, 175);
+            this.mangaNoteTextBox.Size = new System.Drawing.Size(154, 177);
             this.mangaNoteTextBox.TabIndex = 1;
             // 
             // mangaDescriptionGroupBox
             // 
-            this.mangaDescriptionGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mangaDescriptionGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.mangaDescriptionGroupBox.Controls.Add(this.mangaDescriptionTextBox);
             this.mangaDescriptionGroupBox.Location = new System.Drawing.Point(397, 538);
             this.mangaDescriptionGroupBox.Name = "mangaDescriptionGroupBox";
@@ -257,12 +273,12 @@
             // 
             this.mangaDescriptionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.mangaDescriptionTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mangaDescriptionTextBox.Location = new System.Drawing.Point(3, 18);
+            this.mangaDescriptionTextBox.Location = new System.Drawing.Point(3, 16);
             this.mangaDescriptionTextBox.Multiline = true;
             this.mangaDescriptionTextBox.Name = "mangaDescriptionTextBox";
             this.mangaDescriptionTextBox.ReadOnly = true;
             this.mangaDescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.mangaDescriptionTextBox.Size = new System.Drawing.Size(489, 116);
+            this.mangaDescriptionTextBox.Size = new System.Drawing.Size(489, 118);
             this.mangaDescriptionTextBox.TabIndex = 1;
             // 
             // mainToolStrip
@@ -345,44 +361,44 @@
             this.toolStripSeparator2,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // backupToolStripMenuItem
             // 
             this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-            this.backupToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.backupToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.backupToolStripMenuItem.Text = "Backup";
             this.backupToolStripMenuItem.Click += new System.EventHandler(this.HandleBackupToolStripMenuItemClick);
             // 
             // restoreToolStripMenuItem
             // 
             this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
-            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.restoreToolStripMenuItem.Text = "Restore";
             this.restoreToolStripMenuItem.Click += new System.EventHandler(this.HandleRestoreToolStripMenuItemClick);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(110, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(116, 6);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.HandleClearToolStripMenuItemClick);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(110, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(116, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.HandleQuitToolStripMenuItemClick);
             // 
@@ -393,28 +409,28 @@
             this.rssSubscriptionsToolStripMenuItem,
             this.settingsToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // displayFinishedToolStripMenuItem
             // 
             this.displayFinishedToolStripMenuItem.CheckOnClick = true;
             this.displayFinishedToolStripMenuItem.Name = "displayFinishedToolStripMenuItem";
-            this.displayFinishedToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.displayFinishedToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
             this.displayFinishedToolStripMenuItem.Text = "Display Finished";
             this.displayFinishedToolStripMenuItem.Click += new System.EventHandler(this.HandleDisplayFinishedToolStripMenuItemClick);
             // 
             // rssSubscriptionsToolStripMenuItem
             // 
             this.rssSubscriptionsToolStripMenuItem.Name = "rssSubscriptionsToolStripMenuItem";
-            this.rssSubscriptionsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.rssSubscriptionsToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
             this.rssSubscriptionsToolStripMenuItem.Text = "Subscription Manager";
             this.rssSubscriptionsToolStripMenuItem.Click += new System.EventHandler(this.HandleNewsSubscriptionsToolStripMenuItemClick);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(203, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // toolsToolStripMenuItem
@@ -423,20 +439,20 @@
             this.statisticsToolStripMenuItem,
             this.addMangaToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // statisticsToolStripMenuItem
             // 
             this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
-            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.statisticsToolStripMenuItem.Text = "Statistics";
             this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.HandleStatisticsToolStripMenuItemClick);
             // 
             // addMangaToolStripMenuItem
             // 
             this.addMangaToolStripMenuItem.Name = "addMangaToolStripMenuItem";
-            this.addMangaToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.addMangaToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.addMangaToolStripMenuItem.Text = "Add Manga";
             this.addMangaToolStripMenuItem.Click += new System.EventHandler(this.HandleAddMangaToolStripMenuItemClick);
             // 
@@ -448,30 +464,30 @@
             this.toolStripSeparator3,
             this.aboutToolStripMenuItem1});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // changeLogToolStripMenuItem
             // 
             this.changeLogToolStripMenuItem.Name = "changeLogToolStripMenuItem";
-            this.changeLogToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.changeLogToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.changeLogToolStripMenuItem.Text = "Change Log";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(135, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(140, 6);
             // 
             // aboutToolStripMenuItem1
             // 
             this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(143, 22);
             this.aboutToolStripMenuItem1.Text = "About";
             // 
             // mainStatusStrip
@@ -493,7 +509,7 @@
             // statusLabel
             // 
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(66, 17);
+            this.statusLabel.Size = new System.Drawing.Size(73, 17);
             this.statusLabel.Text = "statusLabel";
             // 
             // rssTickerGroupBox
@@ -590,6 +606,20 @@
             this.rssCheckTimer.Interval = 15000;
             this.rssCheckTimer.Tick += new System.EventHandler(this.HandleNewsFeedCheckTimerTick);
             // 
+            // DataGridContextMenu
+            // 
+            this.DataGridContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openUrlEditorMenuItem});
+            this.DataGridContextMenu.Name = "DataGridContextMenu";
+            this.DataGridContextMenu.Size = new System.Drawing.Size(166, 26);
+            // 
+            // openUrlEditorMenuItem
+            // 
+            this.openUrlEditorMenuItem.Name = "openUrlEditorMenuItem";
+            this.openUrlEditorMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.openUrlEditorMenuItem.Text = "Open Url Editor";
+            this.openUrlEditorMenuItem.Click += new System.EventHandler(this.HandleOpenUrlEditorMenuItemClick);
+            // 
             // ApplicationWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -614,6 +644,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.mangaListDataGridView)).EndInit();
             this.wikipediaTabPage.ResumeLayout(false);
             this.wikipediaTabPage.PerformLayout();
+            this.wikiPanel.ResumeLayout(false);
             this.browserNavBar.ResumeLayout(false);
             this.browserNavBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mangaCoverPictureBox)).EndInit();
@@ -629,6 +660,7 @@
             this.mainStatusStrip.PerformLayout();
             this.rssTickerGroupBox.ResumeLayout(false);
             this.rssTickerGroupBox.PerformLayout();
+            this.DataGridContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -690,6 +722,9 @@
           private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
           private System.Windows.Forms.Button GoToPreviousNewsItemButton;
           private System.Windows.Forms.Button GoToNextNewsItemButton;
+          private System.Windows.Forms.WebBrowser Wiki;
+          private System.Windows.Forms.ContextMenuStrip DataGridContextMenu;
+          private System.Windows.Forms.ToolStripMenuItem openUrlEditorMenuItem;
 
     }
 }

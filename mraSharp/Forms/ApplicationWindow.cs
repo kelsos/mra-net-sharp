@@ -9,7 +9,6 @@ using mraNet.Classes;
 using mraNet.Classes.Data;
 using mraNet.Classes.Events;
 using mraNet.Classes.Utilities;
-using WebKit;
 using mraNet.Properties;
 
 namespace mraNet.Forms
@@ -19,13 +18,12 @@ namespace mraNet.Forms
         private int _myCounter;
         private bool _internetIsUp;
         private BrowserWindow _web;
-        private readonly WebKitBrowser _wikiWebKitBrowser;
 
         public ApplicationWindow()
         {
             InitializeComponent();
 
-            _myCounter = 0;
+            _myCounter = 1;
             rssCheckTimer.Enabled = false;
             newsFeedTickTimer.Enabled = false;
             statusLabel.Text = "";
@@ -36,10 +34,6 @@ namespace mraNet.Forms
                                                               : CheckState.Unchecked;
             //checks if network is up
             System.Net.NetworkInformation.NetworkChange.NetworkAddressChanged += HandleNetworkAddressChangedHandler;
-            _wikiWebKitBrowser = new WebKitBrowser {Visible = true};
-            wikiPanel.Controls.Add(_wikiWebKitBrowser);
-            _wikiWebKitBrowser.Dock = DockStyle.Fill;
-            _wikiWebKitBrowser.AllowDownloads = false;
             Communicator.Instance.ChapterFinished += InstanceOnChapterFinished;
         }
 
@@ -201,7 +195,7 @@ namespace mraNet.Forms
         /// This method represents the action of reading a chapter. It sets the date last read of the selected manga to the current Date
         /// (when the method was called) and increases the last chapter by one.
         /// </summary>
-        public void ChapterFinished()
+        private void ChapterFinished()
         {
             try
             {
@@ -250,7 +244,7 @@ namespace mraNet.Forms
 
         private delegate void LoadDataGridDelegate();
 
-        public void LoadDatagrid()
+        private void LoadDatagrid()
         {
             if (InvokeRequired)
             {
@@ -401,15 +395,15 @@ namespace mraNet.Forms
         {
             if (e.ClickedItem == backToolStripButton)
             {
-                _wikiWebKitBrowser.GoBack();
+                Wiki.GoBack();
             }
             else if (e.ClickedItem == forwardToolStripButton)
             {
-                _wikiWebKitBrowser.GoForward();
+                Wiki.GoForward();
             }
             else if (e.ClickedItem == wReloadtoolStripButton)
             {
-                _wikiWebKitBrowser.Reload();
+                Wiki.Refresh();
             }
         }
 
@@ -428,7 +422,7 @@ namespace mraNet.Forms
                                                   mangaListDataGridView[0, currentSelectedRow].Value.ToString()));
             try
             {
-                _wikiWebKitBrowser.Navigate(navigationUrl);
+                Wiki.Navigate(navigationUrl);
             }
             catch (Exception ex)
             {
@@ -488,5 +482,22 @@ namespace mraNet.Forms
         {
             NewsTicker(null);
         }
+
+        private void HandleOpenUrlEditorMenuItemClick(object sender, EventArgs e)
+        {
+            if (mangaListDataGridView.Rows.Count == 0) return;
+            if (mangaListDataGridView.CurrentRow == null) return;
+            int currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
+            Communicator.Instance.URL = mangaListDataGridView[3, currentSelectedRow].Value.ToString();
+
+            UrlEditorWindow urlEditorWindow = new UrlEditorWindow();
+            urlEditorWindow.ShowDialog();
+
+            if (!string.IsNullOrEmpty(Communicator.Instance.URL))
+            {
+                DatabaseWrapper.UpdateMangaUrl(mangaListDataGridView[0, currentSelectedRow].Value.ToString(), Communicator.Instance.URL);
+                mangaListDataGridView[3, currentSelectedRow].Value = Communicator.Instance.URL;
+            }
+    }
     }
 }

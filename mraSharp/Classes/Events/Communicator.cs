@@ -7,6 +7,7 @@ namespace mraNet.Classes.Events
     {
         private static readonly Communicator ClassInstance = new Communicator();
         private ReadItem _readItemItem;
+        public String URL { get; set; }
         public event EventHandler<WebDataArgs> WebDataAvailable;
 
         public void OnWebDataAvailable(Object sender, WebDataArgs e)

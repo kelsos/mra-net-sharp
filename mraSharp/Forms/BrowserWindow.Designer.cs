@@ -28,16 +28,21 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BrowserWindow));
             this.webNavigation = new System.Windows.Forms.ToolStrip();
             this.backToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.forwardToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.reloadToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.justReadButton = new System.Windows.Forms.ToolStripButton();
+            this.navigationUrlBox = new System.Windows.Forms.ToolStripTextBox();
+            this.navigateButton = new System.Windows.Forms.ToolStripButton();
             this.webStatus = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.browserPanel = new System.Windows.Forms.Panel();
+            this.InternalBrowser = new System.Windows.Forms.WebBrowser();
             this.webNavigation.SuspendLayout();
             this.webStatus.SuspendLayout();
+            this.browserPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // webNavigation
@@ -46,7 +51,9 @@
             this.backToolStripButton,
             this.forwardToolStripButton,
             this.reloadToolStripButton,
-            this.justReadButton});
+            this.justReadButton,
+            this.navigationUrlBox,
+            this.navigateButton});
             this.webNavigation.Location = new System.Drawing.Point(0, 0);
             this.webNavigation.Name = "webNavigation";
             this.webNavigation.Size = new System.Drawing.Size(766, 25);
@@ -93,6 +100,22 @@
             this.justReadButton.Text = "Just Read A Chapter";
             this.justReadButton.Click += new System.EventHandler(this.HandleChapterFinishedButtonClick);
             // 
+            // navigationUrlBox
+            // 
+            this.navigationUrlBox.Name = "navigationUrlBox";
+            this.navigationUrlBox.Size = new System.Drawing.Size(600, 25);
+            this.navigationUrlBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.NavigationUrlBoxKeyPress);
+            // 
+            // navigateButton
+            // 
+            this.navigateButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.navigateButton.Image = ((System.Drawing.Image)(resources.GetObject("navigateButton.Image")));
+            this.navigateButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.navigateButton.Name = "navigateButton";
+            this.navigateButton.Size = new System.Drawing.Size(23, 22);
+            this.navigateButton.Text = "toolStripButton1";
+            this.navigateButton.Click += new System.EventHandler(this.NavigateButtonClick);
+            // 
             // webStatus
             // 
             this.webStatus.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -106,17 +129,27 @@
             // statusLabel
             // 
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(39, 17);
+            this.statusLabel.Size = new System.Drawing.Size(43, 17);
             this.statusLabel.Text = "Status";
             this.statusLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.HandleStatusLabelMouseDown);
             // 
             // browserPanel
             // 
+            this.browserPanel.Controls.Add(this.InternalBrowser);
             this.browserPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.browserPanel.Location = new System.Drawing.Point(0, 25);
             this.browserPanel.Name = "browserPanel";
             this.browserPanel.Size = new System.Drawing.Size(766, 429);
             this.browserPanel.TabIndex = 3;
+            // 
+            // InternalBrowser
+            // 
+            this.InternalBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InternalBrowser.Location = new System.Drawing.Point(0, 0);
+            this.InternalBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.InternalBrowser.Name = "InternalBrowser";
+            this.InternalBrowser.Size = new System.Drawing.Size(766, 429);
+            this.InternalBrowser.TabIndex = 0;
             // 
             // BrowserWindow
             // 
@@ -136,6 +169,7 @@
             this.webNavigation.PerformLayout();
             this.webStatus.ResumeLayout(false);
             this.webStatus.PerformLayout();
+            this.browserPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,5 +184,8 @@
 		private System.Windows.Forms.ToolStripStatusLabel statusLabel;
 		private System.Windows.Forms.ToolStripButton justReadButton;
         private System.Windows.Forms.Panel browserPanel;
+        private System.Windows.Forms.WebBrowser InternalBrowser;
+        private System.Windows.Forms.ToolStripTextBox navigationUrlBox;
+        private System.Windows.Forms.ToolStripButton navigateButton;
 	}
 }

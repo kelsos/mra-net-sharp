@@ -12,7 +12,7 @@ using mraNet.Properties;
 
 namespace mraNet.Classes
 {
-    internal class DatabaseWrapper
+    internal static class DatabaseWrapper
     {
         private static readonly string ConnectionString = "Data Source=" + Application.StartupPath + "\\mdb.db3";
 
@@ -652,6 +652,34 @@ namespace mraNet.Classes
                                                                         "WHERE MANGA_ID = ?"
                                                       };
                     sqLiteCommand.Parameters.AddWithValue(null, DateTime.Now);
+                    sqLiteCommand.Parameters.AddWithValue(null, GetMangaId(mangaTitle));
+                    sqLiteCommand.ExecuteNonQuery();
+
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+        }
+
+        public static void UpdateMangaUrl(string mangaTitle, string newUrl)
+        {
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection)
+                    {
+                        CommandText = "UPDATE READING_LIST " +
+                                      "SET READ_ONLINE_URL = ? " +
+                                      "WHERE MANGA_ID = ?"
+                    };
+                    sqLiteCommand.Parameters.AddWithValue(null, newUrl);
                     sqLiteCommand.Parameters.AddWithValue(null, GetMangaId(mangaTitle));
                     sqLiteCommand.ExecuteNonQuery();
 

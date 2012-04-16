@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Windows.Forms;
 using mraNet.Classes;
-using WebKit;
 using mraNet.Classes.Events;
 using mraNet.Classes.Utilities;
 
-#if DOTNET4
-using WebKit.JSCore;
-#endif
 
 namespace mraNet.Forms
 {
     public partial class BrowserWindow : Form
     {
         private MessageFilter _mbfilter;
-        private WebKitBrowser _webKitBrowser;
 
         public BrowserWindow()
         {
             InitializeComponent();
-            InitializeWebkitBrowser();
             InitializeEventHandlers();
             justReadButton.Enabled = false;
         }
@@ -30,23 +24,16 @@ namespace mraNet.Forms
             HandleDestroyed += WebFormHandleDestroyed;
             Activated += WebFormActivated;
             Deactivate += WebFormDeactivate;
-            _webKitBrowser.Navigated += HandleWebKitBrowserNavigated;
-        }
-
-        private void InitializeWebkitBrowser()
-        {
-            _webKitBrowser = new WebKitBrowser();
-            browserPanel.Controls.Add(_webKitBrowser);
-            _webKitBrowser.Dock = DockStyle.Fill;
-            _webKitBrowser.Top = 10;
+            InternalBrowser.Navigated += HandleWebKitBrowserNavigated;
         }
 
         private void HandleWebKitBrowserNavigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            statusLabel.Text = _webKitBrowser.Url.ToString();
+            statusLabel.Text = InternalBrowser.StatusText;
+            navigationUrlBox.Text = InternalBrowser.Url.ToString();
         }
 
-        public void SetTitle(string newTitle)
+        private void SetTitle(string newTitle)
         {
             Text = newTitle;
         }
@@ -64,10 +51,15 @@ namespace mraNet.Forms
             SetTitle(e.Message);
             if (e.NavigateUrl!=null)
                 Navigate(e.NavigateUrl);
-            if (e.Source == "News")
-                justReadButton.Enabled = false;
-            else if (e.Source == "Web")
-                justReadButton.Enabled = true;
+            switch (e.Source)
+            {
+                case "News":
+                    justReadButton.Enabled = false;
+                    break;
+                case "Web":
+                    justReadButton.Enabled = true;
+                    break;
+            }
         }
 
         private void WebFormHandleDestroyed(object sender, EventArgs e)
@@ -88,17 +80,17 @@ namespace mraNet.Forms
 
         private void BackToolStripButtonClick(object sender, EventArgs e)
         {
-            if (_webKitBrowser.CanGoBack)
-                _webKitBrowser.GoBack();
+            if (InternalBrowser.CanGoBack)
+                InternalBrowser.GoBack();
         }
 
         private void ForwardToolStripButtonClick(object sender, EventArgs e)
         {
             try
             {
-                if (_webKitBrowser.CanGoForward)
+                if (InternalBrowser.CanGoForward)
                 {
-                    _webKitBrowser.GoForward();
+                    InternalBrowser.GoForward();
                 }
                 else
                 {
@@ -113,16 +105,17 @@ namespace mraNet.Forms
 
         private void ReloadToolStripButtonClick(object sender, EventArgs e)
         {
-            _webKitBrowser.Reload();
+            InternalBrowser.Refresh();
         }
 
         /// <summary>
         /// Navigates to the specified URL.
         /// </summary>
         /// <param name="url">The URL.</param>
-        public void Navigate(string url)
+        private void Navigate(string url)
         {
-            _webKitBrowser.Navigate(url);
+            InternalBrowser.Navigate(url);
+            navigationUrlBox.Text = url;
         }
 
         private void HandleChapterFinishedButtonClick(object sender, EventArgs e)
@@ -146,6 +139,19 @@ namespace mraNet.Forms
         private void BrowserWindowLoad(object sender, EventArgs e)
         {
 
+        }
+
+        private void NavigateButtonClick(object sender, EventArgs e)
+        {
+            InternalBrowser.Navigate(navigationUrlBox.Text);
+        }
+
+        private void NavigationUrlBoxKeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar==(char)Keys.Return)
+            {
+                InternalBrowser.Navigate(navigationUrlBox.Text);    
+            }
         }
 
     }
