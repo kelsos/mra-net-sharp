@@ -148,10 +148,15 @@ namespace mraNet.Forms
 
         private void NavigationUrlBoxKeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar==(char)Keys.Return)
+            if (e.KeyChar=='\r')
             {
                 InternalBrowser.Navigate(navigationUrlBox.Text);    
             }
+        }
+
+        private void UpdateUrlButtonClick(object sender, EventArgs e)
+        {
+            
         }
 
     }

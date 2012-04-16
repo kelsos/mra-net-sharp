@@ -36,6 +36,7 @@
             this.justReadButton = new System.Windows.Forms.ToolStripButton();
             this.navigationUrlBox = new System.Windows.Forms.ToolStripTextBox();
             this.navigateButton = new System.Windows.Forms.ToolStripButton();
+            this.updateUrlButton = new System.Windows.Forms.ToolStripButton();
             this.webStatus = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.browserPanel = new System.Windows.Forms.Panel();
@@ -53,7 +54,8 @@
             this.reloadToolStripButton,
             this.justReadButton,
             this.navigationUrlBox,
-            this.navigateButton});
+            this.navigateButton,
+            this.updateUrlButton});
             this.webNavigation.Location = new System.Drawing.Point(0, 0);
             this.webNavigation.Name = "webNavigation";
             this.webNavigation.Size = new System.Drawing.Size(766, 25);
@@ -113,8 +115,18 @@
             this.navigateButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.navigateButton.Name = "navigateButton";
             this.navigateButton.Size = new System.Drawing.Size(23, 22);
-            this.navigateButton.Text = "toolStripButton1";
+            this.navigateButton.Text = "Navigate";
             this.navigateButton.Click += new System.EventHandler(this.NavigateButtonClick);
+            // 
+            // updateUrlButton
+            // 
+            this.updateUrlButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.updateUrlButton.Image = ((System.Drawing.Image)(resources.GetObject("updateUrlButton.Image")));
+            this.updateUrlButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.updateUrlButton.Name = "updateUrlButton";
+            this.updateUrlButton.Size = new System.Drawing.Size(23, 20);
+            this.updateUrlButton.Text = "Update Url";
+            this.updateUrlButton.Click += new System.EventHandler(this.UpdateUrlButtonClick);
             // 
             // webStatus
             // 
@@ -187,5 +199,6 @@
         private System.Windows.Forms.WebBrowser InternalBrowser;
         private System.Windows.Forms.ToolStripTextBox navigationUrlBox;
         private System.Windows.Forms.ToolStripButton navigateButton;
+        private System.Windows.Forms.ToolStripButton updateUrlButton;
 	}
 }
