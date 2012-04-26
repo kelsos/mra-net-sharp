@@ -29,10 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.mangaGridTabPage = new System.Windows.Forms.TabPage();
             this.mangaListDataGridView = new System.Windows.Forms.DataGridView();
+            this.DataGridContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openUrlEditorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wikipediaTabPage = new System.Windows.Forms.TabPage();
             this.wikiPanel = new System.Windows.Forms.Panel();
             this.Wiki = new System.Windows.Forms.WebBrowser();
@@ -84,11 +86,10 @@
             this.rssFetchingThread = new System.ComponentModel.BackgroundWorker();
             this.newsFeedTickTimer = new System.Windows.Forms.Timer(this.components);
             this.rssCheckTimer = new System.Windows.Forms.Timer(this.components);
-            this.DataGridContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.openUrlEditorMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTabControl.SuspendLayout();
             this.mangaGridTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mangaListDataGridView)).BeginInit();
+            this.DataGridContextMenu.SuspendLayout();
             this.wikipediaTabPage.SuspendLayout();
             this.wikiPanel.SuspendLayout();
             this.browserNavBar.SuspendLayout();
@@ -99,7 +100,6 @@
             this.mainMenuStrip.SuspendLayout();
             this.mainStatusStrip.SuspendLayout();
             this.rssTickerGroupBox.SuspendLayout();
-            this.DataGridContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTabControl
@@ -131,14 +131,14 @@
             this.mangaListDataGridView.AllowUserToAddRows = false;
             this.mangaListDataGridView.AllowUserToDeleteRows = false;
             this.mangaListDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.mangaListDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(161)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mangaListDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.mangaListDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.mangaListDataGridView.ContextMenuStrip = this.DataGridContextMenu;
             this.mangaListDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -150,6 +150,20 @@
             this.mangaListDataGridView.Size = new System.Drawing.Size(700, 420);
             this.mangaListDataGridView.TabIndex = 0;
             this.mangaListDataGridView.SelectionChanged += new System.EventHandler(this.HandleMangaListDataGridViewSelectionChanged);
+            // 
+            // DataGridContextMenu
+            // 
+            this.DataGridContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openUrlEditorMenuItem});
+            this.DataGridContextMenu.Name = "DataGridContextMenu";
+            this.DataGridContextMenu.Size = new System.Drawing.Size(166, 26);
+            // 
+            // openUrlEditorMenuItem
+            // 
+            this.openUrlEditorMenuItem.Name = "openUrlEditorMenuItem";
+            this.openUrlEditorMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.openUrlEditorMenuItem.Text = "Open Url Editor";
+            this.openUrlEditorMenuItem.Click += new System.EventHandler(this.HandleOpenUrlEditorMenuItemClick);
             // 
             // wikipediaTabPage
             // 
@@ -606,20 +620,6 @@
             this.rssCheckTimer.Interval = 15000;
             this.rssCheckTimer.Tick += new System.EventHandler(this.HandleNewsFeedCheckTimerTick);
             // 
-            // DataGridContextMenu
-            // 
-            this.DataGridContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openUrlEditorMenuItem});
-            this.DataGridContextMenu.Name = "DataGridContextMenu";
-            this.DataGridContextMenu.Size = new System.Drawing.Size(166, 26);
-            // 
-            // openUrlEditorMenuItem
-            // 
-            this.openUrlEditorMenuItem.Name = "openUrlEditorMenuItem";
-            this.openUrlEditorMenuItem.Size = new System.Drawing.Size(165, 22);
-            this.openUrlEditorMenuItem.Text = "Open Url Editor";
-            this.openUrlEditorMenuItem.Click += new System.EventHandler(this.HandleOpenUrlEditorMenuItemClick);
-            // 
             // ApplicationWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -642,6 +642,7 @@
             this.mainTabControl.ResumeLayout(false);
             this.mangaGridTabPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mangaListDataGridView)).EndInit();
+            this.DataGridContextMenu.ResumeLayout(false);
             this.wikipediaTabPage.ResumeLayout(false);
             this.wikipediaTabPage.PerformLayout();
             this.wikiPanel.ResumeLayout(false);
@@ -660,7 +661,6 @@
             this.mainStatusStrip.PerformLayout();
             this.rssTickerGroupBox.ResumeLayout(false);
             this.rssTickerGroupBox.PerformLayout();
-            this.DataGridContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

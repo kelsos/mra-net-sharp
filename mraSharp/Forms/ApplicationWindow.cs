@@ -253,6 +253,7 @@ namespace mraNet.Forms
             else
             {
                 mangaListDataGridView.DataSource = DatabaseWrapper.GetReadingData(Settings.Default.displayFinished);
+                if (mangaListDataGridView.ColumnCount == 0) return;
                 if (!Settings.Default.displayFinished&&mangaListDataGridView.ColumnCount==6)
                 {
                     mangaListDataGridView.Columns[5].Visible = false;

@@ -16,6 +16,7 @@ namespace mraNet.Forms
             InitializeComponent();
             InitializeEventHandlers();
             justReadButton.Enabled = false;
+            InternalBrowser.ScriptErrorsSuppressed = true;
         }
 
         private void InitializeEventHandlers()

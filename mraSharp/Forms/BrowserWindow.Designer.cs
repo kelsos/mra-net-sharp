@@ -58,7 +58,7 @@
             this.updateUrlButton});
             this.webNavigation.Location = new System.Drawing.Point(0, 0);
             this.webNavigation.Name = "webNavigation";
-            this.webNavigation.Size = new System.Drawing.Size(766, 25);
+            this.webNavigation.Size = new System.Drawing.Size(908, 25);
             this.webNavigation.TabIndex = 1;
             this.webNavigation.Text = "toolStrip1";
             // 
@@ -124,7 +124,7 @@
             this.updateUrlButton.Image = ((System.Drawing.Image)(resources.GetObject("updateUrlButton.Image")));
             this.updateUrlButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.updateUrlButton.Name = "updateUrlButton";
-            this.updateUrlButton.Size = new System.Drawing.Size(23, 20);
+            this.updateUrlButton.Size = new System.Drawing.Size(23, 22);
             this.updateUrlButton.Text = "Update Url";
             this.updateUrlButton.Click += new System.EventHandler(this.UpdateUrlButtonClick);
             // 
@@ -134,7 +134,7 @@
             this.statusLabel});
             this.webStatus.Location = new System.Drawing.Point(0, 454);
             this.webStatus.Name = "webStatus";
-            this.webStatus.Size = new System.Drawing.Size(766, 22);
+            this.webStatus.Size = new System.Drawing.Size(908, 22);
             this.webStatus.TabIndex = 2;
             this.webStatus.Text = "Status Bar";
             // 
@@ -151,7 +151,7 @@
             this.browserPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.browserPanel.Location = new System.Drawing.Point(0, 25);
             this.browserPanel.Name = "browserPanel";
-            this.browserPanel.Size = new System.Drawing.Size(766, 429);
+            this.browserPanel.Size = new System.Drawing.Size(908, 429);
             this.browserPanel.TabIndex = 3;
             // 
             // InternalBrowser
@@ -160,14 +160,14 @@
             this.InternalBrowser.Location = new System.Drawing.Point(0, 0);
             this.InternalBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.InternalBrowser.Name = "InternalBrowser";
-            this.InternalBrowser.Size = new System.Drawing.Size(766, 429);
+            this.InternalBrowser.Size = new System.Drawing.Size(908, 429);
             this.InternalBrowser.TabIndex = 0;
             // 
             // BrowserWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(766, 476);
+            this.ClientSize = new System.Drawing.Size(908, 476);
             this.Controls.Add(this.browserPanel);
             this.Controls.Add(this.webStatus);
             this.Controls.Add(this.webNavigation);
