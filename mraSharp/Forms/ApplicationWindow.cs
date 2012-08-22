@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using System.Threading;
@@ -28,6 +29,8 @@ namespace mraNet.Forms
             newsFeedTickTimer.Enabled = false;
             statusLabel.Text = "";
 
+            Gecko.Xpcom.Initialize(Application.StartupPath + "\\xulrunner\\");
+
             //Gets the current check state from the Application Settings
             displayFinishedToolStripMenuItem.CheckState = Settings.Default.displayFinished
                                                               ? CheckState.Checked
@@ -35,11 +38,27 @@ namespace mraNet.Forms
             //checks if network is up
             System.Net.NetworkInformation.NetworkChange.NetworkAddressChanged += HandleNetworkAddressChangedHandler;
             Communicator.Instance.ChapterFinished += InstanceOnChapterFinished;
+
+            //DataLoad
+            Load+=ApplicationWindowLoad;
+            
+        }
+
+        private void ApplicationWindowLoad(object sender, EventArgs e)
+        {
+            UpdateMangaList(DatabaseWrapper.GetReadingData(Settings.Default.displayFinished));
+        }
+
+
+
+        public void UpdateMangaList(List<string> mangaList)
+        {
+            mangaListCombo.DataSource = mangaList;
         }
 
         private void InstanceOnChapterFinished(object sender, EventArgs eventArgs)
         {
-           ChapterFinished();
+            ChapterFinished();
         }
 
         private void RssStatusChecker()
@@ -79,9 +98,10 @@ namespace mraNet.Forms
 
 
         private List<NewsItem> _newsList;
+
         private void NewsTicker(string action)
         {
-            if(_newsList==null)
+            if (_newsList == null)
                 _newsList = DatabaseWrapper.GetNewsItemList();
             try
             {
@@ -108,7 +128,7 @@ namespace mraNet.Forms
                 }
                 else
                 {
-                    if (_myCounter>0)
+                    if (_myCounter > 0)
                     {
                         rssTitleLabel.Text = _newsList[_myCounter].Title;
                         rssLinkLabel.Text = _newsList[_myCounter].Link;
@@ -117,7 +137,7 @@ namespace mraNet.Forms
                     }
                     else
                     {
-                        _myCounter = newsItemsCount-1;
+                        _myCounter = newsItemsCount - 1;
                         rssTitleLabel.Text = _newsList[_myCounter].Title;
                         rssLinkLabel.Text = _newsList[_myCounter].Link;
                         rssDescriptionTextBox.Text = _newsList[_myCounter].Description;
@@ -162,12 +182,14 @@ namespace mraNet.Forms
 
         private void HandleNewsTickerLinkLabelClick(object sender, EventArgs e)
         {
-            if(!CheckIfOpen(_web))
+            if (!CheckIfOpen(_web))
             {
                 _web = new BrowserWindow();
                 _web.Show();
             }
-            Communicator.Instance.OnWebDataAvailable(this,new WebDataArgs(rssTitleLabel.Text +": " +rssLinkLabel.Text,rssLinkLabel.Text, "News"));
+            Communicator.Instance.OnWebDataAvailable(this,
+                                                     new WebDataArgs(rssTitleLabel.Text + ": " + rssLinkLabel.Text,
+                                                                     rssLinkLabel.Text, "News"));
         }
 
         private void RssLinkLabelMouseEnter(object sender, EventArgs e)
@@ -199,26 +221,6 @@ namespace mraNet.Forms
         {
             try
             {
-                if (mangaListDataGridView.CurrentRow == null)
-                    return;
-                DatabaseWrapper.ChapterFinished(
-                    (string) mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
-
-                if (mangaListDataGridView.CurrentRow == null)
-                    return;
-
-                mangaListDataGridView.CurrentRow.Cells["Last Time Read"].Value = DateTime.Now;
-                mangaListDataGridView.CurrentRow.Cells["Current\nChapter"].Value =
-                    Convert.ToDouble(
-                        mangaListDataGridView.CurrentRow.Cells["Current\nChapter"].Value) + 1;
-                if (CheckIfOpen(_web))
-                {
-                    int currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-                    Communicator.Instance.OnWebDataAvailable(this, new WebDataArgs(string.Format("Manga: {0} - Current Chapter: {1} - Last Read: {2}",
-                                                                                                 mangaListDataGridView[0, currentSelectedRow].Value,
-                                                                                                 mangaListDataGridView[2, currentSelectedRow].Value,
-                                                                                                 mangaListDataGridView[3, currentSelectedRow].Value), null, "Web"));
-                }
             }
             catch (Exception ex)
             {
@@ -252,48 +254,11 @@ namespace mraNet.Forms
             }
             else
             {
-                mangaListDataGridView.DataSource = DatabaseWrapper.GetReadingData(Settings.Default.displayFinished);
-                if (mangaListDataGridView.ColumnCount == 0) return;
-                if (!Settings.Default.displayFinished&&mangaListDataGridView.ColumnCount==6)
-                {
-                    mangaListDataGridView.Columns[5].Visible = false;
-                }
-                else
-                {
-                    mangaListDataGridView.Columns[5].Visible = true;
-                }
-                if (mangaListDataGridView.ColumnCount>=5)
-                {
-                    mangaListDataGridView.Columns[1].Width = 60;
-                    mangaListDataGridView.Columns[2].Width = 60;
-                    mangaListDataGridView.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                    mangaListDataGridView.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                }
             }
-        }
-
-        private void LoadCurrentImage()
-        {
-            if (mangaListDataGridView.CurrentRow == null)
-                return;
-            mangaCoverPictureBox.Image = DatabaseWrapper.GetMangaCover(
-                (string) mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
-        }
-
-        private void LoadCurrentDescription()
-        {
-            if (mangaListDataGridView.CurrentRow == null)
-                return;
-
-            mangaDescriptionTextBox.Text = DatabaseWrapper.GetMangaDescriptions(
-                (string) mangaListDataGridView[0, mangaListDataGridView.CurrentRow.Index].Value);
         }
 
         private void HandleMainFormLoad(object sender, EventArgs e)
         {
-            LoadDatagrid();
-            mangaListDataGridView.AutoGenerateColumns = false;
-            RssStatusChecker();
         }
 
         private void HandleMainFormFormClosing(object sender, FormClosingEventArgs e)
@@ -323,11 +288,6 @@ namespace mraNet.Forms
 
         private void HandleDisplayFinishedToolStripMenuItemClick(object sender, EventArgs e)
         {
-            Settings.Default.displayFinished = !Settings.Default.displayFinished;
-            var dataGridViewColumn = mangaListDataGridView.Columns["finishedReadingDataGridViewTextBoxColumn"];
-            if (dataGridViewColumn != null)
-                dataGridViewColumn.Visible = Settings.Default.displayFinished;
-            LoadDatagrid();
         }
 
         private void HandleAddMangaToolStripMenuItemClick(object sender, EventArgs e)
@@ -376,12 +336,6 @@ namespace mraNet.Forms
             }
         }
 
-        private void HandleMangaListDataGridViewSelectionChanged(object sender, EventArgs e)
-        {
-            LoadCurrentImage();
-            LoadCurrentDescription();
-        }
-
         private void HandleJustReadToolStripButtonClick(object sender, EventArgs e)
         {
             ChapterFinished();
@@ -389,73 +343,13 @@ namespace mraNet.Forms
 
         private void HandleSearchToolStripTextBoxKeyUp(object sender, KeyEventArgs e)
         {
-            mangaListDataGridView.DataSource = DatabaseWrapper.GetMatchingManga(searchToolStripTextBox.Text);
         }
 
-        private void HandleBrowserNavBarItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            if (e.ClickedItem == backToolStripButton)
-            {
-                Wiki.GoBack();
-            }
-            else if (e.ClickedItem == forwardToolStripButton)
-            {
-                Wiki.GoForward();
-            }
-            else if (e.ClickedItem == wReloadtoolStripButton)
-            {
-                Wiki.Refresh();
-            }
-        }
-
-        /// <summary>
-        /// Handles the Enter event of the wikipediaTabPage control. (Fires every time except the first time you enter the wikiTab)
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void HandleWikipediaTabPageEnter(object sender, EventArgs e)
-        {
-            if (mangaListDataGridView.Rows.Count == 0) return;
-            if (mangaListDataGridView.CurrentRow == null) return;
-            var currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-            var navigationUrl = string.Format("http://en.wikipedia.org/w/index.php?search={0}&go=Go",
-                                              RegularExpressions.WhiteSpaceToUrlEncoding(
-                                                  mangaListDataGridView[0, currentSelectedRow].Value.ToString()));
-            try
-            {
-                Wiki.Navigate(navigationUrl);
-            }
-            catch (Exception ex)
-            {
-                ErrorMessageBox.Show(ex.Message, ex.ToString());
-                Logger.ErrorLogger("error.txt", ex.ToString());
-            }
-        }
 
         private void HandleOpenToBrowserToolStripButtonClick(object sender, EventArgs e)
         {
             try
             {
-                if (!CheckIfOpen(_web))
-                {
-                    _web = new BrowserWindow();
-                    _web.Show();
-                }
-                if (mangaListDataGridView.Rows.Count != 0)
-                {
-                    if (mangaListDataGridView.CurrentRow != null)
-                    {
-                        var currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-                        var mangaUrl = mangaListDataGridView[3, currentSelectedRow].Value.ToString();
-                        if (!String.IsNullOrEmpty(mangaUrl))
-                        {
-                            Communicator.Instance.OnWebDataAvailable(this, new WebDataArgs(string.Format("Manga: {0} - Current Chapter: {1} - Last Read: {2}",
-                                                                                                         mangaListDataGridView[0, currentSelectedRow].Value,
-                                                                                                         mangaListDataGridView[2, currentSelectedRow].Value,
-                                                                                                         mangaListDataGridView[3, currentSelectedRow].Value), mangaUrl, "Web"));
-                        }
-                    }
-                }
             }
             catch (Exception ex)
             {
@@ -486,19 +380,30 @@ namespace mraNet.Forms
 
         private void HandleOpenUrlEditorMenuItemClick(object sender, EventArgs e)
         {
-            if (mangaListDataGridView.Rows.Count == 0) return;
-            if (mangaListDataGridView.CurrentRow == null) return;
-            int currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
-            Communicator.Instance.URL = mangaListDataGridView[3, currentSelectedRow].Value.ToString();
+            //if (mangaListDataGridView.Rows.Count == 0) return;
+            //if (mangaListDataGridView.CurrentRow == null) return;
+            //int currentSelectedRow = mangaListDataGridView.CurrentRow.Index;
+            //Communicator.Instance.URL = mangaListDataGridView[3, currentSelectedRow].Value.ToString();
 
-            UrlEditorWindow urlEditorWindow = new UrlEditorWindow();
-            urlEditorWindow.ShowDialog();
+            //UrlEditorWindow urlEditorWindow = new UrlEditorWindow();
+            //urlEditorWindow.ShowDialog();
 
-            if (!string.IsNullOrEmpty(Communicator.Instance.URL))
-            {
-                DatabaseWrapper.UpdateMangaUrl(mangaListDataGridView[0, currentSelectedRow].Value.ToString(), Communicator.Instance.URL);
-                mangaListDataGridView[3, currentSelectedRow].Value = Communicator.Instance.URL;
-            }
-    }
+            //if (!string.IsNullOrEmpty(Communicator.Instance.URL))
+            //{
+            //    DatabaseWrapper.UpdateMangaUrl(mangaListDataGridView[0, currentSelectedRow].Value.ToString(), Communicator.Instance.URL);
+            //    mangaListDataGridView[3, currentSelectedRow].Value = Communicator.Instance.URL;
+            //}
+        }
+
+        private void MangaListComboSelectedIndexChanged(object sender, EventArgs e)
+        {
+            mangaCoverPictureBox.Image = DatabaseWrapper.GetMangaCover(mangaListCombo.Text);
+            mangaTitleLabel.Text = mangaListCombo.Text;
+            startingChapterLabel.Text = DatabaseWrapper.GetStartingChapter(mangaTitleLabel.Text).ToString(CultureInfo.InvariantCulture);
+            currentChapterLabel.Text = DatabaseWrapper.GetCurrentChapter(mangaTitleLabel.Text).ToString(CultureInfo.InvariantCulture);
+            lastReadLabel.Text = DatabaseWrapper.GetMangaLastRead(mangaTitleLabel.Text).ToString();
+            mangaDescriptionTextBox.Text = DatabaseWrapper.GetMangaDescriptions(mangaTitleLabel.Text).ToString(CultureInfo.InvariantCulture);
+
+        }
     }
 }

@@ -40,7 +40,7 @@
             this.webStatus = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.browserPanel = new System.Windows.Forms.Panel();
-            this.InternalBrowser = new System.Windows.Forms.WebBrowser();
+            this.internalGecko = new Gecko.GeckoWebBrowser();
             this.webNavigation.SuspendLayout();
             this.webStatus.SuspendLayout();
             this.browserPanel.SuspendLayout();
@@ -141,27 +141,28 @@
             // statusLabel
             // 
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(43, 17);
+            this.statusLabel.Size = new System.Drawing.Size(39, 17);
             this.statusLabel.Text = "Status";
             this.statusLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.HandleStatusLabelMouseDown);
             // 
             // browserPanel
             // 
-            this.browserPanel.Controls.Add(this.InternalBrowser);
+            this.browserPanel.Controls.Add(this.internalGecko);
             this.browserPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.browserPanel.Location = new System.Drawing.Point(0, 25);
             this.browserPanel.Name = "browserPanel";
             this.browserPanel.Size = new System.Drawing.Size(908, 429);
             this.browserPanel.TabIndex = 3;
             // 
-            // InternalBrowser
+            // internalGecko
             // 
-            this.InternalBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.InternalBrowser.Location = new System.Drawing.Point(0, 0);
-            this.InternalBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.InternalBrowser.Name = "InternalBrowser";
-            this.InternalBrowser.Size = new System.Drawing.Size(908, 429);
-            this.InternalBrowser.TabIndex = 0;
+            this.internalGecko.DisableWmImeSetContext = false;
+            this.internalGecko.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.internalGecko.Location = new System.Drawing.Point(0, 0);
+            this.internalGecko.Name = "internalGecko";
+            this.internalGecko.Size = new System.Drawing.Size(908, 429);
+            this.internalGecko.TabIndex = 1;
+            this.internalGecko.UseHttpActivityObserver = false;
             // 
             // BrowserWindow
             // 
@@ -196,9 +197,9 @@
 		private System.Windows.Forms.ToolStripStatusLabel statusLabel;
 		private System.Windows.Forms.ToolStripButton justReadButton;
         private System.Windows.Forms.Panel browserPanel;
-        private System.Windows.Forms.WebBrowser InternalBrowser;
         private System.Windows.Forms.ToolStripTextBox navigationUrlBox;
         private System.Windows.Forms.ToolStripButton navigateButton;
         private System.Windows.Forms.ToolStripButton updateUrlButton;
+        private Gecko.GeckoWebBrowser internalGecko;
 	}
 }

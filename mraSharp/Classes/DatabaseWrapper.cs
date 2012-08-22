@@ -16,13 +16,48 @@ namespace mraNet.Classes
     {
         private static readonly string ConnectionString = "Data Source=" + Application.StartupPath + "\\mdb.db3";
 
+
+        public static DateTime? GetMangaLastRead(string mangaTitle)
+        {
+            DateTime? returnData = null;
+            try
+            {
+                using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
+                {
+                    sqLiteConnection.Open();
+
+                    SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection);
+
+                    sqLiteCommand.CommandText = "SELECT RL.READ_LAST_TIME " +
+                                  "FROM READING_LIST RL, MANGA_INFO MI " +
+                                  "WHERE RL.MANGA_ID = MI.MANGA_ID AND MI.MANGA_TITLE = ?";
+
+                    sqLiteCommand.Parameters.AddWithValue(null, mangaTitle);
+
+                    SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        returnData = reader.GetDateTime(0);
+                    }
+
+                    reader.Close();
+                    sqLiteConnection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+            return returnData;
+        }
         /// <summary>
         ///   Queries the database and returns the reading list for the user. If the displayFinished setting is selected, then all the reading list is returned, if not then only the unfinished entries are returned;
         /// </summary>
         /// <returns> Reading List Datatable </returns>
-        public static DataTable GetReadingData(bool displayFinished)
+        public static List<string> GetReadingData(bool displayFinished)
         {
-            DataTable returnData = new DataTable();
+            List<String> result = new List<string>();
             try
             {
                 using (SQLiteConnection sqLiteConnection = new SQLiteConnection(ConnectionString))
@@ -34,30 +69,27 @@ namespace mraNet.Classes
                     if (displayFinished)
                     {
                         sqLiteCommand.CommandText =
-                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME, RL.READ_IS_FINISHED " +
+                            "SELECT MI.MANGA_TITLE " +
                             "FROM MANGA_INFO MI, READING_LIST RL " +
-                            "WHERE MI.MANGA_ID = RL.MANGA_ID";
+                            "WHERE MI.MANGA_ID = RL.MANGA_ID " +
+                            "ORDER BY RL.READ_LAST_TIME DESC";
                     }
                     else
                     {
                         sqLiteCommand.CommandText =
-                            "SELECT MI.MANGA_TITLE, RL.READ_STARTING_CHAPTER, RL.READ_CURRENT_CHAPTER, RL.READ_ONLINE_URL, RL.READ_LAST_TIME " +
+                            "SELECT MI.MANGA_TITLE " +
                             "FROM MANGA_INFO MI, READING_LIST RL " +
-                            "WHERE MI.MANGA_ID = RL.MANGA_ID AND RL.READ_IS_FINISHED = 'false'";
+                            "WHERE MI.MANGA_ID = RL.MANGA_ID AND RL.READ_IS_FINISHED = 'false' " +
+                            "ORDER BY RL.READ_LAST_TIME DESC";
                     }
                     SQLiteDataReader reader = sqLiteCommand.ExecuteReader();
-                    returnData.Load(reader);
+                    while (reader.Read())
+                    {
+                        result.Add(reader.GetString(0));
+                    }
                     reader.Close();
                     sqLiteConnection.Close();
-                    returnData.Columns[0].ColumnName = "Manga\nTitle";
-                    returnData.Columns[1].ColumnName = "Starting\nChapter";
-                    returnData.Columns[2].ColumnName = "Current\nChapter";
-                    returnData.Columns[3].ColumnName = "Online Url";
-                    returnData.Columns[4].ColumnName = "Last Time Read";
-                    if (Settings.Default.displayFinished){
-                        returnData.Columns[5].ColumnName = "Finished?";
-                        
-                    }
+     
                 }
             }
             catch (Exception ex)
@@ -65,7 +97,7 @@ namespace mraNet.Classes
                 ErrorMessageBox.Show(ex.Message, ex.ToString());
                 Logger.ErrorLogger("error.txt", ex.ToString());
             }
-            return returnData;
+            return result;
         }
 
         public static DataTable GetCompleteReadingData()
@@ -144,6 +176,72 @@ namespace mraNet.Classes
                     {
                         returnData.Columns[5].ColumnName = "Finished?";
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+            return returnData;
+        }
+
+        public static int GetStartingChapter(string mangaTitle)
+        {
+            int returnData = 0;
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+                {
+                    connection.Open();
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
+                    {
+                        selectCommand.CommandText = "SELECT RL.READ_STARTING_CHAPTER " +
+                            "FROM MANGA_INFO MI, READING_LIST RL " +
+                            "WHERE MI.MANGA_ID = RL.MANGA_ID AND MI.MANGA_TITLE = ? ";
+
+                        selectCommand.Parameters.AddWithValue(null, mangaTitle);
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            returnData = reader.GetInt16(0);
+                        }
+                        reader.Close();
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessageBox.Show(ex.Message, ex.ToString());
+                Logger.ErrorLogger("error.txt", ex.ToString());
+            }
+            return returnData;
+        }
+
+        public static int GetCurrentChapter(string mangaTitle)
+        {
+            int returnData = 0;
+            try
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
+                {
+                    connection.Open();
+                    using (SQLiteCommand selectCommand = new SQLiteCommand(connection))
+                    {
+                        selectCommand.CommandText = "SELECT RL.READ_CURRENT_CHAPTER " +
+                            "FROM MANGA_INFO MI, READING_LIST RL " +
+                            "WHERE MI.MANGA_ID = RL.MANGA_ID AND MI.MANGA_TITLE = ? ";
+
+                        selectCommand.Parameters.AddWithValue(null, mangaTitle);
+                        SQLiteDataReader reader = selectCommand.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            returnData = reader.GetInt16(0);
+                        }
+                        reader.Close();
+                    }
+                    connection.Close();
                 }
             }
             catch (Exception ex)

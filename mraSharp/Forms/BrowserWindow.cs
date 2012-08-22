@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Gecko;
 using mraNet.Classes;
 using mraNet.Classes.Events;
 using mraNet.Classes.Utilities;
@@ -16,7 +17,6 @@ namespace mraNet.Forms
             InitializeComponent();
             InitializeEventHandlers();
             justReadButton.Enabled = false;
-            InternalBrowser.ScriptErrorsSuppressed = true;
         }
 
         private void InitializeEventHandlers()
@@ -25,13 +25,13 @@ namespace mraNet.Forms
             HandleDestroyed += WebFormHandleDestroyed;
             Activated += WebFormActivated;
             Deactivate += WebFormDeactivate;
-            InternalBrowser.Navigated += HandleWebKitBrowserNavigated;
+            internalGecko.Navigated += HandleWebKitBrowserNavigated;
         }
 
-        private void HandleWebKitBrowserNavigated(object sender, WebBrowserNavigatedEventArgs e)
+        private void HandleWebKitBrowserNavigated(object sender, GeckoNavigatedEventArgs geckoNavigatedEventArgs)
         {
-            statusLabel.Text = InternalBrowser.StatusText;
-            navigationUrlBox.Text = InternalBrowser.Url.ToString();
+            statusLabel.Text = internalGecko.StatusText;
+            navigationUrlBox.Text = internalGecko.Url.ToString();
         }
 
         private void SetTitle(string newTitle)
@@ -81,17 +81,17 @@ namespace mraNet.Forms
 
         private void BackToolStripButtonClick(object sender, EventArgs e)
         {
-            if (InternalBrowser.CanGoBack)
-                InternalBrowser.GoBack();
+            if (internalGecko.CanGoBack)
+                internalGecko.GoBack();
         }
 
         private void ForwardToolStripButtonClick(object sender, EventArgs e)
         {
             try
             {
-                if (InternalBrowser.CanGoForward)
+                if (internalGecko.CanGoForward)
                 {
-                    InternalBrowser.GoForward();
+                    internalGecko.GoForward();
                 }
                 else
                 {
@@ -106,7 +106,8 @@ namespace mraNet.Forms
 
         private void ReloadToolStripButtonClick(object sender, EventArgs e)
         {
-            InternalBrowser.Refresh();
+            internalGecko.Refresh();
+            internalGecko.Reload();
         }
 
         /// <summary>
@@ -115,7 +116,7 @@ namespace mraNet.Forms
         /// <param name="url">The URL.</param>
         private void Navigate(string url)
         {
-            InternalBrowser.Navigate(url);
+            internalGecko.Navigate(url);
             navigationUrlBox.Text = url;
         }
 
@@ -144,14 +145,14 @@ namespace mraNet.Forms
 
         private void NavigateButtonClick(object sender, EventArgs e)
         {
-            InternalBrowser.Navigate(navigationUrlBox.Text);
+            internalGecko.Navigate(navigationUrlBox.Text);
         }
 
         private void NavigationUrlBoxKeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar=='\r')
             {
-                InternalBrowser.Navigate(navigationUrlBox.Text);    
+                internalGecko.Navigate(navigationUrlBox.Text);    
             }
         }
 

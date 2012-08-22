@@ -35,16 +35,18 @@
             // 
             // urlBox
             // 
-            this.urlBox.Location = new System.Drawing.Point(8, 8);
+            this.urlBox.Location = new System.Drawing.Point(8, 6);
+            this.urlBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.urlBox.Name = "urlBox";
             this.urlBox.Size = new System.Drawing.Size(256, 20);
             this.urlBox.TabIndex = 0;
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(8, 32);
+            this.saveButton.Location = new System.Drawing.Point(8, 26);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(75, 23);
+            this.saveButton.Size = new System.Drawing.Size(75, 19);
             this.saveButton.TabIndex = 1;
             this.saveButton.Text = "Save\r\n";
             this.saveButton.UseVisualStyleBackColor = true;
@@ -52,9 +54,10 @@
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(88, 32);
+            this.cancelButton.Location = new System.Drawing.Point(88, 26);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.Size = new System.Drawing.Size(75, 19);
             this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -62,14 +65,15 @@
             // 
             // UrlEditorWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(272, 60);
+            this.ClientSize = new System.Drawing.Size(270, 55);
             this.ControlBox = false;
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.urlBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "UrlEditorWindow";
             this.Text = "Reader Url Editor";
             this.ResumeLayout(false);
